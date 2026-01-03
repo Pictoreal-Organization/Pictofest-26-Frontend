@@ -4,7 +4,7 @@ const Footer = () => {
   return (
       <div className="pb-10   bg-[url('/img/home/footer.svg')] bg-center bg-cover bg-no-repeat pt-40 body-font" >
         <div className="py-3 w-11/12 mx-auto ">
-          <div className="p-2 lg:p-0 space-x-0 h-fit sm:py-10 md:py-5 lg:py-10  mx-3  backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100  flex sm:flex-row flex-col justify-around items-center md:items-start rounded-xl">
+          <div className="p-2 lg:p-0 space-x-0 h-fit sm:py-10 md:py-5 lg:py-10  mx-3  backdrop-filter backdrop-blur-xs bg-opacity-10 border border-gray-100  flex sm:flex-row flex-col justify-around items-center md:items-start rounded-xl">
             <div className="px-5 py-6 md:py-2 w-1/2 lg:w-1/4">
               <div>
                 <ul>

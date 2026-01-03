@@ -31,7 +31,7 @@ const CategoryEntryCard = ({ entry }) => {
   };
 
   return (
-    <div className="w-72 bg-[url('/img/voting/rb.png')] bg-[length:100%_100%] p-12 overflow-hidden transition-all duration-300">
+    <div className="w-72 bg-[url('/img/voting/rb.png')] bg-size-[100%_100%] p-12 overflow-hidden transition-all duration-300">
       <div className="space-y-4">
         <PhotoProvider>
           <PhotoView src={trimString(entry.image_link, 2) + "3D"}>
@@ -60,7 +60,7 @@ const CategoryEntryCard = ({ entry }) => {
           className="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-md 
                      transition-colors duration-200 
                      hover:bg-blue-700 
-                     focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50
+                     focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50
                      disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Add to Wishlist

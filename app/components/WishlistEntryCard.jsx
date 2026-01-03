@@ -28,7 +28,7 @@ const WishlistEntryCard = ({ entry, setWishlist }) => {
 
   return (
     <div
-      className="bg-[url('/img/voting/rb.png')] bg-[length:100%_100%] p-10 flex flex-col justify-center items-center min-h-[390px] min-w-[254px] snap-start rounded-2xl transition-all duration-300"
+      className="bg-[url('/img/voting/rb.png')] bg-size-[100%_100%] p-10 flex flex-col justify-center items-center min-h-[390px] min-w-[254px] snap-start rounded-2xl transition-all duration-300"
     >
       {/* Image with PhotoView */}
       <PhotoProvider>
@@ -48,7 +48,7 @@ const WishlistEntryCard = ({ entry, setWishlist }) => {
 
       {/* Ticket ID */}
       <div
-        className="my-auto px-6 py-3 bg-gradient-to-r from-[#4E3506] to-[#4E3506] 
+        className="my-auto px-6 py-3 bg-linear-to-r from-[#4E3506] to-[#4E3506] 
                   rounded-lg shadow-md
                   transform transition-all duration-200"
       >

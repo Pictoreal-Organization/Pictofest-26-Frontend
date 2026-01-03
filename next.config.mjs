@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
+  turbopack: {},
   images: {
     unoptimized: true, // Required for Cloudflare
     remotePatterns: [

@@ -138,9 +138,9 @@ const Register = () => {
 
   return (
     <main className={inter.className}>
-      <div className="flex justify-center items-center h-full bg-[url('/img/home/login_bg.jpg')] bg-cover bg-left-bottom md:bg-bottom">
+      <div className="flex justify-center items-center h-full bg-[url('/img/home/login_bg.jpg')] bg-cover bg-bottom-left md:bg-bottom">
         <div className="md:p-6 md:w-auto sm:p-4 mt-20 mb-5">
-          <div className="flex flex-col md:p-6 drop-shadow-sm">
+          <div className="flex flex-col md:p-6 drop-shadow-xs">
             <div className="flex flex-col justify-center text-[#006E61] items-center font-semibold mb-5">
               <h1 className="text-2xl heading-font font-bold border-b border-[#006E61] p-2 sm:text-5xl">
                 Create Account
@@ -148,21 +148,21 @@ const Register = () => {
             </div>
             <div className="flex flex-col w-full relative body-font">
               <input
-                className="p-2 m-2 outline-none bg-[#FFF6D2] rounded-md ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
+                className="p-2 m-2 outline-hidden bg-[#FFF6D2] rounded-md ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
                 type="text"
                 placeholder="First Name"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
               <input
-                className="p-2 m-2 outline-none bg-[#FFF6D2] rounded-md ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
+                className="p-2 m-2 outline-hidden bg-[#FFF6D2] rounded-md ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
                 type="text"
                 placeholder="Last Name"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
               <input
-                className="p-2 m-2 outline-none bg-[#FFF6D2] rounded-md ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
+                className="p-2 m-2 outline-hidden bg-[#FFF6D2] rounded-md ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
                 type="email"
                 placeholder="Email"
                 value={email}
@@ -197,7 +197,7 @@ const Register = () => {
               )}
               {otpSent && (
                 <input
-                  className="p-2 m-2 outline-none bg-[#FFF6D2] rounded-md ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
+                  className="p-2 m-2 outline-hidden bg-[#FFF6D2] rounded-md ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
                   type="text"
                   placeholder="Enter OTP"
                   value={otp}
@@ -205,7 +205,7 @@ const Register = () => {
                 />
               )}
               <input
-                className="p-2 m-2 outline-none bg-[#FFF6D2] rounded-md ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
+                className="p-2 m-2 outline-hidden bg-[#FFF6D2] rounded-md ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
                 type="text"
                 placeholder="Phone No."
                 value={phone}
@@ -213,27 +213,27 @@ const Register = () => {
                 onChange={(e) => setPhone(e.target.value)}
               />
               <input
-                className="p-2 m-2 outline-none bg-[#FFF6D2] rounded-md ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
+                className="p-2 m-2 outline-hidden bg-[#FFF6D2] rounded-md ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
                 type={showEye ? "text" : "password"}
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
               <button
-                className="absolute right-[1.4rem] bottom-[8rem] sm:bottom-[8rem] sm:right-[1.4rem]"
+                className="absolute right-[1.4rem] bottom-32 sm:bottom-32 sm:right-[1.4rem]"
                 onClick={eyeHandler}
               >
                 {showEye ? <FiEye /> : <FiEyeOff />}
               </button>
               <select
-                className="p-2 m-2 outline-none rounded-md ring-2 bg-[#FFF6D2] focus:none ring-black text-[#006E61] placeholder-[#006E61]"
+                className="p-2 m-2 outline-hidden rounded-md ring-2 bg-[#FFF6D2] focus:none ring-black text-[#006E61] placeholder-[#006E61]"
                 onChange={handleSelectChange}
               >
                 <option value="PICT">PICT</option>
                 <option value="NON-PICT">NON-PICT</option>
               </select>
               <input
-                className="p-2 m-2 outline-none rounded-md bg-[#FFF6D2] ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
+                className="p-2 m-2 outline-hidden rounded-md bg-[#FFF6D2] ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
                 type="text"
                 placeholder="College Name"
                 value={collegeName}
@@ -247,7 +247,7 @@ const Register = () => {
             <div className="flex justify-center items-center body-font">
               <button
                 onClick={handleRegister}
-                className="outline-none w-40 sm:w-40 m-2 font-semibold ring-2 ring-black text-[#006E61] p-2 mb-3 bg-[#FFF6D2] rounded-md hover:bg-[#e8d396]"
+                className="outline-hidden w-40 sm:w-40 m-2 font-semibold ring-2 ring-black text-[#006E61] p-2 mb-3 bg-[#FFF6D2] rounded-md hover:bg-[#e8d396]"
                 disabled={!otpSent}
               >
                 Sign Up
@@ -255,7 +255,7 @@ const Register = () => {
             </div>
             <div className="text-[#006E61] text-xs sm:text-sm space-x-2 flex justify-center description-font">
               <p>Already have an account? </p>
-              <Link href="/login" className="underline outline-none">
+              <Link href="/login" className="underline outline-hidden">
                 Login
               </Link>
             </div>

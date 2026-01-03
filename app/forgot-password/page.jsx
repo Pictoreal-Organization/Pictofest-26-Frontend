@@ -65,9 +65,9 @@ const ForgotPassword = () => {
 
   return (
     <main className={inter.className}>
-      <div className="flex justify-center items-center h-dvh bg-[url('/img/home/login_bg.jpg')] bg-cover bg-right-bottom md:bg-bottom">
+      <div className="flex justify-center items-center h-dvh bg-[url('/img/home/login_bg.jpg')] bg-cover bg-bottom-right md:bg-bottom">
         <div className="md:p-6 sm:w-auto sm:p-4">
-          <div className="md:p-6 rounded-lg drop-shadow-sm w-72 sm:w-auto sm:h-auto sm:p-10 body-font">
+          <div className="md:p-6 rounded-lg drop-shadow-xs w-72 sm:w-auto sm:h-auto sm:p-10 body-font">
             <div className="flex flex-col justify-center text-[#006E61] items-center font-semibold mb-5">
               <h1 className="text-2xl pb-2 border-b border-black font-bold sm:text-5xl heading-font">
                 Forgot Password!
@@ -75,14 +75,14 @@ const ForgotPassword = () => {
             </div>
 
             <input
-              className="w-full outline-none h-10 sm:h-12 p-3 mb-4 bg-[#FFF6D2] rounded-md ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
+              className="w-full outline-hidden h-10 sm:h-12 p-3 mb-4 bg-[#FFF6D2] rounded-md ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
               type="email"
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <input
-              className="w-full outline-none h-10 sm:h-12 p-3 mb-4 bg-[#FFF6D2] rounded-md ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
+              className="w-full outline-hidden h-10 sm:h-12 p-3 mb-4 bg-[#FFF6D2] rounded-md ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
               type="text"
               placeholder="Phone No."
               value={phone}
@@ -100,7 +100,7 @@ const ForgotPassword = () => {
             <div className="p-2 flex justify-center items-center">
               <button
                 onClick={handleForgotPassword}
-                className="w-40 outline-none sm:w-40 font-semibold ring-2 ring-black text-[#006E61] p-2 mb-3 bg-[#FFF6D2] rounded-md hover:bg-[#e8d396] disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-40 outline-hidden sm:w-40 font-semibold ring-2 ring-black text-[#006E61] p-2 mb-3 bg-[#FFF6D2] rounded-md hover:bg-[#e8d396] disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={isLoading || !captchaToken}
               >
                 {isLoading ? (
@@ -115,7 +115,7 @@ const ForgotPassword = () => {
             </div>
             <div className="text-[#006E61] text-xs sm:text-sm space-x-2 flex justify-center description-font">
               <p>Already have an account? </p>
-              <Link href="/login" className="underline outline-none">
+              <Link href="/login" className="underline outline-hidden">
                 Login
               </Link>
             </div>

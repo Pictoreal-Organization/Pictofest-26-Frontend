@@ -66,7 +66,7 @@ const Sponsors = () => {
 
   return (
     <>
-      <div className="bg-[url('/img/sponsor/background.png')] bg-cover bg-[length:100%_100%] bg-center py-8 lg:py-14 flex flex-col items-center min-h-screen">
+      <div className="bg-[url('/img/sponsor/background.png')] bg-cover bg-size-[100%_100%] bg-center py-8 lg:py-14 flex flex-col items-center min-h-screen">
         {/* Title */}
         <div className="text-center heading-font text-[50px] md:text-[70px] mb-[60px] md:mb-[80px] mt-20">
           OUR SPONSORS

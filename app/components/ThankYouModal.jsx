@@ -4,7 +4,7 @@ const ThankYouModal = ({ isOpen }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
+    <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 backdrop-blur-xs z-50">
       <div className="bg-white p-6 rounded-2xl shadow-2xl max-w-lg w-full mx-4 relative flex flex-col items-center text-center">
         <img
           src="/img/voting/thankyou.png"

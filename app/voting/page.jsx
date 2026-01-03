@@ -2,7 +2,7 @@
 
 // const Voting = () => {
 //   return (
-//     <main className="bg-[url('/img/events/voting_2025.png')] bg-[length:100%_100%] min-h-dvh px-4">
+//     <main className="bg-[url('/img/events/voting_2025.png')] bg-size-[100%_100%] min-h-dvh px-4">
 //       <div className="flex flex-col justify-center items-center lg:gap-10 gap-8 lg:py-14 py-8 max-w-4xl mx-auto">
 //         <h1 className="text-4xl pt-[100px] lg:text-5xl tracking-normal font-light text-gray-900 heading-font text-center">
 //           Instructions
@@ -55,7 +55,7 @@
 //           <div className="flex justify-center items-center pt-5">
 //             <Link
 //               href="/voting/ticket-id"
-//               className="bg-[url('/img/voting/button.png')] bg-[length:100%_100%] text-white px-5 py-2 rounded-lg"
+//               className="bg-[url('/img/voting/button.png')] bg-size-[100%_100%] text-white px-5 py-2 rounded-lg"
 //             >
 //               Start Voting
 //             </Link>
@@ -107,7 +107,7 @@
 //           <div className="flex justify-center items-center pt-5">
 //             <Link
 //               href="/voting/virtual-gallery"
-//               className="bg-[url('/img/voting/button.png')] bg-[length:100%_100%] text-white px-5 py-2 rounded-lg"
+//               className="bg-[url('/img/voting/button.png')] bg-size-[100%_100%] text-white px-5 py-2 rounded-lg"
 //             >
 //               Explore Virtually
 //             </Link>
@@ -131,7 +131,7 @@
 //   };
 
 //   return (
-//     <main className="bg-[url('/img/events/voting_2025.png')] bg-[length:100%_100%] min-h-dvh px-4">
+//     <main className="bg-[url('/img/events/voting_2025.png')] bg-size-[100%_100%] min-h-dvh px-4">
 //       <div className="flex flex-col justify-center items-center lg:gap-10 gap-8 lg:py-14 py-8 max-w-4xl mx-auto">
 //         {/* Toggle Button */}
 //         <div className="w-full flex justify-center mt-20"> {/* Adjusted margin-top to ensure visibility below navbar */}
@@ -195,7 +195,7 @@
 //             <div className="flex justify-center items-center pt-5">
 //               <Link
 //                 href="/voting/ticket-id"
-//                 className="bg-[url('/img/voting/button.png')] bg-[length:100%_100%] text-white px-5 py-2 rounded-lg"
+//                 className="bg-[url('/img/voting/button.png')] bg-size-[100%_100%] text-white px-5 py-2 rounded-lg"
 //               >
 //                 Start Voting
 //               </Link>
@@ -248,7 +248,7 @@
 //             <div className="flex justify-center items-center pt-5">
 //               <Link
 //                 href="/voting/virtual-gallery"
-//                 className="bg-[url('/img/voting/button.png')] bg-[length:100%_100%] text-white px-5 py-2 rounded-lg"
+//                 className="bg-[url('/img/voting/button.png')] bg-size-[100%_100%] text-white px-5 py-2 rounded-lg"
 //               >
 //                 Explore Virtually
 //               </Link>
@@ -275,7 +275,7 @@ const Voting = () => {
   };
 
   return (
-    <main className="bg-[url('/img/events/voting_2025.png')] bg-[length:100%_100%] min-h-dvh px-4">
+    <main className="bg-[url('/img/events/voting_2025.png')] bg-size-[100%_100%] min-h-dvh px-4">
       <div className="flex flex-col justify-center items-center lg:gap-10 gap-8 lg:py-14 py-8 max-w-4xl mx-auto">
         {/* Toggle Button */}
         <div className="w-full flex justify-center mt-16"> {/* Increased margin-top to move the button lower */}
@@ -339,7 +339,7 @@ const Voting = () => {
             <div className="flex justify-center items-center pt-5">
               <Link
                 href="/voting/ticket-id"
-                className="bg-[url('/img/voting/button.png')] bg-[length:100%_100%] text-white px-5 py-2 rounded-lg"
+                className="bg-[url('/img/voting/button.png')] bg-size-[100%_100%] text-white px-5 py-2 rounded-lg"
               >
                 Start Voting
               </Link>
@@ -392,7 +392,7 @@ const Voting = () => {
             <div className="flex justify-center items-center pt-5">
               <Link
                 href="/voting/virtual-gallery"
-                className="bg-[url('/img/voting/button.png')] bg-[length:100%_100%] text-white px-5 py-2 rounded-lg"
+                className="bg-[url('/img/voting/button.png')] bg-size-[100%_100%] text-white px-5 py-2 rounded-lg"
               >
                 Explore Virtually
               </Link>

@@ -123,7 +123,7 @@ const Vote = () => {
   
 
   return (
-    <main className="min-h-dvh bg-gradient-to-b from-amber-50 to-orange-50">
+    <main className="min-h-dvh bg-linear-to-b from-amber-50 to-orange-50">
       <div className="flex flex-col justify-center items-center gap-10 lg:py-14 py-8 max-w-7xl mx-auto px-4">
         <div className="text-center space-y-4 mb-4">
           <h1 className="text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight">
@@ -178,7 +178,7 @@ const Vote = () => {
                      transform transition-all duration-200
                      hover:scale-105 hover:shadow-xl 
                      active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed
-                     focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50"
+                     focus:outline-hidden focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50"
           >
             {isVoting ? "Voting..." : "Vote"}
           </button>

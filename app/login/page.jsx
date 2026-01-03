@@ -115,9 +115,9 @@ const Login = () => {
 
   return (
     <main className={inter.className}>
-      <div className="flex justify-center items-center h-dvh bg-[url('/img/home/login_bg.jpg')] bg-cover bg-left-bottom md:bg-bottom">
+      <div className="flex justify-center items-center h-dvh bg-[url('/img/home/login_bg.jpg')] bg-cover bg-bottom-left md:bg-bottom">
         <div className="md:p-6 rounded-xl sm:w-auto sm:p-4">
-          <div className="md:p-6 rounded-lg drop-shadow-sm w-72 sm:w-auto sm:h-auto sm:p-10">
+          <div className="md:p-6 rounded-lg drop-shadow-xs w-72 sm:w-auto sm:h-auto sm:p-10">
             <div className="flex flex-col justify-center text-[#006E61] items-center font-semibold mb-5">
               <h1 className="text-2xl pb-2 heading-font font-bold sm:text-5xl">
                 Welcome Back!
@@ -129,7 +129,7 @@ const Login = () => {
 
             <div className="w-full body-font relative">
               <input
-                className="w-full outline-none h-10 sm:h-12 p-3 mb-4 bg-[#FFF6D2] rounded-xl ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
+                className="w-full outline-hidden h-10 sm:h-12 p-3 mb-4 bg-[#FFF6D2] rounded-xl ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
                 type="email"
                 placeholder="Email"
                 value={email}
@@ -139,7 +139,7 @@ const Login = () => {
                 }}
               />
               <input
-                className="w-full outline-none h-10 sm:h-12 p-3 mb-4 bg-[#FFF6D2] rounded-xl ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
+                className="w-full outline-hidden h-10 sm:h-12 p-3 mb-4 bg-[#FFF6D2] rounded-xl ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
                 type={showEye ? "text" : "password"}
                 placeholder="Password"
                 value={password}
@@ -179,7 +179,7 @@ const Login = () => {
               </div>
               <Link
                 href="/forgot-password"
-                className="text-[#006E61] outline-none text-xs sm:text-sm underline"
+                className="text-[#006E61] outline-hidden text-xs sm:text-sm underline"
               >
                 Forgot Password?
               </Link>
@@ -188,7 +188,7 @@ const Login = () => {
               {/* 🔹 Standard Login Button */}
               <button
                 onClick={handleLogin}
-                className="w-40 outline-none font-semibold ring-2 ring-black text-[#006E61] p-2 bg-[#F8E9CB] rounded-xl hover:bg-[#e8d396] disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-40 outline-hidden font-semibold ring-2 ring-black text-[#006E61] p-2 bg-[#F8E9CB] rounded-xl hover:bg-[#e8d396] disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={isLoading || !captchaToken}
               >
                 {isLoading ? (
@@ -211,7 +211,7 @@ const Login = () => {
               {/* 🔹 Google Login Button */}
               <button
                 onClick={handleGoogleLogin}
-                className="w-full flex items-center justify-center gap-2 outline-none font-semibold ring-2 ring-black text-[#006E61] p-3 bg-[#FFF6D2] rounded-xl hover:bg-[#e8d396] disabled:opacity-50 disabled:cursor-not-allowed description-font mb-2"
+                className="w-full flex items-center justify-center gap-2 outline-hidden font-semibold ring-2 ring-black text-[#006E61] p-3 bg-[#FFF6D2] rounded-xl hover:bg-[#e8d396] disabled:opacity-50 disabled:cursor-not-allowed description-font mb-2"
                 disabled={isGoogleLoading}
               >
                 {isGoogleLoading ? (

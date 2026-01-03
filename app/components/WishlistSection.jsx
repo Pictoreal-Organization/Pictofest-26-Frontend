@@ -15,7 +15,7 @@ const WishlistSection = ({ section, wishlist, setWishlist }) => {
     <div className="w-full flex flex-col items-center gap-10">
       {/* Category Title Card */}
       <div
-        className="bg-gradient-to-r from-[#4E3506] to-[#4E3506] rounded-xl shadow-lg 
+        className="bg-linear-to-r from-[#4E3506] to-[#4E3506] rounded-xl shadow-lg 
                   sm:px-10 sm:py-5 py-4 sm:w-[350px] w-[300px]
                   transform transition-all duration-200 hover:shadow-xl"
       >

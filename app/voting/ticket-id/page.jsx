@@ -45,13 +45,13 @@ const TicketId = () => {
         <h1 className="text-[30px] pt-[100px] lg:text-[50px] tracking-tight font-extrabold text-[#6D3212] heading-font text-center">
           Search and Add To Wishlist
         </h1>
-        <div className="bg-[url('/img/voting/searchbar.png')] md:bg-cover bg-[length:100%_100%] flex h-24 justify-center items-center md:w-[650px] w-[325px]">
+        <div className="bg-[url('/img/voting/searchbar.png')] md:bg-cover bg-size-[100%_100%] flex h-24 justify-center items-center md:w-[650px] w-[325px]">
           <input
             onChange={handleSearch}
             value={search}
             type="text"
             placeholder="Enter the Code..."
-            className="py-3 px-10 placeholder:text-[#000000] text-[20px] description-font font-semibold bg-transparent w-full outline-none"
+            className="py-3 px-10 placeholder:text-[#000000] text-[20px] description-font font-semibold bg-transparent w-full outline-hidden"
           />
           <button
             onClick={getEntry}

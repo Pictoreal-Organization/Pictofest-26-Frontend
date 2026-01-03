@@ -20,7 +20,7 @@ const About = () => {
       </motion.div>
 
       <motion.div
-        className="p-1 bg-[length:100%_100%] lg:p-10 lg:px-40 mx-auto justify-center items-center flex gap-5 flex-col lg:flex-row"
+        className="p-1 bg-size-[100%_100%] lg:p-10 lg:px-40 mx-auto justify-center items-center flex gap-5 flex-col lg:flex-row"
         initial={{ opacity: 0 }} // Start with opacity 0
         animate={{ opacity: 1 }} // Fade in
         transition={{ duration: 0.5, delay: 0.2 }} // Add delay to animate after title
@@ -45,7 +45,7 @@ const About = () => {
 
         {/* Right Section (Text Description) */}
         <motion.div
-          className="text-justify p-5 lg:ml-20 mb-5 body-font text-green-950 font-medium w-11/12 backdrop-filter backdrop-blur-sm bg-opacity-10 border border-orange-100 rounded-xl text-xl"
+          className="text-justify p-5 lg:ml-20 mb-5 body-font text-green-950 font-medium w-11/12 backdrop-filter backdrop-blur-xs bg-opacity-10 border border-orange-100 rounded-xl text-xl"
           initial={{ opacity: 0, x: 100 }} // Start with opacity 0 and slide in from right
           animate={{ opacity: 1, x: 0 }} // Fade in and slide to the original position
           transition={{ duration: 0.6 }}

@@ -43,7 +43,7 @@ const VotingEntryCard = ({ entry, setWishlist, wishlist }) => {
   };
 
   return (
-    <div className="bg-[url('/img/voting/rb.png')] bg-[length:100%_100%] p-10 flex flex-col justify-center items-center min-h-[390px] min-w-[254px] snap-start">
+    <div className="bg-[url('/img/voting/rb.png')] bg-size-[100%_100%] p-10 flex flex-col justify-center items-center min-h-[390px] min-w-[254px] snap-start">
       <PhotoProvider>
         <PhotoView src={trimString(entry.image_link, 2) + "3D"}>
           <img
@@ -54,7 +54,7 @@ const VotingEntryCard = ({ entry, setWishlist, wishlist }) => {
           />
         </PhotoView>
       </PhotoProvider>
-      <div className="bg-[#4E3506] bg-cover font-semibold text-2xl text-[#fff] px-2 py-1 rounded-xl flex justify-center items-center my-auto">
+      <div className="bg-[#4E3506] bg-cover font-semibold text-2xl text-white px-2 py-1 rounded-xl flex justify-center items-center my-auto">
         {entry.ticket_id}
       </div>
       {entry.isSelected ? (
