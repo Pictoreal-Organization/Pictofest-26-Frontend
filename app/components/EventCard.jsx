@@ -132,3 +132,4 @@ const EventCard = ({ data }) => {
 };
 
 export default EventCard;
+
