@@ -114,126 +114,184 @@ const Login = () => {
   const shouldShowCaptcha = email.length > 0 && password.length > 0;
 
   return (
-    <main className={inter.className}>
-      <div className="flex justify-center items-center h-dvh bg-[url('/img/home/login_bg.jpg')] bg-cover bg-bottom-left md:bg-bottom">
-        <div className="md:p-6 rounded-xl sm:w-auto sm:p-4">
-          <div className="md:p-6 rounded-lg drop-shadow-xs w-72 sm:w-auto sm:h-auto sm:p-10">
-            <div className="flex flex-col justify-center text-[#006E61] items-center font-semibold mb-5">
-              <h1 className="text-2xl pb-2 heading-font font-bold sm:text-5xl">
-                Welcome Back!
-              </h1>
-              <h1 className="border-t body-font border-neutral-500 pt-2 sm:pb-2 sm:text-xl">
-                Log in to your account
-              </h1>
-            </div>
+  <main className={inter.className}>
+    <div
+      className="
+        relative
+        flex
+        justify-center
+        items-center
+        min-h-screen
+        bg-[url('/img/home/bg_img.png')]
+        bg-cover
+        bg-[position:left_bottom]
+        md:bg-center
+        overflow-hidden
+      "
+    >
+      {/* ⭐ Stars Background */}
+      <img
+        src="/img/home/Stars_bg.svg"
+        alt="Stars Background"
+        className="
+          absolute
+          inset-0
+          w-full
+          h-full
+          object-cover
+          z-[1]
+          pointer-events-none
+        "
+      />
 
-            <div className="w-full body-font relative">
-              <input
-                className="w-full outline-hidden h-10 sm:h-12 p-3 mb-4 bg-[#FFF6D2] rounded-xl ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                  // setCaptchaToken(""); // Reset CAPTCHA when email changes
-                }}
-              />
-              <input
-                className="w-full outline-hidden h-10 sm:h-12 p-3 mb-4 bg-[#FFF6D2] rounded-xl ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
-                type={showEye ? "text" : "password"}
-                placeholder="Password"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                  // setCaptchaToken(""); // Reset CAPTCHA when password changes
-                }}
-              />
-              <button
-                className="absolute right-4 sm:bottom-8 bottom-7"
-                onClick={eyeHandler}
-              >
-                {showEye ? <FiEye /> : <FiEyeOff />}
-              </button>
-            </div>
+      {/* 🎭 Pictofest Logo */}
+      <img
+        src="/img/home/pictofestLogoNew.png"
+        alt="Pictofest Logo"
+        className="
+          absolute
+          top-[80px]
+          left-1/2
+          -translate-x-1/2
+          w-[200px]
+          md:w-[230px]
+          object-contain
+          z-30
+        "
+      />
 
-            {shouldShowCaptcha && (
-              <div className="flex justify-center items-center mb-4">
-                <Turnstile
-                  sitekey={
-                    process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY
-                  }
-                  onVerify={(token) => setCaptchaToken(token)}
-                />
-              </div>
-            )}
+      {/* 🟣 Purple Block */}
+      <img
+        src="/img/home/Group-234.png"
+        alt="Purple Block"
+        className="
+          absolute
+          bottom-[160px]
+          left-1/2
+          -translate-x-1/2
+          w-[90%]
+          max-w-[390px]
+          object-contain
+          z-[5]
+        "
+      />
 
-            <div className="flex justify-between mb-4 description-font">
-              <div className="flex items-center justify-center gap-1">
-                <input id="remember" type="checkbox" value="remember" />
-                <label
-                  htmlFor="remember"
-                  className="text-[#006E61] text-sm sm:text-sm"
-                >
-                  Remember me
-                </label>
-              </div>
-              <Link
-                href="/forgot-password"
-                className="text-[#006E61] outline-hidden text-xs sm:text-sm underline"
-              >
-                Forgot Password?
-              </Link>
-            </div>
-            <div className="flex flex-col justify-center items-center body-font space-y-4">
-              {/* 🔹 Standard Login Button */}
-              <button
-                onClick={handleLogin}
-                className="w-40 outline-hidden font-semibold ring-2 ring-black text-[#006E61] p-2 bg-[#F8E9CB] rounded-xl hover:bg-[#e8d396] disabled:opacity-50 disabled:cursor-not-allowed"
-                disabled={isLoading || !captchaToken}
-              >
-                {isLoading ? (
-                  <div className="flex items-center justify-center">
-                    <FiLoader className="animate-spin mr-2" />
-                    Logging in...
-                  </div>
-                ) : (
-                  "Log in"
-                )}
-              </button>
-
-              {/* 🔹 Divider */}
-              <div className="flex items-center w-full space-x-2">
-                <hr className="flex-1 border border-black" />
-                <p className="text-black text-sm font-medium">OR</p>
-                <hr className="flex-1 border border-black" />
-              </div>
-
-              {/* 🔹 Google Login Button */}
-              <button
-                onClick={handleGoogleLogin}
-                className="w-full flex items-center justify-center gap-2 outline-hidden font-semibold ring-2 ring-black text-[#006E61] p-3 bg-[#FFF6D2] rounded-xl hover:bg-[#e8d396] disabled:opacity-50 disabled:cursor-not-allowed description-font mb-2"
-                disabled={isGoogleLoading}
-              >
-                {isGoogleLoading ? (
-                  <FiLoader className="animate-spin" />
-                ) : (
-                  <FcGoogle />
-                )}
-                Sign in with Google
-              </button>
-            </div>
-
-            {/* <div className="text-[#006E61] text-xs sm:text-sm space-x-2 flex justify-center description-font mt-2">
-              <p>Don't have an account? </p>
-              <Link href="/register" className="underline">
-                Register here
-              </Link>
-            </div> */}
+      {/* 🧾 LOGIN FORM (ON TOP OF PURPLE BLOCK) */}
+      <div
+        className="
+          absolute
+          bottom-[185px]
+          left-1/2
+          -translate-x-1/2
+          w-[85%]
+          max-w-[380px]
+          z-10
+        "
+      >
+        <div className="p-6">
+          {/* Heading */}
+          <div className="flex flex-col items-center text-[#006E61] font-semibold mb-4">
+            <h1 className="text-2xl heading-font font-bold">
+              Welcome Back!
+            </h1>
+            <p className="text-sm body-font">
+              Log in to your account
+            </p>
           </div>
+
+          {/* Inputs */}
+          <div className="relative body-font">
+            <input
+              className="w-full h-10 p-3 mb-3 bg-[#FFF6D2] rounded-xl ring-2 ring-black text-[#006E61]"
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+
+            <input
+              className="w-full h-10 p-3 mb-3 bg-[#FFF6D2] rounded-xl ring-2 ring-black text-[#006E61]"
+              type={showEye ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <button
+              className="absolute right-3 bottom-[52px]"
+              onClick={eyeHandler}
+            >
+              {showEye ? <FiEye /> : <FiEyeOff />}
+            </button>
+          </div>
+
+          {/* Remember + Forgot */}
+          <div className="flex justify-between items-center text-xs text-[#006E61] mb-3">
+            <label className="flex items-center gap-1">
+              <input type="checkbox" />
+              Remember me
+            </label>
+            <Link href="/forgot-password" className="underline">
+              Forgot?
+            </Link>
+          </div>
+
+          {/* Login Button */}
+          <button
+            onClick={handleLogin}
+            disabled={isLoading || !captchaToken}
+            className="
+              w-full
+              ring-2
+              ring-black
+              bg-[#F8E9CB]
+              text-[#006E61]
+              font-semibold
+              py-2
+              rounded-xl
+            "
+          >
+            {isLoading ? "Logging in..." : "Log in"}
+          </button>
+
+          {/* Register */}
+          <p className="text-xs text-center text-[#006E61] mt-3">
+            Don’t have an account?{" "}
+            <Link href="/register" className="underline">
+              Register here
+            </Link>
+          </p>
         </div>
       </div>
-    </main>
+
+      {/* 🏮 Lanterns */}
+      <img
+        src="/img/home/Group-350.svg"
+        alt="Left Lantern"
+        className="absolute top-0 left-[140px] w-[130px] z-10 hidden md:block"
+      />
+      <img
+        src="/img/home/Group-350.svg"
+        alt="Right Lantern"
+        className="absolute top-0 right-[140px] w-[130px] scale-x-[-1] z-10 hidden md:block"
+      />
+
+      {/* 💀 Skeletons */}
+      <img
+        src="/img/home/Group 347.svg"
+        alt="Skeletons"
+        className="
+          absolute
+          bottom-0
+          left-0
+          w-full
+          h-[220px]
+          object-contain
+          z-20
+        "
+      />
+    </div>
+  </main>
   );
 };
-
 export default isAuth(Login);
