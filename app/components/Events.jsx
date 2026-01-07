@@ -608,6 +608,7 @@ const BannerEventCard = ({
   decorations,
   buttonColorClass,
   textPositionClass = "",
+  imageClass = "",
 }) => (
   <div className="relative w-full max-w-5xl mx-auto flex items-center justify-center p-5 mt-4 md:mt-12">
     {/* --- DYNAMIC DECORATIONS RENDERER --- */}
@@ -623,7 +624,7 @@ const BannerEventCard = ({
               <img
                 src={item.mobileSrc}
                 alt={item.alt}
-                className="w-full h-auto"
+                className="w-full h-auto object-contain"
               />
             </>
           ) : (
@@ -638,7 +639,7 @@ const BannerEventCard = ({
       <img
         src={mobileBannerImage || bannerImage}
         alt={`${title} Background`}
-        className="w-full h-auto object-contain"
+        className={`w-full h-auto object-contain ${imageClass}`}
       />
     </picture>
 
@@ -686,7 +687,7 @@ const EventsCard = () => {
       />
 
       {/* --- CARD 1: PICS-O-REEL --- */}
-      <Fade direction="up" triggerOnce className="w-full flex justify-center -ml-8 z-10">
+      <Fade direction="up" triggerOnce className="w-full flex justify-center z-10">
         <BannerEventCard
           title="PICS-O-REEL"
           description="Step into the world of art with Picsoreel's art exhibitions! Showcasing stunning works from talented artists."
@@ -704,10 +705,11 @@ const EventsCard = () => {
               src: "/img/events/drums-picso-card.png",
               alt: "Drum Decoration",
               className:
-                "w-16 bottom-7 right-5 md:w-32 md:bottom-10 md:right-10",
+                "w-16 bottom-30 right-3 md:w-32 md:bottom-10 md:right-10",
             },
           ]}          
           textPositionClass="-mt-20 md:mt-0"
+          imageClass="-ml-4 md:ml-0"
         />
       </Fade>
 
