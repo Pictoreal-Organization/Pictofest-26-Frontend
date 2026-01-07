@@ -166,104 +166,119 @@ const Login = () => {
         alt="Purple Block"
         className="
           absolute
-          bottom-[160px]
+          bottom-[135x]
           left-1/2
           -translate-x-1/2
-          w-[90%]
-          max-w-[390px]
+          w-[100%]
+          max-w-[430px]
           object-contain
           z-[5]
         "
       />
 
-      {/* 🧾 LOGIN FORM (ON TOP OF PURPLE BLOCK) */}
-      <div
+      {/* 🧾 LOGIN FORM (RESIZED TO FIT PURPLE BLOCK) */}
+<div
+  className="
+    absolute
+    bottom-[180px] 
+    left-1/2
+    -translate-x-1/2
+    w-[85%]
+    max-w-[340px]
+    z-20
+  "
+>
+  <div className="p-2 md:p-4"> {/* Reduced padding */}
+    {/* Heading - Scaled down to prevent overlapping the logo */}
+    <div className="flex flex-col items-center text-white mb-2"> 
+      <h1 className="text-2xl md:text-3xl font-serif font-bold tracking-tight">
+        Welcome Back!
+      </h1>
+      <p className="text-xs md:text-sm opacity-90">
+        Login to your account
+      </p>
+    </div>
+
+    {/* Inputs - Reduced height and font size */}
+    <div className="relative space-y-2 md:space-y-3">
+      <input
+        className="w-full h-7 md:h-9 px-4 bg-[#E77C40] rounded-xl border-2 border-black text-white placeholder:text-white/80 focus:outline-none text-sm"
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+
+      <div className="relative">
+        <input
+          className="w-full h-7 md:h-9 px-4 bg-[#E77C40] rounded-xl border-2 border-black text-white placeholder:text-white/80 focus:outline-none text-sm"
+          type={showEye ? "text" : "password"}
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-white scale-75"
+          onClick={eyeHandler}
+        >
+          {showEye ? <FiEye /> : <FiEyeOff />}
+        </button>
+      </div>
+    </div>
+
+    {/* Remember + Forgot - Reduced font and margins */}
+    <div className="flex justify-between items-center text-[10px] md:text-xs text-white mt-2 mb-3 px-1">
+      <label className="flex items-center gap-1 cursor-pointer">
+        <input type="checkbox" className="accent-[#E77C40] w-3 h-3 rounded border-black" />
+        Remember me
+      </label>
+      <Link href="/forgot-password">
+        Forgot Password?
+      </Link>
+    </div>
+
+    {/* CAPTCHA - Added small margin if it appears */}
+    {shouldShowCaptcha && (
+      <div className="flex justify-center mb-3 scale-75 origin-top">
+        <Turnstile
+          sitekey="YOUR_TURNSTILE_SITE_KEY"
+          onVerify={(token) => setCaptchaToken(token)}
+        />
+      </div>
+    )}
+
+    {/* Login Button - Centered and resized */}
+    <div className="flex justify-center">
+      <button
+        onClick={handleLogin}
+        disabled={isLoading || !captchaToken}
         className="
-          absolute
-          bottom-[185px]
-          left-1/2
-          -translate-x-1/2
-          w-[85%]
-          max-w-[380px]
-          z-10
+          px-6
+          py-1
+          bg-[#E77C40]
+          text-white
+          text-lg
+          font-bold
+          rounded-xl
+          border-2
+          border-black
+          hover:brightness-110
+          transition-all
         "
       >
-        <div className="p-6">
-          {/* Heading */}
-          <div className="flex flex-col items-center text-[#006E61] font-semibold mb-4">
-            <h1 className="text-2xl heading-font font-bold">
-              Welcome Back!
-            </h1>
-            <p className="text-sm body-font">
-              Log in to your account
-            </p>
-          </div>
+        {isLoading ? <FiLoader className="animate-spin" /> : "Log in"}
+      </button>
+    </div>
 
-          {/* Inputs */}
-          <div className="relative body-font">
-            <input
-              className="w-full h-10 p-3 mb-3 bg-[#FFF6D2] rounded-xl ring-2 ring-black text-[#006E61]"
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-
-            <input
-              className="w-full h-10 p-3 mb-3 bg-[#FFF6D2] rounded-xl ring-2 ring-black text-[#006E61]"
-              type={showEye ? "text" : "password"}
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-
-            <button
-              className="absolute right-3 bottom-[52px]"
-              onClick={eyeHandler}
-            >
-              {showEye ? <FiEye /> : <FiEyeOff />}
-            </button>
-          </div>
-
-          {/* Remember + Forgot */}
-          <div className="flex justify-between items-center text-xs text-[#006E61] mb-3">
-            <label className="flex items-center gap-1">
-              <input type="checkbox" />
-              Remember me
-            </label>
-            <Link href="/forgot-password" className="underline">
-              Forgot?
-            </Link>
-          </div>
-
-          {/* Login Button */}
-          <button
-            onClick={handleLogin}
-            disabled={isLoading || !captchaToken}
-            className="
-              w-full
-              ring-2
-              ring-black
-              bg-[#F8E9CB]
-              text-[#006E61]
-              font-semibold
-              py-2
-              rounded-xl
-            "
-          >
-            {isLoading ? "Logging in..." : "Log in"}
-          </button>
-
-          {/* Register */}
-          <p className="text-xs text-center text-[#006E61] mt-3">
-            Don’t have an account?{" "}
-            <Link href="/register" className="underline">
-              Register here
-            </Link>
-          </p>
-        </div>
-      </div>
-
+    {/* Register - Minimal text at the bottom */}
+    <div className="text-[10px] md:text-xs text-center text-white mt-3">
+      <span>Don’t have an account? </span>
+      <Link href="/register" className="font-bold underline ml-1">
+        Register here
+      </Link>
+    </div>
+  </div>
+</div>
       {/* 🏮 Lanterns */}
       <img
         src="/img/home/Group-350.svg"
@@ -278,14 +293,27 @@ const Login = () => {
 
       {/* 💀 Skeletons */}
       <img
-        src="/img/home/Group 347.svg"
+        src="/img/home/Group 512.svg"
         alt="Skeletons"
         className="
           absolute
           bottom-0
-          left-0
+          right-90
           w-full
-          h-[220px]
+          h-[180px]
+          object-contain
+          z-20
+        "
+      />
+      <img
+        src="/img/home/Group 513.svg"
+        alt="Skeletons"
+        className="
+          absolute
+          bottom-0
+          left-95
+          w-full
+          h-[180px]
           object-contain
           z-20
         "
