@@ -191,10 +191,10 @@ const Login = () => {
   <div className="p-2 md:p-4"> {/* Reduced padding */}
     {/* Heading - Scaled down to prevent overlapping the logo */}
     <div className="flex flex-col items-center text-white mb-2"> 
-      <h1 className="text-2xl md:text-3xl font-serif font-bold tracking-tight">
+      <h1 className="text-2xl md:text-3xl sub-heading-font tracking-tight">
         Welcome Back!
       </h1>
-      <p className="text-xs md:text-sm opacity-90">
+      <p className="text-xs md:text-sm opacity-90 body-font">
         Login to your account
       </p>
     </div>
@@ -202,7 +202,7 @@ const Login = () => {
     {/* Inputs - Reduced height and font size */}
     <div className="relative space-y-2 md:space-y-3">
       <input
-        className="w-full h-7 md:h-9 px-4 bg-[#E77C40] rounded-xl border-2 border-black text-white placeholder:text-white/80 focus:outline-none text-sm"
+        className="w-full h-7 md:h-9 px-4 bg-[#E77C40] rounded-xl border-2 border-black text-white placeholder:text-white/80 focus:outline-none text-sm body-font"
         type="email"
         placeholder="Email"
         value={email}
@@ -211,7 +211,7 @@ const Login = () => {
 
       <div className="relative">
         <input
-          className="w-full h-7 md:h-9 px-4 bg-[#E77C40] rounded-xl border-2 border-black text-white placeholder:text-white/80 focus:outline-none text-sm"
+          className="w-full h-7 md:h-9 px-4 bg-[#E77C40] rounded-xl border-2 border-black text-white placeholder:text-white/80 focus:outline-none text-sm body-font"
           type={showEye ? "text" : "password"}
           placeholder="Password"
           value={password}
@@ -228,7 +228,7 @@ const Login = () => {
 
     {/* Remember + Forgot - Reduced font and margins */}
     <div className="flex justify-between items-center text-[10px] md:text-xs text-white mt-2 mb-3 px-1">
-      <label className="flex items-center gap-1 cursor-pointer">
+      <label className="flex items-center gap-1 cursor-pointer body-font">
         <input type="checkbox" className="accent-[#E77C40] w-3 h-3 rounded border-black" />
         Remember me
       </label>

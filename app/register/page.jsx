@@ -138,129 +138,235 @@ const Register = () => {
 
   return (
     <main className={inter.className}>
-      <div className="flex justify-center items-center h-full bg-[url('/img/home/login_bg.jpg')] bg-cover bg-bottom-left md:bg-bottom">
-        <div className="md:p-6 md:w-auto sm:p-4 mt-20 mb-5">
-          <div className="flex flex-col md:p-6 drop-shadow-xs">
-            <div className="flex flex-col justify-center text-[#006E61] items-center font-semibold mb-5">
-              <h1 className="text-2xl heading-font font-bold border-b border-[#006E61] p-2 sm:text-5xl">
-                Create Account
-              </h1>
-            </div>
-            <div className="flex flex-col w-full relative body-font">
-              <input
-                className="p-2 m-2 outline-hidden bg-[#FFF6D2] rounded-md ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
-                type="text"
-                placeholder="First Name"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-              />
-              <input
-                className="p-2 m-2 outline-hidden bg-[#FFF6D2] rounded-md ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
-                type="text"
-                placeholder="Last Name"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-              />
-              <input
-                className="p-2 m-2 outline-hidden bg-[#FFF6D2] rounded-md ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                  setOtpSent(false);
-                }}
-              />
-              {!otpSent && validateEmail(email) && (
-                <>
-                  <div className="flex justify-center items-center px-2">
-                  <Turnstile
-                    sitekey={process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY}// Replace with your Turnstile site key
-                    onVerify={(token) => setCaptchaToken(token)} // Handle CAPTCHA token
-                  />
-                  </div>
-                  <button
-                    className="p-2 m-2 bg-[#006E61] text-white rounded-lg flex justify-center items-center"
-                    onClick={sendOtp}
-                    disabled={isOtpLoading || !captchaToken} // Disable until CAPTCHA is completed
-                  >
-                    {isOtpLoading ? (
-                      <div className="flex items-center">
-                        <FiLoader className="animate-spin mr-2" />
-                        Sending...
-                      </div>
-                    ) : (
-                      "Send OTP"
-                    )}
-                  </button>
-                </>
-              )}
-              {otpSent && (
-                <input
-                  className="p-2 m-2 outline-hidden bg-[#FFF6D2] rounded-md ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
-                  type="text"
-                  placeholder="Enter OTP"
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value)}
-                />
-              )}
-              <input
-                className="p-2 m-2 outline-hidden bg-[#FFF6D2] rounded-md ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
-                type="text"
-                placeholder="Phone No."
-                value={phone}
-                maxLength={10}
-                onChange={(e) => setPhone(e.target.value)}
-              />
-              <input
-                className="p-2 m-2 outline-hidden bg-[#FFF6D2] rounded-md ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
-                type={showEye ? "text" : "password"}
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <button
-                className="absolute right-[1.4rem] bottom-32 sm:bottom-32 sm:right-[1.4rem]"
-                onClick={eyeHandler}
-              >
-                {showEye ? <FiEye /> : <FiEyeOff />}
-              </button>
-              <select
-                className="p-2 m-2 outline-hidden rounded-md ring-2 bg-[#FFF6D2] focus:none ring-black text-[#006E61] placeholder-[#006E61]"
-                onChange={handleSelectChange}
-              >
-                <option value="PICT">PICT</option>
-                <option value="NON-PICT">NON-PICT</option>
-              </select>
-              <input
-                className="p-2 m-2 outline-hidden rounded-md bg-[#FFF6D2] ring-2 ring-black text-[#006E61] placeholder-[#006E61]"
-                type="text"
-                placeholder="College Name"
-                value={collegeName}
-                onChange={(e) => {
-                  if (collegeType === "NON-PICT") {
-                    setCollegeName(e.target.value);
-                  }
-                }}
-              />
-            </div>
-            <div className="flex justify-center items-center body-font">
-              <button
-                onClick={handleRegister}
-                className="outline-hidden w-40 sm:w-40 m-2 font-semibold ring-2 ring-black text-[#006E61] p-2 mb-3 bg-[#FFF6D2] rounded-md hover:bg-[#e8d396]"
-                disabled={!otpSent}
-              >
-                Sign Up
-              </button>
-            </div>
-            <div className="text-[#006E61] text-xs sm:text-sm space-x-2 flex justify-center description-font">
-              <p>Already have an account? </p>
-              <Link href="/login" className="underline outline-hidden">
-                Login
-              </Link>
-            </div>
+<div
+      className="
+        relative
+        flex
+        justify-center
+        items-center
+        min-h-screen
+        bg-[url('/img/home/bg_img.png')]
+        bg-cover
+        bg-[position:left_bottom]
+        md:bg-center
+        overflow-hidden
+      "
+    >
+      {/* 🟣 Purple Block */}
+      <img
+        src="/img/home/Group 234.svg"
+        alt="Purple Block"
+        className="
+          absolute
+          bottom-[135x]
+          left-1/2
+          -translate-x-1/2
+          w-[100%]
+          max-w-[430px]
+          object-contain
+          z-[5]
+        "
+      />
+
+      {/* ⭐ Stars Background */}
+      <img
+        src="/img/home/Stars_bg.svg"
+        alt="Stars Background"
+        className="
+          absolute
+          inset-0
+          w-full
+          h-full
+          object-cover
+          z-[1]
+          pointer-events-none
+        "
+      />
+      {/* 🎭 Pictofest Logo */}
+      <img
+        src="/img/home/pictofestLogoNew.png"
+        alt="Pictofest Logo"
+        className="
+          absolute
+          top-[70px]
+          left-1/2
+          -translate-x-1/2
+          w-[200px]
+          md:w-[230px]
+          object-contain
+          z-30
+        "
+      />
+      {/* 🏮 Lanterns */}
+      <img
+        src="/img/home/Group-350.svg"
+        alt="Left Lantern"
+        className="absolute top-0 left-[140px] w-[130px] z-10 hidden md:block"
+      />
+      <img
+        src="/img/home/Group-350.svg"
+        alt="Right Lantern"
+        className="absolute top-0 right-[140px] w-[130px] scale-x-[-1] z-10 hidden md:block"
+      />
+
+      {/* 💀 Skeletons */}
+      <img
+        src="/img/home/Group 512.svg"
+        alt="Skeletons"
+        className="
+          absolute
+          bottom-0
+          right-90
+          w-full
+          h-[180px]
+          object-contain
+          z-20
+        "
+      />
+      <img
+        src="/img/home/Group 513.svg"
+        alt="Skeletons"
+        className="
+          absolute
+          bottom-0
+          left-95
+          w-full
+          h-[180px]
+          object-contain
+          z-20
+        "
+      />
+        {/* 🧾 REGISTER FORM CONTAINER */}
+<div className="absolute top-[52%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] max-w-[320px] z-10">
+  <div className="p-2 md:p-2">
+    
+    {/* Heading using sub-heading-font */}
+    <div className="flex flex-col items-center text-white mb-1">
+      <h1 className="text-3xl md:text-4xl text-center leading-tight sub-heading-font">
+        Create Account
+      </h1>
+    </div>
+
+    {/* Inputs using body-font */}
+    <div className="flex flex-col space-y-2 body-font">
+      <input
+        className="h-6 md:h-7 px-3 bg-[#E77C40] rounded-xl border-2 border-black text-white placeholder:text-white/80 focus:outline-none text-xs md:text-sm"
+        type="text"
+        placeholder="First Name"
+        value={firstName}
+        onChange={(e) => setFirstName(e.target.value)}
+      />
+      <input
+        className="h-6 md:h-7 px-3 bg-[#E77C40] rounded-xl border-2 border-black text-white placeholder:text-white/80 focus:outline-none text-xs md:text-sm"
+        type="text"
+        placeholder="Last Name"
+        value={lastName}
+        onChange={(e) => setLastName(e.target.value)}
+      />
+      <input
+        className="h-6 md:h-7 px-3 bg-[#E77C40] rounded-xl border-2 border-black text-white placeholder:text-white/80 focus:outline-none text-xs md:text-sm"
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => {
+          setEmail(e.target.value);
+          setOtpSent(false);
+        }}
+      />
+
+      {/* OTP Logic - Compacted to save vertical space */}
+      {!otpSent && validateEmail(email) && (
+        <div className="flex flex-col items-center space-y-1">
+          <div className="scale-75 origin-center h-14 overflow-hidden">
+            <Turnstile
+              sitekey={process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY}
+              onVerify={(token) => setCaptchaToken(token)}
+            />
           </div>
+          <button
+            className="w-full py-1 bg-[#E77C40] text-white border-2 border-black rounded-xl text-xs font-bold"
+            onClick={sendOtp}
+            disabled={isOtpLoading || !captchaToken}
+          >
+            {isOtpLoading ? "Sending..." : "Send OTP"}
+          </button>
         </div>
+      )}
+
+      {otpSent && (
+        <input
+          className="h-6 md:h-7 px-3 bg-[#E77C40] rounded-xl border-2 border-black text-white placeholder:text-white/80 focus:outline-none text-xs md:text-sm"
+          type="text"
+          placeholder="Enter OTP"
+          value={otp}
+          onChange={(e) => setOtp(e.target.value)}
+        />
+      )}
+
+      <input
+        className="h-6 md:h-7 px-3 bg-[#E77C40] rounded-xl border-2 border-black text-white placeholder:text-white/80 focus:outline-none text-xs md:text-sm"
+        type="text"
+        placeholder="Phone No."
+        value={phone}
+        maxLength={10}
+        onChange={(e) => setPhone(e.target.value)}
+      />
+
+      {/* Password with Eye Icon */}
+      <div className="relative">
+        <input
+          className="w-full h-6 md:h-7 px-3 bg-[#E77C40] rounded-xl border-2 border-black text-white placeholder:text-white/80 focus:outline-none text-xs md:text-sm"
+          type={showEye ? "text" : "password"}
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-white scale-75"
+          onClick={eyeHandler}
+        >
+          {showEye ? <FiEye /> : <FiEyeOff />}
+        </button>
+      </div>
+
+      <select
+        className="h-6 md:h-7 px-3 bg-[#E77C40] rounded-xl border-2 border-black text-white focus:outline-none text-xs md:text-sm appearance-none"
+        onChange={handleSelectChange}
+        value={collegeType}
+      >
+        <option value="PICT">PICT</option>
+        <option value="NON-PICT">NON-PICT</option>
+      </select>
+
+      <input
+        className="h-6 md:h-7 px-3 bg-[#E77C40] rounded-xl border-2 border-black text-white placeholder:text-white/80 focus:outline-none text-xs md:text-sm"
+        type="text"
+        placeholder="College Name"
+        value={collegeName}
+        disabled={collegeType === "PICT"}
+        onChange={(e) => setCollegeName(e.target.value)}
+      />
+    </div>
+
+    {/* Sign Up Button */}
+    <div className="flex justify-center mt-2">
+      <button
+        onClick={handleRegister}
+        disabled={!otpSent}
+        className="px-8 py-1 bg-[#E77C40] text-white text-lg font-bold rounded-2xl border-2 border-black hover:brightness-110 transition-all body-font"
+      > Sign Up
+      </button>
+    </div>
+
+    {/* Login Redirect */}
+    <div className="text-[10px] md:text-xs text-center text-white mt-2 body-font">
+      <span>Already have an account? </span>
+      <Link href="/login" className="font-bold underline ml-1">
+        Login
+      </Link>
+    </div>
+  </div>
+</div>
       </div>
     </main>
   );
