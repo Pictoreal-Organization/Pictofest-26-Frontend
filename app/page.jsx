@@ -664,8 +664,10 @@ const Home = () => {
         <div className="md:px-24 lg:px-40 sm:pt-20">
           <Events />
         </div>
-        <div className="pt-20">
+        <div className="w-full h-full ">
           <About />
+        </div>
+        <div>
           <Footer />
         </div>
       </div>
