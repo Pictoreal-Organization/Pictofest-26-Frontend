@@ -55,11 +55,12 @@ const Payment = () => {
   };
 
   return (
-    <div className="mx-auto w-full bg-[url('/img/cart/bg-repeat.svg')] min-h-screen bg-repeat bg-cover flex flex-col justify-center">
-      <div className="bg-[url('/img/cart/payment_card.png')] h-[500px] md:h-[700px] lg:h-[800px] mt-28 pr-8 bg-no-repeat bg-center bg-contain mx-auto w-full sm:w-3/5 pb-24 lg:p-4 lg:w-2/5 my-12">
+    
+    <div className="bg-[url('/img/cart/bg.png')] flex flex-col justify-center">
+      <div className="bg-[url('/img/cart/Rectangle.svg')] h-[400px] md:h-[600px] lg:h-[730px] mt-28 pr-8 bg-no-repeat bg-center bg-contain mx-auto w-full sm:w-3/5 pb-24 lg:p-4 lg:w-2/5 my-12">
         <div className="h-fit flex flex-col items-center justify-center lg:m-5 md:ml-4 lg:mr-12 mx-auto  rounded-xl">
           <div className="h-fit flex flex-col items-center justify-center lg:m-2 mx-auto lg:mt-0 mt-10 sm:w-3/5 md:w-auto rounded-xl px-10 lg:px-20 md:mt-20">
-            <h1 className="text-sm lg:text-xl ml-2 sm:ml-0 font-bold description-font uppercase lg:mt-10 mb-2 sm:mb-4 md:mb-2 lg:my-4">
+            <h1 className="lg:text-5xl text-[#235E53] heading-font uppercase lg:mt-5 mb-2 sm:mb-4 md:mb-2 lg:my-4">
               {" "}
               Make Payment
             </h1>
