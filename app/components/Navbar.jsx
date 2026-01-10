@@ -858,7 +858,7 @@ const Navbar = () => {
     >
       {/* --- Desktop View --- */}
       {/* Updated max-w to 1150px and gap to 18px to match SVG dimensions */}
-      <div className="hidden lg:flex max-w-[1150px] mx-auto py-6 px-4 justify-center items-center gap-[18px] relative">
+      <div className="hidden lg:flex max-w-[100%] mx-auto py-6 min-px-4 justify-center items-center gap-[18px] relative">
         <div className="flex justify-center items-center gap-[18px]">
           <NavLink href="/" text="Home" />
           <NavLink href="/picsoreel" text="Pics-o-Reel" />
