@@ -158,11 +158,11 @@ const Register = () => {
         alt="Purple Block"
         className="
           absolute
-          bottom-[135x]
+          md:bottom-[135x]
           left-1/2
           -translate-x-1/2
           w-[100%]
-          max-w-[430px]
+          max-w-[400px]
           object-contain
           z-[5]
         "
@@ -188,7 +188,8 @@ const Register = () => {
         alt="Pictofest Logo"
         className="
           absolute
-          top-[70px]
+          md:top-[70px]
+          top-[12%]
           left-1/2
           -translate-x-1/2
           w-[200px]
@@ -210,61 +211,65 @@ const Register = () => {
       />
 
       {/* 💀 Skeletons */}
+      
+      {/* Mobile Skeleton (Group 514) */}
       <img
-        src="/img/home/Group 512.svg"
-        alt="Skeletons"
+        src="/img/home/Group 514.svg"
+        alt="Skeleton Mobile"
         className="
           absolute
-          bottom-0
-          right-90
-          w-full
-          h-[180px]
+          bottom-[-10px]   /* Positioned slightly off-screen to look grounded */
+          left-[50%]
+          -translate-x-1/2
+          w-[100%]         
+          max-w-[100%]
+          h-auto
           object-contain
-          z-20
+          z-10
+          block
+          md:hidden
         "
+      />
+      {/* Desktop Skeletons */}
+      <img
+        src="/img/home/Group 512.svg"
+        alt="Skeletons Left"
+        className="absolute bottom-0 left-[-5%] w-[45%] h-[180px] object-contain z-20 hidden md:block"
       />
       <img
         src="/img/home/Group 513.svg"
-        alt="Skeletons"
-        className="
-          absolute
-          bottom-0
-          left-95
-          w-full
-          h-[180px]
-          object-contain
-          z-20
-        "
+        alt="Skeletons Right"
+        className="absolute bottom-0 right-[-5%] w-[45%] h-[180px] object-contain z-20 hidden md:block"
       />
         {/* 🧾 REGISTER FORM CONTAINER */}
-<div className="absolute top-[52%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] max-w-[320px] z-10">
-  <div className="p-2 md:p-2">
+<div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[75%] max-w-[300px] z-80">
+  <div className="p-1 md:p-1">
     
     {/* Heading using sub-heading-font */}
     <div className="flex flex-col items-center text-white mb-1">
-      <h1 className="text-3xl md:text-4xl text-center leading-tight sub-heading-font">
+      <h1 className="text-3xl md:text-2xl leading-tight sub-heading-font">
         Create Account
       </h1>
     </div>
 
     {/* Inputs using body-font */}
-    <div className="flex flex-col space-y-2 body-font">
+    <div className="flex flex-col space-y-1 body-font w-[100%] ">
       <input
-        className="h-6 md:h-7 px-3 bg-[#E77C40] rounded-xl border-2 border-black text-white placeholder:text-white/80 focus:outline-none text-xs md:text-sm"
+        className="h-6 md:h-6 px-3 bg-[#E77C40] rounded-xl border-2 border-black text-white placeholder:text-white/90 focus:outline-none text-xs md:text-sm"
         type="text"
         placeholder="First Name"
         value={firstName}
         onChange={(e) => setFirstName(e.target.value)}
       />
       <input
-        className="h-6 md:h-7 px-3 bg-[#E77C40] rounded-xl border-2 border-black text-white placeholder:text-white/80 focus:outline-none text-xs md:text-sm"
+        className="h-6 md:h-6 px-3 bg-[#E77C40] rounded-xl border-2 border-black text-white placeholder:text-white/80 focus:outline-none text-xs md:text-sm"
         type="text"
         placeholder="Last Name"
         value={lastName}
         onChange={(e) => setLastName(e.target.value)}
       />
       <input
-        className="h-6 md:h-7 px-3 bg-[#E77C40] rounded-xl border-2 border-black text-white placeholder:text-white/80 focus:outline-none text-xs md:text-sm"
+        className="h-6 md:h-6 px-3 bg-[#E77C40] rounded-xl border-2 border-black text-white placeholder:text-white/80 focus:outline-none text-xs md:text-sm"
         type="email"
         placeholder="Email"
         value={email}
@@ -295,7 +300,7 @@ const Register = () => {
 
       {otpSent && (
         <input
-          className="h-6 md:h-7 px-3 bg-[#E77C40] rounded-xl border-2 border-black text-white placeholder:text-white/80 focus:outline-none text-xs md:text-sm"
+          className="h-6 md:h-6 px-3 bg-[#E77C40] rounded-xl border-2 border-black text-white placeholder:text-white/80 focus:outline-none text-xs md:text-sm"
           type="text"
           placeholder="Enter OTP"
           value={otp}
@@ -304,7 +309,7 @@ const Register = () => {
       )}
 
       <input
-        className="h-6 md:h-7 px-3 bg-[#E77C40] rounded-xl border-2 border-black text-white placeholder:text-white/80 focus:outline-none text-xs md:text-sm"
+        className="h-6 md:h-6 px-3 bg-[#E77C40] rounded-xl border-2 border-black text-white placeholder:text-white/80 focus:outline-none text-xs md:text-sm"
         type="text"
         placeholder="Phone No."
         value={phone}
@@ -315,7 +320,7 @@ const Register = () => {
       {/* Password with Eye Icon */}
       <div className="relative">
         <input
-          className="w-full h-6 md:h-7 px-3 bg-[#E77C40] rounded-xl border-2 border-black text-white placeholder:text-white/80 focus:outline-none text-xs md:text-sm"
+          className="w-full h-6 md:h-6 px-3 bg-[#E77C40] rounded-xl border-2 border-black text-white placeholder:text-white/80 focus:outline-none text-xs md:text-sm"
           type={showEye ? "text" : "password"}
           placeholder="Password"
           value={password}
@@ -330,7 +335,7 @@ const Register = () => {
       </div>
 
       <select
-        className="h-6 md:h-7 px-3 bg-[#E77C40] rounded-xl border-2 border-black text-white focus:outline-none text-xs md:text-sm appearance-none"
+        className="h-6 md:h-6 px-3 bg-[#E77C40] rounded-xl border-2 border-black text-white focus:outline-none text-xs md:text-sm appearance-none"
         onChange={handleSelectChange}
         value={collegeType}
       >
@@ -339,7 +344,7 @@ const Register = () => {
       </select>
 
       <input
-        className="h-6 md:h-7 px-3 bg-[#E77C40] rounded-xl border-2 border-black text-white placeholder:text-white/80 focus:outline-none text-xs md:text-sm"
+        className="h-6 md:h-6 px-3 bg-[#E77C40] rounded-xl border-2 border-black text-white placeholder:text-white/80 focus:outline-none text-xs md:text-sm"
         type="text"
         placeholder="College Name"
         value={collegeName}
@@ -353,7 +358,7 @@ const Register = () => {
       <button
         onClick={handleRegister}
         disabled={!otpSent}
-        className="px-8 py-1 bg-[#E77C40] text-white text-lg font-bold rounded-2xl border-2 border-black hover:brightness-110 transition-all body-font"
+        className="px-6 py-0 bg-[#E77C40] text-white text-lg font-bold rounded-xl border-2 border-black hover:brightness-110 transition-all body-font"
       > Sign Up
       </button>
     </div>
