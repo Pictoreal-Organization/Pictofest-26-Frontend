@@ -1427,7 +1427,7 @@ const Home = () => {
         <div>
           {/* <PrizePool /> */}
         </div>
-        <div className="md:px-24 lg:px-40 sm:pt-20">
+        <div className="md:px-24 lg:px-40 sm:pt-20 mb-[8vh]">
           <Events />
         </div>
         <div className="w-full h-auto bg-[url('/img/home/Aboutbg.svg')] bg-cover">
