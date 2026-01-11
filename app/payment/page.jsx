@@ -117,6 +117,221 @@
 //2026 code
 
 
+// "use client";
+
+// import { useState } from "react";
+// import Image from "next/image";
+// import QRCode from "react-qr-code";
+// import { toast } from "sonner";
+// import { useRouter } from "next/navigation";
+
+
+// const Payment = () => {
+
+ 
+  
+//   const [amount, setAmount] = useState(450);
+//   const [transactionId, setTransactionId] = useState("");
+//   const router = useRouter();
+
+//   // --- API Logic ---
+//   // const getAmount = async () => {
+//   //   try {
+//   //     const response = await api.get(`/payment/amount`);
+//   //     setAmount(response.data.data);
+//   //   } catch (err) {
+//   //     console.log(err);
+//   //   }
+//   // };
+
+//   // useEffect(() => {
+//   //   getAmount();
+//   // }, []);
+
+//   const handleSubmit = () => {
+//     if (transactionId.length !== 12) {
+//       toast.error("Please enter a valid 12-digit UTR ID");
+//       return;
+//     }
+//     toast.success("Mock payment submitted successfully");
+//     router.push("/order");
+//   };
+
+//   const handleTransactionIdChange = (event) => {
+//     setTransactionId(event.target.value);
+//   };
+ 
+
+//   return (
+//     <div className="relative min-h-screen w-full overflow-hidden bg-[#1a0b40] flex justify-center items-center py-10 md:py-0">
+
+//       {/* ============================================================
+//           BACKGROUND LAYER
+//          ============================================================ */}
+//       <div className="hidden md:block absolute inset-0 z-0">
+//         <Image
+//           src="/img/common/general-desktop-bg.png"
+//           alt="Desktop Background"
+//           fill
+//           priority
+//           className="object-cover"
+//         />
+//       </div>
+
+//       <div className="block md:hidden absolute inset-0 z-0">
+//         <Image
+//           src="/img/common/general-mobile-bg.png"
+//           alt="Mobile Background"
+//           fill
+//           priority
+//           className="object-cover"
+//           quality={90}
+//         />
+//       </div>
+
+//       {/* ============================================================
+//           DECORATIONS
+//          ============================================================ */}
+//       <div className="hidden md:block">
+//         <div className="absolute bottom-0 left-0 z-10 w-90 h-95">
+//           <Image
+//             src="/img/cart/cart-bottom-left-singer-desktop.png"
+//             alt="Dancer"
+//             fill
+//             className="object-contain object-bottom"
+//           />
+//         </div>
+
+//         <div className="absolute bottom-0 right-0 z-10 w-80 h-80">
+//           <Image
+//             src="/img/cart/cart-bottom-right-singer-desktop.png"
+//             alt="Guitarist"
+//             fill
+//             className="object-contain object-bottom"
+//           />
+//         </div>
+//       </div>
+
+//       {/* ============================================================
+//           MAIN CONTENT WRAPPER
+//          ============================================================ */}
+//       <div className="relative z-20 flex flex-col items-center gap-5 w-full translate-y-[5%] md:translate-y-[7%]">
+//         {/* --- CENTRAL CARD --- */}
+//         <div className="relative w-[80%] min-h-[400px] md:w-[500px] md:min-h-[350px] flex flex-col items-center justify-center p-6">
+//           {/* Card Background Image */}
+//           <div className="absolute inset-0 z-0">
+//             <Image
+//               src="/img/cart/cart-bg-26.png"
+//               alt="Payment Card"
+//               fill
+//               className="object-fill rounded-3xl"
+//             />
+//           </div>
+
+//           {/* Mobile Decorations (Hidden on Desktop) */}
+//           <div className="md:hidden">
+//             <div className="absolute -top-6 -right-4 z-30 w-24 h-24">
+//               <Image
+//                 src="/img/cart/cart-mobile-bird.png"
+//                 alt="Decor"
+//                 width={100}
+//                 height={100}
+//               />
+//             </div>
+//             <div className="absolute -bottom-6 -left-4 z-30 w-24 h-24">
+//               <Image
+//                 src="/img/cart/cart-mobile-singer.png"
+//                 alt="Decor"
+//                 width={100}
+//                 height={100}
+//               />
+//             </div>
+//           </div>
+
+//           {/* --- INTERNAL CONTENT --- */}
+//           {/* Adjusted padding: pt-6 (top) and pb-4 (bottom) */}
+//           <div className="relative z-10 w-full h-full flex flex-col items-center px-4 pt-1 pb-2">
+//             {/* Header */}
+//             <h1 className="heading-font text-2xl md:text-4xl text-[#1f4e3d] text-center heading-font tracking-widest mb-4 drop-shadow-sm uppercase">
+//               Make Payment
+//             </h1>
+
+//             {/* QR Code Section with Frame */}
+//             <div className="relative w-[200px] h-[200px] md:w-[220px] md:h-[220px] flex items-center justify-center mb-2">
+//               {/* The Frame Image */}
+//               <div className="absolute inset-0 z-20 pointer-events-none">
+//                 <Image
+//                   src="/img/payment/qr-frame.png"
+//                   alt="QR Frame"
+//                   fill
+//                   className="object-contain"
+//                 />
+//               </div>
+
+//               {/* The QR Code */}
+//               <div className="relative z-10 bg-white p-1">
+//                 <QRCode
+//                   size={130}
+//                   value={`upi://pay?pa=sctrspuneintofcomput.62810390@hdfcbank&pn=PICTOREAL&am=${amount}&tn=PICTOFEST&cu=INR`}
+//                   viewBox={`0 0 130 130`}
+//                   className="w-full h-auto"
+//                 />
+//               </div>
+//             </div>
+
+//             {/* Amount Text */}
+//             <h2 className=" body-font text-lg md:text-xl text-[#1f4e3d] font-bold body-font mb-4 text-center">
+//               Total Amount: Rs. {amount}/-
+//             </h2>
+
+//             {/* Input Section (Yellow Box Design) */}
+//             <div className="w-full flex flex-col items-center gap-2 mb-2">
+//               <input
+//                 type="text"
+//                 className="body-font w-full max-w-[400px] h-[60px] md:h-[70px] rounded-[20px] bg-[#EFE093] text-[#4e3506] text-xl font-bold placeholder-[#4e3506]/60 focus:outline-none focus:ring-2 focus:ring-[#4e3506]/20 text-center body-font tracking-wide"
+//                 value={transactionId}
+//                 onChange={handleTransactionIdChange}
+//                 maxLength={12}
+//                 placeholder="Enter 12 digit UTR ID"
+//               />
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* --- ACTION BUTTON (Moved Outside Card) --- */}
+//         <div className="mb-6">
+//           <button
+//             onClick={handleSubmit}
+//             className="relative w-36 h-12 md:w-44 md:h-14 group hover:scale-105 transition-transform"
+//           >
+//             {/* Button Background Image */}
+//             <Image
+//               src="/img/cart/cart-btns-bg.png"
+//               alt="bg"
+//               fill
+//               className="absolute inset-0 object-contain"
+//             />
+//             {/* Content */}
+//             <div className="relative z-10 flex items-center justify-center gap-2 h-full pb-1">
+//               <Image
+//                 src="/img/cart/button-flower.png"
+//                 width={20}
+//                 height={20}
+//                 alt="icon"
+//               />
+//               <span className="sub-heading-font text-[#5c3a21] font-bold text-lg heading-font">
+//                 Submit
+//               </span>
+//             </div>
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Payment;
+
 "use client";
 
 import { useState } from "react";
@@ -125,11 +340,7 @@ import QRCode from "react-qr-code";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-
 const Payment = () => {
-
- 
-  
   const [amount, setAmount] = useState(450);
   const [transactionId, setTransactionId] = useState("");
   const router = useRouter();
@@ -160,11 +371,12 @@ const Payment = () => {
   const handleTransactionIdChange = (event) => {
     setTransactionId(event.target.value);
   };
- 
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-[#1a0b40] flex justify-center items-center py-10 md:py-0">
-
+    // UPDATED CONTAINER:
+    // 1. Mobile/MD kept exactly as before: 'flex justify-center items-center py-10 md:py-0'
+    // 2. LG (Laptop) ONLY: 'lg:items-start lg:pt-40' to push content down from the fixed navbar
+    <div className="relative min-h-screen w-full overflow-hidden bg-[#1a0b40] flex justify-center items-center py-10 md:py-0 lg:items-start lg:pt-40">
       {/* ============================================================
           BACKGROUND LAYER
          ============================================================ */}
@@ -193,7 +405,8 @@ const Payment = () => {
           DECORATIONS
          ============================================================ */}
       <div className="hidden md:block">
-        <div className="absolute bottom-0 left-0 z-10 w-90 h-95">
+        {/* LG UPDATE: Added lg:w-72 lg:h-[350px] to scale down on laptop screens */}
+        <div className="absolute bottom-0 left-0 z-10 w-90 h-95 lg:w-72 lg:h-[350px] xl:w-90 xl:h-95">
           <Image
             src="/img/cart/cart-bottom-left-singer-desktop.png"
             alt="Dancer"
@@ -202,7 +415,8 @@ const Payment = () => {
           />
         </div>
 
-        <div className="absolute bottom-0 right-0 z-10 w-80 h-80">
+        {/* LG UPDATE: Added lg:w-72 lg:h-72 to scale down on laptop screens */}
+        <div className="absolute bottom-0 right-0 z-10 w-80 h-80 lg:w-72 lg:h-72 xl:w-80 xl:h-80">
           <Image
             src="/img/cart/cart-bottom-right-singer-desktop.png"
             alt="Guitarist"
@@ -215,9 +429,11 @@ const Payment = () => {
       {/* ============================================================
           MAIN CONTENT WRAPPER
          ============================================================ */}
-      <div className="relative z-20 flex flex-col items-center gap-5 w-full translate-y-[5%] md:translate-y-[7%]">
+      {/* LG UPDATE: Added lg:translate-y-0 to reset vertical offset on laptop (since we use padding there) */}
+      <div className="relative z-20 flex flex-col items-center gap-5 w-full translate-y-[5%] md:translate-y-[7%] lg:translate-y-0">
         {/* --- CENTRAL CARD --- */}
-        <div className="relative w-[80%] min-h-[400px] md:w-[500px] md:min-h-[350px] flex flex-col items-center justify-center p-6">
+        {/* LG UPDATE: Added lg:w-[450px] to make card slightly smaller on 1024px screens */}
+        <div className="relative w-[80%] min-h-[400px] md:w-[500px] md:min-h-[350px] lg:w-[450px] xl:w-[500px] flex flex-col items-center justify-center p-6">
           {/* Card Background Image */}
           <div className="absolute inset-0 z-0">
             <Image
@@ -257,6 +473,7 @@ const Payment = () => {
             </h1>
 
             {/* QR Code Section with Frame */}
+            {/* Added responsive sizing for frame container if needed, but fixed px usually works fine here */}
             <div className="relative w-[200px] h-[200px] md:w-[220px] md:h-[220px] flex items-center justify-center mb-2">
               {/* The Frame Image */}
               <div className="absolute inset-0 z-20 pointer-events-none">
@@ -331,4 +548,3 @@ const Payment = () => {
 };
 
 export default Payment;
-

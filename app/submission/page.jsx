@@ -823,7 +823,7 @@ const Uploader = (props) => {
 
         {/* --- 3. Main Upload Button --- */}
         <button
-          className="w-full bg-[#8B260D] text-[#FFE3BE] text-sm md:text-base font-bold sub-heading-font py-2 rounded-full shadow-[0px_4px_0px_#5a1a0a] active:shadow-none active:translate-y-[4px] hover:scale-105 transition-all"
+          className="w-full bg-[#8B260D] text-[#FFE3BE] text-sm md:text-base font-bold sub-heading-font py-2 rounded-full  active:translate-y-[4px] hover:scale-105 transition-all"
           type="button"
           onClick={handleUpload}
         >
@@ -876,13 +876,13 @@ const Card = (props) => {
           </div>
         ) : (
           // Uploaded State: Simple Frame Look
-          <div className="relative p-2 bg-white border border-gray-300 shadow-lg">
-            <div className="relative w-full aspect-[3/4] bg-gray-100 overflow-hidden">
+          <div className="relativ p-1 border-2 rounded-md border-solid border-[#8B260D] shadow-lg">
+            <div className="relative w-full aspect-square overflow-hidden">
               <Image
-                src={event.image_link || "/img/submissions/test-image.png"}//<----remove || before deployment and do necessary changes
+                src={event.image_link || "/img/submissions/test-image.png"} //<----remove || before deployment and do necessary changes
                 alt="Submission"
                 fill
-                className="object-cover"
+                className="object-contain"
               />
             </div>
           </div>

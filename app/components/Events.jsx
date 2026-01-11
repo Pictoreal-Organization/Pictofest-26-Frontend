@@ -670,19 +670,19 @@ const BannerEventCard = ({
 // --- 2. Main Component with Hardcoded Cards ---
 const EventsCard = () => {
   return (
-    <div className="relative flex flex-col items-center w-full min-h-[100vh] md:min-h-0 pt-0 pb-12 gap-2 md:gap-20 overflow-visible px-4">
+    <div className="relative flex flex-col items-center w-full h-auto md:min-h-0 pt-0 pb-12 gap-2 md:gap-20 overflow-visible px-4">
       {/* --- Cactus Decoration (Bottom Left) --- */}
       <img
         src="/img/events/bottom-cactus.png"
         alt="Cactus Decoration"
-        className="absolute bottom-[1%] translate-y-[30%] left-0 w-16 md:w-60 md:-left-40 md:bottom-[1%] md:translate-y-[12%] pointer-events-none z-50"
+        className="absolute bottom-[1%] translate-y-[30%] left-0 w-16 md:w-60 md:-left-40  md:translate-y-[26%] pointer-events-none z-50"
       />
 
       {/* --- Man Decoration (Bottom Right) --- */}
       <img
         src="/img/events/bottom-SingingMan.png"
         alt="SingingMan Decoration"
-        className="absolute bottom-[1%] translate-y-[17%] right-0 w-20 md:w-60 md:bottom-[1%] md:-right-40 md:translate-y-[8%] pointer-events-none z-50"
+        className="absolute bottom-[1%] translate-y-[17%] right-0 w-20 md:w-60 md:bottom-[1%] md:-right-40 md:translate-y-[23%] pointer-events-none z-50"
       />
 
       {/* --- CARD 1: PICS-O-REEL --- */}
