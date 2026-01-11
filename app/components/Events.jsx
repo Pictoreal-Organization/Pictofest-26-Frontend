@@ -652,13 +652,13 @@ const BannerEventCard = ({
           {title}
         </h2>
 
-        <p className="description-font font-bold text-xs md:text-base text-[#4E3506] leading-snug md:leading-relaxed line-clamp-3 md:line-clamp-none">
+        <p className="body-font font-bold text-xs md:text-base text-[#4E3506] leading-snug md:leading-relaxed line-clamp-3 md:line-clamp-none">
           {description}
         </p>
 
         <Link
           href={link}
-          className={`mt-0.5 px-6 py-1.5 md:px-8 md:py-3 md:mb-1 text-sm md:text-lg lg:text-xl rounded-xl border-2 md:border-4 bg-white/80 backdrop-blur-sm transition-all hover:text-white ${buttonColorClass}`}
+          className={`sub-heading-font mt-0.5 px-6 py-1.5 md:px-8 md:py-3 md:mb-2 text-sm md:text-lg lg:text-xl rounded-xl border-2 md:border-4 bg-white/80 backdrop-blur-sm transition-all hover:text-white ${buttonColorClass}`}
         >
           Participate
         </Link>
@@ -670,24 +670,27 @@ const BannerEventCard = ({
 // --- 2. Main Component with Hardcoded Cards ---
 const EventsCard = () => {
   return (
-    <div className="relative flex flex-col items-center w-full min-h-[100dvh] md:min-h-0 pt-0 pb-12 gap-2 md:gap-20 overflow-visible px-4">
-      
+    <div className="relative flex flex-col items-center w-full min-h-[100vh] md:min-h-0 pt-0 pb-12 gap-2 md:gap-20 overflow-visible px-4">
       {/* --- Cactus Decoration (Bottom Left) --- */}
       <img
         src="/img/events/bottom-cactus.png"
         alt="Cactus Decoration"
-        className="absolute -bottom-12 left-0 w-16 md:w-60 md:-left-40 md:-bottom-20 pointer-events-none z-50"
+        className="absolute bottom-[1%] translate-y-[30%] left-0 w-16 md:w-60 md:-left-40 md:bottom-[1%] md:translate-y-[12%] pointer-events-none z-50"
       />
 
       {/* --- Man Decoration (Bottom Right) --- */}
       <img
         src="/img/events/bottom-SingingMan.png"
         alt="SingingMan Decoration"
-        className="absolute -bottom-12 right-0 w-20 md:w-60 md:-bottom-20 md:-right-40 pointer-events-none z-50"
+        className="absolute bottom-[1%] translate-y-[17%] right-0 w-20 md:w-60 md:bottom-[1%] md:-right-40 md:translate-y-[8%] pointer-events-none z-50"
       />
 
       {/* --- CARD 1: PICS-O-REEL --- */}
-      <Fade direction="up" triggerOnce className="w-full flex justify-center z-10">
+      <Fade
+        direction="up"
+        triggerOnce
+        className="w-full flex justify-center z-10"
+      >
         <BannerEventCard
           title="PICS-O-REEL"
           description="Step into the world of art with Picsoreel's art exhibitions! Showcasing stunning works from talented artists."
@@ -707,14 +710,18 @@ const EventsCard = () => {
               className:
                 "w-16 bottom-30 right-3 md:w-32 md:bottom-10 md:right-10",
             },
-          ]}          
+          ]}
           textPositionClass="-mt-20 md:mt-0"
           imageClass="-ml-4 md:ml-0"
         />
       </Fade>
 
       {/* --- CARD 2: WORKSHOPS --- */}
-      <Fade direction="up" triggerOnce className="w-full flex justify-center -mt-28 z-20">
+      <Fade
+        direction="up"
+        triggerOnce
+        className="w-full flex justify-center -mt-28 z-20"
+      >
         <BannerEventCard
           title="WORKSHOPS"
           description="Discover the joy of creating with our workshops! Perfect for beginners and experienced artists alike."
@@ -745,7 +752,11 @@ const EventsCard = () => {
       </Fade>
 
       {/* --- CARD 3: EVENTS --- */}
-      <Fade direction="up" triggerOnce className="w-full flex justify-center z-30 -mt-28">
+      <Fade
+        direction="up"
+        triggerOnce
+        className="w-full flex justify-center z-30 -mt-28"
+      >
         <BannerEventCard
           title="EVENTS"
           description="Enhance your creativity with our events! Join us to connect, learn, and be inspired."
