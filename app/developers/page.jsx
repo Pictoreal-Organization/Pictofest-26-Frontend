@@ -151,7 +151,7 @@ const Team = () => {
         {/* Desktop Background */}
         <div className="hidden md:block w-full h-full relative">
           <Image
-            src="/img/common/general-desktop-bg.png"
+            src="/img/common/desktop-bg.png"
             alt="Desktop Background"
             fill
             className="object-cover"

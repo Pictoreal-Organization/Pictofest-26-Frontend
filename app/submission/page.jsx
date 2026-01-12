@@ -921,7 +921,7 @@ const Submission = () => {
       {/* Desktop Background */}
       <div className="hidden md:block absolute inset-0 z-0">
         <Image
-          src="/img/common/general-desktop-bg.png"
+          src="/img/common/desktop-bg.png"
           alt="Desktop Background"
           fill
           className="object-cover"

@@ -223,7 +223,7 @@ const Order = () => {
         </div>
         <div className="hidden md:block w-full h-full relative">
           <Image
-            src="/img/common/general-desktop-bg.png"
+            src="/img/common/desktop-bg.png"
             alt="Desktop Background"
             fill
             className="object-cover"
@@ -241,7 +241,7 @@ const Order = () => {
           animate={{ y: 0, opacity: 1 }}
           className="flex flex-col items-center justify-center mt-8 mb-16"
         >
-          <h1 className="heading-font text-5xl md:text-7xl text-center text-[#644817] uppercase tracking-wide drop-shadow-sm">
+          <h1 className="heading-font text-5xl md:text-7xl text-center text-[#ffffff] uppercase tracking-wide drop-shadow-sm">
             My Orders
           </h1>
           <div className="flex items-center gap-2 mt-2 opacity-80">

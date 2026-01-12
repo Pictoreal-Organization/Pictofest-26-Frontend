@@ -67,7 +67,7 @@ const Workshops = () => {
         {/* Desktop Background */}
         <div className="hidden md:block w-full h-full relative">
           <Image
-            src="/img/common/general-desktop-bg.png"
+            src="/img/common/desktop-bg.png"
             alt="Desktop Background"
             fill
             className="object-cover"
@@ -96,27 +96,27 @@ const Workshops = () => {
         </div>
       </div>
 
-      <motion.div 
-        className="hidden lg:block w-full relative z-0"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ 
-          duration: 0.8, 
-          delay: 1.2,
-          ease: [0.22, 1, 0.36, 1] 
-        }}
-      >
-        <div className="relative w-screen left-1/2 -translate-x-1/2 h-64 -mt-25">
-          <Image
-            src="/img/events/city_26.svg"
-            alt="City Skyline"
-            fill
-            className="object-contain"
-            priority={false}
-            sizes="100vw"
-          />
-        </div>
-      </motion.div>
+      <motion.div
+          className="hidden lg:block fixed bottom-0 left-0 w-full z-0 pointer-events-none"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.5,
+            delay: 0,
+            ease: "easeOut"
+          }}
+        >
+          <div className="relative w-full h-64">
+            <Image
+              src="/img/events/city_26.svg"
+              alt="City Skyline"
+              fill
+              className="object-contain object-bottom" 
+              priority={false}
+              sizes="100vw"
+            />
+          </div>
+        </motion.div>
     </main>
   );
 };
