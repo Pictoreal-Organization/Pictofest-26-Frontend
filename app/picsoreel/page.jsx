@@ -8,52 +8,56 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 const dummyEvents = [
-    {
+  {
     id: 1,
-    name: "Texture Art + Neon fluid painting",
-    price: 1200,
+    name: "Sketching",
+    price: 15,
+    description:
+      "Hand-drawn artworks using pencil, pen, charcoal, ink, or similar dry mediums.",
   },
   {
     id: 2,
-    name: "Live Pottery",
-    price: 800,
+    name: "Painting",
+    price: 15,
+    description:
+      "Artworks using watercolor, acrylic, oil, or poster colors with focus on color and composition.",
   },
   {
     id: 3,
-    name: "Pics-o-Reel",
-    price: 0,
+    name: "Photography ",
+    price: 15,
+    description:
+      "Original photographs. Participant provides a printed photograph.",
   },
   {
     id: 4,
-    name: "Coastal Crimes",
-    price: null,
+    name: "Themed Category – Everyday India",
+    price: 15,
+    description:
+      "Inspired by everyday life, people, spaces, and moments across India. Any medium allowed.",
   },
-
+  {
+    id: 5,
+    name: "Script & Style",
+    price: 15,
+    description:
+      "Calligraphy, lettering, typography, and digital lettering in all languages.",
+  },
 ];
-
 
 const Picsoreel = () => {
   const [picsoreel, setPicsoreel] = useState([]);
-
-  // const getPicsoreel = async () => {
-  //   try {
-  //     const response = await axios.get(`${baseURL}/events/category/PICSOREEL`);
-  //     setPicsoreel(response?.data?.data);
-  //   } catch (err) {
-  //     console.log(err?.response?.data.message);
-  //   }
-  // };
 
   useEffect(() => {
     setPicsoreel(dummyEvents);
     window.scrollTo(0, 0);
   }, []);
 
+  const isOdd = picsoreel.length % 2 !== 0;
+
   return (
     <main className="relative min-h-screen overflow-x-hidden overflow-y-hidden">
-      {/* ============================================================
-          1. DYNAMIC BACKGROUND LAYER (FIXED)
-          ============================================================ */}
+      {/* Background Layer */}
       <div className="fixed top-0 left-0 w-full h-screen -z-10">
         {/* Mobile Background */}
         <div className="block md:hidden w-full h-full relative">
@@ -82,19 +86,24 @@ const Picsoreel = () => {
         <h1 className="text-4xl lg:text-5xl tracking-tight text-[#FBCC12] heading-font mt-15">
           Pics-o-reel
         </h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8 mt-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8 mt-2 w-full">
           {picsoreel &&
-            picsoreel.map((event, index) => (
-              <motion.div
-                key={event.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                className="w-full"
-              >
-                <EventCard data={event} index={index} />
-              </motion.div>
-            ))}
+            picsoreel.map((event, index) => {
+              // Check if this is the last item and total count is odd
+              const isLastAndOdd = isOdd && index === picsoreel.length - 1;
+              
+              return (
+                <motion.div
+                  key={event.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                  className={`w-full ${isLastAndOdd ? 'md:col-span-2 md:max-w-md md:mx-auto' : 'md:max-w-md md:mx-auto'}`}
+                >
+                  <EventCard data={event} index={index} />
+                </motion.div>
+              );
+            })}
         </div>
       </div>
 
