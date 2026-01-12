@@ -17,12 +17,13 @@ const Profile = () => {
     // }, [])
 
     return (
-        <div className="relative min-h-screen bg-cover bg-center bg-no-repeat pt-20 overflow-x-hidden md:pb-52"
-            style={{ backgroundImage: "url('/img/common/general-desktop-bg.png')" }}
+        <div
+            className="relative min-h-screen bg-cover bg-center bg-no-repeat pt-20 overflow-x-hidden md:pb-52
+            bg-[url('/img/common/general-mobile-bg.png')]
+            md:bg-[url('/img/common/general-desktop-bg.png')]"
         >
-
             <div className="p-5 lg:px-60">
-                <div className="heading-font text-white text-2xl sm:text-3xl md:text-6xl md:py-10">
+                <div className="heading-font text-white text-2xl sm:text-3xl md:text-6xl md:py-10 text-left md:text-center ">
                     Hola! Hemangi
                 </div>
 
