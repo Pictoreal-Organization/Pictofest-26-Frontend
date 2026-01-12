@@ -244,10 +244,10 @@ const Order = () => {
           <h1 className="heading-font text-5xl md:text-7xl text-center text-[#ffffff] uppercase tracking-wide drop-shadow-sm">
             My Orders
           </h1>
-          <div className="flex items-center gap-2 mt-2 opacity-80">
-            <div className="w-2 h-2 bg-[#644817] rotate-45"></div>
-            <div className="w-20 h-1 bg-[#644817]"></div>
-            <div className="w-2 h-2 bg-[#644817] rotate-45"></div>
+          <div className="flex items-center gap-2 mt-2 opacity-90">
+            <div className="w-2 h-2 bg-[#ffffff] rotate-45"></div>
+            <div className="w-20 h-1 bg-[#ffffff]"></div>
+            <div className="w-2 h-2 bg-[#ffffff] rotate-45"></div>
           </div>
         </motion.div>
 

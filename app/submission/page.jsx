@@ -919,7 +919,7 @@ const Submission = () => {
     <div className="min-h-screen w-full relative flex flex-col items-center py-10 overflow-x-hidden">
       {/* --- PAGE BACKGROUND (General BG) --- */}
       {/* Desktop Background */}
-      <div className="hidden md:block absolute inset-0 z-0">
+      <div className="hidden md:block fixed inset-0 z-0">
         <Image
           src="/img/common/desktop-bg.png"
           alt="Desktop Background"
@@ -929,7 +929,7 @@ const Submission = () => {
         />
       </div>
       {/* Mobile Background */}
-      <div className="block md:hidden absolute inset-0 z-0">
+      <div className="block md:hidden fixed inset-0 z-0">
         <Image
           src="/img/common/general-mobile-bg.png"
           alt="Mobile Background"
