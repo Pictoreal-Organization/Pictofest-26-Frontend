@@ -39,7 +39,7 @@ const Profile = () => {
                         src="/img/events/city_26.svg"
                         alt="City Skyline"
                         fill
-                        className="object-contain object-bottom opacity-80"
+                        className="object-contain object-bottom "
                         priority
                     />
                 </div>
