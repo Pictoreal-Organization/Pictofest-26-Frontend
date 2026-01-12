@@ -1355,7 +1355,7 @@ const Home = () => {
               <img
                 src="/img/home/home-left-singers.png"
                 alt="Left Singer"
-                className="w-[100%] md:w-[35%] h-auto object-contain drop-shadow-2xl items-start"
+                className="w-[100%] translate-y-[5.5%] md:w-[35%] h-auto object-contain drop-shadow-2xl items-start"
               />
 
               {/* Right Singer (Hidden on Mobile) */}
@@ -1384,7 +1384,7 @@ const Home = () => {
             </div>
 
             {/* 2. Top Right Music Notes */}
-            <div className="hidden lg:block absolute top-[540px] right-0 z-10 w-24 xl:w-68">
+            <div className="hidden lg:block absolute top-[540px] right-0 z-10 w-24 xl:w-[14vw]">
               <Image
                 src="/img/home/home-bg-right-musicStream-desktop.png" // <--- UPDATE PATH
                 alt="Music Notes Right"
@@ -1427,7 +1427,7 @@ const Home = () => {
         <div>
           {/* <PrizePool /> */}
         </div>
-        <div className="md:px-24 lg:px-40 sm:pt-20">
+        <div className="md:px-24 lg:px-40 sm:pt-20 mb-[8vh]">
           <Events />
         </div>
         <div className="w-full h-auto bg-[url('/img/home/Aboutbg.svg')] bg-cover">
