@@ -49,7 +49,7 @@ const EventCard = ({ data, index }) => {
           />
         </div>
         
-        {/* Event Name - Position independently */}
+        {/* Event Name*/}
         <div className="relative z-10 w-full h-full">
           <h2 className={`sub-heading-font text-[#FBF0AD] line-clamp-2 text-center absolute bottom-[67%] w-[55%] ${
               isOddIndex 
@@ -64,7 +64,7 @@ const EventCard = ({ data, index }) => {
           </h2>
         </div>
 
-        {/* Price Section - Position independently */}
+        {/* Price Section*/}
         <div className="relative z-10 w-full h-full">
           <div className={`text-center absolute -top-[60%] w-[65%] ${
           isOddIndex 
@@ -145,7 +145,7 @@ const EventCard = ({ data, index }) => {
           />
         </div>
         
-        {/* Event Name - Position independently */}
+        {/* Event Name*/}
         <div className="relative z-10 w-full h-full">
           <h2 className={`sub-heading-font text-[#FBF0AD] line-clamp-2 text-center absolute bottom-[67%] w-[55%] ${
           isOddIndex 
@@ -153,14 +153,14 @@ const EventCard = ({ data, index }) => {
             : "right-[3.5%]" // Green cards (even index) on right side
           } ${
             data.name === "Texture Art + Neon fluid painting"
-            ? "text-[13px] sm:text-[12px]" // iPhone SE: 11px, larger phones: 12px
-        : "text-[16px] sm:text-[14px]" // iPhone SE: 13px, larger phones: 14px
+            ? "text-[13px] sm:text-[12px]"
+        : "text-[16px] sm:text-[14px]"
           }`}>
             {data.name}
           </h2>
         </div>
 
-        {/* Price Section - Position independently */}
+        {/* Price Section*/}
         <div className="relative z-10 w-full h-full">
           <div className={`text-center absolute -top-[58%] w-[55%] ${
             isOddIndex 

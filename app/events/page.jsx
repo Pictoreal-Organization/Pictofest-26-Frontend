@@ -21,12 +21,12 @@ const dummyEvents = [
   {
     id: 3,
     name: "Pics-o-Reel",
-    price: 0, // treated as Free
+    price: 0,
   },
   {
     id: 4,
     name: "Coastal Crimes",
-    price: null, // also treated as Free
+    price: null,
   },
 
 ];
@@ -71,7 +71,7 @@ const Events = () => {
             src="/img/common/general-mobile-bg.png"
             alt="Mobile Background"
             fill
-            className="object-cover" // Keeps aspect ratio, clips edges instead of stretching
+            className="object-cover"
             priority
           />
         </div>
@@ -82,7 +82,7 @@ const Events = () => {
             src="/img/common/general-desktop-bg.png"
             alt="Desktop Background"
             fill
-            className="object-cover" // Keeps aspect ratio, clips edges instead of stretching
+            className="object-cover"
             priority
           />
         </div>
@@ -96,11 +96,11 @@ const Events = () => {
           {events &&
             events.map((event, index) => (
               <motion.div
-                key={event.id} // Ensure event has a unique id
+                key={event.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }} // Staggered animation for each card
-                className="w-full" // Fixed width and height for cards
+                transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                className="w-full"
               >
                 <EventCard data={event} index={index} />
               </motion.div>
@@ -114,7 +114,7 @@ const Events = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ 
           duration: 0.8, 
-          delay: 1.2, // Appears after all card animations
+          delay: 1.2,
           ease: [0.22, 1, 0.36, 1] 
         }}
       >
