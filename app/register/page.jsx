@@ -159,6 +159,8 @@ const Register = () => {
         className="
           absolute
           md:bottom-[135x]
+          md:scale-y-100
+          scale-y-120
           left-1/2
           -translate-x-1/2
           w-[100%]
@@ -218,11 +220,12 @@ const Register = () => {
         alt="Skeleton Mobile"
         className="
           absolute
-          bottom-[-10px]   /* Positioned slightly off-screen to look grounded */
+          bottom-[-20px]   /* Positioned slightly off-screen to look grounded */
           left-[50%]
           -translate-x-1/2
           w-[100%]         
           max-w-[100%]
+          scale-y-80
           h-auto
           object-contain
           z-10
@@ -281,8 +284,8 @@ const Register = () => {
 
       {/* OTP Logic - Compacted to save vertical space */}
       {!otpSent && validateEmail(email) && (
-        <div className="flex flex-col items-center space-y-1">
-          <div className="scale-75 origin-center h-14 overflow-hidden">
+        <div className="flex flex-col items-center">
+          <div className="scale-75 origin-center h-1 overflow-hidden">
             <Turnstile
               sitekey={process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY}
               onVerify={(token) => setCaptchaToken(token)}
