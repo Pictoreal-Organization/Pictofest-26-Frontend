@@ -14,8 +14,7 @@ const DUMMY_EVENT_DATA = {
   id: 1,
   name: "Neon Fluid Painting",
   event_category: "WORKSHOP",
-  event_code: "PH",
-  logo_link: "/img/events/texture_art.png",
+  event_code: "EV",
   venue: "Main Art Hall, Ground Floor",
   event_date: "16 February 2026",
   team_category: "Solo",
@@ -35,7 +34,56 @@ const DUMMY_EVENT_DATA = {
     rule3: "Artwork created can be taken home after the session.",
     rule4: "No prior experience required.",
   },
+
+
 };
+  {/*
+
+      id: 1,
+    name: "Play With Clay",
+    event_code: "WS",
+    event_category: "WS",
+    venue: "Workshop Hall – Ground Floor",
+    event_date: "28 Jan 2026",
+    team_category: "Solo",
+    price: 0,
+    description: `
+      A beginner-friendly clay workshop at Fragments of Time.
+      Focused on creativity, not perfection.
+    `,
+    rules: {
+    },
+    contact_details: {
+      name: "Kunal Verma",
+      phone: "9988776655",
+    },
+
+  id: 1,
+  name: "Capture the Moment",
+  event_code: "PH",
+  event_category: "PH",
+  venue: "Open Air Theatre",
+  event_date: "27 Jan 2026",
+  team_category: "Solo",
+  price: 299,
+  description: `
+    A photography challenge based on the theme Fragments of Time.
+    Capture emotions, motion, and stillness through your lens.
+  `,
+  rules: {
+        rule1: "All materials will be provided at the venue.",
+    rule2: "Participants must arrive 15 minutes before the start time.",
+    rule3: "Artwork created can be taken home after the session.",
+    rule4: "No prior experience required.",
+
+  },
+  contact_details: {
+    name: "Riya Sharma",
+    phone: "9123456780",
+  },
+
+    */}
+
 
 const Individual = ({ params }) => {
   const { eventId } = params;
@@ -126,7 +174,7 @@ const Individual = ({ params }) => {
   return (
     <main className="relative min-h-screen overflow-x-hidden">
       {/* ============================================================
-      1. DYNAMIC BACKGROUND LAYER (FIXED)
+                    DYNAMIC BACKGROUND LAYER
       ============================================================ */}
       <div className="fixed top-0 left-0 w-full h-screen -z-10">
         {/* Mobile Background */}
@@ -153,10 +201,10 @@ const Individual = ({ params }) => {
       </div>
 
       {/* ============================================================
-    2. YOUR EVENT CONTENT
+                            EVENT CONTENT
     ============================================================ */}
       <div className="relative z-10">
-        {/* MOBILE LAYOUT (block md:hidden) */}
+        {/* MOBILE LAYOUT*/}
         <div className="block md:hidden">
           <motion.div
             className="h-fit w-full text-justify text-[#67230F] flex flex-col px-4"
@@ -164,6 +212,7 @@ const Individual = ({ params }) => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
+
             {/* Mobile Content Container */}
             <motion.div
               className="w-full flex flex-col mt-20 mb-4 gap-6 bg-[#FEE2B2] p-4"
@@ -171,7 +220,17 @@ const Individual = ({ params }) => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6 }}
             >
-              <div className="w-full flex justify-center mt-6">
+              <div className="w-auto -ml-[34.85px] h-12 -mt-9 relative translate-x-[18.8px]">
+                <Image
+                  src="/img/events/mob-top-border26.svg"
+                  alt="Top Border"
+                  fill
+                  className="object-cover"
+                  priority={false}
+                />
+              </div>
+
+              <div className="w-full flex justify-center mt-2">
                 <div className="relative w-full max-w-[320px]">
                   {/* Main banner with mask for cutouts */}
                   <div className="relative">
@@ -188,28 +247,28 @@ const Individual = ({ params }) => {
                           {/* Outer banner shape with 6 corners */}
                           <path
                             d="
-          M 0 0
-          L 320 0
-          L 300 35
-          L 320 70
-          L 0 70
-          L 20 35
-          Z
-        "
+                              M 0 0
+                              L 320 0
+                              L 300 35
+                              L 320 70
+                              L 0 70
+                              L 20 35
+                              Z
+                            "
                             fill="#08525F"
                           />
 
                           {/* Inner dashed border */}
                           <path
                             d="
-          M 8 8
-          L 312 8
-          L 292 35
-          L 312 62
-          L 8 62
-          L 28 35
-          Z
-        "
+                              M 8 8
+                              L 312 8
+                              L 292 35
+                              L 312 62
+                              L 8 62
+                              L 28 35
+                              Z
+                            "
                             fill="none"
                             stroke="white"
                             strokeWidth="2"
@@ -447,11 +506,22 @@ const Individual = ({ params }) => {
                   <FaCartShopping className="text-2xl text-white" />
                 </button>
               </div>
+
+              <div className="w-auto -ml-8 h-7 -mb-5 relative translate-x-[16px]">
+                <Image
+                  src="/img/events/mob-bottom-border26.svg"
+                  alt="Bottom Border"
+                  fill
+                  className="object-contain"
+                  priority={false}
+                />
+              </div>
+
             </motion.div>
           </motion.div>
         </div>
 
-        {/* DESKTOP LAYOUT (hidden md:block) */}
+        {/* DESKTOP LAYOUT*/}
         <div className="hidden md:block">
           <motion.div
             className="h-fit w-full text-justify text-[#67230F] flex flex-col lg:flex-row lg:h-fit px-4 lg:px-16"
@@ -465,6 +535,16 @@ const Individual = ({ params }) => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6 }}
             >
+              <div className="w-auto -ml-[74.8px] h-12 -mt-12 relative translate-x-[42.3px]">
+                <Image
+                  src="/img/events/desk-top-border26.svg"
+                  alt="Top Border"
+                  fill
+                  className="object-cover"
+                  priority={false}
+                />
+              </div>
+
               <div className="p-0 lg:p-8 relative">
                 {/* Title and Button */}
                 <motion.div
@@ -537,11 +617,11 @@ const Individual = ({ params }) => {
                     transition={{ duration: 0.5 }}
                   >
                     {/* Orange Background Card */}
-                    <div className="absolute inset-0 bg-[#E97400] rounded-lg z-0 mx-3 lg:mx-1 shadow-2xl"></div>
+                    <div className="absolute inset-0 bg-[#E97400] rounded-lg z-0 shadow-2xl"></div>
 
                     {/* Content Container */}
-                    <div className="relative z-10 p-4 lg:p-4 flex flex-col items-center">
-                      <div className="border-3 border-dashed border-white rounded-sm p-4 lg:p-4 w-full -m-1">
+                    <div className="relative z-10 p-4 lg:p-4 flex flex-col items-center justify-center min-h-full">
+                      <div className="border-3 border-dashed border-white rounded-sm p-6 lg:p-6 w-full flex flex-col items-center justify-center">
                         {/* Centered Event Details Title */}
                         <div
                           className="text-xl sm:text-xl md:text-2xl lg:text-3xl sub-heading-font mb-4 pb-2 relative text-white text-center w-full"
@@ -601,13 +681,15 @@ const Individual = ({ params }) => {
                   </motion.div>
 
                   {/* RIGHT SECTION - Rules */}
+                  <motion.div
+                    className="lg:w-1/2 flex flex-col"
+                    initial={{ x: 100, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                  >
+
                   {data?.rules && Object.keys(data.rules).length !== 0 && (
-                    <motion.div
-                      className="lg:w-1/2 flex flex-col"
-                      initial={{ x: 100, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      transition={{ duration: 0.5 }}
-                    >
+                    <>
                       <div
                         className="text-xl sm:text-xl md:text-2xl lg:text-3xl text-[#572711] sub-heading-font w-fit mb-4 pb-2 relative group"
                         style={{ letterSpacing: "3.42px" }}
@@ -622,31 +704,57 @@ const Individual = ({ params }) => {
                           </li>
                         ))}
                       </ul>
+                    </>
+                  )}
 
-{/* Photocopy Checkbox - Desktop (Only for Photography Events) */}
-{data?.event_code === "PH" && (
-  <motion.div
-    className="flex justify-center mt-4"
-    ref={photocopyCheckboxRef} // ← add this
-    initial={{ opacity: 0, y: -10 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.3 }}
-  >
-    <div className="inline-flex bg-white/50 rounded-xl px-6 py-4 border-2 border-[#08525F]">
-      <label className="flex items-center cursor-pointer">
-        <input
-          type="checkbox"
-          checked={needPhotocopy}
-          onChange={(e) => setNeedPhotocopy(e.target.checked)}
-          className="w-6 h-6 rounded border-2 border-[#08525F] text-[#08525F] focus:ring-2 focus:ring-[#08525F] cursor-pointer"
-        />
-        <span className="ml-4 text-[#572711] body-font font-semibold text-base">
-          Do you want us to print your photographs?
-        </span>
-      </label>
-    </div>
-  </motion.div>
-)}
+                  {/* Photocopy Checkbox - Desktop (Only for Photography Events) */}
+                  {data?.event_code === "PH" && (
+                    <motion.div
+                      className="flex justify-center mt-4"
+                      ref={photocopyCheckboxRef} // ← add this
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <div className="inline-flex bg-white/50 rounded-xl px-6 py-4 border-2 border-[#08525F]">
+                        <label className="flex items-center cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={needPhotocopy}
+                            onChange={(e) => setNeedPhotocopy(e.target.checked)}
+                            className="w-6 h-6 rounded border-2 border-[#08525F] text-[#08525F] focus:ring-2 focus:ring-[#08525F] cursor-pointer"
+                          />
+                          <span className="ml-4 text-[#572711] body-font font-semibold text-base">
+                            Do you want us to print your photographs?
+                          </span>
+                        </label>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {data?.event_code === "WS" && (
+                    <div className="flex mx-auto my-5 relative w-56 h-56 border-4 rounded-xl border-[#67230F] bg-[#67230F]">
+                      <AnimatePresence mode="wait">
+                        {images.length > 0 && (
+                          <motion.div
+                            key={images[index]}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="w-full h-full flex justify-center items-center"
+                          >
+                            <Image
+                              src={images[index]}
+                              alt="event image"
+                              className="object-contain h-full"
+                              width={450}
+                              height={450}
+                            />
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  )}
 
 
 
@@ -669,9 +777,19 @@ const Individual = ({ params }) => {
                         </button>
                       </div>
                     </motion.div>
-                  )}
                 </motion.div>
               </div>
+
+              <div className="w-auto -ml-[64.5px] h-7 -mb-8 relative translate-x-[32.6px]">
+                <Image
+                  src="/img/events/desk-bottom-border26.svg"
+                  alt="Bottom Border"
+                  fill
+                  className="object-cover"
+                  priority={false}
+                />
+              </div>
+
             </motion.div>
           </motion.div>
         </div>
