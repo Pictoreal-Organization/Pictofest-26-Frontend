@@ -6,7 +6,8 @@ import { toast } from "sonner";
 import api from "@/app/api";
 import { FaCartShopping } from "react-icons/fa6";
 
-const EventCard = ({ data }) => {
+const EventCard = ({ data, index }) => {
+
   const router = useRouter();
 
   const handleReadMore = () => {
@@ -23,113 +24,210 @@ const EventCard = ({ data }) => {
     }
   };
 
+  const isOddIndex = index % 2 !== 0; // true for odd, false for even
+  const cardImage = isOddIndex 
+    ? "/img/events/red-card26.svg" 
+    : "/img/events/green-card26.svg";
+
+  // Button images based on card color
+  const buttonImage = isOddIndex 
+    ? "/img/events/green-button26.svg" // Green button for red cards
+    : "/img/events/orange-button26.svg"; // Orange button for green cards
+
   return (
     <>
-      <div className="bg-[url('/img/events/event_card.svg')] bg-cover lg:flex p-12 w-full gap-10 hidden ">
-        <div className="bg-[url('/img/events/event_logo_bg.svg')] bg-cover flex justify-center items-center p-16 mt-5 ml-5 w-1/4">
+      {/* Desktop Version */}
+      <div className="relative hidden lg:block w-full aspect-[347/176] min-h-[230px] max-h-[390px]">
+        <div className="absolute inset-0 w-full h-full z-0">
           <Image
-            loading="lazy"
-            zzz
-            className="invert ml-3"
-            src={data?.logo_link}
-            width={200}
-            height={200}
-            alt={data?.name}
+            src={cardImage}
+            alt="Event Card Background"
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority={index < 2}
           />
         </div>
-        <div className="flex flex-col justify-center items-center w-2/4 gap-5">
-          <h2 className="body-font font-semibold text-2xl text-center text-[#67230F]">
+        
+        {/* Event Name*/}
+        <div className="relative z-10 w-full h-full">
+          <h2 className={`sub-heading-font text-[#FBF0AD] line-clamp-2 text-center absolute bottom-[67%] w-[55%] ${
+              isOddIndex 
+                ? "left-[4%]" // Red cards (odd index) on left side
+                : "right-[3%]" // Green cards (even index) on right side
+            } ${
+              data.name === "Texture Art + Neon fluid painting"
+                ? "text-sm sm:text-base md:text-lg lg:text-xl"
+                : "text-base sm:text-lg md:text-xl lg:text-2xl"
+            }`}>
             {data?.name}
           </h2>
-          {/* <h3 className="body-font font-bold text-xl"></h3> */}
-          <div
-            className="border-4 border-[#67230F] rounded-full px-10 py-1 bg-[#FCE8B2] body-font text-[#67230F] cursor-pointer"
-            onClick={handleReadMore}
-          >
-            Read More
-          </div>
+        </div>
 
-          <div
-            className="bg-[#67230F] border-4 border-[#BE8752] px-8 py-1 rounded-lg cursor-pointer"
-            onClick={handleAddToCart}
-          >
-            <span className="text-white">
-              {data?.price ? (
-                <FaCartShopping className="text-white" />
-              ) : (
-                "Register"
-              )}
-            </span>
+        {/* Price Section*/}
+        <div className="relative z-10 w-full h-full">
+          <div className={`text-center absolute -top-[60%] w-[65%] ${
+          isOddIndex 
+            ? "-left-[2%]" // Red cards (odd index) on left side
+            : "-right-[1.3%]" // Green cards (even index) on right side
+        }`}>
+            <div className="sub-heading-font text-[#F6EDC8] text-sm md:text-sm lg:text-base mb-1">
+              PRICE
+            </div>
+            <div className="sub-heading-font text-[#FBCC12] text-xl md:text-2xl lg:text-2xl">
+              {data.name === "Texture Art + Neon fluid painting"
+                ? `Rs. ${data.price}/- (DUO)`
+                : data.price
+                ? `Rs. ${data.price}/-`
+                : "Free"}
+            </div>
           </div>
         </div>
-        <div className="w-1/4 flex flex-col justify-center items-center gap-4 pl-10">
-          <div className="body-font text-3xl w-full text-center text-[#67230F]">
-            Registration Fee <br />
-            {data.name === "Texture Art + Neon fluid painting"
-              ? `Rs. ${data.price}/- (PAIR)`
-              : data.price
-              ? `Rs. ${data.price}/-`
-              : "Free"}
+        
+        {/* Buttons*/}
+        <div className="relative z-10 w-full h-full">
+          <div className={`flex gap-3 md:gap-4 lg:gap-5 absolute -top-[130%] ${
+            isOddIndex 
+              ? "left-[9%]" // Red cards (odd index) on left side
+              : "right-[9%]" // Green cards (even index) on right side
+          }`}>
+            {/* Add to Cart / Register Button */}
+            <div className="relative group cursor-pointer flex-shrink-0" onClick={handleAddToCart}>
+              <div className="relative w-[70px] md:w-[80px] lg:w-[90px] h-[26px] md:h-[30px] lg:h-[34px]">
+                <Image
+                  src={buttonImage}
+                  alt="Add to Cart Button"
+                  fill
+                  className="object-contain group-hover:opacity-90 transition-opacity"
+                />
+                <div className="absolute inset-0 z-10 flex items-center justify-center">
+                  <span className="text-white sub-heading-font flex items-center justify-center gap-0.5 md:gap-1 text-xs md:text-sm lg:text-base whitespace-nowrap">
+                    {data?.price ? (
+                      <FaCartShopping className="text-white text-xs md:text-sm lg:text-base" />
+                    ) : (
+                      <span className="text-xs md:text-xs lg:text-xs">Register</span>
+                    )}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Read More Button */}
+            <div className="relative group cursor-pointer flex-shrink-0" onClick={handleReadMore}>
+              <div className="relative w-[70px] md:w-[80px] lg:w-[90px] h-[26px] md:h-[30px] lg:h-[34px]">
+                <Image
+                  src={buttonImage}
+                  alt="Read More Button"
+                  fill
+                  className="object-contain group-hover:opacity-90 transition-opacity"
+                />
+                <div className="absolute inset-0 z-10 flex items-center justify-center">
+                  <span className="text-white sub-heading-font flex items-center justify-center text-xs md:text-xs lg:text-xs whitespace-nowrap">
+                    Read More
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="bg-[url('/img/events/event_card_mobile.png')] bg-cover w-full h-[100px] flex lg:hidden">
-        <div className="bg-[url('/img/events/event_logo_bg.svg')] bg-contain bg-center bg-no-repeat flex justify-center items-center w-[100px] ml-8 mt-4">
+      {/* Mobile Version */}
+      <div className="relative lg:hidden w-full aspect-[347/176] min-h-[160px] max-h-[220px]">
+        {/* Background Card Image */}
+        <div className="absolute inset-0 w-full h-full z-0">
           <Image
-            className="invert mb-1"
-            src={data?.logo_link}
-            width={25}
-            height={25}
-            alt={data?.name}
-            loading="lazy"
+            src={cardImage}
+            alt="Event Card Background"
+            fill
+            className="object-cover"
+            sizes="100vw"
           />
         </div>
-        <div className="flex flex-col justify-center items-center w-3/4 mt-4 gap-1">
-          <h2
-            className={`mr-2 body-font text-center ${
-              data.name === "Texture Art + Neon fluid painting"
-                ? "text-[10px]"
-                : "text-xs"
-            }`}
-          >
+        
+        {/* Event Name*/}
+        <div className="relative z-10 w-full h-full">
+          <h2 className={`sub-heading-font text-[#FBF0AD] line-clamp-2 text-center absolute bottom-[67%] w-[55%] ${
+          isOddIndex 
+            ? "left-[3%]" // Red cards (odd index) on left side
+            : "right-[3.5%]" // Green cards (even index) on right side
+          } ${
+            data.name === "Texture Art + Neon fluid painting"
+            ? "text-[13px] sm:text-[12px]"
+        : "text-[16px] sm:text-[14px]"
+          }`}>
             {data.name}
           </h2>
-          <div className="w-full flex justify-center items-center flex-col gap-1">
-            {/* <h3 className="body-font font-bold text-sm text-center">
-            Read <br />
-            More
-          </h3> */}
-            <div className="border-2 border-[#67230F] rounded-full px-4 py-0.5 bg-[#FCE8B2] body-font text-[#67230F] text-xs">
-              <button className="text-xs" onClick={handleReadMore}>
-                Read More
-              </button>
+        </div>
+
+        {/* Price Section*/}
+        <div className="relative z-10 w-full h-full">
+          <div className={`text-center absolute -top-[58%] w-[55%] ${
+            isOddIndex 
+              ? "left-[3.2%]" // Red cards (odd index) on left side
+              : "right-[3.9%]" // Green cards (even index) on right side
+          }`}>
+            <div className="sub-heading-font uppercase text-[#F6EDC8] text-[11px] sm:text-[12px] mb-1">
+              Price
             </div>
-            <div className="bg-[#67230F] border-2 border-[#BE8752] px-6 py-0.5 rounded-lg text-[10px]">
-              <button className="text-white" onClick={handleAddToCart}>
-                {data?.price ? (
-                  <FaCartShopping className="text-white" />
-                ) : (
-                  "Register"
-                )}
-              </button>
+            <div className="sub-heading-font text-[#FBCC12] text-[15px] xs:text-[15px] sm:text-[16px]">
+              {data.name === "Texture Art + Neon fluid painting"
+                ? `Rs. ${data.price}/- (DUO)`
+                : data.price
+                ? `Rs. ${data.price}/-`
+                : "Free"}
             </div>
           </div>
         </div>
-        <div className="w-1/4 flex flex-col justify-center items-center mr-3">
-          <div className="body-font text-sm w-full text-center text-[#67230F] mt-5 mr-4">
-            Price <br />
-            {data.name === "Texture Art + Neon fluid painting"
-              ? `Rs. ${data.price}/- (DUO)`
-              : data.price
-              ? `Rs. ${data.price}/-`
-              : "Free"}
+        
+        {/* Buttons*/}
+        <div className="relative z-10 w-full h-full">
+          <div className={`flex gap-2 sm:gap-2.5 absolute -top-[125%] ${
+            isOddIndex 
+              ? "left-[12.2%]" // Red cards (odd index) on left side
+              : "right-[12.3%]" // Green cards (even index) on right side
+          }`}>
+            {/* Add to Cart / Register Button */}
+            <div className="relative group cursor-pointer flex-shrink-0" onClick={handleAddToCart}>
+              <div className="relative w-[55px] sm:w-[60px] h-[20px] sm:h-[22px]">
+                <Image
+                  src={buttonImage}
+                  alt="Add to Cart Button"
+                  fill
+                  className="object-contain group-hover:opacity-90 transition-opacity"
+                />
+                <div className="absolute inset-0 z-10 flex items-center justify-center">
+                  <span className="text-white sub-heading-font flex items-center justify-center gap-0.5 text-[9px] sm:text-[10px] whitespace-nowrap">
+                    {data?.price ? (
+                      <FaCartShopping className="text-white text-[8px] sm:text-[10px]" />
+                    ) : (
+                      "Register"
+                    )}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Read More Button */}
+            <div className="relative group cursor-pointer flex-shrink-0" onClick={handleReadMore}>
+              <div className="relative w-[55px] sm:w-[60px] h-[20px] sm:h-[22px]">
+                <Image
+                  src={buttonImage}
+                  alt="Read More Button"
+                  fill
+                  className="object-contain group-hover:opacity-90 transition-opacity"
+                />
+                <div className="absolute inset-0 z-10 flex items-center justify-center">
+                  <span className="text-white sub-heading-font flex items-center justify-center text-[8px] sm:text-[10px] whitespace-nowrap">
+                    Read More
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </>
   );
 };
-
 export default EventCard;
-
