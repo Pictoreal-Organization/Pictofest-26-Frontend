@@ -241,7 +241,7 @@ const ForgotPassword = () => {
               
               {/* Heading */}
               <div className="flex flex-col justify-center items-center mb-8">
-                <h1 className="text-3xl md:text-4xl text-white text-center drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)] leading-tight">
+                <h1 className="text-3xl md:text-4xl text-white heading-font text-center drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)] leading-tight">
                   Forgot Password
                 </h1>
               </div>
@@ -290,9 +290,9 @@ const ForgotPassword = () => {
                   </button>
                 </div>
 
-                <div className="text-center text-white mt-4 text-sm">
+                <div className="text-center text-white description-font mt-4 text-sm">
                   <span>Already have an account? </span>
-                  <Link href="/login" className="font-bold underline ml-1 hover:text-yellow-300 transition-colors">
+                  <Link href="/login" className="font-bold description-font underline ml-1 hover:text-yellow-300 transition-colors">
                     Login
                   </Link>
                 </div>

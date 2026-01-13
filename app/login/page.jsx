@@ -389,7 +389,7 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post(`${baseURL}/user/signin`, {
+      const response = await axios.post(`${baseURL}/user/login`, {
         email,
         password,
         turnstileToken: captchaToken,
@@ -457,7 +457,7 @@ const Login = () => {
               
               {/* Heading */}
               <div className="flex flex-col items-center mb-8">
-                <h1 className="text-4xl md:text-5xl text-white text-center drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+                <h1 className="text-4xl md:text-5xl heading-font text-white text-center drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
                   Welcome Back
                 </h1>
               </div>
@@ -494,7 +494,7 @@ const Login = () => {
                 <div className="flex justify-end -mt-2">
                   <Link 
                     href="/forgot-password" 
-                    className="text-white text-sm hover:text-yellow-300 underline underline-offset-2 transition-colors"
+                    className="text-white text-sm description-font hover:text-yellow-300 underline underline-offset-2 transition-colors"
                   >
                     Forgot Password?
                   </Link>
@@ -527,9 +527,9 @@ const Login = () => {
                 </div>
 
                 {/* Sign Up Link */}
-                <div className="text-center text-white mt-4 text-sm">
+                <div className="text-center text-white description-font mt-4 text-sm">
                   <span>Don't have an account? </span>
-                  <Link href="/register" className="font-bold underline ml-1 hover:text-yellow-300 transition-colors">
+                  <Link href="/register" className="font-bold description-font underline ml-1 hover:text-yellow-300 transition-colors">
                     Sign Up
                   </Link>
                 </div>

@@ -494,7 +494,7 @@ const Register = () => {
     if (!captchaToken) return toast.error("Complete CAPTCHA first.");
     setIsOtpLoading(true);
     try {
-      await axios.post(`${baseURL}/email/sendZoho`, { email, turnstileToken: captchaToken });
+      await axios.post(`${baseURL}/email/send-otp`, { email, turnstileToken: captchaToken });
       toast.success("OTP sent.");
       setOtpSent(true);
     } catch (err) {
@@ -557,7 +557,7 @@ const Register = () => {
             >
               
               {/* Heading */}
-              <h1 className="text-4xl md:text-5xl text-white text-center mb-8 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+              <h1 className="text-4xl md:text-5xl text-white heading-font text-center mb-8 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
                 Create Account
               </h1>
 
@@ -614,7 +614,7 @@ const Register = () => {
                   </button>
                 </div>
 
-                <div className="text-center text-white mt-2">
+                <div className="text-center description-font text-white mt-2">
                   <span>Already have an account? </span>
                   <Link href="/login" className="font-bold underline ml-1 hover:text-yellow-300 transition-colors">Login</Link>
                 </div>

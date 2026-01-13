@@ -186,7 +186,7 @@
 //             }
 //           }
 //           .animate-reveal {
-        
+
 //             animation: reveal .6s ease-in-out;
 //           }
 //   `;
@@ -952,10 +952,9 @@ const NavLink = ({ href, text, onClick, className = "" }) => {
           xl:px-8 xl:text-lg      /* Original size for larger screens */
           /* ------------------------ */
 
-          ${
-            isActive
-              ? "bg-[#FFA53A] border-[#FFA53A] text-[#070044]"
-              : "bg-transparent border-[#FFA53A] text-[#FFA53A] hover:bg-[#FFA53A] hover:bg-opacity-20 hover:text-[#070044]"
+          ${isActive
+            ? "bg-[#FFA53A] border-[#FFA53A] text-[#070044]"
+            : "bg-transparent border-[#FFA53A] text-[#FFA53A] hover:bg-[#FFA53A] hover:bg-opacity-20 hover:text-[#070044]"
           }
           ${className}
         `}
@@ -982,7 +981,7 @@ const CommonModal = ({ isOpen, children }) => {
                      bg-black/40 backdrop-blur-sm 
                      lg:static lg:h-auto lg:bg-transparent lg:backdrop-blur-none lg:overflow-visible"
         >
-          <div className="p-6 flex flex-col items-center justify-start pt-28 min-h-full lg:min-h-0 lg:justify-center lg:pt-0">
+          <div className="p-6 flex flex-col justify-start pt-28 min-h-full lg:min-h-0 lg:pt-0">
             {children}
           </div>
         </motion.div>
@@ -990,6 +989,7 @@ const CommonModal = ({ isOpen, children }) => {
     </AnimatePresence>
   );
 };
+
 
 // ==========================================
 // 3. Main Navbar Component
@@ -1134,6 +1134,7 @@ const Navbar = () => {
           <NavLink
             href="/"
             text="Logout"
+            className="w-40"
             onClick={() => {
               handleLogout();
               handleNavLinkClick("/");
@@ -1154,10 +1155,9 @@ const Navbar = () => {
   return (
     <div
       className={`fixed w-full top-0 z-50 transition-all duration-300 
-        ${
-          isModalOpen
-            ? "bg-transparent"
-            : isScrolled
+        ${isModalOpen
+          ? "bg-transparent"
+          : isScrolled
             ? "bg-black/30 backdrop-blur-md shadow-lg shadow-[#FFA53A]/10"
             : "bg-transparent"
         }
@@ -1168,29 +1168,35 @@ const Navbar = () => {
           1. lg:gap-2 -> Tight gap for 1024px screens
           2. xl:gap-[18px] -> Restores original gap for larger screens
       */}
-      <div
-        className="hidden lg:flex max-w-[100%] mx-auto py-6 min-px-4 justify-center items-center relative
-                      lg:gap-2 xl:gap-[18px]"
-      >
-        <div className="flex justify-center items-center lg:gap-2 xl:gap-[18px]">
-          <NavLink href="/" text="Home" />
-          <NavLink href="/picsoreel" text="Pics-o-Reel" />
-          <NavLink href="/workshops" text="Workshops" />
-          <NavLink href="/events" text="Events" />
-          <NavLink href="/sponsors" text="Sponsors" />
-          <NavLink href="/cart" text="Cart" />
-          {renderAuthButton()}
-        </div>
+    {/* --- Desktop View --- */}
+<div className="hidden lg:flex w-full px-6 py-6 items-center relative">
+  {/* Left spacer – keeps center truly centered */}
+  <div className="flex-1" />
 
-        {isUserAuthenticated() && (
-          <button
-            onClick={toggleModal}
-            className="absolute right-4 text-[#FFA53A] text-2xl focus:outline-none hover:scale-110 transition-transform"
-          >
-            {renderHamburgerIcon()}
-          </button>
-        )}
-      </div>
+  {/* Centered nav group */}
+  <div className="flex justify-center items-center lg:gap-2 xl:gap-[18px]">
+    <NavLink href="/" text="Home" />
+    <NavLink href="/picsoreel" text="Pics-o-Reel" />
+    <NavLink href="/workshops" text="Workshops" />
+    <NavLink href="/events" text="Events" />
+    <NavLink href="/sponsors" text="Sponsors" />
+    <NavLink href="/cart" text="Cart" />
+    {renderAuthButton()}
+  </div>
+
+  {/* Right area (hamburger) */}
+  <div className="flex-1 flex justify-end">
+    {isUserAuthenticated() && (
+      <button
+        onClick={toggleModal}
+        className="text-[#FFA53A] text-2xl focus:outline-none hover:scale-110 transition-transform"
+      >
+        {renderHamburgerIcon()}
+      </button>
+    )}
+  </div>
+</div>
+
 
       {/* --- Mobile View --- */}
       <div className="relative z-50 lg:hidden flex justify-between items-center py-4 px-6 bg-transparent">
@@ -1214,7 +1220,7 @@ const Navbar = () => {
 
       {/* --- Common Modal --- */}
       <CommonModal isOpen={isModalOpen}>
-        <div className="hidden lg:block">
+        <div className="hidden lg:flex justify-end">
           {isUserAuthenticated() ? desktopHamburgerLinks : null}
         </div>
         <div className="lg:hidden w-full">{mobileNavLinks}</div>
