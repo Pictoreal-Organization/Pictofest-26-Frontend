@@ -827,6 +827,9 @@ import { toast } from "sonner";
 import api from "@/app/api";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaCartShopping, FaArrowLeft } from "react-icons/fa6";
+import { useParams } from "next/navigation";
+
+
 
 // const DUMMY_EVENT_DATA = {
 //   id: 1,
@@ -903,8 +906,8 @@ import { FaCartShopping, FaArrowLeft } from "react-icons/fa6";
     */}
 
 
-const Individual = ({ params }) => {
-  const { eventId } = params;
+const Individual = () => {
+  const { eventId } = useParams();
   const [data, setData] = useState({});
   const router = useRouter();
 

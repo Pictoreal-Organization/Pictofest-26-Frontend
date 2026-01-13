@@ -171,7 +171,7 @@ const Order = () => {
 
       setWorkshops(filterData(data, "WORKSHOP"));
       setPicsoreel(filterData(data, "PICSOREEL"));
-      setEvents(filterData(data, "EVENTS"));
+      setEvents(filterData(data, "EVENT"));
       setWhatsAppLinks(wa_links);
     } catch (err) {
       console.error("Error fetching data:", err);
@@ -328,4 +328,4 @@ const Order = () => {
 };
 
 // export default isNotAuth(Order);
-export default Order;
+export default isNotAuth(Order);

@@ -1444,4 +1444,4 @@ useEffect(() => {
   );
 };
 
-export default Submission;
+export default isNotAuth(Submission);

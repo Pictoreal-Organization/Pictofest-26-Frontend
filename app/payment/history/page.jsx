@@ -386,4 +386,4 @@ const PaymentHistory = () => {
   );
 };
 
-export default PaymentHistory;
+export default isNotAuth(PaymentHistory);

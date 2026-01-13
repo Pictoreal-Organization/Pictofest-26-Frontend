@@ -494,7 +494,7 @@ const Register = () => {
     if (!captchaToken) return toast.error("Complete CAPTCHA first.");
     setIsOtpLoading(true);
     try {
-      await axios.post(`${baseURL}/email/sendZoho`, { email, turnstileToken: captchaToken });
+      await axios.post(`${baseURL}/email/send-otp`, { email, turnstileToken: captchaToken });
       toast.success("OTP sent.");
       setOtpSent(true);
     } catch (err) {

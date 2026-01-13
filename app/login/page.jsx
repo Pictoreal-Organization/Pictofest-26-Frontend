@@ -389,7 +389,7 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post(`${baseURL}/user/signin`, {
+      const response = await axios.post(`${baseURL}/user/login`, {
         email,
         password,
         turnstileToken: captchaToken,

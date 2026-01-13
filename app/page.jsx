@@ -517,9 +517,9 @@
 //           1. BACKGROUND LAYER
 //          ============================================================ */}
 //       <div className="absolute top-0 left-0 w-full -z-10 bg-[#070044] h-full object-cover">
-        
+
 //         <div className="block lg:hidden w-full relative">
-          
+
 //           <Image
 //             src="/img/home/mobile-bg.png"
 //             alt="Mobile Background"
@@ -530,7 +530,7 @@
 //             priority
 //           />
 //         </div>
-        
+
 //         <div className="hidden lg:block w-full relative">
 //           <Image
 //             src="/img/home/desktop-bg.png"
@@ -1240,7 +1240,7 @@ const Home = () => {
          ============================================================ */}
       <div className="absolute top-0 left-0 w-full -z-10 bg-[#070044] h-full object-cover">
         <div
-  className="
+          className="
     block lg:hidden
     w-full h-full
     bg-[url('/img/home/mobile-bg.png')]
@@ -1248,7 +1248,7 @@ const Home = () => {
     bg-top
     bg-[length:100%_auto]
   "
-/>
+        />
 
         <div className="hidden lg:block w-full relative">
           <Image
@@ -1307,7 +1307,7 @@ const Home = () => {
               delay: 0.8,
               duration: 2,
               type: "spring",
-              bounce:0.5,
+              bounce: 0.5,
             }}
           >
             <Image
@@ -1327,13 +1327,13 @@ const Home = () => {
              ------------------------------------------------------- */}
           <motion.div
             className="absolute top-[53%] -right-0 left-116 -z-10"
-                        initial={{ y: -300, opacity: 0 }} // Start high up (like up the thread)
-                        animate={{ y: 0, opacity: 1 }} // Slide down to resting position
-                        transition={{
-                          delay: 0.9, // Wait for logo to settle
-                          duration: 2, // Slow slide down
-                          type: "spring", // Slight bounce at the end
-                          bounce:0.3
+            initial={{ y: -300, opacity: 0 }} // Start high up (like up the thread)
+            animate={{ y: 0, opacity: 1 }} // Slide down to resting position
+            transition={{
+              delay: 0.9, // Wait for logo to settle
+              duration: 2, // Slow slide down
+              type: "spring", // Slight bounce at the end
+              bounce: 0.3
             }}
           >
             <Image
@@ -1373,7 +1373,7 @@ const Home = () => {
               className="relative z-10 w-full md:w-[100%] object-cover"
             />
 
-<div className="hidden lg:block absolute top-30 left-0 z-10 w-32 xl:w-42">
+            <div className="hidden lg:block absolute top-30 left-0 z-10 w-32 xl:w-42">
               <Image
                 src="/img/home/home-bg-left-sparkle-desktop.png" // <--- UPDATE PATH
                 alt="Sparkles Left"

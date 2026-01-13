@@ -1082,7 +1082,12 @@ import { useRouter } from "next/navigation";
 
 const Cart = () => {
   const [cart, setCart] = useState([]);
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState({
+    event_amount: 0,
+    photocopy_charges: 0,
+    total_amount: 0,
+  });
+
   const router = useRouter();
 
   const getCart = async () => {
@@ -1093,15 +1098,19 @@ const Cart = () => {
       console.log(err.response?.data?.message);
     }
   };
-
   const getAmount = async () => {
     try {
       const response = await api.get(`/payment/amount`);
-      setAmount(response.data.data || 0);
+      setAmount(response.data.data || {
+        event_amount: 0,
+        photocopy_charges: 0,
+        total_amount: 0,
+      });
     } catch (err) {
       console.log(err);
     }
   };
+  ;
 
   useEffect(() => {
     getCart();
@@ -1134,14 +1143,15 @@ const Cart = () => {
       toast.error(err.response?.data?.message || "Error emptying cart");
     }
   };
-
+  
   const handleProceed = async () => {
-    if (amount > 0) {
+    if (amount.total_amount > 0) {
       router.push("/payment");
     } else {
       toast.error("Cart is Empty!");
     }
   };
+
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-[#1a0b40] flex justify-center items-center py-10 md:py-0 lg:items-start lg:pt-30">
@@ -1244,8 +1254,9 @@ const Cart = () => {
 
             <div className="text-center mb-4">
               <h2 className="body-font text-2xl md:text-3xl font-extrabold text-[#1a1a1a]">
-                Total : Rs. {amount}
+                Total : Rs. {amount.total_amount}
               </h2>
+
             </div>
           </div>
         </div>
@@ -1280,4 +1291,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default isNotAuth(Cart);

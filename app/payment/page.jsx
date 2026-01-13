@@ -344,7 +344,12 @@ import { useEffect } from "react";
 
 
 const Payment = () => {
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState({
+  event_amount: 0,
+  photocopy_charges: 0,
+  total_amount: 0,
+});
+
   const [transactionId, setTransactionId] = useState("");
   const router = useRouter();
 
@@ -371,9 +376,9 @@ const Payment = () => {
   //   router.push("/order");
   // };
 
-  // const handleTransactionIdChange = (event) => {
-  //   setTransactionId(event.target.value);
-  // };
+  const handleTransactionIdChange = (event) => {
+    setTransactionId(event.target.value);
+  };
 
   const handleSubmit = async () => {
   if (transactionId.length !== 12) {
@@ -511,7 +516,7 @@ const Payment = () => {
               <div className="relative z-10 bg-white p-1">
                 <QRCode
                   size={130}
-                  value={`upi://pay?pa=sctrspuneintofcomput.62810390@hdfcbank&pn=PICTOREAL&am=${amount}&tn=PICTOFEST&cu=INR`}
+                  value={`upi://pay?pa=sctrspuneintofcomput.62810390@hdfcbank&pn=PICTOREAL&am=${amount.total_amount}&tn=PICTOFEST&cu=INR`}
                   viewBox={`0 0 130 130`}
                   className="w-full h-auto"
                 />
@@ -520,7 +525,8 @@ const Payment = () => {
 
             {/* Amount Text */}
             <h2 className=" body-font text-lg md:text-xl text-[#1f4e3d] font-bold body-font mb-4 text-center">
-              Total Amount: Rs. {amount}/-
+             Total Amount: Rs. {amount.total_amount}/-
+
             </h2>
 
             {/* Input Section (Yellow Box Design) */}
@@ -569,4 +575,4 @@ const Payment = () => {
   );
 };
 
-export default Payment;
+export default isNotAuth(Payment);
