@@ -1239,17 +1239,17 @@ const Home = () => {
           1. BACKGROUND LAYER
          ============================================================ */}
       <div className="absolute top-0 left-0 w-full -z-10 bg-[#070044] h-full object-cover">
-        <div className="block lg:hidden w-full relative">
-          <Image
-            src="/img/home/mobile-bg.png"
-            alt="Mobile Background"
-            width={0}
-            height={0}
-            sizes="100vw"
-            className="w-full h-full object-cover"
-            priority
-          />
-        </div>
+        <div
+  className="
+    block lg:hidden
+    w-full h-full
+    bg-[url('/img/home/mobile-bg.png')]
+    bg-repeat-y
+    bg-top
+    bg-[length:100%_auto]
+  "
+/>
+
         <div className="hidden lg:block w-full relative">
           <Image
             src="/img/home/desktop-bg.png"
