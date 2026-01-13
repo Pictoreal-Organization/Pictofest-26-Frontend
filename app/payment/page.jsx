@@ -341,6 +341,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import api from "@/app/api";
 import { useEffect } from "react";
+import isNotAuth from "@/app/components/isNotAuth";
 
 
 const Payment = () => {

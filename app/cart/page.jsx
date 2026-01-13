@@ -1078,7 +1078,7 @@ import Image from "next/image";
 import api from "@/app/api";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-// import isNotAuth from "@/app/components/isNotAuth";
+import isNotAuth from "@/app/components/isNotAuth";
 
 const Cart = () => {
   const [cart, setCart] = useState([]);

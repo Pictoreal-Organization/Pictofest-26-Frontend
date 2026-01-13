@@ -1061,6 +1061,7 @@ import { useEffect, useState, useRef } from "react";
 import { toast } from "sonner";
 import Image from "next/image";
 import Link from "next/link";
+import isNotAuth from "@/app/components/isNotAuth";
 import { px } from "framer-motion";
 
 // --- FIXED UPLOADER COMPONENT ---

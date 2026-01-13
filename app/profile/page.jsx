@@ -7,15 +7,14 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import isNotAuth from "@/app/components/isNotAuth";
+import { useAuth } from "@/app/context/Auth";
 
 const Profile = () => {
 
-    //const { authState, isUserAuthenticated } = useAuth();
+    const { authState } = useAuth();
 
-    // const router = useRouter()
-    // useEffect(() => {
-    //     if(!isUserAuthenticated()) router.push("/login") 
-    // }, [])
+  const name = authState?.user?.first_name || "User";
 
     return (
         <main className="relative min-h-screen overflow-x-hidden">
@@ -52,7 +51,7 @@ const Profile = () => {
                 transition={{ duration: 0.6, delay: 0.5 }} 
             >
                 <div className="heading-font text-white text-2xl sm:text-3xl md:text-6xl md:py-10 text-left md:text-center ">
-                    Hola! Hemangi
+                    Hola! {name}
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 pt-8 max-w-6xl mx-auto">
@@ -103,4 +102,4 @@ const Profile = () => {
     )
 }
 
-export default Profile
+export default isNotAuth(Profile)

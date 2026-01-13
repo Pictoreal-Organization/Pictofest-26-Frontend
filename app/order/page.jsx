@@ -7,6 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { FaWhatsapp, FaEye, FaTicketAlt, FaHistory, FaFileUpload } from "react-icons/fa";
+import isNotAuth from "@/app/components/isNotAuth";
 
 // --- REUSABLE COMPONENT: COLORED CATEGORY BOARD ---
 const CategoryBoard = ({ title, events, waLinks, themeColor }) => {
