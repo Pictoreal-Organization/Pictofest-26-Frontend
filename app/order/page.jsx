@@ -146,66 +146,66 @@ const CategoryBoard = ({ title, events, waLinks, themeColor }) => {
 // --- MAIN COMPONENT ---
 const Order = () => {
   // --- STATE & API ---
-  // const [events, setEvents] = useState([]);
-  // const [picsoreel, setPicsoreel] = useState([]);
-  // const [workshops, setWorkshops] = useState([]);
-  // const [waLinks, setWhatsAppLinks] = useState([]);
+  const [events, setEvents] = useState([]);
+  const [picsoreel, setPicsoreel] = useState([]);
+  const [workshops, setWorkshops] = useState([]);
+  const [waLinks, setWhatsAppLinks] = useState([]);
 
-  // const filterData = (data, category) => {
-  //   return data.filter(
-  //     (item) =>
-  //       item.event_category &&
-  //       item.event_category.toUpperCase() === category.toUpperCase()
-  //   );
-  // };
+  const filterData = (data, category) => {
+    return data.filter(
+      (item) =>
+        item.event_category &&
+        item.event_category.toUpperCase() === category.toUpperCase()
+    );
+  };
 
-  // const getData = async () => {
-  //   try {
-  //     const response = await api.get("/userEvent/");
-  //     const data = response.data.data;
-  //     const wa_link_response = await api.get("/events");
-  //     const wa_links = wa_link_response.data.data.map((event) => ({
-  //       id: event.id,
-  //       wa_link: event.wa_link,
-  //     }));
+  const getData = async () => {
+    try {
+      const response = await api.get("/userEvent/");
+      const data = response.data.data;
+      const wa_link_response = await api.get("/events");
+      const wa_links = wa_link_response.data.data.map((event) => ({
+        id: event.id,
+        wa_link: event.wa_link,
+      }));
 
-  //     setWorkshops(filterData(data, "WORKSHOP"));
-  //     setPicsoreel(filterData(data, "PICSOREEL"));
-  //     setEvents(filterData(data, "EVENTS"));
-  //     setWhatsAppLinks(wa_links);
-  //   } catch (err) {
-  //     console.error("Error fetching data:", err);
-  //   }
-  // };
+      setWorkshops(filterData(data, "WORKSHOP"));
+      setPicsoreel(filterData(data, "PICSOREEL"));
+      setEvents(filterData(data, "EVENTS"));
+      setWhatsAppLinks(wa_links);
+    } catch (err) {
+      console.error("Error fetching data:", err);
+    }
+  };
 
-  // useEffect(() => {
-  //   getData();
-  // }, []);
+  useEffect(() => {
+    getData();
+  }, []);
 
   const shouldDisplaySection = (data) => {
     return data && Array.isArray(data) && data.length > 0;
   };
 
   // --- MOCK DATA ---
-  const [picsoreel, setPicsoreel] = useState([
-    { id: 1, name: "Street Photography", event_category: "PICSOREEL" },
-    { id: 2, name: "Nature Photography", event_category: "PICSOREEL" },
-  ]);
+  // const [picsoreel, setPicsoreel] = useState([
+  //   { id: 1, name: "Street Photography", event_category: "PICSOREEL" },
+  //   { id: 2, name: "Nature Photography", event_category: "PICSOREEL" },
+  // ]);
 
-  const [workshops, setWorkshops] = useState([
-    { id: 3, name: "Cinematic Photography Workshop", event_category: "WORKSHOP" },
-  ]);
+  // const [workshops, setWorkshops] = useState([
+  //   { id: 3, name: "Cinematic Photography Workshop", event_category: "WORKSHOP" },
+  // ]);
 
-  const [events, setEvents] = useState([
-    { id: 4, name: "Photo Walk Mumbai", event_category: "EVENTS" },
-    { id: 5, name: "Portrait Challenge", event_category: "EVENTS" },
-  ]);
+  // const [events, setEvents] = useState([
+  //   { id: 4, name: "Photo Walk Mumbai", event_category: "EVENTS" },
+  //   { id: 5, name: "Portrait Challenge", event_category: "EVENTS" },
+  // ]);
 
-  const [waLinks, setWhatsAppLinks] = useState([
-    { id: 1, wa_link: "https://wa.me/919999999999" },
-    { id: 3, wa_link: "https://wa.me/918888888888" },
-    { id: 4, wa_link: "https://wa.me/917777777777" },
-  ]);
+  // const [waLinks, setWhatsAppLinks] = useState([
+  //   { id: 1, wa_link: "https://wa.me/919999999999" },
+  //   { id: 3, wa_link: "https://wa.me/918888888888" },
+  //   { id: 4, wa_link: "https://wa.me/917777777777" },
+  // ]);
 
   return (
     <div className="relative min-h-screen w-full overflow-x-hidden text-[#644817]">

@@ -339,38 +339,60 @@ import Image from "next/image";
 import QRCode from "react-qr-code";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import api from "@/app/api";
+import { useEffect } from "react";
+
 
 const Payment = () => {
-  const [amount, setAmount] = useState(450);
+  const [amount, setAmount] = useState(0);
   const [transactionId, setTransactionId] = useState("");
   const router = useRouter();
 
   // --- API Logic ---
-  // const getAmount = async () => {
-  //   try {
-  //     const response = await api.get(`/payment/amount`);
-  //     setAmount(response.data.data);
-  //   } catch (err) {
-  //     console.log(err);
+  const getAmount = async () => {
+    try {
+      const response = await api.get(`/payment/amount`);
+      setAmount(response.data.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getAmount();
+  }, []);
+
+  // const handleSubmit = () => {
+  //   if (transactionId.length !== 12) {
+  //     toast.error("Please enter a valid 12-digit UTR ID");
+  //     return;
   //   }
+  //   toast.success("Mock payment submitted successfully");
+  //   router.push("/order");
   // };
 
-  // useEffect(() => {
-  //   getAmount();
-  // }, []);
+  // const handleTransactionIdChange = (event) => {
+  //   setTransactionId(event.target.value);
+  // };
 
-  const handleSubmit = () => {
-    if (transactionId.length !== 12) {
-      toast.error("Please enter a valid 12-digit UTR ID");
-      return;
-    }
-    toast.success("Mock payment submitted successfully");
+  const handleSubmit = async () => {
+  if (transactionId.length !== 12) {
+    toast.error("Please enter a valid 12-digit UTR ID");
+    return;
+  }
+
+  try {
+    const response = await api.post(`/payment/`, {
+      transaction_id: transactionId,
+    });
+    toast.success(response.data.message);
     router.push("/order");
-  };
+  } catch (err) {
+    console.log(err.response?.data?.message);
+    toast.error(err.response?.data?.message || "Payment failed");
+  }
+};
 
-  const handleTransactionIdChange = (event) => {
-    setTransactionId(event.target.value);
-  };
 
   return (
     // UPDATED CONTAINER:
