@@ -647,7 +647,7 @@ const BannerEventCard = ({
   <div
       className={`absolute inset-0 flex flex-col items-center justify-center text-center px-8 md:px-16 md:py-10 z-10 ${textPositionClass}`}
     >
-    <div className="flex flex-col items-center gap-3 md:gap-6 max-w-[90%] md:max-w-2xl">
+    <div className="flex flex-col items-center gap-3 md:gap-6 lg:gap-0.5 xl-gap-6 max-w-[90%] md:max-w-2xl">
         <h2 className="heading heading-font text-2xl md:text-4xl lg:text-5xl pt-2 text-[#4E3506] leading-tight">
           {title}
         </h2>
