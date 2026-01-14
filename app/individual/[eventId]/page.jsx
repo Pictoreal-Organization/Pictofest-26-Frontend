@@ -584,7 +584,7 @@
 //                       <span>{data?.price ? "Add to Cart" : "Register"}</span>
 //                     </button>
 
-                    
+
 //                   </div>
 //                 </motion.div>
 
@@ -858,7 +858,7 @@ import { useParams } from "next/navigation";
 
 
 // };
-  {/*
+{/*
 
       id: 1,
     name: "Play With Clay",
@@ -914,15 +914,15 @@ const Individual = () => {
   const [needPhotocopy, setNeedPhotocopy] = useState(false);
   const photocopyCheckboxRef = useRef(null);
 
-const getData = async (eventId) => {
-  try {
-    const response = await axios.get(`${baseURL}/events/${eventId}`);
-    setData(response.data.data);
-  } catch (err) {
-    console.log(err);
-    toast.error("Failed to load event details");
-  }
-};
+  const getData = async (eventId) => {
+    try {
+      const response = await axios.get(`${baseURL}/events/${eventId}`);
+      setData(response.data.data);
+    } catch (err) {
+      console.log(err);
+      toast.error("Failed to load event details");
+    }
+  };
 
 
   useEffect(() => {
@@ -933,7 +933,7 @@ const getData = async (eventId) => {
     try {
       const payload = {
         event_id: data.id,
-        ...(data.event_category === "PH" && {
+        ...(data.event_code === "PH" && {
           photocopy_needed: needPhotocopy,
         }),
       };
@@ -944,26 +944,38 @@ const getData = async (eventId) => {
       toast.error(err.response.data.message);
     }
   };
+  
+const handleScrollToCheckbox = () => {
+  if (typeof window === "undefined") return;
 
-  const handleScrollToCheckbox = () => {
-    if (data?.event_code === "PH" && photocopyCheckboxRef.current) {
-      photocopyCheckboxRef.current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center'
+  const isMobile = window.matchMedia("(max-width: 767px)").matches;
+
+  if (isMobile && data?.event_code === "PH") {
+    const el = document.getElementById("mobile-photocopy");
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      const y = window.scrollY + rect.top - 120;
+
+      window.scrollTo({
+        top: y,
+        behavior: "smooth",
       });
-    } else {
-      // If not a PH event, just add to cart directly
-      handleAddToCart();
+      return;
     }
+  }
+
+    // Desktop or non-PH: directly add to cart
+    handleAddToCart();
   };
+
 
   const descriptionContent = data?.description
     ? {
-        __html: data.description.replace(
-          /Fragments of Time/g,
-          '<span class="font-extrabold">Fragments of Time</span>'
-        ),
-      }
+      __html: data.description.replace(
+        /Fragments of Time/g,
+        '<span class="font-extrabold">Fragments of Time</span>'
+      ),
+    }
     : null;
 
   const imageMap = {
@@ -1288,27 +1300,41 @@ const getData = async (eventId) => {
               {/* Photocopy Checkbox - Mobile (Only for Photography Events) */}
               {data?.event_code === "PH" && (
                 <motion.div
-                  ref={photocopyCheckboxRef}
-                  className="w-full flex justify-center"
+                  id="mobile-photocopy"
+                  className="w-full flex flex-col gap-3 items-center"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <div className="bg-white/50 rounded-xl px-4 py-3 w-full max-w-[280px] border-2 border-[#08525F]">
+                  <div className="bg-white/50 rounded-xl px-4 py-4 w-full max-w-[300px] border-2 border-[#08525F] space-y-3">
+                    <label className="flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={!needPhotocopy}
+                        onChange={() => setNeedPhotocopy(false)}
+                        className="w-5 h-5 rounded border-2 border-[#08525F]"
+                      />
+                      <span className="ml-3 text-[#572711] body-font font-semibold text-sm">
+                        I will print my photographs myself
+                      </span>
+                    </label>
+
                     <label className="flex items-center cursor-pointer">
                       <input
                         type="checkbox"
                         checked={needPhotocopy}
-                        onChange={(e) => setNeedPhotocopy(e.target.checked)}
-                        className="w-5 h-5 rounded border-2 border-[#08525F] text-[#08525F] focus:ring-2 focus:ring-[#08525F] cursor-pointer"
+                        onChange={() => setNeedPhotocopy(true)}
+                        className="w-5 h-5 rounded border-2 border-[#08525F]"
                       />
                       <span className="ml-3 text-[#572711] body-font font-semibold text-sm">
-                        Do you want us to print your photographs?
+                        Please print my photographs (Extra Rs.10 charges apply)
                       </span>
                     </label>
                   </div>
                 </motion.div>
               )}
+
+
 
               {/* 6. Two Buttons - Mobile */}
               <div className="flex justify-center gap-4 mt-4">
@@ -1406,7 +1432,7 @@ const getData = async (eventId) => {
                       <span>{data?.price ? "Add to Cart" : "Register"}</span>
                     </button>
 
-                    
+
                   </div>
                 </motion.div>
 
@@ -1510,95 +1536,112 @@ const getData = async (eventId) => {
                     transition={{ duration: 0.5 }}
                   >
 
-                  {data?.rules && Object.keys(data.rules).length !== 0 && (
-                    <>
-                      <div
-                        className="text-xl sm:text-xl md:text-2xl lg:text-3xl text-[#572711] sub-heading-font w-fit mb-4 pb-2 relative group"
-                        style={{ letterSpacing: "3.42px" }}
+                    {data?.rules && Object.keys(data.rules).length !== 0 && (
+                      <>
+                        <div
+                          className="text-xl sm:text-xl md:text-2xl lg:text-3xl text-[#572711] sub-heading-font w-fit mb-4 pb-2 relative group"
+                          style={{ letterSpacing: "3.42px" }}
+                        >
+                          Rules & How to Play
+                        </div>
+
+                        <ul className="body-font font-semibold text-[#572711] text-lg text-left space-y-2">
+                          {Object.values(data.rules).map((rule, index) => (
+                            <li key={index}>
+                              {index + 1}. {rule}
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
+
+                    {/* Photocopy Checkbox - Desktop (Only for Photography Events) */}
+                    {data?.event_code === "PH" && (
+                      <motion.div
+                        ref={photocopyCheckboxRef}
+                        className="w-full flex flex-col gap-3 items-center"
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3 }}
                       >
-                        Rules & How to Play
-                      </div>
+                        <div className="bg-white/50 rounded-xl px-4 py-4 w-full border-2 border-[#08525F] space-y-3">
 
-                      <ul className="body-font font-semibold text-[#572711] text-lg text-left space-y-2">
-                        {Object.values(data.rules).map((rule, index) => (
-                          <li key={index}>
-                            {index + 1}. {rule}
-                          </li>
-                        ))}
-                      </ul>
-                    </>
-                  )}
-
-                  {/* Photocopy Checkbox - Desktop (Only for Photography Events) */}
-                  {data?.event_code === "PH" && (
-                    <motion.div
-                      className="flex justify-center mt-4"
-                      ref={photocopyCheckboxRef} // ← add this
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <div className="inline-flex bg-white/50 rounded-xl px-6 py-4 border-2 border-[#08525F]">
-                        <label className="flex items-center cursor-pointer">
-                          <input
-                            type="checkbox"
-                            checked={needPhotocopy}
-                            onChange={(e) => setNeedPhotocopy(e.target.checked)}
-                            className="w-6 h-6 rounded border-2 border-[#08525F] text-[#08525F] focus:ring-2 focus:ring-[#08525F] cursor-pointer"
-                          />
-                          <span className="ml-4 text-[#572711] body-font font-semibold text-base">
-                            Do you want us to print your photographs?
-                          </span>
-                        </label>
-                      </div>
-                    </motion.div>
-                  )}
-
-                  {data?.event_code === "WS" && (
-                    <div className="flex mx-auto my-5 relative w-56 h-56 border-4 rounded-xl border-[#67230F] bg-[#67230F]">
-                      <AnimatePresence mode="wait">
-                        {images.length > 0 && (
-                          <motion.div
-                            key={images[index]}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="w-full h-full flex justify-center items-center"
-                          >
-                            <Image
-                              src={images[index]}
-                              alt="event image"
-                              className="object-contain h-full"
-                              width={450}
-                              height={450}
+                          {/* Option 1 – Default */}
+                          <label className="flex items-center cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={!needPhotocopy}
+                              onChange={() => setNeedPhotocopy(false)}
+                              className="w-5 h-5 rounded border-2 border-[#08525F] cursor-pointer"
                             />
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  )}
+                            <span className="ml-3 text-[#572711] body-font font-semibold text-sm">
+                              I will print my photographs myself
+                            </span>
+                          </label>
+
+                          {/* Option 2 */}
+                          <label className="flex items-center cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={needPhotocopy}
+                              onChange={() => setNeedPhotocopy(true)}
+                              className="w-5 h-5 rounded border-2 border-[#08525F] cursor-pointer"
+                            />
+                            <span className="ml-3 text-[#572711] body-font font-semibold text-sm">
+                              Please print my photographs (Extra Rs.10 charges apply)
+                            </span>
+                          </label>
+
+                        </div>
+                      </motion.div>
+                    )}
 
 
-
-                      {/* BUTTONS BELOW RULES - Side by side */}
-                      <div className="flex justify-center gap-4 mt-8">
-                        {/* Back Button */}
-                        <button
-                          //onClick={handleBack}
-                          className="bg-[#E97400] rounded-2xl px-8 py-4 hover:opacity-90 transition-all duration-300 flex items-center justify-center shadow-2xl hover:shadow-xl min-w-[140px]"
-                        >
-                          <FaArrowLeft className="text-2xl text-white" />
-                        </button>
-
-                        {/* Add to Cart Button (Icon only) */}
-                        <button
-                          onClick={handleAddToCart}
-                          className="bg-[#08525F] rounded-2xl px-8 py-4 hover:opacity-90 transition-all duration-300 flex items-center justify-center shadow-2xl hover:shadow-xl min-w-[140px]"
-                        >
-                          <FaCartShopping className="text-2xl text-white" />
-                        </button>
+                    {data?.event_code === "WS" && (
+                      <div className="flex mx-auto my-5 relative w-56 h-56 border-4 rounded-xl border-[#67230F] bg-[#67230F]">
+                        <AnimatePresence mode="wait">
+                          {images.length > 0 && (
+                            <motion.div
+                              key={images[index]}
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              exit={{ opacity: 0 }}
+                              className="w-full h-full flex justify-center items-center"
+                            >
+                              <Image
+                                src={images[index]}
+                                alt="event image"
+                                className="object-contain h-full"
+                                width={450}
+                                height={450}
+                              />
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </div>
-                    </motion.div>
+                    )}
+
+
+
+                    {/* BUTTONS BELOW RULES - Side by side */}
+                    <div className="flex justify-center gap-4 mt-8">
+                      {/* Back Button */}
+                      <button
+                        //onClick={handleBack}
+                        className="bg-[#E97400] rounded-2xl px-8 py-4 hover:opacity-90 transition-all duration-300 flex items-center justify-center shadow-2xl hover:shadow-xl min-w-[140px]"
+                      >
+                        <FaArrowLeft className="text-2xl text-white" />
+                      </button>
+
+                      {/* Add to Cart Button (Icon only) */}
+                      <button
+                        onClick={handleAddToCart}
+                        className="bg-[#08525F] rounded-2xl px-8 py-4 hover:opacity-90 transition-all duration-300 flex items-center justify-center shadow-2xl hover:shadow-xl min-w-[140px]"
+                      >
+                        <FaCartShopping className="text-2xl text-white" />
+                      </button>
+                    </div>
+                  </motion.div>
                 </motion.div>
               </div>
 
