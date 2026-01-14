@@ -968,6 +968,9 @@ const handleScrollToCheckbox = () => {
     handleAddToCart();
   };
 
+  const handleBack = () => {
+    router.back();
+  };
 
   const descriptionContent = data?.description
     ? {
@@ -1014,7 +1017,7 @@ const handleScrollToCheckbox = () => {
         {/* Mobile Background */}
         <div className="block md:hidden w-full h-full relative">
           <Image
-            src="/img/common/general-mobile-bg.png"
+            src="/img/home/mobile-bg.png"
             alt="Mobile Background"
             fill
             className="object-cover"
@@ -1025,7 +1028,7 @@ const handleScrollToCheckbox = () => {
         {/* Desktop Background */}
         <div className="hidden md:block w-full h-full relative">
           <Image
-            src="/img/common/general-desktop-bg.png"
+            src="/img/home/desktop-bg.png"
             alt="Desktop Background"
             fill
             className="object-cover"
@@ -1340,7 +1343,7 @@ const handleScrollToCheckbox = () => {
               <div className="flex justify-center gap-4 mt-4">
                 {/* Back Button */}
                 <button
-                  //onClick={handleBack}
+                  onClick={handleBack}
                   className="bg-[#E97400] rounded-2xl px-6 py-3 hover:opacity-90 transition-all duration-300 flex items-center justify-center shadow-lg min-w-[140px]"
                 >
                   <FaArrowLeft className="text-2xl text-white" />
@@ -1459,7 +1462,7 @@ const handleScrollToCheckbox = () => {
                 >
                   {/* LEFT SECTION - Event Details */}
                   <motion.div
-                    className="lg:w-1/2 flex flex-col relative"
+                    className="lg:w-1/2 h-[365px] flex-shrink-0 flex flex-col relative"
                     initial={{ x: -100, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ duration: 0.5 }}
@@ -1526,6 +1529,27 @@ const handleScrollToCheckbox = () => {
                         </ul>
                       </div>
                     </div>
+                    {/*Only for Bidding Wars */}
+                    {data?.name === "Bidding Wars" && (
+                      <div className="flex justify-center gap-4 mt-8 w-full">
+                        {/* Back Button */}
+                        <button
+                          onClick={handleBack}
+                          className="bg-[#E97400] rounded-2xl px-8 py-4 hover:opacity-90 transition-all duration-300 flex items-center justify-center shadow-2xl hover:shadow-xl min-w-[140px]"
+                        >
+                          <FaArrowLeft className="text-2xl text-white" />
+                        </button>
+
+                        {/* Add to Cart Button (Icon only) */}
+                        <button
+                          onClick={handleAddToCart}
+                          className="bg-[#08525F] rounded-2xl px-8 py-4 hover:opacity-90 transition-all duration-300 flex items-center justify-center shadow-2xl hover:shadow-xl min-w-[140px]"
+                        >
+                          <FaCartShopping className="text-2xl text-white" />
+                        </button>
+                      </div>
+                    )}
+
                   </motion.div>
 
                   {/* RIGHT SECTION - Rules */}
@@ -1621,26 +1645,26 @@ const handleScrollToCheckbox = () => {
                       </div>
                     )}
 
+                    {data?.name !== "Bidding Wars" && (
+                      <div className="flex justify-center gap-4 mt-8">
+                        {/* Back Button */}
+                        <button
+                          onClick={handleBack}
+                          className="bg-[#E97400] rounded-2xl px-8 py-4 hover:opacity-90 transition-all duration-300 flex items-center justify-center shadow-2xl hover:shadow-xl min-w-[140px]"
+                        >
+                          <FaArrowLeft className="text-2xl text-white" />
+                        </button>
 
+                        {/* Add to Cart Button (Icon only) */}
+                        <button
+                          onClick={handleAddToCart}
+                          className="bg-[#08525F] rounded-2xl px-8 py-4 hover:opacity-90 transition-all duration-300 flex items-center justify-center shadow-2xl hover:shadow-xl min-w-[140px]"
+                        >
+                          <FaCartShopping className="text-2xl text-white" />
+                        </button>
+                      </div>
+                    )}
 
-                    {/* BUTTONS BELOW RULES - Side by side */}
-                    <div className="flex justify-center gap-4 mt-8">
-                      {/* Back Button */}
-                      <button
-                        //onClick={handleBack}
-                        className="bg-[#E97400] rounded-2xl px-8 py-4 hover:opacity-90 transition-all duration-300 flex items-center justify-center shadow-2xl hover:shadow-xl min-w-[140px]"
-                      >
-                        <FaArrowLeft className="text-2xl text-white" />
-                      </button>
-
-                      {/* Add to Cart Button (Icon only) */}
-                      <button
-                        onClick={handleAddToCart}
-                        className="bg-[#08525F] rounded-2xl px-8 py-4 hover:opacity-90 transition-all duration-300 flex items-center justify-center shadow-2xl hover:shadow-xl min-w-[140px]"
-                      >
-                        <FaCartShopping className="text-2xl text-white" />
-                      </button>
-                    </div>
                   </motion.div>
                 </motion.div>
               </div>
@@ -1659,22 +1683,24 @@ const handleScrollToCheckbox = () => {
           </motion.div>
         </div>
       </div>
-
-      {/* ============================================================
-        3. CITY SVG(Desktop only)
-        ============================================================ */}
-      <div className="hidden lg:block w-full relative z-0">
-        <div className="relative w-screen left-1/2 -translate-x-1/2 h-64 -mt-5">
+      
+      <motion.div
+        className="hidden lg:block fixed bottom-0 left-0 w-full z-0 pointer-events-none"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
+        <div className="relative w-full h-64">
           <Image
             src="/img/events/city_26.svg"
             alt="City Skyline"
             fill
-            className="object-contain"
-            priority={false}
+            className="object-contain object-bottom"
             sizes="100vw"
           />
         </div>
-      </div>
+      </motion.div>
+      
     </main>
   );
 };
