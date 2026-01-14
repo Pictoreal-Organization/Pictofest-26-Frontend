@@ -358,7 +358,7 @@ const PaymentHistory = () => {
       {/* --- PAGE CONTENT --- */}
       <main className="relative z-10 py-8 lg:py-14 min-h-screen">
         <div className="flex flex-col max-w-4xl mx-auto pb-20">
-          <h1 className="text-4xl lg:text-6xl heading-font text-center text-white mt-20 mb-10">
+          <h1 className="text-4xl lg:text-5xl heading-font text-center text-white mt-20 mb-10">
             Payment History
           </h1>
 

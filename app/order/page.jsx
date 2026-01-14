@@ -234,7 +234,7 @@ const Order = () => {
       </div>
 
       {/* CONTENT */}
-      <div className="relative z-10 container mx-auto px-4 py-12 flex flex-col items-center">
+      <div className="relative z-10 container mx-auto px-4 py-8 flex flex-col items-center">
         
         {/* PAGE TITLE */}
         <motion.div 
@@ -242,7 +242,7 @@ const Order = () => {
           animate={{ y: 0, opacity: 1 }}
           className="flex flex-col items-center justify-center mt-8 mb-16"
         >
-          <h1 className="heading-font text-5xl md:text-7xl text-center text-[#ffffff] uppercase tracking-wide drop-shadow-sm">
+          <h1 className="text-4xl lg:text-5xl tracking-tight text-white heading-font mt-6 md:mt-15 text-center">
             My Orders
           </h1>
           <div className="flex items-center gap-2 mt-2 opacity-90">

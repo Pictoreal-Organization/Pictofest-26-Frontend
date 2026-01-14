@@ -484,7 +484,7 @@ useEffect(() => {
       </div>
 
       {/* Main Title */}
-      <h1 className="relative z-10 text-4xl md:text-6xl heading-font text-[#FFE3BE] text-center mt-20 mb-10 tracking-wider drop-shadow-md">
+      <h1 className="relative z-10 text-4xl lg:text-5xl md:text-6xl heading-font text-white text-center mt-8 md:mt-20 mb-10 tracking-tight">
         PICS-O-REEL SUBMISSIONS
       </h1>
 
