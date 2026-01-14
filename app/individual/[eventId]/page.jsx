@@ -1530,7 +1530,7 @@ const handleScrollToCheckbox = () => {
                       </div>
                     </div>
                     {/*Only for Bidding Wars */}
-                    {data?.name === "Bidding Wars" && (
+                    {data?.name === "BIDDING WARS" && (
                       <div className="flex justify-center gap-4 mt-8 w-full">
                         {/* Back Button */}
                         <button
@@ -1645,7 +1645,7 @@ const handleScrollToCheckbox = () => {
                       </div>
                     )}
 
-                    {data?.name !== "Bidding Wars" && (
+                    {data?.name !== "BIDDING WARS" && (
                       <div className="flex justify-center gap-4 mt-8">
                         {/* Back Button */}
                         <button
