@@ -595,25 +595,304 @@
 
 // export default EventsCard;
 
+// import Link from "next/link";
+// import { Fade } from "react-awesome-reveal";
+
+// // --- 1. Fixed Component (No changes here) ---
+// const BannerEventCard = ({
+//   title,
+//   description,
+//   link,
+//   bannerImage,
+//   mobileBannerImage,
+//   decorations,
+//   buttonColorClass,
+//   textPositionClass = "",
+//   imageClass = "",
+// }) => (
+//   <div className="relative w-full max-w-5xl mx-auto flex items-center justify-center p-5 mt-4 md:mt-12">
+//     {/* --- DYNAMIC DECORATIONS RENDERER --- */}
+//     {decorations &&
+//       decorations.map((item, index) => (
+//         <picture
+//           key={index}
+//           className={`absolute z-20 pointer-events-none drop-shadow-xl ${item.className}`}
+//         >
+//           {item.mobileSrc ? (
+//             <>
+//               <source media="(min-width: 768px)" srcSet={item.src} />
+//               <img
+//                 src={item.mobileSrc}
+//                 alt={item.alt}
+//                 className="w-full h-auto object-contain"
+//               />
+//             </>
+//           ) : (
+//             <img src={item.src} alt={item.alt} className="w-full h-auto" />
+//           )}
+//         </picture>
+//       ))}
+
+//     {/* --- Main Background Image --- */}
+//     <picture className="w-full h-auto block relative z-0">
+//       <source media="(min-width: 1024px)" srcSet={bannerImage} />
+//       <img
+//         src={mobileBannerImage || bannerImage}
+//         alt={`${title} Background`}
+//         className={`w-full h-auto object-contain ${imageClass}`}
+//       />
+//     </picture>
+
+//     {/* --- Centered Content Overlay --- */}
+//   <div
+//       className={`absolute inset-0 flex flex-col items-center justify-center text-center px-8 md:px-16 md:py-10 z-10 ${textPositionClass}`}
+//     >
+//     <div className="flex flex-col items-center gap-3 md:gap-6 max-w-[90%] md:max-w-2xl">
+//         <h2 className="heading heading-font text-2xl md:text-4xl lg:text-5xl pt-2 text-[#4E3506] leading-tight">
+//           {title}
+//         </h2>
+
+//         <p className="body-font font-bold text-xs md:text-base text-[#4E3506] leading-snug md:leading-relaxed line-clamp-3 md:line-clamp-none">
+//           {description}
+//         </p>
+
+//         <Link
+//           href={link}
+//           className={`sub-heading-font mt-0.5 px-6 py-1.5 md:px-8 md:py-3 md:mb-2 text-sm md:text-lg lg:text-xl rounded-xl border-2 md:border-4 bg-white/80 backdrop-blur-sm transition-all hover:text-white ${buttonColorClass}`}
+//         >
+//           Participate
+//         </Link>
+//       </div>
+//     </div>
+//   </div>
+// );
+
+// // --- 2. Main Component with Hardcoded Cards ---
+// const EventsCard = () => {
+//   return (
+//     <div className="relative flex flex-col items-center w-full h-auto md:min-h-0 pt-0 pb-12 gap-2 md:gap-20 overflow-visible px-4">
+//       {/* --- Cactus Decoration (Bottom Left) --- */}
+//       <img
+//         src="/img/events/bottom-cactus.png"
+//         alt="Cactus Decoration"
+//         className="absolute bottom-[1%] translate-y-[30%] left-0 w-16 md:w-60 md:-left-40  md:translate-y-[26%] pointer-events-none z-50"
+//       />
+
+//       {/* --- Man Decoration (Bottom Right) --- */}
+//       <img
+//         src="/img/events/bottom-SingingMan.png"
+//         alt="SingingMan Decoration"
+//         className="absolute bottom-[1%] translate-y-[17%] right-0 w-20 md:w-60 md:bottom-[1%] md:-right-40 md:translate-y-[23%] pointer-events-none z-50"
+//       />
+
+//       {/* --- CARD 1: PICS-O-REEL --- */}
+
+//       {/*<Fade
+//         direction="up"
+//         triggerOnce
+//         className="w-full flex justify-center z-10"
+//       >
+//         <BannerEventCard
+//           title="PICS-O-REEL"
+//           description="Step into the world of art with Picsoreel's art exhibitions! Showcasing stunning works from talented artists."
+//           link="/picsoreel"
+//           bannerImage="/img/events/events-card-26-picso.png"
+//           mobileBannerImage="/img/events/events-card-26-picso-mobile.png"
+//           buttonColorClass="bg-gradient-to-r from-[#ED5285] to-[#D6074D] border-[#DB1658] text-white hover:scale-105 shadow-[0px_3px_4px_rgba(0,0,0,0.25)]"
+//           decorations={[
+//             {
+//               src: "/img/events/trumpet-picso-card.png",
+//               alt: "Trumpet Decoration",
+//               className: "hidden md:block md:w-80 md:-top-5.5 md:-right-22",
+//             },
+//             {
+//               src: "/img/events/drums-picso-card.png",
+//               alt: "Drum Decoration",
+//               className:
+//                 "w-16 bottom-30 right-3 md:w-32 md:bottom-10 md:right-10",
+//             },
+//           ]}
+//           textPositionClass="-mt-20 md:mt-0"
+//           imageClass="-ml-4 md:ml-0"
+//         />
+//       </Fade>
+
+//       {/* --- CARD 2: WORKSHOPS --- */}
+//       {/* <Fade
+//         direction="up"
+//         triggerOnce
+//         className="w-full flex justify-center -mt-28 z-20"
+//       >
+//         <BannerEventCard
+//           title="WORKSHOPS"
+//           description="Discover the joy of creating with our workshops! Perfect for beginners and experienced artists alike."
+//           link="/workshops"
+//           bannerImage="/img/events/events-card-26-workshops.png"
+//           mobileBannerImage="/img/events/events-card-26-workshops-mobile.png"
+//           buttonColorClass="bg-gradient-to-r from-[#25B3B2] to-[#269593] border-[#269998] text-white hover:scale-105 shadow-[-1px_3px_4px_rgba(0,0,0,0.25)]"
+//           decorations={[
+//             {
+//               src: "/img/events/hat-workshop-card.png",
+//               alt: "Hat Decoration",
+//               className: "w-20 top-2 right-1 md:w-40 md:top-1 md:-right-8",
+//             },
+//             {
+//               src: "/img/events/guitar-workshop-card.png",
+//               alt: "Guitar Decoration",
+//               className:
+//                 "w-20 h-auto bottom-26 left-1 md:w-35 md:bottom-10 md:left-2",
+//             },
+//             {
+//               src: "/img/events/chilly-workshop-card.png",
+//               alt: "Chilly Decoration",
+//               className: "block w-15 h-auto bottom-28 right-1 md:hidden ",
+//             },
+//           ]}
+//           textPositionClass="-mt-20 md:mt-0"
+//         />
+//       </Fade> */}
+
+//       {/* --- CARD 3: EVENTS --- */}
+//       {/* <Fade
+//         direction="up"
+//         triggerOnce
+//         className="w-full flex justify-center z-30 -mt-28"
+//       >
+//         <BannerEventCard
+//           title="EVENTS"
+//           description="Enhance your creativity with our events! Join us to connect, learn, and be inspired."
+//           link="/events"
+//           bannerImage="/img/events/events-card-26-events.png"
+//           mobileBannerImage="/img/events/events-card-26-events-mobile.png"
+//           buttonColorClass="bg-gradient-to-r from-[#FF982B] to-[#FC4C04] border-[#FD5609] text-white hover:scale-105 shadow-[-1px_3px_4px_rgba(0,0,0,0.25)]"
+//           decorations={[
+//             {
+//               src: "/img/events/samosa-events-card.png",
+//               alt: "Samosa Decoration",
+//               className: "w-20 bottom-10 left-3 md:w-40 md:bottom-20 md:left-2",
+//             },
+//           ]}
+//         />
+//       </Fade> */}
+//       {/* --- CARD 1: PICS-O-REEL --- */}
+//       <Fade
+//         direction="up"
+//         triggerOnce
+//         className="w-full flex justify-center mt-0 md:-mt-16 lg:-mt-10 xl:mt-0 z-10"
+//       >
+//         <BannerEventCard
+//           title="PICS-O-REEL"
+//           description="Step into the world of art with Picsoreel's art exhibitions! Showcasing stunning works from talented artists."
+//           link="/picsoreel"
+//           bannerImage="/img/events/events-card-26-picso.png"
+//           mobileBannerImage="/img/events/events-card-26-picso-mobile.png"
+//           buttonColorClass="bg-gradient-to-r from-[#ED5285] to-[#D6074D] border-[#DB1658] text-white hover:scale-105 shadow-[0px_3px_4px_rgba(0,0,0,0.25)]"
+//           decorations={[
+//             {
+//               src: "/img/events/trumpet-picso-card.png",
+//               alt: "Trumpet Decoration",
+//               className:
+//                 "hidden md:block md:w-72 lg:w-80 md:-top-4 lg:-top-6 md:-right-16 lg:-right-20",
+//             },
+//             {
+//               src: "/img/events/drums-picso-card.png",
+//               alt: "Drum Decoration",
+//               className:
+//                 "w-14 bottom-24 right-3 md:w-28 md:bottom-10 md:right-10 lg:w-32",
+//             },
+//           ]}
+//           textPositionClass="-mt-16 md:mt-0 lg:mt-2"
+//           imageClass="-ml-2 md:ml-0"
+//         />
+//       </Fade>
+
+//       {/* --- CARD 2: WORKSHOPS --- */}
+//       <Fade
+//         direction="up"
+//         triggerOnce
+//         className="w-full flex justify-center -mt-20 md:-mt-24 lg:-mt-16 xl:-mt-10 z-20"
+//       >
+//         <BannerEventCard
+//           title="WORKSHOPS"
+//           description="Discover the joy of creating with our workshops! Perfect for beginners and experienced artists alike."
+//           link="/workshops"
+//           bannerImage="/img/events/events-card-26-workshops.png"
+//           mobileBannerImage="/img/events/events-card-26-workshops-mobile.png"
+//           buttonColorClass="bg-gradient-to-r from-[#25B3B2] to-[#269593] border-[#269998] text-white hover:scale-105 shadow-[-1px_3px_4px_rgba(0,0,0,0.25)]"
+//           decorations={[
+//             {
+//               src: "/img/events/hat-workshop-card.png",
+//               alt: "Hat Decoration",
+//               className:
+//                 "w-16 md:w-32 lg:w-40 top-2 md:top-1 right-1 md:-right-6 lg:-right-8",
+//             },
+//             {
+//               src: "/img/events/guitar-workshop-card.png",
+//               alt: "Guitar Decoration",
+//               className:
+//                 "w-16 bottom-24 left-1 md:w-28 md:bottom-10 md:left-2 lg:w-32",
+//             },
+//             {
+//               src: "/img/events/chilly-workshop-card.png",
+//               alt: "Chilly Decoration",
+//               className: "block w-14 bottom-24 right-2 md:hidden",
+//             },
+//           ]}
+//           textPositionClass="-mt-16 md:mt-0 lg:mt-2"
+//         />
+//       </Fade>
+
+//       {/* --- CARD 3: EVENTS --- */}
+//       <Fade
+//         direction="up"
+//         triggerOnce
+//         className="w-full flex justify-center -mt-20 md:-mt-24 lg:-mt-16 xl:-mt-10 z-30"
+//       >
+//         <BannerEventCard
+//           title="EVENTS"
+//           description="Enhance your creativity with our events! Join us to connect, learn, and be inspired."
+//           link="/events"
+//           bannerImage="/img/events/events-card-26-events.png"
+//           mobileBannerImage="/img/events/events-card-26-events-mobile.png"
+//           buttonColorClass="bg-gradient-to-r from-[#FF982B] to-[#FC4C04] border-[#FD5609] text-white hover:scale-105 shadow-[-1px_3px_4px_rgba(0,0,0,0.25)]"
+//           decorations={[
+//             {
+//               src: "/img/events/samosa-events-card.png",
+//               alt: "Samosa Decoration",
+//               className:
+//                 "w-16 bottom-10 left-3 md:w-32 md:bottom-16 md:left-2 lg:w-40",
+//             },
+//           ]}
+//           textPositionClass="-mt-16 md:mt-0 lg:mt-2"
+//         />
+//       </Fade>
+//     </div>
+//   );
+// };
+
+// export default EventsCard;
+
+"use client";
+
 import Link from "next/link";
 import { Fade } from "react-awesome-reveal";
 
-// --- 1. Fixed Component (No changes here) ---
+/* ===================== Banner Event Card ===================== */
 const BannerEventCard = ({
   title,
   description,
   link,
   bannerImage,
   mobileBannerImage,
-  decorations,
+  decorations = [],
   buttonColorClass,
   textPositionClass = "",
   imageClass = "",
-}) => (
-  <div className="relative w-full max-w-5xl mx-auto flex items-center justify-center p-5 mt-4 md:mt-12">
-    {/* --- DYNAMIC DECORATIONS RENDERER --- */}
-    {decorations &&
-      decorations.map((item, index) => (
+}) => {
+  return (
+    <div className="relative w-full max-w-5xl mx-auto flex items-center justify-center p-5 mt-4 md:mt-12">
+      {/* Decorations */}
+      {decorations.map((item, index) => (
         <picture
           key={index}
           className={`absolute z-20 pointer-events-none drop-shadow-xl ${item.className}`}
@@ -628,64 +907,68 @@ const BannerEventCard = ({
               />
             </>
           ) : (
-            <img src={item.src} alt={item.alt} className="w-full h-auto" />
+            <img
+              src={item.src}
+              alt={item.alt}
+              className="w-full h-auto object-contain"
+            />
           )}
         </picture>
       ))}
 
-    {/* --- Main Background Image --- */}
-    <picture className="w-full h-auto block relative z-0">
-      <source media="(min-width: 1024px)" srcSet={bannerImage} />
-      <img
-        src={mobileBannerImage || bannerImage}
-        alt={`${title} Background`}
-        className={`w-full h-auto object-contain ${imageClass}`}
-      />
-    </picture>
+      {/* Background Image */}
+      <picture className="w-full h-auto block relative z-0">
+        <source media="(min-width: 1024px)" srcSet={bannerImage} />
+        <img
+          src={mobileBannerImage || bannerImage}
+          alt={`${title} Background`}
+          className={`w-full h-auto object-contain ${imageClass}`}
+        />
+      </picture>
 
-    {/* --- Centered Content Overlay --- */}
-  <div
-      className={`absolute inset-0 flex flex-col items-center justify-center text-center px-8 md:px-16 md:py-10 z-10 ${textPositionClass}`}
-    >
-    <div className="flex flex-col items-center gap-3 md:gap-6 max-w-[90%] md:max-w-2xl">
-        <h2 className="heading heading-font text-2xl md:text-4xl lg:text-5xl pt-2 text-[#4E3506] leading-tight">
-          {title}
-        </h2>
+      {/* Content */}
+      <div
+        className={`absolute inset-0 flex flex-col items-center justify-center text-center px-8 md:px-16 md:py-10 z-10 ${textPositionClass}`}
+      >
+        <div className="flex flex-col items-center gap-3 md:gap-6 max-w-[90%] md:max-w-2xl">
+          <h2 className="heading heading-font text-2xl md:text-4xl lg:text-5xl text-[#4E3506] leading-tight">
+            {title}
+          </h2>
 
-        <p className="body-font font-bold text-xs md:text-base text-[#4E3506] leading-snug md:leading-relaxed line-clamp-3 md:line-clamp-none">
-          {description}
-        </p>
+          <p className="body-font font-bold text-xs md:text-base text-[#4E3506] leading-snug md:leading-relaxed line-clamp-3 md:line-clamp-none">
+            {description}
+          </p>
 
-        <Link
-          href={link}
-          className={`sub-heading-font mt-0.5 px-6 py-1.5 md:px-8 md:py-3 md:mb-2 text-sm md:text-lg lg:text-xl rounded-xl border-2 md:border-4 bg-white/80 backdrop-blur-sm transition-all hover:text-white ${buttonColorClass}`}
-        >
-          Participate
-        </Link>
+          <Link
+            href={link}
+            className={`sub-heading-font px-6 py-1.5 md:px-8 md:py-3 text-sm md:text-lg lg:text-xl rounded-xl border-2 md:border-4 bg-white/80 backdrop-blur-sm transition-all hover:text-white ${buttonColorClass}`}
+          >
+            Participate
+          </Link>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
-// --- 2. Main Component with Hardcoded Cards ---
+/* ===================== Events Card ===================== */
 const EventsCard = () => {
   return (
-    <div className="relative flex flex-col items-center w-full h-auto md:min-h-0 pt-0 pb-12 gap-2 md:gap-20 overflow-visible px-4">
-      {/* --- Cactus Decoration (Bottom Left) --- */}
+    <div className="relative flex flex-col items-center w-full pb-12 gap-20 overflow-visible px-4">
+      {/* Bottom Decorations */}
       <img
         src="/img/events/bottom-cactus.png"
-        alt="Cactus Decoration"
-        className="absolute bottom-[1%] translate-y-[30%] left-0 w-16 md:w-60 md:-left-40  md:translate-y-[26%] pointer-events-none z-50"
+        alt="Cactus"
+        className="absolute bottom-[1%] left-0 w-16 md:w-60 md:-left-40 pointer-events-none z-50"
       />
 
-      {/* --- Man Decoration (Bottom Right) --- */}
       <img
         src="/img/events/bottom-SingingMan.png"
-        alt="SingingMan Decoration"
-        className="absolute bottom-[1%] translate-y-[17%] right-0 w-20 md:w-60 md:bottom-[1%] md:-right-40 md:translate-y-[23%] pointer-events-none z-50"
+        alt="Man"
+        className="absolute bottom-[1%] right-0 w-20 md:w-60 md:-right-40 pointer-events-none z-50"
       />
 
-      {/* --- CARD 1: PICS-O-REEL --- */}
+      {/* PICS-O-REEL */}
       <Fade
         direction="up"
         triggerOnce
@@ -697,30 +980,28 @@ const EventsCard = () => {
           link="/picsoreel"
           bannerImage="/img/events/events-card-26-picso.png"
           mobileBannerImage="/img/events/events-card-26-picso-mobile.png"
-          buttonColorClass="bg-gradient-to-r from-[#ED5285] to-[#D6074D] border-[#DB1658] text-white hover:scale-105 shadow-[0px_3px_4px_rgba(0,0,0,0.25)]"
+          buttonColorClass="bg-gradient-to-r from-[#ED5285] to-[#D6074D] border-[#DB1658] text-white hover:scale-105 shadow-md"
           decorations={[
             {
               src: "/img/events/trumpet-picso-card.png",
-              alt: "Trumpet Decoration",
-              className: "hidden md:block md:w-80 md:-top-5.5 md:-right-22",
+              alt: "Trumpet",
+              className:
+                "hidden md:block md:w-72 lg:w-80 md:-top-4 md:-right-16",
             },
             {
               src: "/img/events/drums-picso-card.png",
-              alt: "Drum Decoration",
-              className:
-                "w-16 bottom-30 right-3 md:w-32 md:bottom-10 md:right-10",
+              alt: "Drums",
+              className: "w-14 bottom-24 right-3 md:w-28 md:bottom-10",
             },
           ]}
-          textPositionClass="-mt-20 md:mt-0"
-          imageClass="-ml-4 md:ml-0"
         />
       </Fade>
 
-      {/* --- CARD 2: WORKSHOPS --- */}
+      {/* WORKSHOPS */}
       <Fade
         direction="up"
         triggerOnce
-        className="w-full flex justify-center -mt-28 z-20"
+        className="w-full flex justify-center z-20"
       >
         <BannerEventCard
           title="WORKSHOPS"
@@ -728,34 +1009,27 @@ const EventsCard = () => {
           link="/workshops"
           bannerImage="/img/events/events-card-26-workshops.png"
           mobileBannerImage="/img/events/events-card-26-workshops-mobile.png"
-          buttonColorClass="bg-gradient-to-r from-[#25B3B2] to-[#269593] border-[#269998] text-white hover:scale-105 shadow-[-1px_3px_4px_rgba(0,0,0,0.25)]"
+          buttonColorClass="bg-gradient-to-r from-[#25B3B2] to-[#269593] border-[#269998] text-white hover:scale-105 shadow-md"
           decorations={[
             {
               src: "/img/events/hat-workshop-card.png",
-              alt: "Hat Decoration",
-              className: "w-20 top-2 right-1 md:w-40 md:top-1 md:-right-8",
+              alt: "Hat",
+              className: "w-16 md:w-32 top-2 right-1 md:-right-6",
             },
             {
               src: "/img/events/guitar-workshop-card.png",
-              alt: "Guitar Decoration",
-              className:
-                "w-20 h-auto bottom-26 left-1 md:w-35 md:bottom-10 md:left-2",
-            },
-            {
-              src: "/img/events/chilly-workshop-card.png",
-              alt: "Chilly Decoration",
-              className: "block w-15 h-auto bottom-28 right-1 md:hidden ",
+              alt: "Guitar",
+              className: "w-16 bottom-24 left-1 md:w-28 md:bottom-10",
             },
           ]}
-          textPositionClass="-mt-20 md:mt-0"
         />
       </Fade>
 
-      {/* --- CARD 3: EVENTS --- */}
+      {/* EVENTS */}
       <Fade
         direction="up"
         triggerOnce
-        className="w-full flex justify-center z-30 -mt-28"
+        className="w-full flex justify-center z-30"
       >
         <BannerEventCard
           title="EVENTS"
@@ -763,12 +1037,12 @@ const EventsCard = () => {
           link="/events"
           bannerImage="/img/events/events-card-26-events.png"
           mobileBannerImage="/img/events/events-card-26-events-mobile.png"
-          buttonColorClass="bg-gradient-to-r from-[#FF982B] to-[#FC4C04] border-[#FD5609] text-white hover:scale-105 shadow-[-1px_3px_4px_rgba(0,0,0,0.25)]"
+          buttonColorClass="bg-gradient-to-r from-[#FF982B] to-[#FC4C04] border-[#FD5609] text-white hover:scale-105 shadow-md"
           decorations={[
             {
               src: "/img/events/samosa-events-card.png",
-              alt: "Samosa Decoration",
-              className: "w-20 bottom-10 left-3 md:w-40 md:bottom-20 md:left-2",
+              alt: "Samosa",
+              className: "w-16 bottom-10 left-3 md:w-32 md:bottom-16",
             },
           ]}
         />
