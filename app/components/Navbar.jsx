@@ -1266,10 +1266,8 @@ const NavLink = ({ href, text, onClick, className = "" }) => {
           flex items-center justify-center cursor-pointer whitespace-nowrap
           uppercase tracking-widest
           
-          /* --- RESPONSIVE FIXES --- */
-          lg:px-4 lg:text-sm      /* Smaller for 1024px screens */
-          xl:px-8 xl:text-lg      /* Original size for larger screens */
-          /* ------------------------ */
+          lg:px-4 lg:text-sm
+          xl:px-8 xl:text-lg
 
           ${
             isActive
@@ -1317,63 +1315,29 @@ const Navbar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // ADDED: Local state to hold the display name for immediate updates
-  const [displayName, setDisplayName] = useState("");
-
   const { authState, isUserAuthenticated, setUserAuthInfo } = useAuth();
   const pathname = usePathname();
 
-  // --- SCROLL EFFECT ---
+  // Scroll effect
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 50);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // --- MODAL CLOSE ON NAVIGATE ---
+  // Close modal on navigation
   useEffect(() => {
     setIsModalOpen(false);
   }, [pathname]);
-
-  // --- FIX: USERNAME SYNC LOGIC ---
-  // This effect runs whenever the Path changes (navigation) or AuthState changes.
-  // It forces the Navbar to check LocalStorage if AuthState is slightly delayed.
-  useEffect(() => {
-    // 1. Try to get name from Context first (Most reliable source)
-    if (authState?.user?.first_name) {
-      setDisplayName(authState.user.first_name);
-    }
-    // 2. Fallback: If context is empty, check LocalStorage directly (Fixes "Refresh Needed" bug)
-    else if (typeof window !== "undefined") {
-      const storedUser = localStorage.getItem("user");
-      if (storedUser) {
-        try {
-          const parsedUser = JSON.parse(storedUser);
-          if (parsedUser?.first_name) {
-            setDisplayName(parsedUser.first_name);
-          }
-        } catch (error) {
-          console.error("Error parsing user from local storage", error);
-        }
-      } else {
-        // If nothing in context AND nothing in storage, clear the name
-        setDisplayName("");
-      }
-    }
-  }, [authState, pathname]); // Dependency on pathname ensures it checks again after a redirect
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
 
-  const handleNavLinkClick = (path) => {
+  const handleNavLinkClick = () => {
     setIsModalOpen(false);
   };
 
@@ -1381,8 +1345,10 @@ const Navbar = () => {
     try {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
-      setUserAuthInfo({ token: "", user: {} });
-      setDisplayName(""); // Immediately clear name from UI
+
+      // ✅ FIX: user should be null
+      setUserAuthInfo({ token: "", user: null });
+
       toast.success("Logged out successfully");
       setIsModalOpen(false);
     } catch (err) {
@@ -1395,12 +1361,8 @@ const Navbar = () => {
 
   // --- Auth Button Logic ---
   const renderAuthButton = () => {
-    // We check authentication status
-    const authenticated = isUserAuthenticated();
-
-    return authenticated ? (
+    return isUserAuthenticated() ? (
       <Link href="/profile">
-        {/* Updated responsive sizing to match NavLink */}
         <div
           className="relative lg:py-0 lg:h-[36px] rounded-full border-[2px] border-[#FFA53A] bg-[#FFA53A] text-[#070044] flex items-center justify-center cursor-pointer transition-all hover:bg-white hover:border-white 
           lg:px-4 xl:px-8 py-2"
@@ -1409,8 +1371,7 @@ const Navbar = () => {
             className={`${anaheim.className} font-bold tracking-widest uppercase truncate max-w-[150px]
               lg:text-sm xl:text-lg`}
           >
-            {/* USE THE LOCAL 'displayName' STATE INSTEAD OF DIRECT AUTHSTATE */}
-            {displayName || "Profile"}
+            {authState?.user?.first_name || "Profile"}
           </span>
         </div>
       </Link>
@@ -1422,18 +1383,14 @@ const Navbar = () => {
   // --- Desktop Dropdown Links ---
   const desktopHamburgerLinks = (
     <div className="flex flex-col justify-center items-center gap-4">
-      <NavLink
-        href="/profile"
-        text="My Profile"
-        onClick={() => handleNavLinkClick("/profile")}
-      />
+      <NavLink href="/profile" text="My Profile" onClick={handleNavLinkClick} />
       <div className="w-full h-[1px] bg-[#FFA53A] opacity-30"></div>
       <NavLink
         href="/"
         text="Logout"
         onClick={() => {
           handleLogout();
-          handleNavLinkClick("/");
+          handleNavLinkClick();
         }}
       />
     </div>
@@ -1446,37 +1403,37 @@ const Navbar = () => {
         href="/"
         text="Home"
         className="w-40"
-        onClick={() => handleNavLinkClick("/")}
+        onClick={handleNavLinkClick}
       />
       <NavLink
         href="/picsoreel"
         text="Pics-o-Reel"
         className="w-40"
-        onClick={() => handleNavLinkClick("/picsoreel")}
+        onClick={handleNavLinkClick}
       />
       <NavLink
         href="/workshops"
         text="Workshops"
         className="w-40"
-        onClick={() => handleNavLinkClick("/workshops")}
+        onClick={handleNavLinkClick}
       />
       <NavLink
         href="/events"
         text="Events"
         className="w-40"
-        onClick={() => handleNavLinkClick("/events")}
+        onClick={handleNavLinkClick}
       />
       <NavLink
         href="/sponsors"
         text="Sponsors"
         className="w-40"
-        onClick={() => handleNavLinkClick("/sponsors")}
+        onClick={handleNavLinkClick}
       />
       <NavLink
         href="/cart"
         text="Cart"
         className="w-40"
-        onClick={() => handleNavLinkClick("/cart")}
+        onClick={handleNavLinkClick}
       />
 
       {isUserAuthenticated() ? (
@@ -1486,7 +1443,7 @@ const Navbar = () => {
             href="/profile"
             text="Profile"
             className="w-40"
-            onClick={() => handleNavLinkClick("/profile")}
+            onClick={handleNavLinkClick}
           />
           <NavLink
             href="/"
@@ -1494,7 +1451,7 @@ const Navbar = () => {
             className="w-40"
             onClick={() => {
               handleLogout();
-              handleNavLinkClick("/");
+              handleNavLinkClick();
             }}
           />
         </>
@@ -1503,7 +1460,7 @@ const Navbar = () => {
           href="/login"
           text="Login"
           className="w-40"
-          onClick={() => handleNavLinkClick("/login")}
+          onClick={handleNavLinkClick}
         />
       )}
     </div>
@@ -1521,12 +1478,10 @@ const Navbar = () => {
         }
       `}
     >
-      {/* --- Desktop View --- */}
+      {/* Desktop View */}
       <div className="hidden lg:flex w-full px-6 py-6 items-center relative">
-        {/* Left spacer – keeps center truly centered */}
         <div className="flex-1" />
 
-        {/* Centered nav group */}
         <div className="flex justify-center items-center lg:gap-2 xl:gap-[18px]">
           <NavLink href="/" text="Home" />
           <NavLink href="/picsoreel" text="Pics-o-Reel" />
@@ -1537,7 +1492,6 @@ const Navbar = () => {
           {renderAuthButton()}
         </div>
 
-        {/* Right area (hamburger) */}
         <div className="flex-1 flex justify-end">
           {isUserAuthenticated() && (
             <button
@@ -1550,7 +1504,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* --- Mobile View --- */}
+      {/* Mobile View */}
       <div className="relative z-50 lg:hidden flex justify-between items-center py-4 px-6 bg-transparent">
         <Link href="/">
           <span
@@ -1560,17 +1514,15 @@ const Navbar = () => {
           </span>
         </Link>
 
-        <div className="flex items-center gap-4">
-          <button
-            onClick={toggleModal}
-            className="text-[#FFA53A] text-2xl focus:outline-none w-10 h-10 rounded-full flex items-center justify-center border-2 border-[#FFA53A] bg-transparent"
-          >
-            {renderHamburgerIcon()}
-          </button>
-        </div>
+        <button
+          onClick={toggleModal}
+          className="text-[#FFA53A] text-2xl focus:outline-none w-10 h-10 rounded-full flex items-center justify-center border-2 border-[#FFA53A] bg-transparent"
+        >
+          {renderHamburgerIcon()}
+        </button>
       </div>
 
-      {/* --- Common Modal --- */}
+      {/* Modal */}
       <CommonModal isOpen={isModalOpen}>
         <div className="hidden lg:flex justify-end">
           {isUserAuthenticated() ? desktopHamburgerLinks : null}
@@ -1582,3 +1534,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
