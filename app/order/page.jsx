@@ -14,8 +14,7 @@ const CategoryBoard = ({ title, events, waLinks, themeColor }) => {
   if (!events || events.length === 0) return null;
 
   const getWaLink = (eventId) => waLinks.find((link) => link.id === eventId)?.wa_link;
-  const mainWaLink = events.map(e => getWaLink(e.id)).find(link => link !== undefined);
-
+  
   return (
     <motion.div
       initial={{ y: 30, opacity: 0 }}
@@ -32,24 +31,14 @@ const CategoryBoard = ({ title, events, waLinks, themeColor }) => {
           borderColor: themeColor 
         }}
       >
-        {/* Decorative Corner Squares (Lighter/Darker accent) */}
         <div className="absolute top-0 left-0 w-4 h-4 bg-black/20"></div>
         <div className="absolute top-0 right-0 w-4 h-4 bg-black/20"></div>
 
         <div className="flex items-center justify-between px-4 py-4 md:px-6 md:py-5 relative z-10 text-[#FDEEAE]">
           
-          {/* LEFT: WhatsApp Group Button */}
+          {/* LEFT: WhatsApp button moved to individual rows */}
           <div className="flex-shrink-0 w-1/3 text-left">
-            {mainWaLink ? (
-              <a href={mainWaLink} target="_blank" rel="noreferrer">
-                <button className="bg-white/10 hover:bg-white/20 text-white sub-heading-font text-xs md:text-sm px-3 py-1 md:px-4 md:py-2 rounded-full border-2 border-[#FDEEAE] shadow-sm transition-transform hover:scale-105 flex items-center gap-2 w-fit">
-                  <FaWhatsapp className="text-lg" />
-                  <span className="hidden md:inline">JOIN GROUP</span>
-                </button>
-              </a>
-            ) : (
-              <div className="w-8"></div>
-            )}
+             <FaTicketAlt className="text-xl md:text-2xl opacity-40" />
           </div>
 
           {/* CENTER: Title */}
@@ -81,63 +70,81 @@ const CategoryBoard = ({ title, events, waLinks, themeColor }) => {
         style={{ borderColor: themeColor }}
       >
         <div className="flex flex-col">
-          {events.map((event, index) => (
-            <div 
-              key={event.id} 
-              className="group/row flex items-center justify-between py-3 md:py-4 px-3 transition-colors duration-300 rounded-md"
-              style={{
-                borderBottom: index !== events.length - 1 ? `2px dashed ${themeColor}40` : 'none',
-              }}
-              // Inline hover style logic using a unique class approach or simple style tag injection
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = `${themeColor}15`; // 15 is low opacity hex
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-              }}
-            >
-              {/* Event Details */}
-              <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4">
-                <div className="flex items-center gap-2">
-                  <FaTicketAlt className="text-xs opacity-70" style={{ color: themeColor }} />
-                  <span className="body-font font-bold text-xs md:text-sm opacity-60" style={{ color: themeColor }}>
-                    #{event.id.toString().padStart(4, '0')}
-                  </span>
-                </div>
-                <Link href={`/individual/${event.id}`}>
-                  <h3 
-                    className="sub-heading-font text-lg md:text-2xl uppercase transition-colors cursor-pointer"
-                    style={{ color: themeColor }}
-                    onMouseEnter={(e) => e.currentTarget.style.opacity = '0.7'}
-                    onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
-                  >
-                    {event.name}
-                  </h3>
-                </Link>
-              </div>
+          {events.map((event, index) => {
+            // Get the specific WhatsApp link for this individual event
+            const itemWaLink = getWaLink(event.id);
 
-              {/* Action */}
-              <Link href={`/individual/${event.id}`}>
-                <div
-                  className="bg-transparent border-2 rounded px-3 py-1 md:px-4 md:py-1 sub-heading-font text-xs md:text-sm transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer"
-                  style={{ 
-                    borderColor: themeColor, 
-                    color: themeColor 
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = themeColor;
-                    e.currentTarget.style.color = '#FDEEAE';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = 'transparent';
-                    e.currentTarget.style.color = themeColor;
-                  }}
-                >
-                  <FaEye /> <span className="hidden md:inline">VIEW</span>
+            return (
+              <div 
+                key={event.id} 
+                className="group/row flex items-center justify-between py-3 md:py-4 px-3 transition-colors duration-300 rounded-md"
+                style={{
+                  borderBottom: index !== events.length - 1 ? `2px dashed ${themeColor}40` : 'none',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = `${themeColor}15`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                }}
+              >
+                {/* Event Details */}
+                <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4">
+                  <div className="flex items-center gap-2">
+                    <FaTicketAlt className="text-xs opacity-70" style={{ color: themeColor }} />
+                    <span className="body-font font-bold text-xs md:text-sm opacity-60" style={{ color: themeColor }}>
+                      #{event.id.toString().padStart(4, '0')}
+                    </span>
+                  </div>
+                  <Link href={`/individual/${event.id}`}>
+                    <h3 
+                      className="sub-heading-font text-lg md:text-2xl uppercase transition-colors cursor-pointer"
+                      style={{ color: themeColor }}
+                      onMouseEnter={(e) => e.currentTarget.style.opacity = '0.7'}
+                      onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+                    >
+                      {event.name}
+                    </h3>
+                  </Link>
                 </div>
-              </Link>
-            </div>
-          ))}
+
+                {/* Actions */}
+                <div className="flex items-center gap-3">
+                  {itemWaLink && (
+                    <a href={itemWaLink} target="_blank" rel="noreferrer" title="Join WhatsApp Group">
+                      <div 
+                        className="p-2 rounded-full border-2 transition-transform hover:scale-110 flex items-center justify-center cursor-pointer"
+                        style={{ borderColor: "#25D366", color: "#25D366", backgroundColor: "white" }}
+                      >
+                        <FaWhatsapp className="text-lg md:text-xl" />
+                      </div>
+                    </a>
+                  )}
+
+                  {/* View Button */}
+                  <Link href={`/individual/${event.id}`}>
+                    <div
+                      className="bg-transparent border-2 rounded px-3 py-1 md:px-4 md:py-1 sub-heading-font text-xs md:text-sm transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer"
+                      style={{ 
+                        borderColor: themeColor, 
+                        color: themeColor 
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = themeColor;
+                        e.currentTarget.style.color = '#FDEEAE';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                        e.currentTarget.style.color = themeColor;
+                      }}
+                    >
+                      <FaEye /> <span className="hidden md:inline">VIEW</span>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </motion.div>
@@ -146,7 +153,6 @@ const CategoryBoard = ({ title, events, waLinks, themeColor }) => {
 
 // --- MAIN COMPONENT ---
 const Order = () => {
-  // --- STATE & API ---
   const [events, setEvents] = useState([]);
   const [picsoreel, setPicsoreel] = useState([]);
   const [workshops, setWorkshops] = useState([]);
@@ -186,27 +192,6 @@ const Order = () => {
   const shouldDisplaySection = (data) => {
     return data && Array.isArray(data) && data.length > 0;
   };
-
-  // --- MOCK DATA ---
-  // const [picsoreel, setPicsoreel] = useState([
-  //   { id: 1, name: "Street Photography", event_category: "PICSOREEL" },
-  //   { id: 2, name: "Nature Photography", event_category: "PICSOREEL" },
-  // ]);
-
-  // const [workshops, setWorkshops] = useState([
-  //   { id: 3, name: "Cinematic Photography Workshop", event_category: "WORKSHOP" },
-  // ]);
-
-  // const [events, setEvents] = useState([
-  //   { id: 4, name: "Photo Walk Mumbai", event_category: "EVENTS" },
-  //   { id: 5, name: "Portrait Challenge", event_category: "EVENTS" },
-  // ]);
-
-  // const [waLinks, setWhatsAppLinks] = useState([
-  //   { id: 1, wa_link: "https://wa.me/919999999999" },
-  //   { id: 3, wa_link: "https://wa.me/918888888888" },
-  //   { id: 4, wa_link: "https://wa.me/917777777777" },
-  // ]);
 
   return (
     <div className="relative min-h-screen w-full overflow-x-hidden text-[#644817]">
@@ -278,7 +263,7 @@ const Order = () => {
               title="Pics-O-Reel" 
               events={picsoreel} 
               waLinks={waLinks}
-              themeColor="#3CB2CC" // Dark Green
+              themeColor="#3CB2CC" 
             />
           )}
 
@@ -287,7 +272,7 @@ const Order = () => {
               title="Workshops" 
               events={workshops} 
               waLinks={waLinks}
-              themeColor="#F069AE" // Orange
+              themeColor="#F069AE" 
             />
           )}
 
@@ -296,13 +281,13 @@ const Order = () => {
               title="Events" 
               events={events} 
               waLinks={waLinks}
-              themeColor="#fa6720" // Dark Brown
+              themeColor="#fa6720" 
             />
           )}
 
         </div>
 
-       {/* --- FOOTER ACTIONS --- */}
+        {/* --- FOOTER ACTIONS --- */}
         <motion.div 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -328,5 +313,4 @@ const Order = () => {
   );
 };
 
-// export default isNotAuth(Order);
 export default isNotAuth(Order);

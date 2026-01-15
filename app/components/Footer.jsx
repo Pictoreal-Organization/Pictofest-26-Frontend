@@ -5,7 +5,7 @@ const Footer = () => {
     <footer className="body-font">
       {/* ================= MOBILE FOOTER ================= */}
       <div className="block md:hidden bg-[url('/img/home/footerphone.svg')] bg-cover bg-center px-[5vw] pt-[8vh] pb-[4vh]">
-        
+
         {/* Logo + Socials */}
         <div className="flex flex-col items-center gap-[3vh]">
           <Link href="https://www.pictoreal.in/" target="_blank">
@@ -56,9 +56,10 @@ const Footer = () => {
           </p>
 
           {[
-            ["Xxxxx", "+91 99999 99999"],
-            ["Yyyyy", "+91 77777 77777"],
-            ["Zzzzzz", "+91 88888 88888"],
+            ["Anushka", "+91 9172284641"],
+            ["Sanskar", "+91 7875390131"],
+            ["Bhagyashree", "+91 9145799399"]
+
           ].map(([name, number]) => (
             <p key={name} className="text-white text-[4.5vw] mb-[1.2vh]">
               {name} : {number}
@@ -84,9 +85,9 @@ const Footer = () => {
 
       {/* ================= DESKTOP FOOTER ================= */}
       <div className="hidden md:block bg-[url('/img/home/footer.svg')] bg-contain px-[6vw] pt-[10vh] pb-[5vh]">
-        
+
         <div className="flex justify-between items-start mt-[6vh]">
-          
+
           {/* Logo + Socials */}
           <div className="w-[20%] flex flex-col items-start gap-[2vh]">
             <Link href="https://www.pictoreal.in/" target="_blank">
@@ -131,9 +132,10 @@ const Footer = () => {
             </p>
 
             {[
-              ["Lorem Ipsem", "+91 XXXXXXXXXX"],
-              ["Lorem Ipsum", "+91 XXXXXXXXXX"],
-              ["Lorem Ipsom", "+91 XXXXXXXXXX"],
+              ["Anushka", "+91 9172284641"],
+              ["Sanskar", "+91 7875390131"],
+              ["Bhagyashree", "+91 9145799399"]
+
             ].map(([name, number]) => (
               <p key={name} className="text-white text-[1.3vw] mb-[1vh]">
                 {name} : {number}

@@ -149,6 +149,8 @@ const Workshops = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  const isOdd = workshops.length % 2 !== 0;
+
   return (
     <main className="relative min-h-screen overflow-x-hidden overflow-y-hidden">
       {/* Background */}
@@ -179,23 +181,31 @@ const Workshops = () => {
           Workshops
         </h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8 mt-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8 mt-2 w-full">
           {workshops &&
-            workshops.map((event, index) => (
-              <motion.div
-                key={event.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.6,
-                  delay: index * 0.08,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className="w-full"
-              >
-                <EventCard data={event} index={index} />
-              </motion.div>
-            ))}
+            workshops.map((event, index) => {
+              const isLastAndOdd = isOdd && index === workshops.length - 1;
+
+              return (
+                <motion.div
+                  key={event.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.6,
+                    delay: index * 0.08,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className={`w-full ${
+                    isLastAndOdd 
+                      ? "md:col-span-2 md:max-w-md md:mx-auto" 
+                      : "md:max-w-md md:mx-auto"
+                  }`}
+                >
+                  <EventCard data={event} index={index} />
+                </motion.div>
+              );
+            })}
         </div>
       </div>
 
