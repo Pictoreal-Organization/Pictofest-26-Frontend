@@ -592,7 +592,7 @@
 import Link from "next/link";
 import { Fade } from "react-awesome-reveal";
 
-
+// --- 1. Fixed Component (No changes here) ---
 const BannerEventCard = ({
   title,
   description,
@@ -604,18 +604,12 @@ const BannerEventCard = ({
   textPositionClass = "",
   imageClass = "",
 }) => (
-  <div 
-    // CHANGE 1: Added 'pointer-events-none'
-    // This allows clicks to pass through the empty parts of this card 
-    // so they can reach the card buttons physically "behind" it.
-    className="relative w-full max-w-5xl mx-auto flex items-center justify-center p-5 mt-4 md:mt-12 pointer-events-none"
-  >
+  <div className="relative w-full max-w-5xl mx-auto flex items-center justify-center p-5 mt-4 md:mt-12 pointer-events-none">
     {/* --- DYNAMIC DECORATIONS RENDERER --- */}
     {decorations &&
       decorations.map((item, index) => (
         <picture
           key={index}
-          // Decorations are already pointer-events-none, which is good
           className={`absolute z-20 pointer-events-none drop-shadow-xl ${item.className}`}
         >
           {item.mobileSrc ? (
@@ -658,21 +652,7 @@ const BannerEventCard = ({
 
         <Link
           href={link}
-          // CHANGE 2: Added 'pointer-events-auto'
-          // This re-enables clicks specifically for the button
-          className={`
-            pointer-events-auto
-            sub-heading-font 
-            relative z-30
-            mt-0.5 px-6 py-3 text-sm 
-            md:px-8 md:py-3 md:mb-2 md:text-lg lg:text-xl 
-            rounded-xl border-2 md:border-4 
-            bg-white/80 backdrop-blur-sm 
-            transition-all duration-300
-            active:scale-95 active:text-white
-            hover:text-white 
-            ${buttonColorClass}
-          `}
+          className={`sub-heading-font mt-0.5 px-6 py-1.5 md:px-8 md:py-3 md:mb-2 text-sm md:text-lg lg:text-xl rounded-xl border-2 md:border-4 bg-white/80 backdrop-blur-sm transition-all hover:text-white ${buttonColorClass} pointer-events-auto`}
         >
           Participate
         </Link>
@@ -703,7 +683,7 @@ const EventsCard = () => {
       <Fade
         direction="up"
         triggerOnce
-        className="w-full flex justify-center z-20"
+        className="w-full flex justify-center z-10"
       >
         <BannerEventCard
           title="PICS-O-REEL"
@@ -792,4 +772,3 @@ const EventsCard = () => {
 };
 
 export default EventsCard;
-
