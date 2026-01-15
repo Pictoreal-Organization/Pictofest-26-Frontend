@@ -435,27 +435,27 @@ const Submission = () => {
   // Mock Data
   const [events, setEvents] = useState();
   const trimString = (str, length) => {
-  if (str.length <= length * 2) return str;
-  const trimmedLength = str.length - length * 2;
-  return str.substring(length, trimmedLength);
-};
+    if (str.length <= length * 2) return str;
+    const trimmedLength = str.length - length * 2;
+    return str.substring(length, trimmedLength);
+  };
 
-const getEvents = async () => {
-  try {
-    const response = await api.get("/userEvent/submission");
-    const data = response.data.data.map((item) => ({
-      ...item,
-      image_link: item.image_link || "",
-    }));
-    setEvents(data);
-  } catch (err) {
-    console.log(err);
-  }
-};
+  const getEvents = async () => {
+    try {
+      const response = await api.get("/userEvent/submission");
+      const data = response.data.data.map((item) => ({
+        ...item,
+        image_link: item.image_link || "",
+      }));
+      setEvents(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-useEffect(() => {
-  getEvents();
-}, []);
+  useEffect(() => {
+    getEvents();
+  }, []);
 
 
   return (
@@ -539,23 +539,23 @@ useEffect(() => {
             <h3 className="block text-lg md:text-xl mb-1">Contact Us</h3>
             <div className="items-center justify-center flex flex-row gap-5">
               <Link
-                href="https://wa.me/9687805915"
+                href="https://wa.me/9172284641"
                 className="hover:text-[#8B260D] transition-colors"
               >
-                Anvesha : +91 96878 05915
+                Anushka : +91 9172284641
               </Link>
               <Link
-                href="https://wa.me/7620851007"
+                href="https://wa.me/7875390131"
                 className="hover:text-[#8B260D] transition-colors"
               >
-                Mahesh : +91 76208 51007
+                Sanskar : +91 7875390131
               </Link>
               <Link
-                href="https://wa.me/9022190737"
+                href="https://wa.me/9145799399"
                 className="hover:text-[#8B260D] transition-colors"
               >
-                Vedika
-                +91 90221 90737
+                Bhagyashree
+                +91 9145799399
               </Link>
             </div>
           </div>
@@ -584,7 +584,7 @@ useEffect(() => {
 
           {!events && (
             <div className="w-full text-center p-10 text-[#572813] body-font text-xl">
-              Please register for an event to submit entries.
+              Please register for a Pics-o-reel category to submit entries.
             </div>
           )}
         </div>
