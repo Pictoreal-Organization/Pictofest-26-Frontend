@@ -241,4 +241,9 @@ useEffect(() => {
   );
 };
 
+<<<<<<< HEAD
 export default Picsoreel;
+
+=======
+export default Picsoreel;
+>>>>>>> 1042366aac2886390ed3899e1c938b41298d23e5
