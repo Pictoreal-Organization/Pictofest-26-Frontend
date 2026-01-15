@@ -177,11 +177,11 @@ const Workshops = () => {
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto flex flex-col gap-6 lg:gap-8 justify-center items-center lg:py-14 py-8 px-4">
-        <h1 className="text-4xl lg:text-5xl tracking-tight text-[#FFA53A] heading-font mt-15">
+        <h1 className="text-4xl lg:text-5xl tracking-tight text-[#FFA53A] heading-font mt-13">
           Workshops
         </h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8 mt-2 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8 w-full">
           {workshops &&
             workshops.map((event, index) => {
               const isLastAndOdd = isOdd && index === workshops.length - 1;
