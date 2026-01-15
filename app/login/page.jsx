@@ -388,6 +388,7 @@ const Login = () => {
 
     setIsLoading(true);
 
+  
     try {
       const response = await axios.post(`${baseURL}/user/login`, {
         email,
@@ -395,15 +396,23 @@ const Login = () => {
         turnstileToken: captchaToken,
       });
 
-      setUserAuthInfo(response.data.data);
+      const { token, user } = response.data.data;
+
+      // persist
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+
+      // 🔥 IMPORTANT: update context immediately
+      setUserAuthInfo({ token, user });
+
       toast.success(response.data.message);
       router.push("/");
-      // window.location.reload(); // Optional: Uncomment if you need a hard reload to reset state
     } catch (err) {
       toast.error(err.response?.data?.message || "Failed to login.");
     } finally {
       setIsLoading(false);
     }
+    
   };
 
   // Reusable styles to match Register/Forgot Password
