@@ -16,8 +16,7 @@ const ProfilePageCard = ({ route, image, title, styles = "" }) => {
         transition-all
         duration-300
         ease-out
-        hover:scale-[1]
-        hover:-translate-y-1
+        hover:-translate-y-[1px]
         ${styles}
       `}
     >
@@ -29,17 +28,19 @@ const ProfilePageCard = ({ route, image, title, styles = "" }) => {
         priority
         className="
           object-contain
-          transition-transform
+          transition-transform transition-opacity
           duration-300
-          group-hover:scale-110
+          ease-out
+          group-hover:scale-[1.02]
+          group-hover:opacity-95
         "
       />
 
-      {/* Dark overlay on hover */}
+      {/* Very light overlay */}
       <div
         className="
           absolute inset-0
-          bg-black/20
+          bg-black/5
           opacity-0
           transition-opacity
           duration-300
@@ -55,11 +56,13 @@ const ProfilePageCard = ({ route, image, title, styles = "" }) => {
             text-white
             text-2xl md:text-4xl
             tracking-wide
-            translate-x-5 md:translate-x-10
+            opacity-90
+            translate-x-1
             transition-all
             duration-300
-            group-hover:scale-110
-            group-hover:tracking-widest
+            ease-out
+            group-hover:opacity-100
+            group-hover:translate-x-0
           "
         >
           {title}
