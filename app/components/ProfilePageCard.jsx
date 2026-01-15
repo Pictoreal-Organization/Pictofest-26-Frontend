@@ -49,7 +49,7 @@ const ProfilePageCard = ({ route, image, title, styles = "" }) => {
       />
 
       {/* Title */}
-      <div className="absolute inset-0 flex items-center justify-center">
+      <div className="absolute inset-0 flex items-center justify-center ml-[2vw] -mr-[1vw]">
         <h2
           className="
             heading-font
