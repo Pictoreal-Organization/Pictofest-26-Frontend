@@ -517,9 +517,9 @@
 //           1. BACKGROUND LAYER
 //          ============================================================ */}
 //       <div className="absolute top-0 left-0 w-full -z-10 bg-[#070044] h-full object-cover">
-        
+
 //         <div className="block lg:hidden w-full relative">
-          
+
 //           <Image
 //             src="/img/home/mobile-bg.png"
 //             alt="Mobile Background"
@@ -530,7 +530,7 @@
 //             priority
 //           />
 //         </div>
-        
+
 //         <div className="hidden lg:block w-full relative">
 //           <Image
 //             src="/img/home/desktop-bg.png"
@@ -1239,17 +1239,17 @@ const Home = () => {
           1. BACKGROUND LAYER
          ============================================================ */}
       <div className="absolute top-0 left-0 w-full -z-10 bg-[#070044] h-full object-cover">
-        <div className="block lg:hidden w-full relative">
-          <Image
-            src="/img/home/mobile-bg.png"
-            alt="Mobile Background"
-            width={0}
-            height={0}
-            sizes="100vw"
-            className="w-full h-full object-cover"
-            priority
-          />
-        </div>
+        <div
+          className="
+    block lg:hidden
+    w-full h-full
+    bg-[url('/img/home/mobile-bg.png')]
+    bg-repeat-y
+    bg-top
+    bg-[length:100%_auto]
+  "
+        />
+
         <div className="hidden lg:block w-full relative">
           <Image
             src="/img/home/desktop-bg.png"
@@ -1307,7 +1307,7 @@ const Home = () => {
               delay: 0.8,
               duration: 2,
               type: "spring",
-              bounce:0.5,
+              bounce: 0.5,
             }}
           >
             <Image
@@ -1327,13 +1327,13 @@ const Home = () => {
              ------------------------------------------------------- */}
           <motion.div
             className="absolute top-[53%] -right-0 left-116 -z-10"
-                        initial={{ y: -300, opacity: 0 }} // Start high up (like up the thread)
-                        animate={{ y: 0, opacity: 1 }} // Slide down to resting position
-                        transition={{
-                          delay: 0.9, // Wait for logo to settle
-                          duration: 2, // Slow slide down
-                          type: "spring", // Slight bounce at the end
-                          bounce:0.3
+            initial={{ y: -300, opacity: 0 }} // Start high up (like up the thread)
+            animate={{ y: 0, opacity: 1 }} // Slide down to resting position
+            transition={{
+              delay: 0.9, // Wait for logo to settle
+              duration: 2, // Slow slide down
+              type: "spring", // Slight bounce at the end
+              bounce: 0.3
             }}
           >
             <Image
@@ -1355,7 +1355,7 @@ const Home = () => {
               <img
                 src="/img/home/home-left-singers.png"
                 alt="Left Singer"
-                className="w-[100%] md:w-[35%] h-auto object-contain drop-shadow-2xl items-start"
+                className="w-[100%] translate-y-[5.5%] md:w-[35%] h-auto object-contain drop-shadow-2xl items-start"
               />
 
               {/* Right Singer (Hidden on Mobile) */}
@@ -1373,7 +1373,7 @@ const Home = () => {
               className="relative z-10 w-full md:w-[100%] object-cover"
             />
 
-<div className="hidden lg:block absolute top-30 left-0 z-10 w-32 xl:w-42">
+            <div className="hidden lg:block absolute top-30 left-0 z-10 w-32 xl:w-42">
               <Image
                 src="/img/home/home-bg-left-sparkle-desktop.png" // <--- UPDATE PATH
                 alt="Sparkles Left"
@@ -1384,7 +1384,7 @@ const Home = () => {
             </div>
 
             {/* 2. Top Right Music Notes */}
-            <div className="hidden lg:block absolute top-[540px] right-0 z-10 w-24 xl:w-68">
+            <div className="hidden lg:block absolute top-[540px] right-0 z-10 w-24 xl:w-[14vw]">
               <Image
                 src="/img/home/home-bg-right-musicStream-desktop.png" // <--- UPDATE PATH
                 alt="Music Notes Right"
@@ -1427,10 +1427,10 @@ const Home = () => {
         <div>
           {/* <PrizePool /> */}
         </div>
-        <div className="md:px-24 lg:px-40 sm:pt-20">
+        <div className="md:px-24 lg:px-40 sm:pt-20 mb-[8vh]">
           <Events />
         </div>
-        <div className="w-full h-auto bg-[url('/img/home/Aboutbg.svg')] bg-cover">
+        <div className="w-full h-full bg-[url('/img/home/Aboutbg.svg')] bg-cover">
           <About />
         </div>
         <div>

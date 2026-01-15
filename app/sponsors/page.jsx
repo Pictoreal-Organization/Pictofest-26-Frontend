@@ -82,7 +82,7 @@ const Sponsors = () => {
         {/* Desktop Background */}
         <div className="hidden md:block w-full h-full relative">
           <Image
-            src="/img/common/general-desktop-bg.png"
+            src="/img/common/desktop-bg.png"
             alt="Desktop Background"
             fill
             className="object-cover" // Keeps aspect ratio, clips edges instead of stretching
@@ -97,13 +97,12 @@ const Sponsors = () => {
       <div className="relative z-10 flex flex-col items-center py-10 md:py-14">
 
         {/* TITLE */}
-        <div className="text-center heading-font text-white 
-          text-[36px] sm:text-[44px] md:text-[70px]
-          mb-20 sm:mb-28 md:mb-40
-          mt-14 sm:mt-16 md:mt-20
-          drop-shadow-lg uppercase">
+        <h1 className="text-4xl lg:text-5xl tracking-tight text-white heading-font 
+          mt-14 sm:mt-16 lg:mt-15 
+          mb-20 sm:mb-28 md:mb-40 
+          text-center">
           Our Sponsors
-        </div>
+        </h1>
 
         {/* SPONSORS SECTION */}
         <div className="flex flex-col gap-10 md:mb-20 mb-20 items-center">

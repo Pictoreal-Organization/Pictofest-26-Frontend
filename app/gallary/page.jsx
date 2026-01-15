@@ -233,7 +233,7 @@ const Gallery = () => {
                       </h2>
 
                       {/* Entry Image - Centered */}
-                       <div className="absolute top-[15%] left-1/2 -translate-x-[52%] w-[57%]" style={{ minWidth: '180px', minHeight: '240px' }}>
+                       <div className="absolute top-[15%] left-1/2 -translate-x-[52%] w-[56%]" style={{ minWidth: '180px', minHeight: '240px' }}>
                         <img
                           src={entry.img}
                           alt={`Entry ${entry.ticket_id}`}
@@ -251,15 +251,25 @@ const Gallery = () => {
                         alt="Tag Number"
                         width={350}
                         height={60}
-                        className="w-full h-auto"
+                        className="w-full h-auto
+                        hover:scale-95 transition-transform"
                       />
 
                       {/* Vote Button */}
                       <button
-                        className={`${rye.className} text-[#A53A1F] absolute top-1/2 left-1/2 -translate-y-1/2 translate-x-1/2 bg-transparent border-none font-semibold text-base lg:text-lg cursor-pointer hover:scale-105 transition-transform`}
-                      >
-                        Vote
-                      </button>
+  className={`${rye.className} 
+    text-[#A53A1F] 
+    absolute top-1/2 left-1/2 
+    -translate-y-[70%] translate-x-[2%] 
+    bg-transparent border-none 
+    font-semibold 
+    text-lg lg:text-xl xl:text-2xl 
+    cursor-pointer 
+    `}
+>
+  Vote
+</button>
+
                     </div>
                   </div>
                 </div>

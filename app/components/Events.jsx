@@ -89,8 +89,6 @@
 
 //2026 dev
 
-
-
 // import Link from "next/link";
 // import { Fade } from "react-awesome-reveal";
 
@@ -274,7 +272,6 @@
 
 // export default EventsCard;
 
-
 // import Link from "next/link";
 // import { Fade } from "react-awesome-reveal";
 
@@ -318,7 +315,7 @@
 //   // We use 'max-w-5xl' to stop it from getting too huge on big screens.
 //   <div className="relative w-full max-w-5xl mx-auto flex items-center justify-center p-5">
 //     {/* --- Background Image --- */}
-//     {/* 2. Logic Change: The image is now 'relative'. 
+//     {/* 2. Logic Change: The image is now 'relative'.
 //         It dictates the height of the parent div. w-full h-auto maintains aspect ratio. */}
 //     <picture className="w-full h-auto block">
 //       <source media="(min-width: 1024px)" srcSet={bannerImage} />
@@ -330,7 +327,7 @@
 //     </picture>
 
 //     {/* --- Centered Content Overlay --- */}
-//     {/* 3. Logic Change: Text is now 'absolute'. 
+//     {/* 3. Logic Change: Text is now 'absolute'.
 //         It sits ON TOP of the image. 'inset-0' makes it cover the exact area of the image. */}
 //     <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-8 py-6 md:px-16 md:py-10 z-10">
 //       {/* Added max-width to text so it doesn't touch the very edges of your card graphic */}
@@ -496,8 +493,6 @@
 //       />
 //     </picture>
 
-   
-
 //     {/* --- Centered Content Overlay --- */}
 //     <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-8 py-6 md:px-16 md:py-10 z-10">
 //       <div className="flex flex-col items-center gap-3 md:gap-6 max-w-[90%] md:max-w-2xl">
@@ -522,9 +517,8 @@
 
 // // const EventsCard = () => {
 // //   return (
-    
+
 // //     <div className="relative flex flex-col items-center w-full pt-0 pb-12 gap-2 md:gap-20 overflow-visible px-4">
-      
 
 // //               <img
 // //                 src="/img/events/bottom-cactus.png" // <--- Update with your real image path
@@ -533,7 +527,7 @@
 // //                 // 'hidden md:block' helps if you want to hide it on very small mobile screens, remove if you want it everywhere.
 // //                 className="absolute bottom-0 left-0 w-16 md:w-60 md:-left-40 md:-bottom-20 pointer-events-none z-50"
 // //               />
-      
+
 // //               {/* --- NEW: Man Decoration (Bottom Right) --- */}
 // //               <img
 // //                 src="/img/events/bottom-SingingMan.png" // <--- Update with your real image path
@@ -541,7 +535,7 @@
 // //                 // Position: Bottom Right.
 // //                 className="absolute bottom-0 right-0 w-20 md:w-60 md:-bottom-20 md:-right-40 pointer-events-none z-50"
 // //               />
-      
+
 // //       {eventData.map((event, index) => (
 // //         <Fade
 // //           key={index}
@@ -610,7 +604,7 @@ const BannerEventCard = ({
   textPositionClass = "",
   imageClass = "",
 }) => (
-  <div className="relative w-full max-w-5xl mx-auto flex items-center justify-center p-5 mt-4 md:mt-12">
+  <div className="relative w-full max-w-5xl mx-auto flex items-center justify-center p-5 mt-4 md:mt-12 pointer-events-none">
     {/* --- DYNAMIC DECORATIONS RENDERER --- */}
     {decorations &&
       decorations.map((item, index) => (
@@ -644,21 +638,21 @@ const BannerEventCard = ({
     </picture>
 
     {/* --- Centered Content Overlay --- */}
-  <div
+    <div
       className={`absolute inset-0 flex flex-col items-center justify-center text-center px-8 md:px-16 md:py-10 z-10 ${textPositionClass}`}
     >
-    <div className="flex flex-col items-center gap-3 md:gap-6 max-w-[90%] md:max-w-2xl">
+      <div className="flex flex-col items-center gap-3 md:gap-6 lg:gap-0.5 xl-gap-6 max-w-[90%] md:max-w-2xl">
         <h2 className="heading heading-font text-2xl md:text-4xl lg:text-5xl pt-2 text-[#4E3506] leading-tight">
           {title}
         </h2>
 
-        <p className="description-font font-bold text-xs md:text-base text-[#4E3506] leading-snug md:leading-relaxed line-clamp-3 md:line-clamp-none">
+        <p className="body-font font-bold text-xs md:text-base text-[#4E3506] leading-snug md:leading-relaxed line-clamp-3 md:line-clamp-none">
           {description}
         </p>
 
         <Link
           href={link}
-          className={`mt-0.5 px-6 py-1.5 md:px-8 md:py-3 md:mb-1 text-sm md:text-lg lg:text-xl rounded-xl border-2 md:border-4 bg-white/80 backdrop-blur-sm transition-all hover:text-white ${buttonColorClass}`}
+          className={`sub-heading-font mt-0.5 px-6 py-1.5 md:px-8 md:py-3 md:mb-2 text-sm md:text-lg lg:text-xl rounded-xl border-2 md:border-4 bg-white/80 backdrop-blur-sm transition-all hover:text-white ${buttonColorClass} pointer-events-auto`}
         >
           Participate
         </Link>
@@ -670,24 +664,27 @@ const BannerEventCard = ({
 // --- 2. Main Component with Hardcoded Cards ---
 const EventsCard = () => {
   return (
-    <div className="relative flex flex-col items-center w-full min-h-[100dvh] md:min-h-0 pt-0 pb-12 gap-2 md:gap-20 overflow-visible px-4">
-      
+    <div className="relative flex flex-col items-center w-full h-auto md:min-h-0 pt-0 pb-12 gap-2 md:gap-20 overflow-visible px-4">
       {/* --- Cactus Decoration (Bottom Left) --- */}
       <img
         src="/img/events/bottom-cactus.png"
         alt="Cactus Decoration"
-        className="absolute -bottom-12 left-0 w-16 md:w-60 md:-left-40 md:-bottom-20 pointer-events-none z-50"
+        className="absolute bottom-[1%] translate-y-[30%] left-0 w-16 md:w-60 md:-left-40  md:translate-y-[26%] pointer-events-none z-50"
       />
 
       {/* --- Man Decoration (Bottom Right) --- */}
       <img
         src="/img/events/bottom-SingingMan.png"
         alt="SingingMan Decoration"
-        className="absolute -bottom-12 right-0 w-20 md:w-60 md:-bottom-20 md:-right-40 pointer-events-none z-50"
+        className="absolute bottom-[1%] translate-y-[17%] right-0 w-20 md:w-60 md:bottom-[1%] md:-right-40 md:translate-y-[23%] pointer-events-none z-50"
       />
 
       {/* --- CARD 1: PICS-O-REEL --- */}
-      <Fade direction="up" triggerOnce className="w-full flex justify-center z-10">
+      <Fade
+        direction="up"
+        triggerOnce
+        className="w-full flex justify-center z-10"
+      >
         <BannerEventCard
           title="PICS-O-REEL"
           description="Step into the world of art with Picsoreel's art exhibitions! Showcasing stunning works from talented artists."
@@ -707,14 +704,18 @@ const EventsCard = () => {
               className:
                 "w-16 bottom-30 right-3 md:w-32 md:bottom-10 md:right-10",
             },
-          ]}          
+          ]}
           textPositionClass="-mt-20 md:mt-0"
           imageClass="-ml-4 md:ml-0"
         />
       </Fade>
 
       {/* --- CARD 2: WORKSHOPS --- */}
-      <Fade direction="up" triggerOnce className="w-full flex justify-center -mt-28 z-20">
+      <Fade
+        direction="up"
+        triggerOnce
+        className="w-full flex justify-center -mt-28 z-20"
+      >
         <BannerEventCard
           title="WORKSHOPS"
           description="Discover the joy of creating with our workshops! Perfect for beginners and experienced artists alike."
@@ -745,7 +746,11 @@ const EventsCard = () => {
       </Fade>
 
       {/* --- CARD 3: EVENTS --- */}
-      <Fade direction="up" triggerOnce className="w-full flex justify-center z-30 -mt-28">
+      <Fade
+        direction="up"
+        triggerOnce
+        className="w-full flex justify-center z-30 -mt-28"
+      >
         <BannerEventCard
           title="EVENTS"
           description="Enhance your creativity with our events! Join us to connect, learn, and be inspired."

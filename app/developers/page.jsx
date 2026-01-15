@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const Team = () => {
   const teamMembers = [
     {
@@ -130,57 +132,109 @@ const Team = () => {
   ];
 
   return (
-    <>
-      <div className="bg-[url('/img/sponsor/background.png')] bg-cover bg-center py-8 lg:py-14 flex flex-col items-center">
-        <div className="text-center heading-font text-[50px] md:text-[70px] mt-[90px] md:mb-[50px]">
+    <> 
+      {/* ============================================================
+          1. DYNAMIC BACKGROUND LAYER
+         ============================================================ */}
+      <div className="fixed top-0 left-0 w-full h-screen -z-10">
+        {/* Mobile Background */}
+        <div className="block md:hidden w-full h-full relative">
+          <Image
+            src="/img/common/general-mobile-bg.png"
+            alt="Mobile Background"
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
+
+        {/* Desktop Background */}
+        <div className="hidden md:block w-full h-full relative">
+          <Image
+            src="/img/common/desktop-bg.png"
+            alt="Desktop Background"
+            fill
+            className="object-cover"
+          />
+        </div>
+      </div>
+
+      {/* ============================================================
+          2. CONTENT SECTION
+         ============================================================ */}
+      <div className="relative z-10 pt-[90px] pb-20">
+        {/* Title */}
+        <div className="text-4xl lg:text-5xl tracking-tight heading-font mt-10 text-center heading-font text-white mb-9">
           OUR TEAM
         </div>
 
-        <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-7 pr-10 pl-10">
+        {/* Team Grid */}
+        <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-7 px-4 md:px-10 min-h-screen">
           {teamMembers.map((member) => (
             <div
               key={member.name}
               className="relative flex justify-center description-font"
             >
               <div>
-                <div className="relative w-[350px] md:w-[435px] lg:w-[535px]">
-                  <img
-                    src="/img/developer/frame.svg"
-                    alt="frame"
-                    className="w-full"
-                  />
+                <div className="relative w-[250px] md:w-[235px] lg:w-[335px] flex flex-col items-center">
+                  {/* Profile Image*/}
+                  <div className="absolute top-100/215 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140px] h-[140px] md:w-[160px] md:h-[160px] lg:w-[200px] lg:h-[200px] rounded-full overflow-hidden z-0">
+                    <Image
+                      src={member.imgSrc}
+                      alt={member.name}
+                      width={200}
+                      height={200}
+                      className="w-full h-full object-cover"
+                      quality={70}
+                    />
+                  </div>
+
+                  {/*Frame */}
+                  <div className="relative w-full z-10">
+                    <Image
+                      src="/img/developer/frame.svg"
+                      alt="frame"
+                      width={335}
+                      height={335}
+                      className="w-full"
+                    />
+                  </div>
+                
+                  <div className="sub-heading-font absolute top-[73.9%] left-[52%] -translate-x-[50%] text-center text-xs md:text-xs lg:text-base whitespace-nowrap text-black z-20">
+                    {member.name}
+                  </div>
+
                 </div>
-                <div className="absolute top-[38%] left-[52%] -translate-x-[50%] -translate-y-[44%] w-[100px] h-[100px] md:w-[120px] md:h-[120px] lg:w-[160px] lg:h-[160px] rounded-full overflow-hidden">
-                  <img
-                    src={member.imgSrc}
-                    alt={member.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="absolute top-[58%] left-[52%] -translate-x-[50%] text-center text-sm md:text-lg lg:text-xl font-bold whitespace-nowrap">
-                  {member.name}
-                </div>
-                <div className="absolute top-[66%] left-[52%] -translate-x-[50%] flex flex-wrap justify-center gap-3 sm:gap-5 md:gap-6">
+                <div className="absolute top-[89%] left-[52%] -translate-x-[50%] flex flex-wrap justify-center gap-3 sm:gap-5 md:gap-6 z-50">
                   <a
-                    href={member.github}
+                    href={member.linkedin || "#"}
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="z-50 hover:opacity-80 transition-opacity cursor-pointer"
                   >
-                    <img
-                      src="/img/developer/github.svg"
-                      alt="GitHub"
+                    <Image
+                      src="/img/developer/linkedin.svg"
+                      alt="LinkedIn"
+                      width={32}
+                      height={32}
                       className="w-6 lg:w-8"
+                      loading="lazy"
                     />
                   </a>
                   <a
-                    href={member.linkedin}
+                    href={member.github || "#"}
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="z-50 hover:opacity-80 transition-opacity cursor-pointer"
+
                   >
-                    <img
-                      src="/img/developer/linkedin.svg"
-                      alt="LinkedIn"
+                    <Image
+                      src="/img/developer/github.svg"
+                      alt="GitHub"
+                      width={32}
+                      height={32}
                       className="w-6 lg:w-8"
+                      loading="lazy"
                     />
                   </a>
                 </div>
