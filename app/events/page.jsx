@@ -191,7 +191,7 @@ const Events = () => {
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto flex flex-col gap-6 lg:gap-8 justify-center items-center lg:py-14 py-8 px-4">
-        <h1 className="text-4xl lg:text-5xl tracking-tight text-[#FFA53A] heading-font mt-13">
+        <h1 className="text-4xl lg:text-5xl tracking-tight text-[#FFA53A] heading-font mt-11">
           Events
         </h1>
 
