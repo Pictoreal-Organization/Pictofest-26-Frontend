@@ -433,7 +433,7 @@ const Login = () => {
       {/* ============================================================
           LAYER 2: SCROLLABLE CONTENT
          ============================================================ */}
-        <div className="relative z-10 w-full flex flex-col items-center pt-[100px] h-dvh overflow-hidden md:h-auto md:overflow-visible md:pb-[300px]">
+        <div className="relative z-10 w-full flex flex-col items-center pt-[100px] h-dvh overflow-hidden md:h-auto md:overflow-visible md:pb-[100px]">
           
           {/* Logo */}
           <img
