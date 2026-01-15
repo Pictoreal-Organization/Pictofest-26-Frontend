@@ -427,8 +427,8 @@ const Login = () => {
         {/* MUSICIANS - Fixed at Bottom */}
         <img src="/img/home/Group 512.svg" alt="Skeleton Left" className="absolute bottom-0 left-[-5%] w-[45%] h-[180px] object-contain z-20 hidden md:block" />
         <img src="/img/home/Group 513.svg" alt="Skeleton Right" className="absolute bottom-0 right-[-5%] w-[45%] h-[180px] object-contain z-20 hidden md:block" />
-        <img src="/img/home/Group 514.svg" alt="Skeleton Mobile" className="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-full scale-y-90 object-contain z-20 block md:hidden" />
-      </div>
+       
+        </div>
 
       {/* ============================================================
           LAYER 2: SCROLLABLE CONTENT
