@@ -50,7 +50,7 @@ const Profile = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.5 }} 
             >
-                <div className="heading-font text-white text-2xl sm:text-3xl md:text-6xl md:py-10 text-left md:text-center ">
+                <div className="heading-font text-white text-4xl lg:text-5xl sm:text-3xl md:text-6xl md:py-10 text-left md:text-center ">
                     Hola! {name}
                 </div>
 

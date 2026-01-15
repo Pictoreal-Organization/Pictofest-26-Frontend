@@ -164,7 +164,7 @@ const Team = () => {
          ============================================================ */}
       <div className="relative z-10 pt-[90px] pb-20">
         {/* Title */}
-        <div className="text-center heading-font text-[50px] md:text-[70px] mt-[35px] md:mb-[50px] text-white">
+        <div className="text-4xl lg:text-5xl tracking-tight heading-font mt-10 text-center heading-font text-white mb-9">
           OUR TEAM
         </div>
 
@@ -179,18 +179,23 @@ const Team = () => {
                 <div className="relative w-[250px] md:w-[235px] lg:w-[335px] flex flex-col items-center">
                   {/* Profile Image*/}
                   <div className="absolute top-100/215 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140px] h-[140px] md:w-[160px] md:h-[160px] lg:w-[200px] lg:h-[200px] rounded-full overflow-hidden z-0">
-                    <img
+                    <Image
                       src={member.imgSrc}
                       alt={member.name}
+                      width={200}
+                      height={200}
                       className="w-full h-full object-cover"
+                      quality={70}
                     />
                   </div>
 
                   {/*Frame */}
                   <div className="relative w-full z-10">
-                    <img
+                    <Image
                       src="/img/developer/frame.svg"
                       alt="frame"
+                      width={335}
+                      height={335}
                       className="w-full"
                     />
                   </div>
@@ -207,10 +212,13 @@ const Team = () => {
                     rel="noopener noreferrer"
                     className="z-50 hover:opacity-80 transition-opacity cursor-pointer"
                   >
-                    <img
+                    <Image
                       src="/img/developer/linkedin.svg"
                       alt="LinkedIn"
+                      width={32}
+                      height={32}
                       className="w-6 lg:w-8"
+                      loading="lazy"
                     />
                   </a>
                   <a
@@ -220,10 +228,13 @@ const Team = () => {
                     className="z-50 hover:opacity-80 transition-opacity cursor-pointer"
 
                   >
-                    <img
+                    <Image
                       src="/img/developer/github.svg"
                       alt="GitHub"
+                      width={32}
+                      height={32}
                       className="w-6 lg:w-8"
+                      loading="lazy"
                     />
                   </a>
                 </div>
