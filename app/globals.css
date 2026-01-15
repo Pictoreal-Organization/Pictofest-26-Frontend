@@ -77,4 +77,10 @@
     animation: rotate-bg 15s linear infinite;
   }
   
+  input::placeholder {
+  font-family: "Rye", serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
   

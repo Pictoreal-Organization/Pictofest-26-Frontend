@@ -6,4 +6,4 @@ const VotingLayout = ({ children }) => {
   return <>{children}</>;
 };
 
-export default isNotAuth(VotingLayout);
+export default (VotingLayout);
