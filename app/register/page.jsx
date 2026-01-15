@@ -531,7 +531,7 @@ const Register = () => {
       {/* ============================================================
           LAYER 2: SCROLLABLE CONTENT (Moves)
          ============================================================ */}
-      <div className="relative z-10 w-full flex flex-col items-center pt-[100px] pb-[300px]">
+      <div className="relative z-10 w-full flex flex-col items-center pt-[100px] pb-20 md:pb-[300px]">
           
           {/* Logo */}
           <img
