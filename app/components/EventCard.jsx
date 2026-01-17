@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import api from "@/app/api";
 import { FaCartShopping } from "react-icons/fa6";
@@ -25,14 +26,39 @@ const EventCard = ({ data, index }) => {
   };
 
   const isOddIndex = index % 2 !== 0; // true for odd, false for even
-  const cardImage = isOddIndex 
-    ? "/img/events/red-card26.svg" 
+  // const cardImage = isOddIndex 
+  //   ? "/img/events/red-card26.svg" 
+  //   : "/img/events/green-card26.svg";
+
+  const defaultCardImage = isOddIndex
+    ? "/img/events/red-card26.svg"
     : "/img/events/green-card26.svg";
+
+ const [bgSrc, setBgSrc] = useState(defaultCardImage);
+
+  useEffect(() => {
+    if (data?.logo_link) {
+      setBgSrc(data.logo_link);
+    } else {
+      setBgSrc(defaultCardImage);
+    }
+  }, [data?.logo_link, defaultCardImage]);
 
   // Button images based on card color
   const buttonImage = isOddIndex 
     ? "/img/events/green-button26.svg" // Green button for red cards
     : "/img/events/orange-button26.svg"; // Orange button for green cards
+
+  const isCustomLogo = !!data?.logo_link;
+
+<Image
+  src={bgSrc}
+  alt="Event Card Background"
+  fill
+  className={isCustomLogo ? "object-contain" : "object-cover"}
+  onError={() => setBgSrc(defaultCardImage)}
+  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+/>
 
   return (
     <>
@@ -40,11 +66,12 @@ const EventCard = ({ data, index }) => {
       <div className="relative hidden lg:block w-full aspect-[347/176] min-h-[230px] max-h-[390px]">
         <div className="absolute inset-0 w-full h-full z-0">
           <Image
-            src={cardImage}
+            src={bgSrc}
             alt="Event Card Background"
             fill
-            className="object-cover"
+            className={isCustomLogo ? "object-contain" : "object-cover"}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            onError={() => setBgSrc(defaultCardImage)}
             priority={index < 2}
           />
         </div>
@@ -137,11 +164,12 @@ const EventCard = ({ data, index }) => {
         {/* Background Card Image */}
         <div className="absolute inset-0 w-full h-full z-0">
           <Image
-            src={cardImage}
+            src={bgSrc}
             alt="Event Card Background"
             fill
-            className="object-cover"
+            className={isCustomLogo ? "object-contain" : "object-cover"}
             sizes="100vw"
+            onError={() => setBgSrc(defaultCardImage)}
           />
         </div>
         
