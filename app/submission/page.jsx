@@ -189,7 +189,7 @@ const Uploader = (props) => {
       return;
     }
     if (fileSizeExceed) {
-      toast.error("File size exceeds 5MB limit");
+      toast.error("File size exceeds 10MB limit");
       return;
     }
 
@@ -266,7 +266,7 @@ const Uploader = (props) => {
               setSelectedFile(files[0]);
               const fileSizeinMB = (files[0].size / (1024 * 1024)).toFixed(2);
               setFileSize(fileSizeinMB);
-              if (files[0].size > 5242880) {
+              if (files[0].size > 12582912) {
                 setFileSizeExceed(true);
               }
               setImage(URL.createObjectURL(files[0]));
@@ -301,7 +301,7 @@ const Uploader = (props) => {
               <span className="text-[10px] md:text-xs font-normal opacity-80">
                 (Allowed formats: .jpg, .jpeg, .png)
                 <br />
-                Max file size: 5MB.
+                Max file size: 10MB.
               </span>
             </p>
           </div>
@@ -335,7 +335,7 @@ const Uploader = (props) => {
 
         {fileSizeExceed && (
           <p className="text-red-600 text-xs body-font font-bold text-center">
-            *File Size Exceeds 5MB limit
+            *File Size Exceeds 10MB limit
           </p>
         )}
 
