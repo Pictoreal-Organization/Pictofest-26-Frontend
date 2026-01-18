@@ -77,6 +77,7 @@ const Gallery = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+   const isVotingLive = false;
 
   return (
     <div className="min-h-screen relative">
@@ -161,9 +162,23 @@ const Gallery = () => {
               </button>
             ))}
           </div>
+{/* Voting Info Message */}
+{!isVotingLive && (
+  <div className="text-center mt-40 mb-14">
+    <h2
+      className={`${rye.className} 
+        text-[#FFA53A] 
+        text-xl sm:text-2xl md:text-3xl 
+        tracking-widest uppercase 
+        drop-shadow-md`}
+    >
+      Voting phase starts on 23 Feb
+    </h2>
+  </div>
+)}
 
           {/* Search Bar */}
-          <div className="max-w-2xl lg:max-w-3xl mx-auto mb-12 lg:mb-16">
+          {/* <div className="max-w-2xl lg:max-w-3xl mx-auto mb-12 lg:mb-16">
             <div className="relative">
               <input
                 type="text"
@@ -201,10 +216,10 @@ const Gallery = () => {
                 </svg>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Gallery Grid - Updated Layout */}
-          {filteredEntries.length > 0 ? (
+          {isVotingLive && filteredEntries.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
               {filteredEntries.map((entry) => (
                 <div
@@ -276,11 +291,12 @@ const Gallery = () => {
               ))}
             </div>
           ) : (
-            <div className="text-center py-12">
-              <p className="text-white text-lg lg:text-xl body-font">
-                No entries found for this category.
-              </p>
-            </div>
+            // <div className="text-center py-12">
+            //   <p className="text-white text-lg lg:text-xl body-font">
+            //     No entries found for this category.
+            //   </p>
+            // </div>
+            <div></div>
           )}
         </div>
       </main>
