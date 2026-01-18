@@ -79,6 +79,18 @@ const Gallery = () => {
   }, []);
    const isVotingLive = false;
 
+   useEffect(() => {
+    if (!isVotingLive) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isVotingLive]);
+  
   return (
     <div className="min-h-screen relative">
       {/* Background */}
