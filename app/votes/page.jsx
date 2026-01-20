@@ -97,6 +97,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Navbar from "@/app/components/Navbar";
 import localFont from "next/font/local";
+import isNotAuth from "@/app/components/isNotAuth";
 
 const rye = localFont({
   src: "../../public/fonts/Rye-Regular.ttf",
@@ -409,4 +410,4 @@ const Votes = () => {
   );
 };
 
-export default Votes;
+export default (Votes);
