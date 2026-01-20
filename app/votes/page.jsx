@@ -410,4 +410,4 @@ const Votes = () => {
   );
 };
 
-export default (Votes);
+export default isNotAuth(Votes);
