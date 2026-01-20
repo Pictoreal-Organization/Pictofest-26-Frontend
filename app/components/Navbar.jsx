@@ -1383,8 +1383,8 @@ const Navbar = () => {
   // --- Desktop Dropdown Links ---
   const desktopHamburgerLinks = (
     <div className="flex flex-col justify-center items-center gap-4">
-      <NavLink href="/profile" text="My Profile" onClick={handleNavLinkClick} />
-      <div className="w-full h-[1px] bg-[#FFA53A] opacity-30"></div>
+      {/* <NavLink href="/profile" text="My Profile" onClick={handleNavLinkClick} />
+      <div className="w-full h-[1px] bg-[#FFA53A] opacity-30"></div> */}
       <NavLink
         href="/"
         text="Logout"
