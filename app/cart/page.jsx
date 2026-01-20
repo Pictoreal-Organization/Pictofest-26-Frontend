@@ -44,15 +44,15 @@ const Cart = () => {
     getAmount();
   }, []);
 
-  const handleDelete = async (eventId, price) => {
+  const handleDelete = async (eventId) => {
     try {
       const response = await api.delete(`/cart/`, {
         data: { event_id: eventId },
       });
 
-      toast.success(response.data.message || "Item removed");
-      setCart((prev) => prev.filter((item) => item.id !== eventId));
-      setAmount((prev) => prev - price);
+      toast.success(response.data.message || "Item updated");
+      await getCart();
+      await getAmount();
     } catch (err) {
       console.log(err);
       toast.error(err.response?.data?.message || "Error deleting item");
@@ -63,8 +63,8 @@ const Cart = () => {
     try {
       const response = await api.delete(`/cart/empty`);
       toast.success(response.data.message || "Cart emptied");
-      setCart([]);
-      setAmount(0);
+      await getCart();
+      await getAmount();
     } catch (err) {
       console.log(err);
       toast.error(err.response?.data?.message || "Error emptying cart");
@@ -177,48 +177,53 @@ const Cart = () => {
               )} */}
               {cart.length > 0 ? (
                 cart.map((item) => {
-                  console.log("CART ITEM:", item);
                   const hasPhotocopy = item.photocopy_needed === true;
-                  const finalPrice = hasPhotocopy ? item.price + 10 : item.price;
+                  const unitPrice = hasPhotocopy ? item.price + 10 : item.price;
+                  const totalPrice = unitPrice * (item.quantity || 1);
 
                   return (
                     <div
-  key={item.id}
-  className="flex items-start justify-between border-b border-[#1f4e3d]/20 pb-2"
->
-  {/* Left side: name + extra line */}
-  <div className="flex flex-col">
-    <span className="body-font text-[#194535] text-lg font-semibold leading-snug">
-      {item.name}
-    </span>
+                      key={item.id}
+                      className="flex items-start justify-between border-b border-[#1f4e3d]/20 pb-2"
+                    >
+                      {/* Left side */}
+                      <div className="flex flex-col">
+                        <span className="body-font text-[#194535] text-lg font-semibold leading-snug">
+                          {item.name}
+                        </span>
 
-    {hasPhotocopy && (
-      <span className="text-sm text-[#8b4513] leading-tight">
-        Extra Rs.10 Photocopy
-      </span>
-    )}
-  </div>
+                        {item.event_category === "PICSOREEL" && (
+                          <span className="text-sm text-[#5c3a21]">
+                            Entries: {item.quantity}
+                          </span>
+                        )}
 
-  {/* Right side: price + delete */}
-  <div className="flex items-center gap-3">
-    <span className="body-font text-[#0e7490] font-bold text-lg whitespace-nowrap">
-      Rs. {finalPrice}
-    </span>
+                        {hasPhotocopy && (
+                          <span className="text-sm text-[#8b4513] leading-tight">
+                            Extra Rs.10 Photocopy per entry
+                          </span>
+                        )}
+                      </div>
 
-    <button
-      onClick={() => handleDelete(item.id, finalPrice)}
-      className="hover:scale-110 transition-transform"
-    >
-      <Image
-        width={24}
-        height={24}
-        src="/img/cart/cancel-icon.png"
-        alt="Remove"
-      />
-    </button>
-  </div>
-</div>
+                      {/* Right side */}
+                      <div className="flex items-center gap-3">
+                        <span className="body-font text-[#0e7490] font-bold text-lg whitespace-nowrap">
+                          Rs. {totalPrice}
+                        </span>
 
+                        <button
+                          onClick={() => handleDelete(item.id)}
+                          className="hover:scale-110 transition-transform"
+                        >
+                          <Image
+                            width={24}
+                            height={24}
+                            src="/img/cart/cancel-icon.png"
+                            alt="Remove"
+                          />
+                        </button>
+                      </div>
+                    </div>
                   );
                 })
               ) : (
@@ -226,6 +231,7 @@ const Cart = () => {
                   Your cart is empty.
                 </div>
               )}
+
 
             </div>
 
