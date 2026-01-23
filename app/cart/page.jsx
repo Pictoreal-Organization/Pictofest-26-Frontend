@@ -105,7 +105,7 @@ const Cart = () => {
 
       {/* Decorations */}
       <div className="hidden md:block">
-        <div className="absolute bottom-0 left-0 z-10 w-90 h-95 lg:w-72 lg:h-[350px] xl:w-[360px] xl:h-[380px]">
+        <div className="absolute bottom-0 left-0 z-10 w-90 h-95">
           <Image
             src="/img/cart/cart-bottom-left-singer-desktop.png"
             alt="Dancer"
@@ -114,7 +114,7 @@ const Cart = () => {
           />
         </div>
 
-        <div className="absolute bottom-0 right-0 z-10 w-80 h-80 lg:w-72 lg:h-72 xl:w-96 xl:h-96">
+        <div className="absolute bottom-0 right-0 z-10 w-85 h-90">
           <Image
             src="/img/cart/cart-bottom-right-singer-desktop.png"
             alt="Guitarist"
@@ -126,15 +126,25 @@ const Cart = () => {
 
       {/* Content */}
       <div className="relative z-20 flex flex-col items-center gap-5 w-full translate-y-[5%] lg:translate-y-0">
-        <div className="relative w-[80%] max-h-[490px] md:w-[500px] md:min-h-[500px] lg:w-[450px] lg:min-h-[450px] xl:w-[500px] xl:min-h-[500px] flex flex-col items-center justify-center p-6">
-          <div className="absolute inset-0 z-0">
-            <Image
-              src="/img/cart/cart-bg-26.png"
-              alt="Cart Card"
-              fill
-              className="object-fill rounded-3xl"
-            />
-          </div>
+        <Image
+          src="/img/cart/card-bird.svg"
+          alt="Bird"
+          width={100}
+          height={100}
+          className="absolute -top-10 right-4 block md:hidden z-20"
+        />
+
+        <Image
+          src="/img/cart/card-man.svg"
+          alt="Man"
+          width={100}
+          height={100}
+          className="absolute bottom-15 left-5 block md:hidden z-20"
+        />
+        <div className="relative w-[80%] max-h-[490px] md:w-[500px] md:min-h-[500px] lg:w-[450px] lg:min-h-[450px] xl:w-[500px] xl:min-h-[500px]
+          flex flex-col items-center justify-center p-6
+         bg-[#FFFCE0] rounded-3xl shadow-lg">
+
 
           <div className="relative z-10 w-full h-full flex flex-col mt-2 px-1 md:px-4 py-4 pb-4">
             <h1 className="text-4xl md:text-6xl lg:text-5xl xl:text-6xl text-[#1f4e3d] text-center tracking-widest heading-font mb-6">
@@ -199,14 +209,14 @@ const Cart = () => {
                         )}
 
                         {hasPhotocopy && (
-                          <span className="text-sm text-[#8b4513] leading-tight">
+                          <span className="text-xs md:text-sm text-[#8b4513] leading-tight">
                             Extra Rs.10 Photocopy per entry
                           </span>
                         )}
                       </div>
 
                       {/* Right side */}
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-3 flex-shrink-0">
                         <span className="body-font text-[#0e7490] font-bold text-lg whitespace-nowrap">
                           Rs. {totalPrice}
                         </span>
@@ -249,23 +259,50 @@ const Cart = () => {
         <div className="flex justify-center mt-1 gap-6 md:gap-10">
           <button
             onClick={handleEmpty}
-            className="relative w-36 h-12 md:w-44 md:h-14 group hover:scale-105 transition-transform"
+            className="w-36 h-12 md:w-44 md:h-14
+              bg-[#FFFCE0]
+              rounded-2xl
+              shadow-md
+              hover:scale-105 hover:shadow-lg
+              transition-all
+              flex items-center justify-center"
           >
-            <Image src="/img/cart/cart-btns-bg.png" alt="bg" fill />
             <div className="relative z-10 flex items-center justify-center h-full pb-1">
-              <span className="heading-font text-[#5c3a21] font-bold text-lg">
+              <Image
+                src="/img/cart/chilly.svg"
+                alt="icon"
+                width={40}
+                height={40}
+                className="mr-2"
+              />
+
+              {/* Text */}
+              <span className="sub-heading-font text-[#5c3a21] font-bold text-lg">
                 Delete All
               </span>
             </div>
+
           </button>
 
           <button
             onClick={handleProceed}
-            className="relative w-36 h-12 md:w-44 md:h-14 group hover:scale-105 transition-transform"
+            className="w-36 h-12 md:w-44 md:h-14
+              bg-[#FFFCE0]
+              rounded-2xl
+              shadow-md
+              hover:scale-105 hover:shadow-lg
+              transition-all
+              flex items-center justify-center"
           >
-            <Image src="/img/cart/cart-btns-bg.png" alt="bg" fill />
             <div className="relative z-10 flex items-center justify-center h-full pb-1">
-              <span className="heading-font text-[#5c3a21] font-bold text-lg">
+            <Image
+                src="/img/cart/flower.svg"
+                alt="icon"
+                width={28}
+                height={28}
+                className="mr-5"
+              />
+              <span className="sub-heading-font text-[#5c3a21] font-bold text-lg">
                 Proceed
               </span>
             </div>

@@ -54,7 +54,7 @@ const ProfilePageCard = ({ route, image, title, styles = "" }) => {
           className="
             heading-font
             text-white
-            text-2xl md:text-4xl
+            text-xl md:text-4xl
             tracking-wide
             opacity-90
             translate-x-1
