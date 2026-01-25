@@ -1,43 +1,34 @@
 "use client";
+import { useState } from "react";
 
-import Lottie from "lottie-react";
-import { useState, useEffect } from "react";
-
-export default function AnimationLoader() {
-  const [animationData, setAnimationData] = useState(null);
-
-  useEffect(() => {
-    console.log("AnimationLoader mounted");
-    // Fetch the animation JSON from the public folder
-    fetch("/animation.json")
-      .then((res) => {
-        if (!res.ok) {
-           throw new Error(`Failed to load animation: ${res.status} ${res.statusText}`);
-        }
-        return res.json();
-      })
-      .then((data) => {
-        console.log("Animation data loaded successfully");
-        setAnimationData(data);
-      })
-      .catch((err) => console.error("Error loading animation:", err));
-  }, []);
-
-  if (!animationData) {
-      console.log("AnimationLoader: waiting for data...");
-      // Return a temporary visible placeholder to confirm the component is rendering
-      return (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-white/80">
-           <div className="text-black">Loading...</div>
-        </div>
-      );
-  }
+export default function VideoLoader() {
+  const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-white">
-      <div className="w-1/2 md:w-1/3 lg:w-1/4 max-w-[300px] aspect-square">
-        <Lottie animationData={animationData} loop={true} />
-      </div>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      {isLoading && (
+        <div className="text-center">
+          <div className="text-8xl animate-pulse">🌮</div>
+        </div>
+      )}
+      
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        onLoadedData={() => {
+          console.log("Video loaded successfully");
+          setIsLoading(false);
+        }}
+        onError={(e) => console.error("Error loading video:", e)}
+        className={`max-w-full max-h-screen ${isLoading ? 'hidden' : 'block'}`}
+      >
+        {/* Browser will automatically choose the first supported format */}
+        <source src="/loader.webm" type="video/webm" />
+        <source src="/loader.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
     </div>
   );
 }
