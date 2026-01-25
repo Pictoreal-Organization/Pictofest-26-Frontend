@@ -7,6 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 import isNotAuth from "@/app/components/isNotAuth";
 import { px } from "framer-motion";
+import AnimationLoader from "@/app/components/AnimationLoader";
+
 
 const Uploader = (props) => {
   const { id, photocopyNeeded } = props;
@@ -22,6 +24,8 @@ const Uploader = (props) => {
   const [rollNo, setRollNo] = useState("");
   const [pendingUpload, setPendingUpload] = useState(false);
 
+  const [isUploading, setIsUploading] = useState(false);
+
   const MAX_NORMAL = 10 * 1024 * 1024;   // 10MB
   const MAX_PHOTO = 20 * 1024 * 1024;    // 20MB
 
@@ -29,7 +33,6 @@ const Uploader = (props) => {
 
 
   const inputRef = useRef(null);
-
   const handleUpload = async (e) => {
     e?.preventDefault?.();
 
@@ -45,8 +48,9 @@ const Uploader = (props) => {
       return;
     }
 
-
     try {
+      setIsUploading(true);
+
       const formData = new FormData();
       formData.set("file", selectedFile);
 
@@ -68,8 +72,11 @@ const Uploader = (props) => {
       }
 
       toast.error(msg || err.message);
+    } finally {
+      setIsUploading(false);
     }
   };
+
 
   const submitRollNo = async () => {
     if (!rollNo.trim()) {
@@ -103,132 +110,140 @@ const Uploader = (props) => {
   };
 
   return (
-    <div className="flex flex-col w-full h-full items-center justify-start">
-      {/* Upload Area */}
-      <form
-        onClick={() => inputRef.current.click()}
-        className="relative border-2 border-[#572813] bg-[#FFE3BE] rounded-lg flex flex-col items-center p-4 justify-center cursor-pointer w-full h-[200px] shadow-sm hover:bg-[#ffdab0] transition-colors"
-      >
-        <input
-          type="file"
-          accept="image/*"
-          className="hidden"
-          onChange={({ target: { files } }) => {
-            if (files && files[0]) {
-              setFileName(files[0].name);
-              setSelectedFile(files[0]);
-
-              const fileSizeinMB = (files[0].size / (1024 * 1024)).toFixed(2);
-              setFileSize(fileSizeinMB);
-
-              if (files[0].size > limit) {
-                setFileSizeExceed(true);
-              } else {
-                setFileSizeExceed(false);
-              }
-
-              setImage(URL.createObjectURL(files[0]));
-            }
-          }}
-
-          ref={inputRef}
-        />
-
-        {image ? (
-          <div className="relative w-full h-full">
-            <Image
-              style={{ objectFit: "contain" }}
-              className="w-full h-full rounded-md"
-              src={image}
-              alt={fileName}
-              fill
-            />
-          </div>
-        ) : (
-          <div className="flex flex-col items-center justify-center gap-3">
-            <div className="relative w-10 h-10">
-              <Image
-                src="/img/submissions/icon-upload.png"
-                alt="Upload"
-                fill
-                className="object-contain"
-              />
-            </div>
-            <p className="text-[#572813] body-font text-center text-xs md:text-sm font-semibold leading-tight">
-              Click here to select Files to upload
-              <br />
-              <span className="text-[10px] md:text-xs font-normal opacity-80">
-                (Allowed formats: .jpg, .jpeg, .png)
-                <br />
-                Max file size: {photocopyNeeded ? "20MB" : "10MB"}.
-              </span>
-
-            </p>
-          </div>
-        )}
-      </form>
-
-      {/* Controls */}
-      <div className="w-full mt-3 space-y-3">
-        <div className="flex flex-row items-center gap-2 w-full">
-          <div className="flex-1 bg-[#FFE3BE] border-2 border-[#572813] rounded-md px-3 py-2 flex items-center h-10 md:h-12">
-            <span className="text-[#572813] text-xs md:text-sm body-font truncate w-full">
-              {fileName} {fileSize > 0 ? `- ${fileSize} MB` : "- 0MB"}
-            </span>
-          </div>
-
-          <button
-            onClick={clearSelection}
-            className="w-10 h-10 md:w-12 md:h-12 shrink-0 bg-[#FFE3BE] border-2 border-[#572813] rounded-md flex items-center justify-center hover:bg-red-100 hover:scale-105 transition-all"
-            type="button"
-          >
-            <div className="relative w-4 h-4 md:w-5 md:h-5">
-              <Image
-                src="/img/submissions/icon-delete.png"
-                alt="Delete"
-                fill
-                className="object-contain"
-              />
-            </div>
-          </button>
+    <>
+      {isUploading && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <AnimationLoader />
         </div>
+      )}
 
-        {fileSizeExceed && (
-          <p className="text-red-600 text-xs body-font font-bold text-center">
-            *File Size Exceeds {photocopyNeeded ? "20MB" : "10MB"} limit
-          </p>
-        )}
-
-
-        <button
-          className="w-full bg-[#8B260D] text-[#FFE3BE] text-sm md:text-base font-bold sub-heading-font py-2 rounded-full active:translate-y-[4px] hover:scale-105 transition-all"
-          type="button"
-          onClick={handleUpload}
+      <div className="flex flex-col w-full h-full items-center justify-start">
+        {/* Upload Area */}
+        <form
+          onClick={() => inputRef.current.click()}
+          className="relative border-2 border-[#572813] bg-[#FFE3BE] rounded-lg flex flex-col items-center p-4 justify-center cursor-pointer w-full h-[200px] shadow-sm hover:bg-[#ffdab0] transition-colors"
         >
-          Upload
-        </button>
+          <input
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={({ target: { files } }) => {
+              if (files && files[0]) {
+                setFileName(files[0].name);
+                setSelectedFile(files[0]);
 
-        {/* Roll Number Prompt */}
-        {showRollInput && (
-          <div className="mt-2 w-full flex flex-col gap-2">
-            <input
-              type="text"
-              placeholder="Enter Roll Number"
-              value={rollNo}
-              onChange={(e) => setRollNo(e.target.value)}
-              className="w-full px-3 py-2 border-2 border-[#572813] rounded-md body-font text-sm"
-            />
+                const fileSizeinMB = (files[0].size / (1024 * 1024)).toFixed(2);
+                setFileSize(fileSizeinMB);
+
+                if (files[0].size > limit) {
+                  setFileSizeExceed(true);
+                } else {
+                  setFileSizeExceed(false);
+                }
+
+                setImage(URL.createObjectURL(files[0]));
+              }
+            }}
+
+            ref={inputRef}
+          />
+
+          {image ? (
+            <div className="relative w-full h-full">
+              <Image
+                style={{ objectFit: "contain" }}
+                className="w-full h-full rounded-md"
+                src={image}
+                alt={fileName}
+                fill
+              />
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center gap-3">
+              <div className="relative w-10 h-10">
+                <Image
+                  src="/img/submissions/icon-upload.png"
+                  alt="Upload"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <p className="text-[#572813] body-font text-center text-xs md:text-sm font-semibold leading-tight">
+                Click here to select Files to upload
+                <br />
+                <span className="text-[10px] md:text-xs font-normal opacity-80">
+                  (Allowed formats: .jpg, .jpeg, .png)
+                  <br />
+                  Max file size: {photocopyNeeded ? "20MB" : "10MB"}.
+                </span>
+
+              </p>
+            </div>
+          )}
+        </form>
+
+        {/* Controls */}
+        <div className="w-full mt-3 space-y-3">
+          <div className="flex flex-row items-center gap-2 w-full">
+            <div className="flex-1 bg-[#FFE3BE] border-2 border-[#572813] rounded-md px-3 py-2 flex items-center h-10 md:h-12">
+              <span className="text-[#572813] text-xs md:text-sm body-font truncate w-full">
+                {fileName} {fileSize > 0 ? `- ${fileSize} MB` : "- 0MB"}
+              </span>
+            </div>
+
             <button
-              onClick={submitRollNo}
-              className="w-full bg-[#8B260D] text-[#FFE3BE] py-2 sub-heading-font rounded-full font-bold"
+              onClick={clearSelection}
+              className="w-10 h-10 md:w-12 md:h-12 shrink-0 bg-[#FFE3BE] border-2 border-[#572813] rounded-md flex items-center justify-center hover:bg-red-100 hover:scale-105 transition-all"
               type="button"
             >
-              Submit Roll Number
+              <div className="relative w-4 h-4 md:w-5 md:h-5">
+                <Image
+                  src="/img/submissions/icon-delete.png"
+                  alt="Delete"
+                  fill
+                  className="object-contain"
+                />
+              </div>
             </button>
           </div>
-        )}
+
+          {fileSizeExceed && (
+            <p className="text-red-600 text-xs body-font font-bold text-center">
+              *File Size Exceeds {photocopyNeeded ? "20MB" : "10MB"} limit
+            </p>
+          )}
+
+
+          <button
+            className="w-full bg-[#8B260D] text-[#FFE3BE] text-sm md:text-base font-bold sub-heading-font py-2 rounded-full active:translate-y-[4px] hover:scale-105 transition-all"
+            type="button"
+            onClick={handleUpload}
+          >
+            Upload
+          </button>
+
+          {/* Roll Number Prompt */}
+          {showRollInput && (
+            <div className="mt-2 w-full flex flex-col gap-2">
+              <input
+                type="text"
+                placeholder="Enter Roll Number"
+                value={rollNo}
+                onChange={(e) => setRollNo(e.target.value)}
+                className="w-full px-3 py-2 border-2 border-[#572813] rounded-md body-font text-sm"
+              />
+              <button
+                onClick={submitRollNo}
+                className="w-full bg-[#8B260D] text-[#FFE3BE] py-2 sub-heading-font rounded-full font-bold"
+                type="button"
+              >
+                Submit Roll Number
+              </button>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
