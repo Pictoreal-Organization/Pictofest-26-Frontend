@@ -27,7 +27,7 @@ const Uploader = (props) => {
   const [isUploading, setIsUploading] = useState(false);
 
   const MAX_NORMAL = 10 * 1024 * 1024;   // 10MB
-  const MAX_PHOTO = 20 * 1024 * 1024;    // 20MB
+  const MAX_PHOTO = 21 * 1024 * 1024;    // 20MB
 
   const limit = photocopyNeeded ? MAX_PHOTO : MAX_NORMAL;
 
