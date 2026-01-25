@@ -57,6 +57,7 @@ const Uploader = (props) => {
       const response = await api.post(`/uploadImage/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          timeout: 120000,
         },
       });
 
