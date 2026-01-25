@@ -8,166 +8,9 @@ import Link from "next/link";
 import isNotAuth from "@/app/components/isNotAuth";
 import { px } from "framer-motion";
 
-// --- FIXED UPLOADER COMPONENT ---
-// const Uploader = (props) => {
-//   const { id } = props;
-//   const [image, setImage] = useState(null);
-//   const [fileName, setFileName] = useState("No file selected");
-//   const [selectedFile, setSelectedFile] = useState(null);
-//   const [fileSizeExceed, setFileSizeExceed] = useState(false);
-//   const inputRef = useRef(null);
-//   const [fileSize, setFileSize] = useState(0);
-
-//   const handleUpload = async (e) => {
-//     e.preventDefault();
-//     if (!selectedFile) {
-//       toast.error("Please select a file first");
-//       return;
-//     }
-//     if (fileSizeExceed) {
-//       toast.error("File size exceeds 5MB limit");
-//       return;
-//     }
-
-//     try {
-//       const formData = new FormData();
-//       formData.set("file", selectedFile);
-
-//       const response = await api.post(`/uploadImage/${id}`, formData, {
-//         headers: {
-//           "Content-Type": "multipart/form-data",
-//         },
-//       });
-
-//       toast.success(response.data.message);
-//       window.location.reload();
-//     } catch (err) {
-//       err.response?.data
-//         ? toast.error(err.response.data.message)
-//         : toast.error(err.message);
-//       console.log(err);
-//     }
-//   };
-
-//   const clearSelection = (e) => {
-//     e.stopPropagation();
-//     setFileName("No file selected");
-//     setImage(null);
-//     setFileSizeExceed(false);
-//     setFileSize(0);
-//     setSelectedFile(null);
-//     if (inputRef.current) inputRef.current.value = "";
-//   };
-
-//   return (
-//     <div className="flex flex-col w-full h-full items-center justify-start">
-//       {/* --- 1. Upload Area (The Big Box) --- */}
-//       <form
-//         onClick={() => inputRef.current.click()}
-//         className="relative border-2 border-[#572813] bg-[#FFE3BE] rounded-lg flex flex-col items-center p-4 justify-center cursor-pointer w-full h-[200px] shadow-sm hover:bg-[#ffdab0] transition-colors"
-//       >
-//         <input
-//           type="file"
-//           accept="image/*"
-//           className="hidden"
-//           onChange={({ target: { files } }) => {
-//             if (files && files[0]) {
-//               setFileName(files[0].name);
-//               setSelectedFile(files[0]);
-//               const fileSizeinMB = (files[0].size / (1024 * 1024)).toFixed(2);
-//               setFileSize(fileSizeinMB);
-//               if (files[0].size > 5242880) {
-//                 setFileSizeExceed(true);
-//               }
-//               setImage(URL.createObjectURL(files[0]));
-//             }
-//           }}
-//           ref={inputRef}
-//         />
-
-//         {image ? (
-//           <div className="relative w-full h-full">
-//             <Image
-//               style={{ objectFit: "contain" }}
-//               className="w-full h-full rounded-md"
-//               src={image}
-//               alt={fileName}
-//               fill
-//             />
-//           </div>
-//         ) : (
-//           <div className="flex flex-col items-center justify-center gap-3">
-//             <div className="relative w-10 h-10">
-//               <Image
-//                 src="/img/submissions/icon-upload.png"
-//                 alt="Upload"
-//                 fill
-//                 className="object-contain"
-//               />
-//             </div>
-//             <p className="text-[#572813] body-font text-center text-xs md:text-sm font-semibold leading-tight">
-//               Click here to select Files to upload
-//               <br />
-//               <span className="text-[10px] md:text-xs font-normal opacity-80">
-//                 (Allowed formats: .jpg, .jpeg, .png)
-//                 <br />
-//                 Max file size: 5MB.
-//               </span>
-//             </p>
-//           </div>
-//         )}
-//       </form>
-
-//       {/* --- 2. Controls Section (Always Visible) --- */}
-//       <div className="w-full mt-3 space-y-3">
-//         {/* Row: Filename Box + Dustbin Button */}
-//         <div className="flex flex-row items-center gap-2 w-full">
-//           {/* Left Box: Filename Display */}
-//           <div className="flex-1 bg-[#FFE3BE] border-2 border-[#572813] rounded-md px-3 py-2 flex items-center h-10 md:h-12">
-//             <span className="text-[#572813] text-xs md:text-sm body-font truncate w-full">
-//               {fileName} {fileSize > 0 ? `- ${fileSize} MB` : "- 0MB"}
-//             </span>
-//           </div>
-
-//           {/* Right Box: Dustbin Button */}
-//           <button
-//             onClick={clearSelection}
-//             className="w-10 h-10 md:w-12 md:h-12 shrink-0 bg-[#FFE3BE] border-2 border-[#572813] rounded-md flex items-center justify-center hover:bg-red-100 hover:scale-105 transition-all"
-//             type="button"
-//           >
-//             <div className="relative w-4 h-4 md:w-5 md:h-5">
-//               <Image
-//                 src="/img/submissions/icon-delete.png"
-//                 alt="Delete"
-//                 fill
-//                 className="object-contain"
-//               />
-//             </div>
-//           </button>
-//         </div>
-
-//         {/* Error Message */}
-//         {fileSizeExceed && (
-//           <p className="text-red-600 text-xs body-font font-bold text-center">
-//             *File Size Exceeds 5MB limit
-//           </p>
-//         )}
-
-//         {/* --- 3. Main Upload Button --- */}
-//         <button
-//           className="w-full bg-[#8B260D] text-[#FFE3BE] text-sm md:text-base font-bold sub-heading-font py-2 rounded-full  active:translate-y-[4px] hover:scale-105 transition-all"
-//           type="button"
-//           onClick={handleUpload}
-//         >
-//           Upload
-//         </button>
-//       </div>
-//     </div>
-//   );
-// };
-
 const Uploader = (props) => {
-  const { id } = props;
+  const { id, photocopyNeeded } = props;
+
 
   const [image, setImage] = useState(null);
   const [fileName, setFileName] = useState("No file selected");
@@ -179,6 +22,12 @@ const Uploader = (props) => {
   const [rollNo, setRollNo] = useState("");
   const [pendingUpload, setPendingUpload] = useState(false);
 
+  const MAX_NORMAL = 10 * 1024 * 1024;   // 10MB
+  const MAX_PHOTO = 20 * 1024 * 1024;    // 20MB
+
+  const limit = photocopyNeeded ? MAX_PHOTO : MAX_NORMAL;
+
+
   const inputRef = useRef(null);
 
   const handleUpload = async (e) => {
@@ -188,10 +37,14 @@ const Uploader = (props) => {
       toast.error("Please select a file first");
       return;
     }
+
     if (fileSizeExceed) {
-      toast.error("File size exceeds 10MB limit");
+      toast.error(
+        `File size exceeds ${photocopyNeeded ? "20MB" : "10MB"} limit`
+      );
       return;
     }
+
 
     try {
       const formData = new FormData();
@@ -264,14 +117,20 @@ const Uploader = (props) => {
             if (files && files[0]) {
               setFileName(files[0].name);
               setSelectedFile(files[0]);
+
               const fileSizeinMB = (files[0].size / (1024 * 1024)).toFixed(2);
               setFileSize(fileSizeinMB);
-              if (files[0].size > 12582912) {
+
+              if (files[0].size > limit) {
                 setFileSizeExceed(true);
+              } else {
+                setFileSizeExceed(false);
               }
+
               setImage(URL.createObjectURL(files[0]));
             }
           }}
+
           ref={inputRef}
         />
 
@@ -301,8 +160,9 @@ const Uploader = (props) => {
               <span className="text-[10px] md:text-xs font-normal opacity-80">
                 (Allowed formats: .jpg, .jpeg, .png)
                 <br />
-                Max file size: 10MB.
+                Max file size: {photocopyNeeded ? "20MB" : "10MB"}.
               </span>
+
             </p>
           </div>
         )}
@@ -335,9 +195,10 @@ const Uploader = (props) => {
 
         {fileSizeExceed && (
           <p className="text-red-600 text-xs body-font font-bold text-center">
-            *File Size Exceeds 10MB limit
+            *File Size Exceeds {photocopyNeeded ? "20MB" : "10MB"} limit
           </p>
         )}
+
 
         <button
           className="w-full bg-[#8B260D] text-[#FFE3BE] text-sm md:text-base font-bold sub-heading-font py-2 rounded-full active:translate-y-[4px] hover:scale-105 transition-all"
@@ -410,7 +271,11 @@ const Card = (props) => {
         {!event.image_uploaded ? (
           // Pending State: Upload Box
           <div className="relative">
-            <Uploader id={event.fk_event} />
+            <Uploader
+              id={event.fk_event}
+              photocopyNeeded={event.photocopy_needed}
+            />
+
           </div>
         ) : (
           // Uploaded State: Simple Frame Look
