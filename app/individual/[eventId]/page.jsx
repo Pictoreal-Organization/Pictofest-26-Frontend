@@ -1292,53 +1292,58 @@ const Individual = () => {
                     </div>
                   </div>
 
-                  {/* RIGHT COLUMN - Image/Rules AND Buttons */}
+                  {/* RIGHT SECTION - Image AND/OR Rules */}
                   <div className="flex-1 flex flex-col">
                     <div className="flex-grow">
-                      {workshopImage && data?.event_category?.toUpperCase() === "WORKSHOP" ? (
-                        <div className="relative w-full h-full min-h-[365px] border-4 rounded-xl border-[#E97400] bg-[#E97400] overflow-hidden">
-                          <Image
-                            src={workshopImage}
-                            alt="Workshop image"
-                            fill
-                            className="object-contain"
-                          />
-                        </div>
-                      ) : (
-                        <div className="flex flex-col">
-                          {data?.rules && Object.keys(data.rules).length !== 0 && (
-                            <>
-                              <div
-                                className="text-xl sm:text-xl md:text-2xl lg:text-3xl text-[#572711] sub-heading-font w-fit mb-4 pb-2 relative group"
-                                style={{ letterSpacing: "3.42px" }}
-                              >
-                                Rules & How to Play
-                              </div>
-                              <ul className="body-font font-semibold text-[#572711] text-lg text-left space-y-2">
-                                {Object.values(data.rules).map((rule, index) => (
-                                  <li key={index}>{index + 1}. {rule}</li>
-                                ))}
-                              </ul>
-                            </>
-                          )}
-                          {data?.event_code === "PH" && (
-                            <div className="mt-4 bg-white/50 rounded-xl px-4 py-4 w-full border-2 border-[#08525F] space-y-3">
-                              <label className="flex items-center cursor-pointer">
-                                <input type="checkbox" checked={!needPhotocopy} onChange={() => setNeedPhotocopy(false)} className="w-5 h-5" />
-                                <span className="ml-3 text-[#572711] body-font font-semibold text-sm">I will print myself</span>
-                              </label>
-                              <label className="flex items-center cursor-pointer">
-                                <input type="checkbox" checked={needPhotocopy} onChange={() => setNeedPhotocopy(true)} className="w-5 h-5" />
-                                <span className="ml-3 text-[#572711] body-font font-semibold text-sm">Print for me (+Rs.10)</span>
-                              </label>
+                      <div className="flex flex-col">
+
+                        {/* 1. Show Workshop Image at the top if it exists */}
+                        {workshopImage && data?.event_category?.toUpperCase() === "WORKSHOP" && (
+                          <div className="relative w-full min-h-[365px] border-4 rounded-xl border-[#E97400] bg-[#E97400] overflow-hidden mb-6">
+                            <Image
+                              src={workshopImage}
+                              alt="Workshop image"
+                              fill
+                              className="object-contain"
+                            />
+                          </div>
+                        )}
+
+                        {/* 2. Show Rules */}
+                        {data?.rules && Object.keys(data.rules).length !== 0 && (
+                          <div className="flex flex-col">
+                            <div
+                              className="text-xl sm:text-xl md:text-2xl lg:text-3xl text-[#572711] sub-heading-font w-fit mb-4 pb-2 relative group"
+                              style={{ letterSpacing: "3.42px" }}
+                            >
+                              Rules & How to Play
                             </div>
-                          )}
-                        </div>
-                      )}
+                            <ul className="body-font font-semibold text-[#572711] text-lg text-left space-y-2">
+                              {Object.values(data.rules).map((rule, index) => (
+                                <li key={index}>{index + 1}. {rule}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        {/* 3. Photocopy logic */}
+                        {data?.event_code === "PH" && (
+                          <div className="mt-4 bg-white/50 rounded-xl px-4 py-4 w-full border-2 border-[#08525F] space-y-3">
+                            <label className="flex items-center cursor-pointer">
+                              <input type="checkbox" checked={!needPhotocopy} onChange={() => setNeedPhotocopy(false)} className="w-5 h-5" />
+                              <span className="ml-3 text-[#572711] body-font font-semibold text-sm">I will print myself</span>
+                            </label>
+                            <label className="flex items-center cursor-pointer">
+                              <input type="checkbox" checked={needPhotocopy} onChange={() => setNeedPhotocopy(true)} className="w-5 h-5" />
+                              <span className="ml-3 text-[#572711] body-font font-semibold text-sm">Print for me (+Rs.10)</span>
+                            </label>
+                          </div>
+                        )}
+                      </div>
                     </div>
 
-                    {/* NAVIGATION BUTTONS  */}
-                    <div className="flex justify-start gap-4 mt-8">
+                    {/* Navigation Buttons stay at the bottom of the column */}
+                    <div className="flex justify-center gap-4 mt-8">
                       <button onClick={handleBack} className="bg-[#E97400] rounded-2xl px-8 py-4 shadow-2xl hover:opacity-90 min-w-[140px]">
                         <FaArrowLeft className="text-2xl text-white mx-auto" />
                       </button>
