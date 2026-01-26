@@ -74,13 +74,13 @@ const Home = () => {
           </div>
 
           {/* 2. Main Logo */}
-          <div className="relative z-20 w-72 md:w-175 transition-transform hover:scale-105 duration-500">
+          <div className="relative z-20 w-72 md:w-150 transition-transform hover:scale-105 duration-500">
             <Image
               src="/img/common/final_logo.png"
               alt="Pictofest Logo"
               width={600}
               height={300}
-              className="w-full mt-2 h-auto drop-shadow-2xl"
+              className="w-full mt-2 md:mt-0 h-auto drop-shadow-2xl"
               priority
             />
           </div>
@@ -118,7 +118,7 @@ const Home = () => {
               - Right Aligned: right-0
              ------------------------------------------------------- */}
           <motion.div
-            className="absolute top-[57%] left-110 -z-10"
+            className="absolute top-[55%] left-90 -z-10"
             initial={{ y: -300, opacity: 0 }} // Start high up (like up the thread)
             animate={{ y: 0, opacity: 1 }} // Slide down to resting position
             transition={{
@@ -131,9 +131,9 @@ const Home = () => {
             <Image
               src="/img/home/date_vector_desktop.svg" // <--- YOUR ORIGINAL DESKTOP IMAGE
               alt="Desktop Dates"
-              width={400}
-              height={300}
-              className="md:w-40 lg:w-50 h-auto drop-shadow-xl"
+              width={300}
+              height={200}
+              className="md:w-38 lg:w-45 h-auto drop-shadow-xl"
             />
           </motion.div>
         </div>
