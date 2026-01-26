@@ -79,6 +79,23 @@ const Cart = () => {
     }
   };
 
+  const updateQuantity = async (item, action) => {
+    try {
+      const response = await api.patch("/cart/quantity", {
+        event_id: item.id,
+        photocopy_needed: item.photocopy_needed,
+        action, // "inc" | "dec"
+      });
+
+      toast.success(response.data.message || "Updated");
+      await getCart();
+      await getAmount();
+    } catch (err) {
+      console.log(err);
+      toast.error(err.response?.data?.message || "Error updating quantity");
+    }
+  };
+
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-[#1a0b40] flex justify-center items-center py-10 md:py-0 lg:items-start lg:pt-30">
@@ -152,39 +169,7 @@ const Cart = () => {
             </h1>
 
             <div className="flex-grow w-full max-h-[300px] overflow-y-auto pr-2 custom-scrollbar space-y-4">
-              {/* {cart.length > 0 ? (
-                cart.map((item) => (
-                  <div
-                    key={item.id}
-                    className="flex items-center justify-between border-b border-[#1f4e3d]/20 pb-2"
-                  >
-                    <span className="body-font text-[#1f4e3d] text-lg font-semibold truncate">
-                      {item.name}
-                    </span>
 
-                    <div className="flex items-center gap-3">
-                      <span className="body-font text-[#0e7490] font-bold text-lg">
-                        Rs. {item.price}
-                      </span>
-                      <button
-                        onClick={() => handleDelete(item.id, item.price)}
-                        className="hover:scale-110 transition-transform"
-                      >
-                        <Image
-                          width={24}
-                          height={24}
-                          src="/img/cart/cancel-icon.png"
-                          alt="Remove"
-                        />
-                      </button>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <div className="body-font text-center text-[#1f4e3d] text-xl mt-10 opacity-70">
-                  Your cart is empty.
-                </div>
-              )} */}
               {cart.length > 0 ? (
                 cart.map((item) => {
                   const hasPhotocopy = item.photocopy_needed === true;
@@ -193,7 +178,7 @@ const Cart = () => {
 
                   return (
                     <div
-                      key={item.id}
+                      key={`${item.id}-${item.photocopy_needed}`}
                       className="flex items-start justify-between border-b border-[#1f4e3d]/20 pb-2"
                     >
                       {/* Left side */}
@@ -216,14 +201,44 @@ const Cart = () => {
                       </div>
 
                       {/* Right side */}
-                      <div className="flex items-center gap-3 flex-shrink-0">
-                        <span className="body-font text-[#0e7490] font-bold text-lg whitespace-nowrap">
+                      <div className="flex items-center gap-2 flex-shrink-0">
+                        {/* - button */}
+                        {item.event_category === "PICSOREEL" && (
+                          <button
+                            onClick={() => updateQuantity(item, "dec")}
+                            className="w-7 h-7 rounded-full border border-[#1f4e3d]
+                         text-[#1f4e3d] font-bold hover:bg-[#1f4e3d]/10"
+                          >
+                            −
+                          </button>
+                        )}
+
+                        {/* Qty */}
+                        {item.event_category === "PICSOREEL" && (
+                          <span className="w-6 text-center body-font text-[#1f4e3d]">
+                            {item.quantity}
+                          </span>
+                        )}
+
+                        {/* + button */}
+                        {item.event_category === "PICSOREEL" && (
+                          <button
+                            onClick={() => updateQuantity(item, "inc")}
+                            className="w-7 h-7 rounded-full border border-[#1f4e3d]
+                         text-[#1f4e3d] font-bold hover:bg-[#1f4e3d]/10"
+                          >
+                            +
+                          </button>
+                        )}
+
+                        <span className="body-font text-[#0e7490] font-bold text-lg whitespace-nowrap ml-2">
                           Rs. {totalPrice}
                         </span>
 
+                        {/* Full remove */}
                         <button
                           onClick={() => handleDelete(item.id)}
-                          className="hover:scale-110 transition-transform"
+                          className="hover:scale-110 transition-transform ml-1"
                         >
                           <Image
                             width={24}
@@ -243,6 +258,7 @@ const Cart = () => {
               )}
 
 
+
             </div>
 
             <div className="w-full border-t-2 border-dotted border-[#1f4e3d]/40 my-6"></div>
@@ -259,7 +275,7 @@ const Cart = () => {
         <div className="flex justify-center mt-1 gap-6 md:gap-10">
           <button
             onClick={handleEmpty}
-            className="w-36 h-12 md:w-44 md:h-14
+            className="w-auto h-12 pr-4 px-2 md:w-44 md:h-14
               bg-[#FFFCE0]
               rounded-2xl
               shadow-md
@@ -286,7 +302,7 @@ const Cart = () => {
 
           <button
             onClick={handleProceed}
-            className="w-36 h-12 md:w-44 md:h-14
+            className="w-38 h-12 px-2 md:w-44 md:h-14
               bg-[#FFFCE0]
               rounded-2xl
               shadow-md
@@ -295,7 +311,7 @@ const Cart = () => {
               flex items-center justify-center"
           >
             <div className="relative z-10 flex items-center justify-center h-full pb-1">
-            <Image
+              <Image
                 src="/img/cart/flower.svg"
                 alt="icon"
                 width={28}
@@ -313,4 +329,4 @@ const Cart = () => {
   );
 };
 
-export default isNotAuth(Cart);
+export default (Cart);
