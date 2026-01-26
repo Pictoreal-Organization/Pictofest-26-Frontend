@@ -102,6 +102,8 @@ const Uploader = (props) => {
 
   const clearSelection = (e) => {
     e.stopPropagation();
+    if (image) URL.revokeObjectURL(image);
+
     setFileName("No file selected");
     setImage(null);
     setFileSizeExceed(false);
@@ -109,6 +111,7 @@ const Uploader = (props) => {
     setSelectedFile(null);
     if (inputRef.current) inputRef.current.value = "";
   };
+
 
   return (
     <>
