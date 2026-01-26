@@ -829,83 +829,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FaCartShopping, FaArrowLeft } from "react-icons/fa6";
 import { useParams } from "next/navigation";
 
-
-
-// const DUMMY_EVENT_DATA = {
-//   id: 1,
-//   name: "Neon Fluid Painting",
-//   event_category: "WORKSHOP",
-//   event_code: "EV",
-//   venue: "Main Art Hall, Ground Floor",
-//   event_date: "16 February 2026",
-//   team_category: "Solo",
-//   price: 399,
-//   description: `
-//     Dive into an immersive hands-on workshop exploring texture art combined with neon fluid painting.
-//     This workshop is part of Fragments of Time, encouraging participants to express moments,
-//     memories, and emotions through layered textures and vibrant colors.
-//   `,
-//   contact_details: {
-//     name: "Aarav Mehta",
-//     phone: "+91 98765 43210",
-//   },
-//   rules: {
-//     rule1: "All materials will be provided at the venue.",
-//     rule2: "Participants must arrive 15 minutes before the start time.",
-//     rule3: "Artwork created can be taken home after the session.",
-//     rule4: "No prior experience required.",
-//   },
-
-
-// };
-{/*
-
-      id: 1,
-    name: "Play With Clay",
-    event_code: "WS",
-    event_category: "WS",
-    venue: "Workshop Hall – Ground Floor",
-    event_date: "28 Jan 2026",
-    team_category: "Solo",
-    price: 0,
-    description: `
-      A beginner-friendly clay workshop at Fragments of Time.
-      Focused on creativity, not perfection.
-    `,
-    rules: {
-    },
-    contact_details: {
-      name: "Kunal Verma",
-      phone: "9988776655",
-    },
-
-  id: 1,
-  name: "Capture the Moment",
-  event_code: "PH",
-  event_category: "PH",
-  venue: "Open Air Theatre",
-  event_date: "27 Jan 2026",
-  team_category: "Solo",
-  price: 299,
-  description: `
-    A photography challenge based on the theme Fragments of Time.
-    Capture emotions, motion, and stillness through your lens.
-  `,
-  rules: {
-        rule1: "All materials will be provided at the venue.",
-    rule2: "Participants must arrive 15 minutes before the start time.",
-    rule3: "Artwork created can be taken home after the session.",
-    rule4: "No prior experience required.",
-
-  },
-  contact_details: {
-    name: "Riya Sharma",
-    phone: "9123456780",
-  },
-
-    */}
-
-
 const Individual = () => {
   const { eventId } = useParams();
   const [data, setData] = useState({});
@@ -944,25 +867,25 @@ const Individual = () => {
       toast.error(err.response.data.message);
     }
   };
-  
-const handleScrollToCheckbox = () => {
-  if (typeof window === "undefined") return;
 
-  const isMobile = window.matchMedia("(max-width: 767px)").matches;
+  const handleScrollToCheckbox = () => {
+    if (typeof window === "undefined") return;
 
-  if (isMobile && data?.event_code === "PH") {
-    const el = document.getElementById("mobile-photocopy");
-    if (el) {
-      const rect = el.getBoundingClientRect();
-      const y = window.scrollY + rect.top - 120;
+    const isMobile = window.matchMedia("(max-width: 767px)").matches;
 
-      window.scrollTo({
-        top: y,
-        behavior: "smooth",
-      });
-      return;
+    if (isMobile && data?.event_code === "PH") {
+      const el = document.getElementById("mobile-photocopy");
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        const y = window.scrollY + rect.top - 120;
+
+        window.scrollTo({
+          top: y,
+          behavior: "smooth",
+        });
+        return;
+      }
     }
-  }
 
     // Desktop or non-PH: directly add to cart
     handleAddToCart();
@@ -981,32 +904,16 @@ const handleScrollToCheckbox = () => {
     }
     : null;
 
-  const imageMap = {
-    "craft your moon": ["/img/workshops/moon1.jpg", "/img/workshops/moon2.jpg"],
-    "play with clay": [
-      "/img/workshops/pottery1.jpg",
-      "/img/workshops/pottery2.jpg",
-    ],
-    "neon fluid painting": [
-      "/img/workshops/texture1.jpg",
-      "/img/workshops/texture2.jpg",
-      "/img/workshops/texture3.jpg",
-    ],
+  // Map event_code to workshop images
+  const workshopImageMap = {
+    "lrp": "/img/workshops/lotus-resin.jpeg",
+    "pwc": "/img/workshops/play-with-clay.jpg",
+    "pcf": "/img/workshops/pipe-cleaner-flowers.jpeg",
   };
 
-  const images = imageMap[data?.name?.toLowerCase()?.trim()] || [];
+  // Get workshop image based on event_code
+  const workshopImage = data?.event_code ? workshopImageMap[data.event_code.toLowerCase()] : null;
 
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    if (images.length === 0) return;
-
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % images.length);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, [images]);
 
   return (
     <main className="relative min-h-screen overflow-x-hidden">
@@ -1049,7 +956,6 @@ const handleScrollToCheckbox = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-
             {/* Mobile Content Container */}
             <motion.div
               className="w-full flex flex-col mt-20 mb-4 gap-6 bg-[#FEE2B2] p-4"
@@ -1069,10 +975,7 @@ const handleScrollToCheckbox = () => {
 
               <div className="w-full flex justify-center mt-2">
                 <div className="relative w-full max-w-[320px]">
-                  {/* Main banner with mask for cutouts */}
                   <div className="relative">
-                    {/* Blue banner background */}
-                    {/* 1. Event Name - Mobile */}
                     <div className="w-full flex justify-center">
                       <div className="relative w-full max-w-[320px]">
                         <svg
@@ -1081,38 +984,17 @@ const handleScrollToCheckbox = () => {
                           viewBox="0 0 320 70"
                           preserveAspectRatio="none"
                         >
-                          {/* Outer banner shape with 6 corners */}
                           <path
-                            d="
-                              M 0 0
-                              L 320 0
-                              L 300 35
-                              L 320 70
-                              L 0 70
-                              L 20 35
-                              Z
-                            "
+                            d="M 0 0 L 320 0 L 300 35 L 320 70 L 0 70 L 20 35 Z"
                             fill="#08525F"
                           />
-
-                          {/* Inner dashed border */}
                           <path
-                            d="
-                              M 8 8
-                              L 312 8
-                              L 292 35
-                              L 312 62
-                              L 8 62
-                              L 28 35
-                              Z
-                            "
+                            d="M 8 8 L 312 8 L 292 35 L 312 62 L 8 62 L 28 35 Z"
                             fill="none"
                             stroke="white"
                             strokeWidth="2"
                             strokeDasharray="6 4"
                           />
-
-                          {/* Text */}
                           <text
                             x="160"
                             y="42"
@@ -1132,41 +1014,33 @@ const handleScrollToCheckbox = () => {
                 </div>
               </div>
 
-              {/* 2. Add to Cart Button - Mobile */}
+              {/* TOP ACTION BUTTON */}
               <div className="w-full flex justify-center">
                 <button
                   onClick={handleScrollToCheckbox}
                   className="bg-[#08525F] rounded-2xl px-6 py-3 hover:opacity-90 transition-all duration-300 flex items-center justify-center shadow-lg w-full max-w-[200px] sub-heading-font text-white"
                 >
-                  {data.price ? (
-                    <FaCartShopping className="text-xl mr-5" />
-                  ) : null}
+                  {data.price ? <FaCartShopping className="text-xl mr-5" /> : null}
                   <span>{data?.price ? "Add to Cart" : "Register"}</span>
                 </button>
               </div>
 
-              {/* 3. Event Details with Orange Card - Mobile */}
+              {/* 1. EVENT DETAILS - Mobile */}
               <motion.div
                 className="w-full flex flex-col relative mt-4"
                 initial={{ x: -100, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.5 }}
               >
-                {/* Orange Background Card */}
                 <div className="absolute inset-0 bg-[#E97400] rounded-lg z-0 shadow-xl"></div>
-
-                {/* Content Container */}
                 <div className="relative z-10 p-4 flex flex-col items-center">
                   <div className="border-2 border-dashed border-white rounded-sm p-4 w-full">
-                    {/* Event Details Title */}
                     <div
                       className="text-xl sub-heading-font mb-4 pb-2 relative text-white text-center w-full"
                       style={{ letterSpacing: "3.42px" }}
                     >
                       Event Details
                     </div>
-
-                    {/* Line SVG below Event Details */}
                     <div className="-mt-6 relative w-full h-5">
                       <Image
                         src="/img/events/line26.svg"
@@ -1176,44 +1050,22 @@ const handleScrollToCheckbox = () => {
                         priority={false}
                       />
                     </div>
-
-                    {/* Event Details List */}
                     <ul className="body-font font-medium text-base list-disc pl-5 group text-left text-white space-y-2 w-full">
-                      <li>
-                        <strong className="body-font">Venue:</strong>{" "}
-                        {data?.venue}
-                      </li>
-                      <li>
-                        <strong className="body-font">Event Date:</strong>{" "}
-                        {data?.event_date}
-                      </li>
-                      <li>
-                        <strong className="body-font">Contact Name: </strong>{" "}
-                        &nbsp;
-                        {data?.contact_details?.name}
-                      </li>
-                      <li>
-                        <strong className="body-font">Contact Number:</strong>{" "}
-                        &nbsp;
-                        {data?.contact_details?.phone}
-                      </li>
-                      <li>
-                        <strong className="body-font">Team Category:</strong>{" "}
-                        {data?.team_category}
-                      </li>
-                      <li>
-                        <strong className="body-font">Price:</strong>{" "}
-                        {data?.price ? "Rs. " + data.price + "/-" : "Free"}
-                      </li>
+                      <li><strong>Venue:</strong> {data?.venue}</li>
+                      <li><strong>Event Date:</strong> {data?.event_date}</li>
+                      <li><strong>Contact Name:</strong> {data?.contact_details?.name}</li>
+                      <li><strong>Contact Number:</strong> {data?.contact_details?.phone}</li>
+                      <li><strong>Team Category:</strong> {data?.team_category}</li>
+                      <li><strong>Price:</strong> {data?.price ? "Rs. " + data.price + "/-" : "Free"}</li>
                     </ul>
                   </div>
                 </div>
               </motion.div>
 
-              {/* 4. Description - Mobile */}
+              {/* 2. DESCRIPTION - Mobile */}
               {descriptionContent && (
                 <motion.div
-                  className="mt-6"
+                  className="mt-2"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.2 }}
@@ -1224,8 +1076,7 @@ const handleScrollToCheckbox = () => {
                   >
                     Description
                   </div>
-                  {/* Line SVG*/}
-                  <div className="-mt-7 relative w-full h-7 ">
+                  <div className="-mt-7 relative w-full h-7">
                     <Image
                       src="/img/events/brown-border26.svg"
                       alt="Decorative Line"
@@ -1234,7 +1085,6 @@ const handleScrollToCheckbox = () => {
                       priority={false}
                     />
                   </div>
-
                   <p
                     className="text-base font-normal text-[#572711] text-center body-font font-semibold px-2"
                     dangerouslySetInnerHTML={descriptionContent}
@@ -1242,10 +1092,10 @@ const handleScrollToCheckbox = () => {
                 </motion.div>
               )}
 
-              {/* 5. Rules - Mobile */}
+              {/* 3. RULES - Mobile */}
               {data?.rules && Object.keys(data.rules).length !== 0 && (
                 <motion.div
-                  className="mt-6 flex flex-col"
+                  className="mt-2 flex flex-col"
                   initial={{ x: 100, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ duration: 0.5 }}
@@ -1256,8 +1106,7 @@ const handleScrollToCheckbox = () => {
                   >
                     Rules & How to Play
                   </div>
-                  {/* Line SVG*/}
-                  <div className="-mt-7 relative w-full h-7 ">
+                  <div className="-mt-7 relative w-full h-7">
                     <Image
                       src="/img/events/brown-border26.svg"
                       alt="Decorative Line"
@@ -1268,88 +1117,48 @@ const handleScrollToCheckbox = () => {
                   </div>
                   <ul className="body-font font-semibold text-[#572711] text-base text-left space-y-2">
                     {Object.values(data.rules).map((rule, index) => (
-                      <li key={index}>
-                        {index + 1}. {rule}
-                      </li>
+                      <li key={index}>{index + 1}. {rule}</li>
                     ))}
                   </ul>
                 </motion.div>
               )}
 
-              {data?.event_code === "WS" && (
-                <div className="flex mx-auto my-5 relative w-64 md:w-96 h-64 md:h-96 border-4 rounded-xl border-[#67230F] bg-[#67230F]">
-                  <AnimatePresence mode="wait">
-                    {images.length > 0 && (
-                      <motion.div
-                        key={images[index]}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="w-full h-full flex justify-center items-center"
-                      >
-                        <Image
-                          src={images[index]}
-                          alt="event image"
-                          className="object-contain h-full"
-                          width={500}
-                          height={500}
-                        />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+              {/* 4. IMAGE (IF PRESENT) - Mobile */}
+              {workshopImage && data?.event_category?.toUpperCase() === "WORKSHOP" && (
+                <div className="flex flex-col items-center mt-2">
+                  <div className="relative w-full max-w-[300px] h-64 border-4 rounded-xl border-[#E97400] bg-[#E97400] overflow-hidden">
+                    <Image
+                      src={workshopImage}
+                      alt="Workshop image"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
                 </div>
               )}
 
-              {/* Photocopy Checkbox - Mobile (Only for Photography Events) */}
+              {/* PHOTOCOPY SELECTION (If Photography) */}
               {data?.event_code === "PH" && (
-                <motion.div
-                  id="mobile-photocopy"
-                  className="w-full flex flex-col gap-3 items-center"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className="bg-white/50 rounded-xl px-4 py-4 w-full max-w-[300px] border-2 border-[#08525F] space-y-3">
-                    <label className="flex items-center cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={!needPhotocopy}
-                        onChange={() => setNeedPhotocopy(false)}
-                        className="w-5 h-5 rounded border-2 border-[#08525F]"
-                      />
-                      <span className="ml-3 text-[#572711] body-font font-semibold text-sm">
-                        I will print my photographs myself
-                      </span>
-                    </label>
-
-                    <label className="flex items-center cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={needPhotocopy}
-                        onChange={() => setNeedPhotocopy(true)}
-                        className="w-5 h-5 rounded border-2 border-[#08525F]"
-                      />
-                      <span className="ml-3 text-[#572711] body-font font-semibold text-sm">
-                        Please print my photographs (Extra Rs.10 charges apply)
-                      </span>
-                    </label>
-                  </div>
-                </motion.div>
+                <div className="bg-white/50 rounded-xl px-4 py-4 w-full border-2 border-[#08525F] space-y-3 mt-2">
+                  <label className="flex items-center cursor-pointer">
+                    <input type="checkbox" checked={!needPhotocopy} onChange={() => setNeedPhotocopy(false)} className="w-5 h-5" />
+                    <span className="ml-3 text-[#572711] body-font font-semibold text-sm">I will print myself</span>
+                  </label>
+                  <label className="flex items-center cursor-pointer">
+                    <input type="checkbox" checked={needPhotocopy} onChange={() => setNeedPhotocopy(true)} className="w-5 h-5" />
+                    <span className="ml-3 text-[#572711] body-font font-semibold text-sm">Print for me (+Rs.10)</span>
+                  </label>
+                </div>
               )}
 
-
-
-              {/* 6. Two Buttons - Mobile */}
+              {/* 5. BOTTOM NAVIGATION BUTTONS - Mobile  */}
               <div className="flex justify-center gap-4 mt-4">
-                {/* Back Button */}
                 <button
                   onClick={handleBack}
                   className="bg-[#E97400] rounded-2xl px-6 py-3 hover:opacity-90 transition-all duration-300 flex items-center justify-center shadow-lg min-w-[140px]"
                 >
                   <FaArrowLeft className="text-2xl text-white" />
                 </button>
-
-                {/* Add to Cart Button (Icon only) */}
                 <button
                   onClick={handleAddToCart}
                   className="bg-[#08525F] rounded-2xl px-6 py-3 hover:opacity-90 transition-all duration-300 flex items-center justify-center shadow-lg min-w-[140px]"
@@ -1367,12 +1176,11 @@ const handleScrollToCheckbox = () => {
                   priority={false}
                 />
               </div>
-
             </motion.div>
           </motion.div>
         </div>
 
-        {/* DESKTOP LAYOUT*/}
+        {/* DESKTOP LAYOUT */}
         <div className="hidden md:block">
           <motion.div
             className="h-fit w-full text-justify text-[#67230F] flex flex-col lg:flex-row lg:h-fit px-4 lg:px-16"
@@ -1386,6 +1194,7 @@ const handleScrollToCheckbox = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6 }}
             >
+              {/* Top Border */}
               <div className="w-auto -ml-[74.8px] h-12 -mt-12 relative translate-x-[42.3px]">
                 <Image
                   src="/img/events/desk-top-border26.svg"
@@ -1397,7 +1206,7 @@ const handleScrollToCheckbox = () => {
               </div>
 
               <div className="p-0 lg:p-8 relative">
-                {/* Title and Button */}
+                {/* Title and Top Cart Button */}
                 <motion.div
                   className="flex flex-col md:flex-row justify-around items-center mb-4"
                   initial={{ opacity: 0 }}
@@ -1405,37 +1214,27 @@ const handleScrollToCheckbox = () => {
                   transition={{ duration: 0.4 }}
                 >
                   <div className="order-2 md:order-1 md:absolute md:left-1/2 md:transform md:-translate-x-1/2 w-full md:w-auto">
-                    {/* Slim line*/}
                     <div className="flex justify-center mb-1 px-15">
                       <div className="h-[2px] bg-[#08525F] w-full max-w-[calc(100%+40px)] translate-x-[-56px]"></div>
                     </div>
-
                     <div className="bg-[#08525F] rounded-2xl px-5 -py-1 flex items-center justify-center shadow-lg min-w-[130px] sub-heading-font text-white">
                       <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl uppercase sub-heading-font text-center mt-4 mb-3 py-1">
                         {data?.name}
                       </h1>
                     </div>
-
-                    {/* Slim line*/}
                     <div className="flex justify-center mb-2 mt-1 px-15">
                       <div className="h-[2.1px] bg-[#08525F] w-full max-w-[calc(100%+40px)] translate-x-[56px]"></div>
                     </div>
                   </div>
 
-                  {/* Button and Checkbox Container - Desktop */}
                   <div className="order-1 md:order-2 flex flex-col items-center md:ml-auto md:self-center gap-4">
-                    {/* Add to Cart Button */}
                     <button
                       onClick={handleScrollToCheckbox}
                       className="bg-[#08525F] rounded-2xl px-8 py-4 hover:opacity-90 transition-all duration-300 flex items-center justify-center shadow-xl hover:shadow-xl min-w-[140px] sub-heading-font text-white"
                     >
-                      {data.price ? (
-                        <FaCartShopping className="text-xl mr-5" />
-                      ) : null}
+                      {data.price ? <FaCartShopping className="text-xl mr-5" /> : null}
                       <span>{data?.price ? "Add to Cart" : "Register"}</span>
                     </button>
-
-
                   </div>
                 </motion.div>
 
@@ -1453,222 +1252,105 @@ const handleScrollToCheckbox = () => {
                   </motion.div>
                 )}
 
-                {/* Event Details */}
-                <motion.div
-                  className="w-full lg:w-full text-[#67230F] lg:mt-8 flex flex-col lg:flex-row gap-6 lg:gap-8"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5 }}
+                {/* Content Wrapper */}
+                <div
+                  className={`flex flex-col lg:flex-row gap-6 lg:gap-8 mt-8 ${workshopImage && data?.event_category?.toUpperCase() === "WORKSHOP"
+                    ? "items-stretch"
+                    : "items-start"
+                    }`}
                 >
-                  {/* LEFT SECTION - Event Details */}
-                  <motion.div
-                    className="lg:w-1/2 h-[365px] flex-shrink-0 flex flex-col relative"
-                    initial={{ x: -100, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    {/* Orange Background Card */}
-                    <div className="absolute inset-0 bg-[#E97400] rounded-lg z-0 shadow-2xl"></div>
-
-                    {/* Content Container */}
-                    <div className="relative z-10 p-4 lg:p-4 flex flex-col items-center justify-center min-h-full">
-                      <div className="border-3 border-dashed border-white rounded-sm p-6 lg:p-6 w-full flex flex-col items-center justify-center">
-                        {/* Centered Event Details Title */}
-                        <div
-                          className="text-xl sm:text-xl md:text-2xl lg:text-3xl sub-heading-font mb-4 pb-2 relative text-white text-center w-full"
-                          style={{ letterSpacing: "3.42px" }}
-                        >
-                          Event Details
+                  {/* LEFT COLUMN - Event Details Card */}
+                  <div className="flex-1 flex flex-col h-full">
+                    <div className="relative bg-[#E97400] rounded-lg shadow-2xl h-full flex flex-col">
+                      <div className="relative z-10 p-4 lg:p-6 flex flex-col items-center justify-center h-full">
+                        <div className="border-3 border-dashed border-white rounded-sm p-6 lg:p-6 w-full h-full flex flex-col items-center justify-center">
+                          <div
+                            className="text-xl sm:text-xl md:text-2xl lg:text-3xl sub-heading-font mb-4 pb-2 relative text-white text-center w-full"
+                            style={{ letterSpacing: "3.42px" }}
+                          >
+                            Event Details
+                          </div>
+                          <div className="-mt-6 relative w-full h-5">
+                            <Image
+                              src="/img/events/line26.svg"
+                              alt="Decorative Line"
+                              fill
+                              className="object-contain"
+                              priority={false}
+                            />
+                          </div>
+                          <ul className="body-font font-medium text-lg list-disc pl-6 group text-left text-white space-y-2 w-full mt-2">
+                            <li><strong className="body-font">Venue:</strong> {data?.venue}</li>
+                            <li><strong className="body-font">Event Date:</strong> {data?.event_date}</li>
+                            <li><strong className="body-font">Contact Name:</strong> {data?.contact_details?.name}</li>
+                            <li><strong className="body-font">Contact Number:</strong> {data?.contact_details?.phone}</li>
+                            <li><strong className="body-font">Team Category:</strong> {data?.team_category}</li>
+                            <li><strong className="body-font">Price:</strong> {data?.price ? "Rs. " + data.price + "/-" : "Free"}</li>
+                          </ul>
                         </div>
-
-                        {/* Line SVG below Event Details */}
-                        <div className="-mt-6 relative w-full h-5">
-                          <Image
-                            src="/img/events/line26.svg"
-                            alt="Decorative Line"
-                            fill
-                            className="object-contain"
-                            priority={false}
-                          />
-                        </div>
-
-                        {/* Event Details List */}
-                        <ul className="body-font font-medium text-lg list-disc pl-6 group text-left text-white space-y-2 w-full">
-                          <li>
-                            <strong className="body-font">Venue:</strong>{" "}
-                            {data?.venue}
-                          </li>
-                          <li>
-                            <strong className="body-font">Event Date:</strong>{" "}
-                            {data?.event_date}
-                          </li>
-                          <li>
-                            <strong className="body-font">
-                              Contact Name:{" "}
-                            </strong>{" "}
-                            &nbsp;
-                            {data?.contact_details?.name}
-                          </li>
-                          <li>
-                            <strong className="body-font">
-                              Contact Number:
-                            </strong>{" "}
-                            &nbsp;
-                            {data?.contact_details?.phone}
-                          </li>
-                          <li>
-                            <strong className="body-font">
-                              Team Category:
-                            </strong>{" "}
-                            {data?.team_category}
-                          </li>
-                          <li>
-                            <strong className="body-font">Price:</strong>{" "}
-                            {data?.price ? "Rs. " + data.price + "/-" : "Free"}
-                          </li>
-                        </ul>
                       </div>
                     </div>
-                    {/*Only for Bidding Wars */}
-                    {data?.name === "BIDDING WARS" && (
-                      <div className="flex justify-center gap-4 mt-8 w-full">
-                        {/* Back Button */}
-                        <button
-                          onClick={handleBack}
-                          className="bg-[#E97400] rounded-2xl px-8 py-4 hover:opacity-90 transition-all duration-300 flex items-center justify-center shadow-2xl hover:shadow-xl min-w-[140px]"
-                        >
-                          <FaArrowLeft className="text-2xl text-white" />
-                        </button>
+                  </div>
 
-                        {/* Add to Cart Button (Icon only) */}
-                        <button
-                          onClick={handleAddToCart}
-                          className="bg-[#08525F] rounded-2xl px-8 py-4 hover:opacity-90 transition-all duration-300 flex items-center justify-center shadow-2xl hover:shadow-xl min-w-[140px]"
-                        >
-                          <FaCartShopping className="text-2xl text-white" />
-                        </button>
-                      </div>
-                    )}
-
-                  </motion.div>
-
-                  {/* RIGHT SECTION - Rules */}
-                  <motion.div
-                    className="lg:w-1/2 flex flex-col"
-                    initial={{ x: 100, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.5 }}
-                  >
-
-                    {data?.rules && Object.keys(data.rules).length !== 0 && (
-                      <>
-                        <div
-                          className="text-xl sm:text-xl md:text-2xl lg:text-3xl text-[#572711] sub-heading-font w-fit mb-4 pb-2 relative group"
-                          style={{ letterSpacing: "3.42px" }}
-                        >
-                          Rules & How to Play
+                  {/* RIGHT COLUMN - Image/Rules AND Buttons */}
+                  <div className="flex-1 flex flex-col">
+                    <div className="flex-grow">
+                      {workshopImage && data?.event_category?.toUpperCase() === "WORKSHOP" ? (
+                        <div className="relative w-full h-full min-h-[365px] border-4 rounded-xl border-[#E97400] bg-[#E97400] overflow-hidden">
+                          <Image
+                            src={workshopImage}
+                            alt="Workshop image"
+                            fill
+                            className="object-contain"
+                          />
                         </div>
-
-                        <ul className="body-font font-semibold text-[#572711] text-lg text-left space-y-2">
-                          {Object.values(data.rules).map((rule, index) => (
-                            <li key={index}>
-                              {index + 1}. {rule}
-                            </li>
-                          ))}
-                        </ul>
-                      </>
-                    )}
-
-                    {/* Photocopy Checkbox - Desktop (Only for Photography Events) */}
-                    {data?.event_code === "PH" && (
-                      <motion.div
-                        ref={photocopyCheckboxRef}
-                        className="w-full flex flex-col gap-3 items-center"
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <div className="bg-white/50 rounded-xl px-4 py-4 w-full border-2 border-[#08525F] space-y-3">
-
-                          {/* Option 1 – Default */}
-                          <label className="flex items-center cursor-pointer">
-                            <input
-                              type="checkbox"
-                              checked={!needPhotocopy}
-                              onChange={() => setNeedPhotocopy(false)}
-                              className="w-5 h-5 rounded border-2 border-[#08525F] cursor-pointer"
-                            />
-                            <span className="ml-3 text-[#572711] body-font font-semibold text-sm">
-                              I will print my photographs myself
-                            </span>
-                          </label>
-
-                          {/* Option 2 */}
-                          <label className="flex items-center cursor-pointer">
-                            <input
-                              type="checkbox"
-                              checked={needPhotocopy}
-                              onChange={() => setNeedPhotocopy(true)}
-                              className="w-5 h-5 rounded border-2 border-[#08525F] cursor-pointer"
-                            />
-                            <span className="ml-3 text-[#572711] body-font font-semibold text-sm">
-                              Please print my photographs (Extra Rs.10 charges apply)
-                            </span>
-                          </label>
-
-                        </div>
-                      </motion.div>
-                    )}
-
-
-                    {data?.event_code === "WS" && (
-                      <div className="flex mx-auto my-5 relative w-56 h-56 border-4 rounded-xl border-[#67230F] bg-[#67230F]">
-                        <AnimatePresence mode="wait">
-                          {images.length > 0 && (
-                            <motion.div
-                              key={images[index]}
-                              initial={{ opacity: 0 }}
-                              animate={{ opacity: 1 }}
-                              exit={{ opacity: 0 }}
-                              className="w-full h-full flex justify-center items-center"
-                            >
-                              <Image
-                                src={images[index]}
-                                alt="event image"
-                                className="object-contain h-full"
-                                width={450}
-                                height={450}
-                              />
-                            </motion.div>
+                      ) : (
+                        <div className="flex flex-col">
+                          {data?.rules && Object.keys(data.rules).length !== 0 && (
+                            <>
+                              <div
+                                className="text-xl sm:text-xl md:text-2xl lg:text-3xl text-[#572711] sub-heading-font w-fit mb-4 pb-2 relative group"
+                                style={{ letterSpacing: "3.42px" }}
+                              >
+                                Rules & How to Play
+                              </div>
+                              <ul className="body-font font-semibold text-[#572711] text-lg text-left space-y-2">
+                                {Object.values(data.rules).map((rule, index) => (
+                                  <li key={index}>{index + 1}. {rule}</li>
+                                ))}
+                              </ul>
+                            </>
                           )}
-                        </AnimatePresence>
-                      </div>
-                    )}
+                          {data?.event_code === "PH" && (
+                            <div className="mt-4 bg-white/50 rounded-xl px-4 py-4 w-full border-2 border-[#08525F] space-y-3">
+                              <label className="flex items-center cursor-pointer">
+                                <input type="checkbox" checked={!needPhotocopy} onChange={() => setNeedPhotocopy(false)} className="w-5 h-5" />
+                                <span className="ml-3 text-[#572711] body-font font-semibold text-sm">I will print myself</span>
+                              </label>
+                              <label className="flex items-center cursor-pointer">
+                                <input type="checkbox" checked={needPhotocopy} onChange={() => setNeedPhotocopy(true)} className="w-5 h-5" />
+                                <span className="ml-3 text-[#572711] body-font font-semibold text-sm">Print for me (+Rs.10)</span>
+                              </label>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
 
-                    {data?.name !== "BIDDING WARS" && (
-                      <div className="flex justify-center gap-4 mt-8">
-                        {/* Back Button */}
-                        <button
-                          onClick={handleBack}
-                          className="bg-[#E97400] rounded-2xl px-8 py-4 hover:opacity-90 transition-all duration-300 flex items-center justify-center shadow-2xl hover:shadow-xl min-w-[140px]"
-                        >
-                          <FaArrowLeft className="text-2xl text-white" />
-                        </button>
-
-                        {/* Add to Cart Button (Icon only) */}
-                        <button
-                          onClick={handleAddToCart}
-                          className="bg-[#08525F] rounded-2xl px-8 py-4 hover:opacity-90 transition-all duration-300 flex items-center justify-center shadow-2xl hover:shadow-xl min-w-[140px]"
-                        >
-                          <FaCartShopping className="text-2xl text-white" />
-                        </button>
-                      </div>
-                    )}
-
-                  </motion.div>
-                </motion.div>
+                    {/* NAVIGATION BUTTONS  */}
+                    <div className="flex justify-start gap-4 mt-8">
+                      <button onClick={handleBack} className="bg-[#E97400] rounded-2xl px-8 py-4 shadow-2xl hover:opacity-90 min-w-[140px]">
+                        <FaArrowLeft className="text-2xl text-white mx-auto" />
+                      </button>
+                      <button onClick={handleAddToCart} className="bg-[#08525F] rounded-2xl px-8 py-4 shadow-2xl hover:opacity-90 min-w-[140px]">
+                        <FaCartShopping className="text-2xl text-white mx-auto" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
 
+              {/* Bottom Border */}
               <div className="w-auto -ml-[64.5px] h-7 -mb-8 relative translate-x-[32.6px]">
                 <Image
                   src="/img/events/desk-bottom-border26.svg"
@@ -1678,12 +1360,11 @@ const handleScrollToCheckbox = () => {
                   priority={false}
                 />
               </div>
-
             </motion.div>
           </motion.div>
         </div>
       </div>
-      
+
       <motion.div
         className="hidden lg:block fixed bottom-0 left-0 w-full z-0 pointer-events-none"
         initial={{ opacity: 0, y: 30 }}
@@ -1700,7 +1381,7 @@ const handleScrollToCheckbox = () => {
           />
         </div>
       </motion.div>
-      
+
     </main>
   );
 };
