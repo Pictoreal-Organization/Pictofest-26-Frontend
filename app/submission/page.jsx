@@ -27,7 +27,7 @@ const Uploader = (props) => {
   const [isUploading, setIsUploading] = useState(false);
 
   const MAX_NORMAL = 10 * 1024 * 1024;   // 10MB
-  const MAX_PHOTO = 21 * 1024 * 1024;    // 20MB
+  const MAX_PHOTO = 15 * 1024 * 1024;    // 15MB
 
   const limit = photocopyNeeded ? MAX_PHOTO : MAX_NORMAL;
 
@@ -43,7 +43,7 @@ const Uploader = (props) => {
 
     if (fileSizeExceed) {
       toast.error(
-        `File size exceeds ${photocopyNeeded ? "20MB" : "10MB"} limit`
+        `File size exceeds ${photocopyNeeded ? "15MB" : "10MB"} limit`
       );
       return;
     }
@@ -126,28 +126,40 @@ const Uploader = (props) => {
         >
           <input
             type="file"
-            accept="image/*"
+            accept="image/png,image/jpeg,image/jpg"
             className="hidden"
             onChange={({ target: { files } }) => {
               if (files && files[0]) {
-                setFileName(files[0].name);
-                setSelectedFile(files[0]);
+                const file = files[0];
 
-                const fileSizeinMB = (files[0].size / (1024 * 1024)).toFixed(2);
+                const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+                const allowedExt = [".jpg", ".jpeg", ".png"];
+                const ext = file.name.toLowerCase().slice(file.name.lastIndexOf("."));
+
+                if (!allowedTypes.includes(file.type) || !allowedExt.includes(ext)) {
+                  toast.error("Only JPG, JPEG and PNG images are allowed");
+                  clearSelection({ stopPropagation: () => { } });
+                  return;
+                }
+
+                setFileName(file.name);
+                setSelectedFile(file);
+
+                const fileSizeinMB = (file.size / (1024 * 1024)).toFixed(2);
                 setFileSize(fileSizeinMB);
 
-                if (files[0].size > limit) {
+                if (file.size > limit) {
                   setFileSizeExceed(true);
                 } else {
                   setFileSizeExceed(false);
                 }
 
-                setImage(URL.createObjectURL(files[0]));
+                setImage(URL.createObjectURL(file));
               }
             }}
-
             ref={inputRef}
           />
+
 
           {image ? (
             <div className="relative w-full h-full">
@@ -175,7 +187,7 @@ const Uploader = (props) => {
                 <span className="text-[10px] md:text-xs font-normal opacity-80">
                   (Allowed formats: .jpg, .jpeg, .png)
                   <br />
-                  Max file size: {photocopyNeeded ? "20MB" : "10MB"}.
+                  Max file size: {photocopyNeeded ? "15MB" : "10MB"}.
                 </span>
 
               </p>
@@ -210,7 +222,7 @@ const Uploader = (props) => {
 
           {fileSizeExceed && (
             <p className="text-red-600 text-xs body-font font-bold text-center">
-              *File Size Exceeds {photocopyNeeded ? "20MB" : "10MB"} limit
+              *File Size Exceeds {photocopyNeeded ? "15MB" : "10MB"} limit
             </p>
           )}
 
@@ -413,7 +425,7 @@ const Submission = () => {
         <div className="relative z-10 w-[90%] md:w-3/4 text-center text-[#572813] body-font font-medium space-y-4 mb-8">
           <p className="text-base md:text-xl">
             Please submit the physical copies of your artworks, photography and
-            digital artworks before 18th Feb, 11:59pm
+            digital artworks before 22nd Feb, 11:59pm
           </p>
 
           <div className="flex-col text-center gap-3 text-sm md:text-lg font-bold">
