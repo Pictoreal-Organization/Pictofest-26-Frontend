@@ -1101,6 +1101,43 @@ const Individual = () => {
                 </motion.div>
               )}
 
+                            {/* Photocopy Checkbox - Mobile (Only for Photography Events) */}
+                            {data?.event_code === "PH" && (
+                <motion.div
+                  id="mobile-photocopy"
+                  className="w-full flex flex-col gap-3 items-center"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="bg-white/50 rounded-xl px-4 py-4 w-full max-w-[300px] border-2 border-[#08525F] space-y-3">
+                    <label className="flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={!needPhotocopy}
+                        onChange={() => setNeedPhotocopy(false)}
+                        className="w-5 h-5 rounded border-2 border-[#08525F]"
+                      />
+                      <span className="ml-3 text-[#572711] body-font font-semibold text-sm">
+                        I will print my photographs myself
+                      </span>
+                    </label>
+
+                    <label className="flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={needPhotocopy}
+                        onChange={() => setNeedPhotocopy(true)}
+                        className="w-5 h-5 rounded border-2 border-[#08525F]"
+                      />
+                      <span className="ml-3 text-[#572711] body-font font-semibold text-sm">
+                        Please print my photographs (Extra Rs.10 charges apply)
+                      </span>
+                    </label>
+                  </div>
+                </motion.div>
+              )}
+
               {/* 5. MEME CATEGORIES (Only for MM) */}
               {data?.event_code === "MM" && (
                 <div className="w-full flex flex-col items-center mt-8 pt-6 border-t border-[#E97400]/30">
@@ -1294,6 +1331,47 @@ const Individual = () => {
                         </div>
                       )}
                     </div>
+
+                                        {/* Photocopy Checkbox - Desktop (Only for Photography Events) */}
+                    {data?.event_code === "PH" && (
+                      <motion.div
+                        ref={photocopyCheckboxRef}
+                        className="w-full flex flex-col gap-3 items-center"
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <div className="bg-white/50 rounded-xl px-4 py-4 w-full border-2 border-[#08525F] space-y-3">
+
+                          {/* Option 1 – Default */}
+                          <label className="flex items-center cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={!needPhotocopy}
+                              onChange={() => setNeedPhotocopy(false)}
+                              className="w-5 h-5 rounded border-2 border-[#08525F] cursor-pointer"
+                            />
+                            <span className="ml-3 text-[#572711] body-font font-semibold text-sm">
+                              I will print my photographs myself
+                            </span>
+                          </label>
+
+                          {/* Option 2 */}
+                          <label className="flex items-center cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={needPhotocopy}
+                              onChange={() => setNeedPhotocopy(true)}
+                              className="w-5 h-5 rounded border-2 border-[#08525F] cursor-pointer"
+                            />
+                            <span className="ml-3 text-[#572711] body-font font-semibold text-sm">
+                              Please print my photographs (Extra Rs.10 charges apply)
+                            </span>
+                          </label>
+
+                        </div>
+                      </motion.div>
+                    )}
 
                     {/* Standard Nav Buttons (Only for non-MM pages) */}
                     {data?.event_code !== "MM" && (
