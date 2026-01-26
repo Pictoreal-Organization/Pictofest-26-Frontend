@@ -914,6 +914,33 @@ const Individual = () => {
   // Get workshop image based on event_code
   const workshopImage = data?.event_code ? workshopImageMap[data.event_code.toLowerCase()] : null;
 
+  const MM_CATEGORIES = [
+    {
+      id: 1,
+      name: "Everyday Chaos",
+      concept: "Create memes based on everyday life situations that feel overly dramatic — daily struggles, family drama, small problems, epic reactions.",
+      mediaUrl: "/img/events/meme_making/everyday_chaos.png",
+      example: "When you swear you checked everywhere, and your mom proves you wrong in two seconds.",
+      type: "image"
+    },
+    {
+      id: 2,
+      name: "Only Happens at College Fests",
+      concept: "Memes on funny, chaotic, and unforgettable moments that happen only during college events/fests.",
+      mediaUrl: "/img/events/meme_making/Only_Happens_At_College_Fest.png",
+      example: "Me at the college fest: appreciating art, enrolling in workshops, and strategically hunting every free snack.",
+      type: "image"
+    },
+    {
+      id: 3,
+      name: "The Student Life Nobody Warned Us About",
+      concept: "Memes about the hidden reality of college that no brochure shows.",
+      mediaUrl: "/img/events/meme_making/student_life.mp4",
+      example: "World-class campus life” → Running like it’s a relay race just to save attendance.",
+      type: "video"
+    }
+  ];
+
 
   return (
     <main className="relative min-h-screen overflow-x-hidden">
@@ -948,7 +975,7 @@ const Individual = () => {
                             EVENT CONTENT
     ============================================================ */}
       <div className="relative z-10">
-        {/* MOBILE LAYOUT*/}
+        {/* MOBILE LAYOUT */}
         <div className="block md:hidden">
           <motion.div
             className="h-fit w-full text-justify text-[#67230F] flex flex-col px-4"
@@ -958,11 +985,12 @@ const Individual = () => {
           >
             {/* Mobile Content Container */}
             <motion.div
-              className="w-full flex flex-col mt-20 mb-4 gap-6 bg-[#FEE2B2] p-4"
+              className="w-full flex flex-col mt-20 mb-4 gap-6 bg-[#FEE2B2] p-4 relative"
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6 }}
             >
+              {/* Top Border */}
               <div className="w-auto -ml-[34.85px] h-12 -mt-9 relative translate-x-[18.8px]">
                 <Image
                   src="/img/events/mob-top-border26.svg"
@@ -973,44 +1001,31 @@ const Individual = () => {
                 />
               </div>
 
+              {/* Header SVG Title */}
               <div className="w-full flex justify-center mt-2">
                 <div className="relative w-full max-w-[320px]">
-                  <div className="relative">
-                    <div className="w-full flex justify-center">
-                      <div className="relative w-full max-w-[320px]">
-                        <svg
-                          width="100%"
-                          height="70"
-                          viewBox="0 0 320 70"
-                          preserveAspectRatio="none"
-                        >
-                          <path
-                            d="M 0 0 L 320 0 L 300 35 L 320 70 L 0 70 L 20 35 Z"
-                            fill="#08525F"
-                          />
-                          <path
-                            d="M 8 8 L 312 8 L 292 35 L 312 62 L 8 62 L 28 35 Z"
-                            fill="none"
-                            stroke="white"
-                            strokeWidth="2"
-                            strokeDasharray="6 4"
-                          />
-                          <text
-                            x="160"
-                            y="42"
-                            textAnchor="middle"
-                            fill="white"
-                            fontSize="18"
-                            fontWeight="700"
-                            letterSpacing="1"
-                            className="sub-heading-font uppercase"
-                          >
-                            {data?.name}
-                          </text>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
+                  <svg width="100%" height="70" viewBox="0 0 320 70" preserveAspectRatio="none">
+                    <path d="M 0 0 L 320 0 L 300 35 L 320 70 L 0 70 L 20 35 Z" fill="#08525F" />
+                    <path
+                      d="M 8 8 L 312 8 L 292 35 L 312 62 L 8 62 L 28 35 Z"
+                      fill="none"
+                      stroke="white"
+                      strokeWidth="2"
+                      strokeDasharray="6 4"
+                    />
+                    <text
+                      x="160"
+                      y="42"
+                      textAnchor="middle"
+                      fill="white"
+                      fontSize="18"
+                      fontWeight="700"
+                      letterSpacing="1"
+                      className="sub-heading-font uppercase"
+                    >
+                      {data?.name}
+                    </text>
+                  </svg>
                 </div>
               </div>
 
@@ -1025,7 +1040,7 @@ const Individual = () => {
                 </button>
               </div>
 
-              {/* 1. EVENT DETAILS - Mobile */}
+              {/* 1. EVENT DETAILS */}
               <motion.div
                 className="w-full flex flex-col relative mt-4"
                 initial={{ x: -100, opacity: 0 }}
@@ -1042,80 +1057,43 @@ const Individual = () => {
                       Event Details
                     </div>
                     <div className="-mt-6 relative w-full h-5">
-                      <Image
-                        src="/img/events/line26.svg"
-                        alt="Decorative Line"
-                        fill
-                        className="object-contain"
-                        priority={false}
-                      />
+                      <Image src="/img/events/line26.svg" alt="Line" fill className="object-contain" priority={false} />
                     </div>
-                    <ul className="body-font font-medium text-base list-disc pl-5 group text-left text-white space-y-2 w-full">
+                    <ul className="body-font font-medium text-base list-disc pl-5 text-left text-white space-y-2 w-full">
                       <li><strong>Venue:</strong> {data?.venue}</li>
-                      <li><strong>Event Date:</strong> {data?.event_date}</li>
-                      <li><strong>Contact Name:</strong> {data?.contact_details?.name}</li>
-                      <li><strong>Contact Number:</strong> {data?.contact_details?.phone}</li>
-                      <li><strong>Team Category:</strong> {data?.team_category}</li>
+                      <li><strong>Date:</strong> {data?.event_date}</li>
+                      <li><strong>Contact:</strong> {data?.contact_details?.name}</li>
+                      <li><strong>Phone:</strong> {data?.contact_details?.phone}</li>
+                      <li><strong>Team:</strong> {data?.team_category}</li>
                       <li><strong>Price:</strong> {data?.price ? "Rs. " + data.price + "/-" : "Free"}</li>
                     </ul>
                   </div>
                 </div>
               </motion.div>
 
-              {/* 2. DESCRIPTION - Mobile */}
+              {/* 2. DESCRIPTION */}
               {descriptionContent && (
-                <motion.div
-                  className="mt-2"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                >
-                  <div
-                    className="text-xl text-[#572711] sub-heading-font w-full mb-4 pb-2 relative text-center"
-                    style={{ letterSpacing: "3.42px" }}
-                  >
+                <motion.div className="mt-2" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                  <div className="text-xl text-[#572711] sub-heading-font w-full mb-4 pb-2 text-center" style={{ letterSpacing: "3.42px" }}>
                     Description
                   </div>
                   <div className="-mt-7 relative w-full h-7">
-                    <Image
-                      src="/img/events/brown-border26.svg"
-                      alt="Decorative Line"
-                      fill
-                      className="object-contain"
-                      priority={false}
-                    />
+                    <Image src="/img/events/brown-border26.svg" alt="Line" fill className="object-contain" />
                   </div>
-                  <p
-                    className="text-base font-normal text-[#572711] text-center body-font font-semibold px-2"
-                    dangerouslySetInnerHTML={descriptionContent}
-                  />
+                  <p className="text-base font-normal text-[#572711] text-center body-font font-semibold px-2" dangerouslySetInnerHTML={descriptionContent} />
                 </motion.div>
               )}
 
-              {/* 3. RULES - Mobile */}
+              {/* 3. RULES */}
               {data?.rules && Object.keys(data.rules).length !== 0 && (
-                <motion.div
-                  className="mt-2 flex flex-col"
-                  initial={{ x: 100, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <div
-                    className="text-xl text-[#572711] sub-heading-font w-full mb-4 pb-2 relative text-center"
-                    style={{ letterSpacing: "3.42px" }}
-                  >
+                <motion.div className="mt-2 flex flex-col" initial={{ x: 100, opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
+                  <div className="text-xl text-[#572711] sub-heading-font w-full mb-4 pb-2 text-center" style={{ letterSpacing: "3.42px" }}>
                     Rules & How to Play
                   </div>
                   <div className="-mt-7 relative w-full h-7">
-                    <Image
-                      src="/img/events/brown-border26.svg"
-                      alt="Decorative Line"
-                      fill
-                      className="object-contain"
-                      priority={false}
-                    />
+                    <Image src="/img/events/brown-border26.svg" alt="Line" fill className="object-contain" />
                   </div>
-                  <ul className="body-font font-semibold text-[#572711] text-base text-left space-y-2">
+                  <ul className="body-font font-semibold text-[#572711] text-base text-left space-y-2 px-2">
                     {Object.values(data.rules).map((rule, index) => (
                       <li key={index}>{index + 1}. {rule}</li>
                     ))}
@@ -1123,58 +1101,66 @@ const Individual = () => {
                 </motion.div>
               )}
 
-              {/* 4. IMAGE (IF PRESENT) - Mobile */}
-              {workshopImage && data?.event_category?.toUpperCase() === "WORKSHOP" && (
-                <div className="flex flex-col items-center mt-2">
-                  <div className="relative w-full max-w-[300px] h-64 border-4 rounded-xl border-[#E97400] bg-[#E97400] overflow-hidden">
-                    <Image
-                      src={workshopImage}
-                      alt="Workshop image"
-                      fill
-                      className="object-contain"
-                    />
+              {/* 5. MEME CATEGORIES (Only for MM) */}
+              {data?.event_code === "MM" && (
+                <div className="w-full flex flex-col items-center mt-8 pt-6 border-t border-[#E97400]/30">
+                  <div className="text-xl sub-heading-font text-[#572711] mb-6 uppercase tracking-widest">
+                    Event Categories
+                  </div>
+                  <div className="flex flex-col gap-8 w-full">
+                    {MM_CATEGORIES.map((cat) => (
+                      <div key={cat.id} className="flex flex-col bg-white/40 p-4 rounded-2xl border-2 border-[#E97400] shadow-sm">
+                        <h3 className="text-lg sub-heading-font text-[#E97400] mb-2">{cat.id}. {cat.name}</h3>
+
+                        <div className="mb-3">
+                          <span className="text-[#08525F] text-[10px] font-black uppercase">Concept:</span>
+                          <p className="body-font font-bold text-[#572711] text-sm leading-tight">{cat.concept}</p>
+                        </div>
+
+                        {cat.example && (
+                          <div className="bg-[#08525F]/10 p-3 rounded-lg border-l-4 border-[#08525F] mb-4">
+                            <span className="text-[#08525F] text-[10px] font-black uppercase">Example:</span>
+                            <p className="body-font italic text-[#572711] text-xs mt-1">"{cat.example}"</p>
+                          </div>
+                        )}
+
+                        {/* UPDATED MEDIA CONTAINER */}
+                        <div className="flex justify-center mt-2">
+                          <div className="w-fit rounded-xl overflow-hidden border-2 border-[#08525F] shadow-sm">
+                            {cat.type === "video" ? (
+                              <video
+                                src={cat.mediaUrl}
+                                autoPlay muted loop playsInline
+                                className="max-h-[200px] w-auto block"
+                              />
+                            ) : (
+                              <img
+                                src={cat.mediaUrl}
+                                alt={cat.name}
+                                className="max-h-[200px] w-auto block"
+                              />
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}
 
-              {/* PHOTOCOPY SELECTION (If Photography) */}
-              {data?.event_code === "PH" && (
-                <div className="bg-white/50 rounded-xl px-4 py-4 w-full border-2 border-[#08525F] space-y-3 mt-2">
-                  <label className="flex items-center cursor-pointer">
-                    <input type="checkbox" checked={!needPhotocopy} onChange={() => setNeedPhotocopy(false)} className="w-5 h-5" />
-                    <span className="ml-3 text-[#572711] body-font font-semibold text-sm">I will print myself</span>
-                  </label>
-                  <label className="flex items-center cursor-pointer">
-                    <input type="checkbox" checked={needPhotocopy} onChange={() => setNeedPhotocopy(true)} className="w-5 h-5" />
-                    <span className="ml-3 text-[#572711] body-font font-semibold text-sm">Print for me (+Rs.10)</span>
-                  </label>
-                </div>
-              )}
-
-              {/* 5. BOTTOM NAVIGATION BUTTONS - Mobile  */}
-              <div className="flex justify-center gap-4 mt-4">
-                <button
-                  onClick={handleBack}
-                  className="bg-[#E97400] rounded-2xl px-6 py-3 hover:opacity-90 transition-all duration-300 flex items-center justify-center shadow-lg min-w-[140px]"
-                >
-                  <FaArrowLeft className="text-2xl text-white" />
+              {/* 6. BOTTOM NAVIGATION */}
+              <div className="flex justify-center gap-4 mt-8 mb-4">
+                <button onClick={handleBack} className="bg-[#E97400] rounded-2xl px-6 py-3 shadow-lg flex-1 max-w-[140px]">
+                  <FaArrowLeft className="text-2xl text-white mx-auto" />
                 </button>
-                <button
-                  onClick={handleAddToCart}
-                  className="bg-[#08525F] rounded-2xl px-6 py-3 hover:opacity-90 transition-all duration-300 flex items-center justify-center shadow-lg min-w-[140px]"
-                >
-                  <FaCartShopping className="text-2xl text-white" />
+                <button onClick={handleAddToCart} className="bg-[#08525F] rounded-2xl px-6 py-3 shadow-lg flex-1 max-w-[140px]">
+                  <FaCartShopping className="text-2xl text-white mx-auto" />
                 </button>
               </div>
 
+              {/* Bottom Border */}
               <div className="w-auto -ml-8 h-7 -mb-5 relative translate-x-[16px]">
-                <Image
-                  src="/img/events/mob-bottom-border26.svg"
-                  alt="Bottom Border"
-                  fill
-                  className="object-contain"
-                  priority={false}
-                />
+                <Image src="/img/events/mob-bottom-border26.svg" alt="Bottom Border" fill className="object-contain" />
               </div>
             </motion.div>
           </motion.div>
@@ -1206,7 +1192,7 @@ const Individual = () => {
               </div>
 
               <div className="p-0 lg:p-8 relative">
-                {/* Title and Top Cart Button */}
+                {/* Header Section */}
                 <motion.div
                   className="flex flex-col md:flex-row justify-around items-center mb-4"
                   initial={{ opacity: 0 }}
@@ -1230,7 +1216,7 @@ const Individual = () => {
                   <div className="order-1 md:order-2 flex flex-col items-center md:ml-auto md:self-center gap-4">
                     <button
                       onClick={handleScrollToCheckbox}
-                      className="bg-[#08525F] rounded-2xl px-8 py-4 hover:opacity-90 transition-all duration-300 flex items-center justify-center shadow-xl hover:shadow-xl min-w-[140px] sub-heading-font text-white"
+                      className="bg-[#08525F] rounded-2xl px-8 py-4 hover:opacity-90 transition-all duration-300 flex items-center justify-center shadow-xl min-w-[140px] sub-heading-font text-white"
                     >
                       {data.price ? <FaCartShopping className="text-xl mr-5" /> : null}
                       <span>{data?.price ? "Add to Cart" : "Register"}</span>
@@ -1252,14 +1238,14 @@ const Individual = () => {
                   </motion.div>
                 )}
 
-                {/* Content Wrapper */}
+                {/* 1. TOP ROW: Details & Rules */}
                 <div
                   className={`flex flex-col lg:flex-row gap-6 lg:gap-8 mt-8 ${workshopImage && data?.event_category?.toUpperCase() === "WORKSHOP"
                     ? "items-stretch"
                     : "items-start"
                     }`}
                 >
-                  {/* LEFT COLUMN - Event Details Card */}
+                  {/* LEFT COLUMN - Event Details */}
                   <div className="flex-1 flex flex-col h-full">
                     <div className="relative bg-[#E97400] rounded-lg shadow-2xl h-full flex flex-col">
                       <div className="relative z-10 p-4 lg:p-6 flex flex-col items-center justify-center h-full">
@@ -1271,99 +1257,118 @@ const Individual = () => {
                             Event Details
                           </div>
                           <div className="-mt-6 relative w-full h-5">
-                            <Image
-                              src="/img/events/line26.svg"
-                              alt="Decorative Line"
-                              fill
-                              className="object-contain"
-                              priority={false}
-                            />
+                            <Image src="/img/events/line26.svg" alt="Line" fill className="object-contain" priority={false} />
                           </div>
-                          <ul className="body-font font-medium text-lg list-disc pl-6 group text-left text-white space-y-2 w-full mt-2">
-                            <li><strong className="body-font">Venue:</strong> {data?.venue}</li>
-                            <li><strong className="body-font">Event Date:</strong> {data?.event_date}</li>
-                            <li><strong className="body-font">Contact Name:</strong> {data?.contact_details?.name}</li>
-                            <li><strong className="body-font">Contact Number:</strong> {data?.contact_details?.phone}</li>
-                            <li><strong className="body-font">Team Category:</strong> {data?.team_category}</li>
-                            <li><strong className="body-font">Price:</strong> {data?.price ? "Rs. " + data.price + "/-" : "Free"}</li>
+                          <ul className="body-font font-medium text-lg list-disc pl-6 text-left text-white space-y-2 w-full mt-2">
+                            <li><strong>Venue:</strong> {data?.venue}</li>
+                            <li><strong>Event Date:</strong> {data?.event_date}</li>
+                            <li><strong>Contact:</strong> {data?.contact_details?.name}</li>
+                            <li><strong>Phone:</strong> {data?.contact_details?.phone}</li>
+                            <li><strong>Team:</strong> {data?.team_category}</li>
+                            <li><strong>Price:</strong> {data?.price ? "Rs. " + data.price + "/-" : "Free"}</li>
                           </ul>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* RIGHT SECTION - Image AND/OR Rules */}
+                  {/* RIGHT COLUMN - Rules */}
                   <div className="flex-1 flex flex-col">
                     <div className="flex-grow">
-                      <div className="flex flex-col">
+                      {workshopImage && data?.event_category?.toUpperCase() === "WORKSHOP" && (
+                        <div className="relative w-full min-h-[365px] border-4 rounded-xl border-[#E97400] bg-[#E97400] overflow-hidden mb-6">
+                          <Image src={workshopImage} alt="Workshop" fill className="object-contain" />
+                        </div>
+                      )}
 
-                        {/* 1. Show Workshop Image at the top if it exists */}
-                        {workshopImage && data?.event_category?.toUpperCase() === "WORKSHOP" && (
-                          <div className="relative w-full min-h-[365px] border-4 rounded-xl border-[#E97400] bg-[#E97400] overflow-hidden mb-6">
-                            <Image
-                              src={workshopImage}
-                              alt="Workshop image"
-                              fill
-                              className="object-contain"
-                            />
+                      {data?.rules && Object.keys(data.rules).length !== 0 && (
+                        <div className="flex flex-col">
+                          <div className="text-xl md:text-3xl text-[#572711] sub-heading-font w-fit mb-4 pb-2 relative group" style={{ letterSpacing: "3.42px" }}>
+                            Rules & How to Play
                           </div>
-                        )}
-
-                        {/* 2. Show Rules */}
-                        {data?.rules && Object.keys(data.rules).length !== 0 && (
-                          <div className="flex flex-col">
-                            <div
-                              className="text-xl sm:text-xl md:text-2xl lg:text-3xl text-[#572711] sub-heading-font w-fit mb-4 pb-2 relative group"
-                              style={{ letterSpacing: "3.42px" }}
-                            >
-                              Rules & How to Play
-                            </div>
-                            <ul className="body-font font-semibold text-[#572711] text-lg text-left space-y-2">
-                              {Object.values(data.rules).map((rule, index) => (
-                                <li key={index}>{index + 1}. {rule}</li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-
-                        {/* 3. Photocopy logic */}
-                        {data?.event_code === "PH" && (
-                          <div className="mt-4 bg-white/50 rounded-xl px-4 py-4 w-full border-2 border-[#08525F] space-y-3">
-                            <label className="flex items-center cursor-pointer">
-                              <input type="checkbox" checked={!needPhotocopy} onChange={() => setNeedPhotocopy(false)} className="w-5 h-5" />
-                              <span className="ml-3 text-[#572711] body-font font-semibold text-sm">I will print myself</span>
-                            </label>
-                            <label className="flex items-center cursor-pointer">
-                              <input type="checkbox" checked={needPhotocopy} onChange={() => setNeedPhotocopy(true)} className="w-5 h-5" />
-                              <span className="ml-3 text-[#572711] body-font font-semibold text-sm">Print for me (+Rs.10)</span>
-                            </label>
-                          </div>
-                        )}
-                      </div>
+                          <ul className="body-font font-semibold text-[#572711] text-lg text-left space-y-2">
+                            {Object.values(data.rules).map((rule, index) => (
+                              <li key={index}>{index + 1}. {rule}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </div>
 
-                    {/* Navigation Buttons stay at the bottom of the column */}
-                    <div className="flex justify-center gap-4 mt-8">
-                      <button onClick={handleBack} className="bg-[#E97400] rounded-2xl px-8 py-4 shadow-2xl hover:opacity-90 min-w-[140px]">
-                        <FaArrowLeft className="text-2xl text-white mx-auto" />
+                    {/* Standard Nav Buttons (Only for non-MM pages) */}
+                    {data?.event_code !== "MM" && (
+                      <div className="flex justify-center gap-4 mt-8">
+                        <button onClick={handleBack} className="bg-[#E97400] rounded-2xl px-8 py-4 shadow-2xl hover:opacity-90 min-w-[140px]">
+                          <FaArrowLeft className="text-2xl text-white mx-auto" />
+                        </button>
+                        <button onClick={handleAddToCart} className="bg-[#08525F] rounded-2xl px-8 py-4 shadow-2xl hover:opacity-90 min-w-[140px]">
+                          <FaCartShopping className="text-2xl text-white mx-auto" />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* 2. BOTTOM SECTION: Meme Categories (Only for MM) */}
+                {data?.event_code === "MM" && (
+                  <div className="w-full flex flex-col items-center mt-12 pt-8 border-t-2 border-[#E97400]/20">
+                    <div className="text-2xl md:text-3xl sub-heading-font text-[#572711] mb-10 text-center uppercase tracking-widest">
+                      Event Categories
+                    </div>
+                    <div className="flex flex-col gap-6 w-full max-w-5xl">
+                      {MM_CATEGORIES.map((cat) => (
+                        <div key={cat.id} className="flex flex-col lg:flex-row gap-8 items-center bg-white/40 p-5 rounded-2xl border-2 border-[#E97400] shadow-md w-full">
+
+                          {/* Category Details */}
+                          <div className="flex-1 text-left space-y-2">
+                            <h3 className="text-xl md:text-2xl sub-heading-font text-[#E97400]">
+                              {cat.id}. {cat.name}
+                            </h3>
+                            <div>
+                              <span className="text-[#08525F] text-[10px] font-bold uppercase block">Concept:</span>
+                              <p className="body-font font-bold text-[#572711] text-sm leading-tight">{cat.concept}</p>
+                            </div>
+                            {cat.example && (
+                              <div className="bg-[#08525F]/5 p-2 rounded-lg border-l-2 border-[#08525F]">
+                                <span className="text-[#08525F] text-[10px] font-black uppercase block">Example:</span>
+                                <p className="body-font italic text-[#572711] text-[13px] leading-tight mt-1">
+                                  "{cat.example}"
+                                </p>
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Reduced Height Media */}
+                          <div className="w-full lg:w-[280px] shrink-0">
+                            <div className="relative w-full h-[160px] rounded-xl overflow-hidden bg-black border-2 border-[#08525F] shadow-sm">
+                              {cat.type === "video" ? (
+                                <video src={cat.mediaUrl} autoPlay muted loop playsInline className="w-full h-full object-contain" />
+                              ) : (
+                                <img src={cat.mediaUrl} alt={cat.name} className="w-full h-full object-contain" />
+                              )}
+                            </div>
+                          </div>
+
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Bottom Buttons for MM Only */}
+                    <div className="flex justify-center gap-6 mt-16 mb-4">
+                      <button onClick={handleBack} className="bg-[#E97400] rounded-2xl px-12 py-4 shadow-2xl hover:opacity-90 transition-transform hover:scale-105">
+                        <FaArrowLeft className="text-2xl text-white" />
                       </button>
-                      <button onClick={handleAddToCart} className="bg-[#08525F] rounded-2xl px-8 py-4 shadow-2xl hover:opacity-90 min-w-[140px]">
-                        <FaCartShopping className="text-2xl text-white mx-auto" />
+                      <button onClick={handleAddToCart} className="bg-[#08525F] rounded-2xl px-12 py-4 shadow-2xl hover:opacity-90 transition-transform hover:scale-105">
+                        <FaCartShopping className="text-2xl text-white" />
                       </button>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
 
               {/* Bottom Border */}
               <div className="w-auto -ml-[64.5px] h-7 -mb-8 relative translate-x-[32.6px]">
-                <Image
-                  src="/img/events/desk-bottom-border26.svg"
-                  alt="Bottom Border"
-                  fill
-                  className="object-cover"
-                  priority={false}
-                />
+                <Image src="/img/events/desk-bottom-border26.svg" alt="Bottom Border" fill className="object-cover" priority={false} />
               </div>
             </motion.div>
           </motion.div>
@@ -1392,4 +1397,3 @@ const Individual = () => {
 };
 
 export default Individual;
-
