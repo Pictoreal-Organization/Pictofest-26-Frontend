@@ -1453,7 +1453,7 @@ const Individual = () => {
         </div>
       </div>
 
-      <motion.div
+      {/* <motion.div
         className="hidden lg:block fixed bottom-0 left-0 w-full z-0 pointer-events-none"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -1468,7 +1468,7 @@ const Individual = () => {
             sizes="100vw"
           />
         </div>
-      </motion.div>
+      </motion.div> */}
 
     </main>
   );
