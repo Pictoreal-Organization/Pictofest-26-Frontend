@@ -5,7 +5,7 @@ export default function VideoLoader() {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-[#1f024e]">
       {isLoading && (
         <div className="text-center">
           <div className="text-8xl animate-pulse">🌮</div>

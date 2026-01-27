@@ -30,16 +30,16 @@ const Home = () => {
       {/* ============================================================
           1. BACKGROUND LAYER
          ============================================================ */}
-      <div className="absolute top-0 left-0 w-full -z-10 bg-[#070044] h-full object-cover">
+      <div className="absolute top-0 left-0 w-full -z-10 bg-[#1f024e] h-full object-cover">
         <div
           className="
-    block lg:hidden
-    w-full h-full
-    bg-[url('/img/home/mobile-bg.png')]
-    bg-repeat-y
-    bg-top
-    bg-[length:100%_auto]
-  "
+            block lg:hidden
+            w-full h-full
+            bg-[url('/img/home/mobile-bg.png')]
+            bg-repeat-y
+            bg-top
+            bg-[length:100%_auto]
+          "
         />
 
         <div className="hidden lg:block w-full relative">
@@ -125,7 +125,7 @@ const Home = () => {
               delay: 0.9, // Wait for logo to settle
               duration: 2, // Slow slide down
               type: "spring", // Slight bounce at the end
-              bounce: 0.3
+              bounce: 0.3,
             }}
           >
             <Image
@@ -207,7 +207,6 @@ const Home = () => {
                 className="w-full h-auto"
               />
             </div>
-
           </div>
         </div>
       </div>
@@ -216,9 +215,7 @@ const Home = () => {
           3. REST OF CONTENT
          ============================================================ */}
       <div className="relative z-30">
-        <div>
-          {/* <PrizePool /> */}
-        </div>
+        <div>{/* <PrizePool /> */}</div>
         <div className="md:px-24 lg:px-40 sm:pt-20 mb-[8vh]">
           <Events />
         </div>
