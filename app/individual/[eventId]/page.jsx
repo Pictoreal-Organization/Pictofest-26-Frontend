@@ -1101,8 +1101,22 @@ const Individual = () => {
                 </motion.div>
               )}
 
-                            {/* Photocopy Checkbox - Mobile (Only for Photography Events) */}
-                            {data?.event_code === "PH" && (
+              {workshopImage && data?.event_category?.toUpperCase() === "WORKSHOP" && (
+                <div className="flex justify-center mt-4">
+                  <div className="relative w-full max-w-[260px] h-[260px] border-4 rounded-xl border-[#E97400] bg-[#E97400] overflow-hidden">
+                    <Image
+                      src={workshopImage}
+                      alt="Workshop"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                </div>
+              )}
+
+
+              {/* Photocopy Checkbox - Mobile (Only for Photography Events) */}
+              {data?.event_code === "PH" && (
                 <motion.div
                   id="mobile-photocopy"
                   className="w-full flex flex-col gap-3 items-center"
@@ -1313,7 +1327,7 @@ const Individual = () => {
                   <div className="flex-1 flex flex-col">
                     <div className="flex-grow">
                       {workshopImage && data?.event_category?.toUpperCase() === "WORKSHOP" && (
-                        <div className="relative w-full min-h-[365px] border-4 rounded-xl border-[#E97400] bg-[#E97400] overflow-hidden mb-6">
+                        <div className="relative w-auto p-2 min-h-[365px] border-4 rounded-xl border-[#E97400] bg-[#E97400] overflow-hidden mb-6">
                           <Image src={workshopImage} alt="Workshop" fill className="object-contain" />
                         </div>
                       )}
@@ -1332,7 +1346,7 @@ const Individual = () => {
                       )}
                     </div>
 
-                                        {/* Photocopy Checkbox - Desktop (Only for Photography Events) */}
+                    {/* Photocopy Checkbox - Desktop (Only for Photography Events) */}
                     {data?.event_code === "PH" && (
                       <motion.div
                         ref={photocopyCheckboxRef}
