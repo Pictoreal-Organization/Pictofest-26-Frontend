@@ -37,9 +37,9 @@ const CategoryBoard = ({ title, events, waLinks, themeColor }) => {
         <div className="flex items-center justify-between px-4 py-4 md:px-6 md:py-5 relative z-10 text-[#FDEEAE]">
           
           {/* LEFT: WhatsApp button moved to individual rows */}
-          <div className="flex-shrink-0 w-1/3 text-left">
+          {/* <div className="flex-shrink-0 w-1/3 text-left">
              <FaTicketAlt className="text-xl md:text-2xl opacity-40" />
-          </div>
+          </div> */}
 
           {/* CENTER: Title */}
           <div className="flex-shrink-0 w-1/3 text-center">
@@ -90,12 +90,12 @@ const CategoryBoard = ({ title, events, waLinks, themeColor }) => {
               >
                 {/* Event Details */}
                 <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4">
-                  <div className="flex items-center gap-2">
+                  {/* <div className="flex items-center gap-2">
                     <FaTicketAlt className="text-xs opacity-70" style={{ color: themeColor }} />
                     <span className="body-font font-bold text-xs md:text-sm opacity-60" style={{ color: themeColor }}>
                       #{event.id.toString().padStart(4, '0')}
                     </span>
-                  </div>
+                  </div> */}
                   <Link href={`/individual/${event.id}`}>
                     <h3 
                       className="sub-heading-font text-lg md:text-2xl uppercase transition-colors cursor-pointer"
@@ -110,6 +110,32 @@ const CategoryBoard = ({ title, events, waLinks, themeColor }) => {
 
                 {/* Actions */}
                 <div className="flex items-center gap-3">
+
+                  {/* NEW: Google Form Icon specifically for MM */}
+  {event.event_code === "MM" && (
+    <a 
+      href="https://docs.google.com/forms/d/e/1FAIpQLSf3efK3cl7RPWH3ych4aauLH82lfa1DInOmheX21oriW6kDPA/viewform" 
+      target="_blank" 
+      rel="noreferrer" 
+      title="Fill Submission Form"
+    >
+      <div 
+        className="p-2 rounded-full border-2 transition-transform hover:scale-110 flex items-center justify-center cursor-pointer bg-white"
+        style={{ borderColor: "#7248B9", color: "#7248B9" }}
+      >
+        {/* Google Form SVG Icon */}
+        <svg 
+          width="20" 
+          height="20" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM14 17H7V15H14V17ZM17 13H7V11H17V13ZM17 9H7V7H17V9Z" fill="currentColor"/>
+        </svg>
+      </div>
+    </a>
+  )}
                   {itemWaLink && (
                     <a href={itemWaLink} target="_blank" rel="noreferrer" title="Join WhatsApp Group">
                       <div 
@@ -227,7 +253,7 @@ const Order = () => {
           animate={{ y: 0, opacity: 1 }}
           className="flex flex-col items-center justify-center mt-8 mb-16"
         >
-          <h1 className="text-4xl lg:text-5xl tracking-tight text-white heading-font mt-6 md:mt-15 text-center">
+          <h1 className="text-4xl lg:text-5xl tracking-tight text-white heading-font mt-6 md:mt-11 text-center">
             My Orders
           </h1>
           <div className="flex items-center gap-2 mt-2 opacity-90">

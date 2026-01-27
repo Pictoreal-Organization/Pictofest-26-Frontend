@@ -9,10 +9,8 @@ import isNotAuth from "@/app/components/isNotAuth";
 import { px } from "framer-motion";
 import AnimationLoader from "@/app/components/AnimationLoader";
 
-
 const Uploader = (props) => {
   const { id, photocopyNeeded } = props;
-
 
   const [image, setImage] = useState(null);
   const [fileName, setFileName] = useState("No file selected");
@@ -25,12 +23,12 @@ const Uploader = (props) => {
   const [pendingUpload, setPendingUpload] = useState(false);
 
   const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0); // ✅ Add this
 
-  const MAX_NORMAL = 10 * 1024 * 1024;   // 10MB
-  const MAX_PHOTO = 15 * 1024 * 1024;    // 15MB
+  const MAX_NORMAL = 10 * 1024 * 1024; // 10MB
+  const MAX_PHOTO = 15 * 1024 * 1024; // 15MB
 
   const limit = photocopyNeeded ? MAX_PHOTO : MAX_NORMAL;
-
 
   const inputRef = useRef(null);
   const handleUpload = async (e) => {
@@ -50,6 +48,7 @@ const Uploader = (props) => {
 
     try {
       setIsUploading(true);
+      setUploadProgress(0); // ✅ Reset progress
 
       const formData = new FormData();
       formData.set("file", selectedFile);
@@ -59,6 +58,13 @@ const Uploader = (props) => {
           "Content-Type": "multipart/form-data",
         },
         timeout: 120000,
+        // ✅ Add progress tracking
+        onUploadProgress: (progressEvent) => {
+          const percentCompleted = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+          setUploadProgress(percentCompleted);
+        },
       });
 
       toast.success(response.data.message);
@@ -75,9 +81,9 @@ const Uploader = (props) => {
       toast.error(msg || err.message);
     } finally {
       setIsUploading(false);
+      setUploadProgress(0); // ✅ Reset progress
     }
   };
-
 
   const submitRollNo = async () => {
     if (!rollNo.trim()) {
@@ -112,14 +118,76 @@ const Uploader = (props) => {
     if (inputRef.current) inputRef.current.value = "";
   };
 
+  // ✅ Prevent scrolling when uploading
+  useEffect(() => {
+    if (isUploading) {
+      // Disable scroll
+      document.body.style.overflow = 'hidden';
+      document.body.style.height = '100vh';
+    } else {
+      // Re-enable scroll
+      document.body.style.overflow = '';
+      document.body.style.height = '';
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.height = '';
+    };
+  }, [isUploading]);
+
+  
 
   return (
     <>
-      {isUploading && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+      {/* {isUploading && (
+      <div className="fixed inset-0 z-50 flex items-center w-full justify-center bg-black/40 backdrop-blur-sm">
+        <AnimationLoader />
+      </div>
+    )} */}
+
+      {/* {isUploading && (
+        <div className="fixed inset-0 z-9999 flex flex-col items-center justify-center bg-black/90 backdrop-blur-md">
           <AnimationLoader />
+
+          <div className="-mt-10 w-[70%] max-w-sm">
+            <div className="relative h-[5px] w-full bg-white/20 rounded-full overflow-hidden">
+              <div
+                className="absolute left-0 top-0 h-full rounded-full
+                     bg-gradient-to-r from-[#FFA53A] via-[#FFD194] to-[#FFA53A]
+                     transition-all duration-300 ease-out
+                     shadow-[0_0_12px_rgba(255,165,58,0.8)]"
+                style={{ width: `${uploadProgress}%` }}
+              />
+            </div>
+          </div>
         </div>
-      )}
+      )} */}
+
+{isUploading && (
+  <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black/95 backdrop-blur-md overflow-hidden">
+    
+    {/* Animation */}
+    <AnimationLoader />
+
+    {/* Progress Bar - Now Absolute for Custom Positioning */}
+    <div className="absolute bottom-32 left-1/2 -translate-x-1/2 w-[70%] max-w-sm">
+      <div className="relative h-[5px] w-full bg-white/20 rounded-full overflow-hidden">
+        
+        {/* Moving Progress */}
+        <div
+          className="absolute left-0 top-0 h-full rounded-full
+                     bg-gradient-to-r from-[#FFA53A] via-[#FFD194] to-[#FFA53A]
+                     transition-all duration-300 ease-out
+                     shadow-[0_0_12px_rgba(255,165,58,0.8)]"
+          style={{ width: `${uploadProgress}%` }}
+        />
+      </div>
+    </div>
+
+  </div>
+)}
 
       <div className="flex flex-col w-full h-full items-center justify-start">
         {/* Upload Area */}
@@ -137,11 +205,16 @@ const Uploader = (props) => {
 
                 const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
                 const allowedExt = [".jpg", ".jpeg", ".png"];
-                const ext = file.name.toLowerCase().slice(file.name.lastIndexOf("."));
+                const ext = file.name
+                  .toLowerCase()
+                  .slice(file.name.lastIndexOf("."));
 
-                if (!allowedTypes.includes(file.type) || !allowedExt.includes(ext)) {
+                if (
+                  !allowedTypes.includes(file.type) ||
+                  !allowedExt.includes(ext)
+                ) {
                   toast.error("Only JPG, JPEG and PNG images are allowed");
-                  clearSelection({ stopPropagation: () => { } });
+                  clearSelection({ stopPropagation: () => {} });
                   return;
                 }
 
@@ -162,7 +235,6 @@ const Uploader = (props) => {
             }}
             ref={inputRef}
           />
-
 
           {image ? (
             <div className="relative w-full h-full">
@@ -192,7 +264,6 @@ const Uploader = (props) => {
                   <br />
                   Max file size: {photocopyNeeded ? "15MB" : "10MB"}.
                 </span>
-
               </p>
             </div>
           )}
@@ -229,7 +300,6 @@ const Uploader = (props) => {
             </p>
           )}
 
-
           <button
             className="w-full bg-[#8B260D] text-[#FFE3BE] text-sm md:text-base font-bold sub-heading-font py-2 rounded-full active:translate-y-[4px] hover:scale-105 transition-all"
             type="button"
@@ -262,7 +332,6 @@ const Uploader = (props) => {
     </>
   );
 };
-
 
 // --- CARD COMPONENT ---
 const Card = (props) => {
@@ -306,7 +375,6 @@ const Card = (props) => {
               id={event.fk_event}
               photocopyNeeded={event.photocopy_needed}
             />
-
           </div>
         ) : (
           // Uploaded State: Simple Frame Look
@@ -353,7 +421,6 @@ const Submission = () => {
     getEvents();
   }, []);
 
-
   return (
     // Main Page Wrapper
     <div className="min-h-screen w-full relative flex flex-col items-center py-10 overflow-x-hidden">
@@ -380,7 +447,7 @@ const Submission = () => {
       </div>
 
       {/* Main Title */}
-      <h1 className="relative z-10 text-4xl lg:text-5xl md:text-6xl heading-font text-white text-center mt-8 md:mt-20 mb-10 tracking-tight">
+      <h1 className="relative z-10 text-4xl lg:text-5xl md:text-6xl heading-font text-white text-center mt-8 md:mt-16 mb-10 tracking-tight">
         PICS-O-REEL SUBMISSIONS
       </h1>
 
@@ -450,8 +517,7 @@ const Submission = () => {
                 href="https://wa.me/9145799399"
                 className="hover:text-[#8B260D] transition-colors"
               >
-                Bhagyashree
-                +91 9145799399
+                Bhagyashree +91 9145799399
               </Link>
             </div>
           </div>
