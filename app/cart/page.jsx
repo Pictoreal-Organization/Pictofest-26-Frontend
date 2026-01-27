@@ -201,13 +201,13 @@ const Cart = () => {
                       </div>
 
                       {/* Right side */}
-                      <div className="flex flex-col items-end gap-1 flex-shrink-0">
+                      <div className="flex flex-col items-end gap-2 flex-shrink-0">
                         {item.event_category === "PICSOREEL" && (
-                          <div className="flex items-center gap-1 bg-[#1f4e3d]/5 rounded-full px-2 py-[2px]">
+                          <div className="flex items-center gap-1">
                             <button
                               onClick={() => updateQuantity(item, "dec")}
                               className="w-5 h-5 rounded-full border border-[#1f4e3d]
-               text-[#1f4e3d] text-xs font-bold"
+                   text-[#1f4e3d] text-xs font-bold"
                             >
                               −
                             </button>
@@ -219,25 +219,30 @@ const Cart = () => {
                             <button
                               onClick={() => updateQuantity(item, "inc")}
                               className="w-5 h-5 rounded-full border border-[#1f4e3d]
-               text-[#1f4e3d] text-xs font-bold"
+                   text-[#1f4e3d] text-xs font-bold"
                             >
                               +
                             </button>
                           </div>
                         )}
 
-                        <div className="flex items-center gap-2">
-                          <span className="body-font text-[#0e7490] font-bold text-sm">
-                            Rs. {totalPrice}
-                          </span>
+                        {/* Price */}
+                        <span className="body-font text-[#0e7490] font-bold text-sm leading-none">
+                          Rs. {totalPrice}
+                        </span>
 
-                          <button
-                            onClick={() => handleDelete(item.id)}
-                            className="hover:scale-110 transition-transform"
-                          >
-                            <Image width={18} height={18} src="/img/cart/cancel-icon.png" alt="Remove" />
-                          </button>
-                        </div>
+                        {/* Remove */}
+                        <button
+                          onClick={() => handleDelete(item.id)}
+                          className="hover:scale-110 transition-transform"
+                        >
+                          <Image
+                            width={16}
+                            height={16}
+                            src="/img/cart/cancel-icon.png"
+                            alt="Remove"
+                          />
+                        </button>
                       </div>
                     </div>
                   );

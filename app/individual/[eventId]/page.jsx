@@ -1108,7 +1108,7 @@ const Individual = () => {
                       src={workshopImage}
                       alt="Workshop"
                       fill
-                      className="object-cover"
+                      className="object-contain"
                     />
                   </div>
                 </div>
@@ -1328,7 +1328,7 @@ const Individual = () => {
                     <div className="flex-grow">
                       {workshopImage && data?.event_category?.toUpperCase() === "WORKSHOP" && (
                         <div className="relative w-auto p-2 min-h-[365px] border-4 rounded-xl border-[#E97400] overflow-hidden mb-6">
-                          <Image src={workshopImage} alt="Workshop" fill className="object-cover" />
+                          <Image src={workshopImage} alt="Workshop" fill className="object-contain" />
                         </div>
                       )}
 
