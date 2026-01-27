@@ -37,9 +37,9 @@ const CategoryBoard = ({ title, events, waLinks, themeColor }) => {
         <div className="flex items-center justify-between px-4 py-4 md:px-6 md:py-5 relative z-10 text-[#FDEEAE]">
           
           {/* LEFT: WhatsApp button moved to individual rows */}
-          <div className="flex-shrink-0 w-1/3 text-left">
+          {/* <div className="flex-shrink-0 w-1/3 text-left">
              <FaTicketAlt className="text-xl md:text-2xl opacity-40" />
-          </div>
+          </div> */}
 
           {/* CENTER: Title */}
           <div className="flex-shrink-0 w-1/3 text-center">
@@ -90,12 +90,12 @@ const CategoryBoard = ({ title, events, waLinks, themeColor }) => {
               >
                 {/* Event Details */}
                 <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4">
-                  <div className="flex items-center gap-2">
+                  {/* <div className="flex items-center gap-2">
                     <FaTicketAlt className="text-xs opacity-70" style={{ color: themeColor }} />
                     <span className="body-font font-bold text-xs md:text-sm opacity-60" style={{ color: themeColor }}>
                       #{event.id.toString().padStart(4, '0')}
                     </span>
-                  </div>
+                  </div> */}
                   <Link href={`/individual/${event.id}`}>
                     <h3 
                       className="sub-heading-font text-lg md:text-2xl uppercase transition-colors cursor-pointer"
