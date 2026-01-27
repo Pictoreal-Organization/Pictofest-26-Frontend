@@ -226,7 +226,7 @@ const Cart = () => {
                           </div>
                         )}
 
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 px-2">
                           <span className="body-font text-[#0e7490] font-bold text-sm">
                             Rs. {totalPrice}
                           </span>

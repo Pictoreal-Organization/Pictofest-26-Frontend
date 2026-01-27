@@ -9,54 +9,54 @@ const rye = localFont({
 });
 
 const Sponsors = () => {
-  const sponsor = [
-    {
-      title: "TITLE SPONSOR",
-      name: "Time International",
-      imgSrc: "/img/sponsor/TIME logo.webp",
-      webSrc: "https://www.time4education.com/",
-    },
-    {
-      title: "GAME PARTNER",
-      name: "KING OF GAME",
-      imgSrc: "/img/sponsor/kog pune.png",
-      webSrc: "https://www.kingofgame.in/index.html",
-    },
-    {
-      title: "SNACK PARTNER",
-      name: "GURUKRUPA BUDHANI BROS",
-      imgSrc: "/img/sponsor/BUDHANI.png",
-      webSrc: "https://gurukrupabudhanibrothers.com/",
-    },
-    {
-      title: "FOOD PARTNER",
-      name: "PIZZA BURST",
-      imgSrc: "/img/sponsor/Pizza burst.png",
-      webSrc: "https://www.instagram.com/pizza_burst_pune",
-    },
-    {
-      title: "YOUTH PARTNER",
-      name: "CAMPUS TIMES",
-      imgSrc: "/img/sponsor/CAMPUSTIMES.jpg",
-      webSrc: "https://www.campustimespune.com/",
-    },
-    {
-      title: "YOUTH MEDIA PARTNER",
-      name: "YOUTH INC",
-      imgSrc: "/img/sponsor/youth inc.png",
-    },
-    {
-      title: "PIZZA PARTNER",
-      name: "PIZZA WINDOW",
-      imgSrc: "/img/sponsor/pizza window.png",
-      webSrc: "https://www.instagram.com/thepizzawindoww",
-    },
-    {
-      title: "BLOG PARTNER",
-      name: "EDTIMES",
-      imgSrc: "/img/sponsor/edtimes logo.png",
-    },
-  ];
+//   const sponsor = [
+//     {
+//       title: "TITLE SPONSOR",
+//       name: "Time International",
+//       imgSrc: "/img/sponsor/TIME logo.webp",
+//       webSrc: "https://www.time4education.com/",
+//     },
+//     {
+//       title: "GAME PARTNER",
+//       name: "KING OF GAME",
+//       imgSrc: "/img/sponsor/kog pune.png",
+//       webSrc: "https://www.kingofgame.in/index.html",
+//     },
+//     {
+//       title: "SNACK PARTNER",
+//       name: "GURUKRUPA BUDHANI BROS",
+//       imgSrc: "/img/sponsor/BUDHANI.png",
+//       webSrc: "https://gurukrupabudhanibrothers.com/",
+//     },
+//     {
+//       title: "FOOD PARTNER",
+//       name: "PIZZA BURST",
+//       imgSrc: "/img/sponsor/Pizza burst.png",
+//       webSrc: "https://www.instagram.com/pizza_burst_pune",
+//     },
+//     {
+//       title: "YOUTH PARTNER",
+//       name: "CAMPUS TIMES",
+//       imgSrc: "/img/sponsor/CAMPUSTIMES.jpg",
+//       webSrc: "https://www.campustimespune.com/",
+//     },
+//     {
+//       title: "YOUTH MEDIA PARTNER",
+//       name: "YOUTH INC",
+//       imgSrc: "/img/sponsor/youth inc.png",
+//     },
+//     {
+//       title: "PIZZA PARTNER",
+//       name: "PIZZA WINDOW",
+//       imgSrc: "/img/sponsor/pizza window.png",
+//       webSrc: "https://www.instagram.com/thepizzawindoww",
+//     },
+//     {
+//       title: "BLOG PARTNER",
+//       name: "EDTIMES",
+//       imgSrc: "/img/sponsor/edtimes logo.png",
+//     },
+//   ];
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -108,7 +108,7 @@ const Sponsors = () => {
         <div className="flex flex-col gap-10 md:mb-20 mb-20 items-center">
 
           {/* TITLE SPONSOR (Featured) */}
-          <div className="relative md:mb-32 mb-16">
+          {/* <div className="relative md:mb-32 mb-16">
             <div
               className={`${rye.className} text-white text-center 
               text-[22px] lg:text-[38px] 
@@ -119,16 +119,16 @@ const Sponsors = () => {
               {sponsor[0].title}
             </div>
 
-            <div className="relative">
+            <div className="relative"> */}
               {/* FRAME */}
-              <img
+              {/* <img
                 src="/img/sponsor/frame1.png"
                 alt="Sponsor Frame"
                 className="lg:w-[500px] sm:w-[400px] w-[330px]"
-              />
+              /> */}
 
               {/* CENTER CONTENT */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-6">
+              {/* <div className="absolute inset-0 flex flex-col items-center justify-center gap-6">
                 <img
                   src={sponsor[0].imgSrc}
                   alt={sponsor[0].name}
@@ -142,14 +142,14 @@ const Sponsors = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* OTHER SPONSORS GRID */}
-          <div className="grid md:grid-cols-2 grid-cols-1 md:gap-x-20 md:gap-y-28 gap-y-20 px-4">
+          {/* <div className="grid md:grid-cols-2 grid-cols-1 md:gap-x-20 md:gap-y-28 gap-y-20 px-4">
             {sponsor.slice(1).map((data) => (
               <div key={data.name} className="relative">
                 {/* SPONSOR TITLE */}
-                <div
+                {/* <div
                   className={`${rye.className} text-white text-center 
                   text-[20px] lg:text-[28px] 
                   absolute -top-10 lg:-top-14 
@@ -159,16 +159,16 @@ const Sponsors = () => {
                   {data.title}
                 </div>
 
-                <div className="relative mt-5">
+                <div className="relative mt-5"> */}
                   {/* FRAME */}
-                  <img
+                  {/* <img
                     src="/img/sponsor/frame1.png"
                     alt="Sponsor Frame"
                     className="lg:w-[400px] sm:w-[300px] w-[280px]"
-                  />
+                  /> */}
 
                   {/* CENTER CONTENT */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
+                  {/* <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
                     <img
                       src={data.imgSrc}
                       alt={data.name}
@@ -184,7 +184,7 @@ const Sponsors = () => {
                 </div>
               </div>
             ))}
-          </div>
+          </div> */}
 
         </div>
       </div>
