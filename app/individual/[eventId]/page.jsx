@@ -386,9 +386,20 @@ const Individual = () => {
                 <button onClick={handleBack} className="bg-[#E97400] rounded-2xl px-6 py-3 shadow-lg flex-1 max-w-[140px]">
                   <FaArrowLeft className="text-2xl text-white mx-auto" />
                 </button>
-                <button onClick={handleAddToCart} className="bg-[#08525F] rounded-2xl px-6 py-3 shadow-lg flex-1 max-w-[140px]">
-                  <FaCartShopping className="text-2xl text-white mx-auto" />
+                <button
+                  onClick={handleAddToCart}
+                  className="bg-[#08525F] rounded-2xl px-6 py-3 shadow-lg flex-1 max-w-[140px] flex items-center justify-center gap-2"
+                >
+                  {data?.price ? (
+                    <>
+                      <FaCartShopping className="text-xl text-white" />
+                      <span className="text-white sub-heading-font">Add</span>
+                    </>
+                  ) : (
+                    <span className="text-white sub-heading-font">Register</span>
+                  )}
                 </button>
+
               </div>
 
               {/* Bottom Border */}
@@ -575,9 +586,20 @@ const Individual = () => {
                         <button onClick={handleBack} className="bg-[#E97400] rounded-2xl px-8 py-4 shadow-2xl hover:opacity-90 min-w-[140px]">
                           <FaArrowLeft className="text-2xl text-white mx-auto" />
                         </button>
-                        <button onClick={handleAddToCart} className="bg-[#08525F] rounded-2xl px-8 py-4 shadow-2xl hover:opacity-90 min-w-[140px]">
-                          <FaCartShopping className="text-2xl text-white mx-auto" />
+                        <button
+                          onClick={handleAddToCart}
+                          className="bg-[#08525F] rounded-2xl px-6 py-3 shadow-lg flex-1 max-w-[140px] flex items-center justify-center gap-2"
+                        >
+                          {data?.price ? (
+                            <>
+                              <FaCartShopping className="text-xl text-white" />
+                              <span className="text-white sub-heading-font">Add</span>
+                            </>
+                          ) : (
+                            <span className="text-white sub-heading-font">Register</span>
+                          )}
                         </button>
+
                       </div>
                     )}
                   </div>
@@ -632,9 +654,20 @@ const Individual = () => {
                       <button onClick={handleBack} className="bg-[#E97400] rounded-2xl px-12 py-4 shadow-2xl hover:opacity-90 transition-transform hover:scale-105">
                         <FaArrowLeft className="text-2xl text-white" />
                       </button>
-                      <button onClick={handleAddToCart} className="bg-[#08525F] rounded-2xl px-12 py-4 shadow-2xl hover:opacity-90 transition-transform hover:scale-105">
-                        <FaCartShopping className="text-2xl text-white" />
+                      <button
+                        onClick={handleAddToCart}
+                        className="bg-[#08525F] rounded-2xl px-6 py-3 shadow-lg flex-1 max-w-[140px] flex items-center justify-center gap-2"
+                      >
+                        {data?.price ? (
+                          <>
+                            <FaCartShopping className="text-xl text-white" />
+                            <span className="text-white sub-heading-font">Add</span>
+                          </>
+                        ) : (
+                          <span className="text-white sub-heading-font">Register</span>
+                        )}
                       </button>
+
                     </div>
                   </div>
                 )}
