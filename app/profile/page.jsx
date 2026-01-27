@@ -53,7 +53,7 @@ const Profile = () => {
                 {/* <div className="heading-font text-white text-4xl lg:text-5xl sm:text-3xl md:text-6xl md:py-10 text-center ">
                     Hola! {name}
                 </div> */}
-                <h1 className="text-4xl lg:text-5xl tracking-tight text-white heading-font mt-11 text-center">
+                <h1 className="text-4xl lg:text-5xl tracking-tight text-white heading-font mt-1 sm:mt-5  text-center">
                     Hola! {name}
                 </h1>
 

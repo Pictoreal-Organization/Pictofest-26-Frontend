@@ -98,7 +98,7 @@ const Sponsors = () => {
 
         {/* TITLE */}
         <h1 className="text-4xl lg:text-5xl tracking-tight text-white heading-font 
-          mt-14 sm:mt-16 lg:mt-15 
+          mt-14 sm:mt-16 lg:mt-11
           mb-20 sm:mb-28 md:mb-40 
           text-center">
           Our Sponsors

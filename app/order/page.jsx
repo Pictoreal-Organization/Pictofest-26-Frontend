@@ -227,7 +227,7 @@ const Order = () => {
           animate={{ y: 0, opacity: 1 }}
           className="flex flex-col items-center justify-center mt-8 mb-16"
         >
-          <h1 className="text-4xl lg:text-5xl tracking-tight text-white heading-font mt-6 md:mt-15 text-center">
+          <h1 className="text-4xl lg:text-5xl tracking-tight text-white heading-font mt-6 md:mt-11 text-center">
             My Orders
           </h1>
           <div className="flex items-center gap-2 mt-2 opacity-90">
