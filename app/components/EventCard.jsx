@@ -19,6 +19,9 @@ const EventCard = ({ data, index }) => {
     try {
       const response = await api.post(`/cart/`, { event_id: data.id });
       toast.success(response.data.message);
+      if (!data?.price || data.price === 0) {
+        router.push("/order"); // change to your actual orders route
+      }
     } catch (err) {
       console.log(err.response.data.message);
       toast.error(err.response.data.message);
@@ -34,7 +37,7 @@ const EventCard = ({ data, index }) => {
     ? "/img/events/red-card26.svg"
     : "/img/events/green-card26.svg";
 
- const [bgSrc, setBgSrc] = useState(defaultCardImage);
+  const [bgSrc, setBgSrc] = useState(defaultCardImage);
 
   useEffect(() => {
     if (data?.logo_link) {
@@ -45,20 +48,20 @@ const EventCard = ({ data, index }) => {
   }, [data?.logo_link, defaultCardImage]);
 
   // Button images based on card color
-  const buttonImage = isOddIndex 
+  const buttonImage = isOddIndex
     ? "/img/events/green-button26.svg" // Green button for red cards
     : "/img/events/orange-button26.svg"; // Orange button for green cards
 
   const isCustomLogo = !!data?.logo_link;
 
-<Image
-  src={bgSrc}
-  alt="Event Card Background"
-  fill
-  className={isCustomLogo ? "object-contain" : "object-cover"}
-  onError={() => setBgSrc(defaultCardImage)}
-  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-/>
+  <Image
+    src={bgSrc}
+    alt="Event Card Background"
+    fill
+    className={isCustomLogo ? "object-contain" : "object-cover"}
+    onError={() => setBgSrc(defaultCardImage)}
+    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+  />
 
   return (
     <>
@@ -75,17 +78,15 @@ const EventCard = ({ data, index }) => {
             priority={index < 2}
           />
         </div>
-        
+
         {/* Event Name*/}
         <div className="relative z-10 w-full h-full">
-          <h2 className={`sub-heading-font text-[#FBF0AD] line-clamp-2 text-center absolute bottom-[67%] w-[55%] ${
-              isOddIndex 
-                ? "left-[4%]" // Red cards (odd index) on left side
-                : "right-[3%]" // Green cards (even index) on right side
-            } ${
-              data.name === "Texture Art + Neon fluid painting"
-                ? "text-sm sm:text-base md:text-lg lg:text-xl"
-                : "text-base sm:text-lg md:text-xl lg:text-2xl"
+          <h2 className={`sub-heading-font text-[#FBF0AD] line-clamp-2 text-center absolute bottom-[67%] w-[55%] ${isOddIndex
+              ? "left-[4%]" // Red cards (odd index) on left side
+              : "right-[3%]" // Green cards (even index) on right side
+            } ${data.name === "Texture Art + Neon fluid painting"
+              ? "text-sm sm:text-base md:text-lg lg:text-xl"
+              : "text-base sm:text-lg md:text-xl lg:text-2xl"
             }`}>
             {data?.name}
           </h2>
@@ -93,11 +94,10 @@ const EventCard = ({ data, index }) => {
 
         {/* Price Section*/}
         <div className="relative z-10 w-full h-full">
-          <div className={`text-center absolute -top-[60%] w-[65%] ${
-          isOddIndex 
-            ? "-left-[2%]" // Red cards (odd index) on left side
-            : "-right-[1.3%]" // Green cards (even index) on right side
-        }`}>
+          <div className={`text-center absolute -top-[60%] w-[65%] ${isOddIndex
+              ? "-left-[2%]" // Red cards (odd index) on left side
+              : "-right-[1.3%]" // Green cards (even index) on right side
+            }`}>
             <div className="sub-heading-font text-[#F6EDC8] text-sm md:text-sm lg:text-base mb-1">
               PRICE
             </div>
@@ -105,19 +105,18 @@ const EventCard = ({ data, index }) => {
               {data.name === "Texture Art + Neon fluid painting"
                 ? `Rs. ${data.price}/- (DUO)`
                 : data.price
-                ? `Rs. ${data.price}/-`
-                : "Free"}
+                  ? `Rs. ${data.price}/-`
+                  : "Free"}
             </div>
           </div>
         </div>
-        
+
         {/* Buttons*/}
         <div className="relative z-10 w-full h-full">
-          <div className={`flex gap-3 md:gap-4 lg:gap-5 absolute -top-[130%] ${
-            isOddIndex 
+          <div className={`flex gap-3 md:gap-4 lg:gap-5 absolute -top-[130%] ${isOddIndex
               ? "left-[9%]" // Red cards (odd index) on left side
               : "right-[9%]" // Green cards (even index) on right side
-          }`}>
+            }`}>
             {/* Add to Cart / Register Button */}
             <div className="relative group cursor-pointer flex-shrink-0" onClick={handleAddToCart}>
               <div className="relative w-[70px] md:w-[80px] lg:w-[90px] h-[26px] md:h-[30px] lg:h-[34px]">
@@ -172,29 +171,26 @@ const EventCard = ({ data, index }) => {
             onError={() => setBgSrc(defaultCardImage)}
           />
         </div>
-        
+
         {/* Event Name*/}
         <div className="relative z-10 w-full h-full">
-          <h2 className={`sub-heading-font text-[#FBF0AD] line-clamp-2 text-center absolute bottom-[67%] w-[55%] ${
-          isOddIndex 
-            ? "left-[3%]" // Red cards (odd index) on left side
-            : "right-[3.5%]" // Green cards (even index) on right side
-          } ${
-            data.name === "Texture Art + Neon fluid painting"
-            ? "text-[13px] sm:text-[12px]"
-        : "text-[16px] sm:text-[14px]"
-          }`}>
+          <h2 className={`sub-heading-font text-[#FBF0AD] line-clamp-2 text-center absolute bottom-[67%] w-[55%] ${isOddIndex
+              ? "left-[3%]" // Red cards (odd index) on left side
+              : "right-[3.5%]" // Green cards (even index) on right side
+            } ${data.name === "Texture Art + Neon fluid painting"
+              ? "text-[13px] sm:text-[12px]"
+              : "text-[16px] sm:text-[14px]"
+            }`}>
             {data.name}
           </h2>
         </div>
 
         {/* Price Section*/}
         <div className="relative z-10 w-full h-full">
-          <div className={`text-center absolute -top-[58%] w-[55%] ${
-            isOddIndex 
+          <div className={`text-center absolute -top-[58%] w-[55%] ${isOddIndex
               ? "left-[3.2%]" // Red cards (odd index) on left side
               : "right-[3.9%]" // Green cards (even index) on right side
-          }`}>
+            }`}>
             <div className="sub-heading-font uppercase text-[#F6EDC8] text-[11px] sm:text-[12px] mb-1">
               Price
             </div>
@@ -202,19 +198,18 @@ const EventCard = ({ data, index }) => {
               {data.name === "Texture Art + Neon fluid painting"
                 ? `Rs. ${data.price}/- (DUO)`
                 : data.price
-                ? `Rs. ${data.price}/-`
-                : "Free"}
+                  ? `Rs. ${data.price}/-`
+                  : "Free"}
             </div>
           </div>
         </div>
-        
+
         {/* Buttons*/}
         <div className="relative z-10 w-full h-full">
-          <div className={`flex gap-2 sm:gap-2.5 absolute -top-[125%] ${
-            isOddIndex 
+          <div className={`flex gap-2 sm:gap-2.5 absolute -top-[125%] ${isOddIndex
               ? "left-[12.2%]" // Red cards (odd index) on left side
               : "right-[12.3%]" // Green cards (even index) on right side
-          }`}>
+            }`}>
             {/* Add to Cart / Register Button */}
             <div className="relative group cursor-pointer flex-shrink-0" onClick={handleAddToCart}>
               <div className="relative w-[55px] sm:w-[60px] h-[20px] sm:h-[22px]">

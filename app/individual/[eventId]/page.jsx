@@ -44,6 +44,9 @@ const Individual = () => {
       };
       const response = await api.post(`/cart/`, payload);
       toast.success(response.data.message);
+      if (!data?.price || data.price === 0) {
+        router.push("/order"); // change to your actual orders route
+      }
     } catch (err) {
       console.log(err.response.data.message);
       toast.error(err.response.data.message);
