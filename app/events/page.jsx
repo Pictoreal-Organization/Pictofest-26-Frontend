@@ -163,6 +163,8 @@ const Events = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  const isOdd = events.length % 2 !== 0;
+
   return (
     <main className="relative min-h-screen overflow-x-hidden overflow-y-hidden">
       {/* Background Layer */}
@@ -194,23 +196,24 @@ const Events = () => {
         <h1 className="text-4xl lg:text-5xl tracking-tight text-white heading-font mt-11">
           Events
         </h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8 w-full">
+          {events &&
+            events.map((event, index) => {
+              // Check if this is the last item and total count is odd
+              const isLastAndOdd = isOdd && index === events.length - 1;
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
-          {events.map((event, index) => (
-            <motion.div
-              key={event.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.6,
-                delay: index * 0.08,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="w-full"
-            >
-              <EventCard data={event} index={index} />
-            </motion.div>
-          ))}
+              return (
+                <motion.div
+                  key={event.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                  className={`w-full ${isLastAndOdd ? 'md:col-span-2 md:max-w-md md:mx-auto' : 'md:max-w-md md:mx-auto'}`}
+                >
+                  <EventCard data={event} index={index} />
+                </motion.div>
+              );
+            })}
         </div>
       </div>
 
