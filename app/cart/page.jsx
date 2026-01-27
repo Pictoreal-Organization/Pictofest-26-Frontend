@@ -201,52 +201,43 @@ const Cart = () => {
                       </div>
 
                       {/* Right side */}
-                      <div className="flex items-center gap-2 flex-shrink-0">
-                        {/* - button */}
+                      <div className="flex flex-col items-end gap-1 flex-shrink-0">
                         {item.event_category === "PICSOREEL" && (
-                          <button
-                            onClick={() => updateQuantity(item, "dec")}
-                            className="w-7 h-7 rounded-full border border-[#1f4e3d]
-                         text-[#1f4e3d] font-bold hover:bg-[#1f4e3d]/10"
-                          >
-                            −
-                          </button>
+                          <div className="flex items-center gap-1 bg-[#1f4e3d]/5 rounded-full px-2 py-[2px]">
+                            <button
+                              onClick={() => updateQuantity(item, "dec")}
+                              className="w-5 h-5 rounded-full border border-[#1f4e3d]
+               text-[#1f4e3d] text-xs font-bold"
+                            >
+                              −
+                            </button>
+
+                            <span className="w-5 text-center body-font text-[#1f4e3d] text-xs">
+                              {item.quantity}
+                            </span>
+
+                            <button
+                              onClick={() => updateQuantity(item, "inc")}
+                              className="w-5 h-5 rounded-full border border-[#1f4e3d]
+               text-[#1f4e3d] text-xs font-bold"
+                            >
+                              +
+                            </button>
+                          </div>
                         )}
 
-                        {/* Qty */}
-                        {item.event_category === "PICSOREEL" && (
-                          <span className="w-6 text-center body-font text-[#1f4e3d]">
-                            {item.quantity}
+                        <div className="flex items-center gap-2">
+                          <span className="body-font text-[#0e7490] font-bold text-sm">
+                            Rs. {totalPrice}
                           </span>
-                        )}
 
-                        {/* + button */}
-                        {item.event_category === "PICSOREEL" && (
                           <button
-                            onClick={() => updateQuantity(item, "inc")}
-                            className="w-7 h-7 rounded-full border border-[#1f4e3d]
-                         text-[#1f4e3d] font-bold hover:bg-[#1f4e3d]/10"
+                            onClick={() => handleDelete(item.id)}
+                            className="hover:scale-110 transition-transform"
                           >
-                            +
+                            <Image width={18} height={18} src="/img/cart/cancel-icon.png" alt="Remove" />
                           </button>
-                        )}
-
-                        <span className="body-font text-[#0e7490] font-bold text-lg whitespace-nowrap ml-2">
-                          Rs. {totalPrice}
-                        </span>
-
-                        {/* Full remove */}
-                        <button
-                          onClick={() => handleDelete(item.id)}
-                          className="hover:scale-110 transition-transform ml-1"
-                        >
-                          <Image
-                            width={24}
-                            height={24}
-                            src="/img/cart/cancel-icon.png"
-                            alt="Remove"
-                          />
-                        </button>
+                        </div>
                       </div>
                     </div>
                   );
@@ -325,7 +316,7 @@ const Cart = () => {
           </button>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
