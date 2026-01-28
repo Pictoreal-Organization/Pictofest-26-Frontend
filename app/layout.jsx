@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import { AuthProvider } from "@/app/context/Auth";
 import Navbar from "@/app/components/Navbar";
 import { siteConfig } from './config/metadata';
+import GlobalPreloader from "@/app/components/GlobalPreloader";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,6 +35,7 @@ export default function RootLayout({ children }) {
         <ClientProviders>
           <AuthProvider>
             <Navbar />
+            <GlobalPreloader />
             <main>{children}</main>
           </AuthProvider>
           <Toaster
