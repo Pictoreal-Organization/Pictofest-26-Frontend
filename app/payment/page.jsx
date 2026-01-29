@@ -186,7 +186,7 @@ const Payment = () => {
               <div className="relative z-10 bg-white p-1">
                 <QRCode
                   size={130}
-                  value={`upi://pay?pa=sctrspuneintofcomput.62810390@hdfcbank&pn=PICTOREAL&am=${amount.total_amount}&tn=PICTOFEST&cu=INR`}
+                  value={`upi://pay?pa=Vyapar.173204546635@hdfcbank&pn=Default&mc=8999&tr=STQU173204546635&am=${amount.total_amount}&tn=PICTOFEST&cu=INR`}
                   viewBox={`0 0 130 130`}
                   className="w-full h-auto"
                 />
