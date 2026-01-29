@@ -18,10 +18,6 @@ const Uploader = (props) => {
   const [fileSizeExceed, setFileSizeExceed] = useState(false);
   const [fileSize, setFileSize] = useState(0);
 
-  const [showRollInput, setShowRollInput] = useState(false);
-  const [rollNo, setRollNo] = useState("");
-  const [pendingUpload, setPendingUpload] = useState(false);
-
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0); // ✅ Add this
 
@@ -72,11 +68,7 @@ const Uploader = (props) => {
     } catch (err) {
       const msg = err.response?.data?.message;
 
-      if (msg === "You must have a roll number to upload an image.") {
-        setShowRollInput(true);
-        setPendingUpload(true);
-        return;
-      }
+      toast.error(msg || err.message);
 
       toast.error(msg || err.message);
     } finally {
@@ -137,22 +129,22 @@ const Uploader = (props) => {
     };
   }, [isUploading]);
 
-  
+
 
   return (
     <>
-      {/* {isUploading && (
-      <div className="fixed inset-0 z-50 flex items-center w-full justify-center bg-black/40 backdrop-blur-sm">
-        <AnimationLoader />
-      </div>
-    )} */}
 
-      {/* {isUploading && (
-        <div className="fixed inset-0 z-9999 flex flex-col items-center justify-center bg-black/90 backdrop-blur-md">
+      {isUploading && (
+        <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black/95 backdrop-blur-md overflow-hidden">
+
+          {/* Animation */}
           <AnimationLoader />
 
-          <div className="-mt-10 w-[70%] max-w-sm">
+          {/* Progress Bar - Now Absolute for Custom Positioning */}
+          <div className="absolute bottom-32 left-1/2 -translate-x-1/2 w-[70%] max-w-sm">
             <div className="relative h-[5px] w-full bg-white/20 rounded-full overflow-hidden">
+
+              {/* Moving Progress */}
               <div
                 className="absolute left-0 top-0 h-full rounded-full
                      bg-gradient-to-r from-[#FFA53A] via-[#FFD194] to-[#FFA53A]
@@ -162,32 +154,9 @@ const Uploader = (props) => {
               />
             </div>
           </div>
+
         </div>
-      )} */}
-
-{isUploading && (
-  <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black/95 backdrop-blur-md overflow-hidden">
-    
-    {/* Animation */}
-    <AnimationLoader />
-
-    {/* Progress Bar - Now Absolute for Custom Positioning */}
-    <div className="absolute bottom-32 left-1/2 -translate-x-1/2 w-[70%] max-w-sm">
-      <div className="relative h-[5px] w-full bg-white/20 rounded-full overflow-hidden">
-        
-        {/* Moving Progress */}
-        <div
-          className="absolute left-0 top-0 h-full rounded-full
-                     bg-gradient-to-r from-[#FFA53A] via-[#FFD194] to-[#FFA53A]
-                     transition-all duration-300 ease-out
-                     shadow-[0_0_12px_rgba(255,165,58,0.8)]"
-          style={{ width: `${uploadProgress}%` }}
-        />
-      </div>
-    </div>
-
-  </div>
-)}
+      )}
 
       <div className="flex flex-col w-full h-full items-center justify-start">
         {/* Upload Area */}
@@ -214,7 +183,7 @@ const Uploader = (props) => {
                   !allowedExt.includes(ext)
                 ) {
                   toast.error("Only JPG, JPEG and PNG images are allowed");
-                  clearSelection({ stopPropagation: () => {} });
+                  clearSelection({ stopPropagation: () => { } });
                   return;
                 }
 
@@ -309,7 +278,7 @@ const Uploader = (props) => {
           </button>
 
           {/* Roll Number Prompt */}
-          {showRollInput && (
+          {/* {showRollInput && (
             <div className="mt-2 w-full flex flex-col gap-2">
               <input
                 type="text"
@@ -326,7 +295,7 @@ const Uploader = (props) => {
                 Submit Roll Number
               </button>
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </>
@@ -334,8 +303,8 @@ const Uploader = (props) => {
 };
 
 // --- CARD COMPONENT ---
-const Card = (props) => {
-  const { event } = props;
+const Card = ({ event, disableUpload }) => {
+  // const { event } = props;
 
   return (
     // Card Layout: 2 columns on Desktop, 1 on Mobile
@@ -368,7 +337,7 @@ const Card = (props) => {
 
       {/* Right Side: Uploader or Image Display */}
       <div className="w-full md:w-1/2 max-w-[300px]">
-        {!event.image_uploaded ? (
+        {/* {!event.image_uploaded ? (
           // Pending State: Upload Box
           <div className="relative">
             <Uploader
@@ -376,8 +345,19 @@ const Card = (props) => {
               photocopyNeeded={event.photocopy_needed}
             />
           </div>
+        ) : ( */}
+        {!event.image_uploaded ? (
+          disableUpload ? (
+            <div className="border-2 border-dashed border-[#8B260D] rounded-lg p-6 text-center text-sm body-font font-bold text-[#8B260D] bg-[#FFE3BE]">
+              Enter roll number to enable upload
+            </div>
+          ) : (
+            <Uploader
+              id={event.fk_event}
+              photocopyNeeded={event.photocopy_needed}
+            />
+          )
         ) : (
-          // Uploaded State: Simple Frame Look
           <div className="relativ p-1 border-2 rounded-md border-solid border-[#8B260D] shadow-lg">
             <div className="relative w-full aspect-square overflow-hidden">
               <Image
@@ -396,6 +376,25 @@ const Card = (props) => {
 
 // --- SUBMISSION PAGE COMPONENT ---
 const Submission = () => {
+  const [rollNo, setRollNo] = useState("");
+  const [hasRollNo, setHasRollNo] = useState(false);
+  const [loadingUser, setLoadingUser] = useState(true);
+  
+  const getRollStatus = async () => {
+    try {
+      const res = await api.get("/user/roll-status");
+      if (res.data.data.hasRollNo) {
+        setHasRollNo(true);
+        setRollNo(res.data.data.roll_no);
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoadingUser(false);
+    }
+  };
+  
+
   // Mock Data
   const [events, setEvents] = useState();
   const trimString = (str, length) => {
@@ -418,8 +417,10 @@ const Submission = () => {
   };
 
   useEffect(() => {
+    getRollStatus();
     getEvents();
   }, []);
+  
 
   return (
     // Main Page Wrapper
@@ -539,10 +540,60 @@ const Submission = () => {
           />
         </div>
 
+        {!loadingUser && !hasRollNo && (
+  <div className="relative z-20 w-[90%] md:w-[500px] mb-6 flex items-center gap-3 
+                  bg-[#FFE3BE] border border-[#572813] rounded-full px-4 py-2 shadow-md">
+
+    <span className="text-xs md:text-sm body-font font-semibold text-[#572813] whitespace-nowrap">
+      Roll No:
+    </span>
+
+    <input
+      type="text"
+      placeholder="e.g. 31245"
+      value={rollNo}
+      onChange={(e) => setRollNo(e.target.value)}
+      className="flex-1 bg-transparent outline-none body-font text-sm 
+                 placeholder:text-[#572813]/50"
+    />
+
+    <button
+      className="shrink-0 bg-[#8B260D] text-[#FFE3BE] px-4 py-1.5 
+                 rounded-full text-xs md:text-sm font-bold 
+                 hover:scale-105 transition-all"
+      onClick={async () => {
+        if (!rollNo.trim()) {
+          toast.error("Please enter roll number");
+          return;
+        }
+        try {
+          await api.put("/user/update-roll", { roll_no: rollNo });
+          toast.success("Roll number saved");
+          setHasRollNo(true);
+        } catch (err) {
+          toast.error(err.response?.data?.message || err.message);
+        }
+      }}
+    >
+      Save
+    </button>
+  </div>
+)}
+
+
+
         {/* Cards Section Container */}
         <div className="relative z-10 w-full px-4 md:px-12 flex flex-row flex-wrap justify-between items-start gap-y-12">
+          {/* {events &&
+            events.map((event) => <Card key={event.fk_event} event={event} />)} */}
           {events &&
-            events.map((event) => <Card key={event.fk_event} event={event} />)}
+            events.map((event) => (
+              <Card
+                key={event.fk_event}
+                event={event}
+                disableUpload={!hasRollNo}
+              />
+            ))}
 
           {!events && (
             <div className="w-full text-center p-10 text-[#572813] body-font text-xl">
