@@ -544,7 +544,7 @@ const Submission = () => {
         onChange={(e) => setRollNo(e.target.value)}
         className="flex-1 bg-transparent outline-none body-font text-sm 
                     placeholder:text-xs
-                    placeholder:body-font
+                    placeholder:font-body
                   placeholder:text-[#572813]/60"
       />
 
