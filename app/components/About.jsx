@@ -179,25 +179,17 @@ const AboutContent = ({ desktop = false }) => {
         )}
 
         {/* MOBILE TEXT */}
-        <p className="block md:hidden text-lg leading-relaxed">
-          Pictoreal is a non-technical club at PICT, Pune, that publishes the
-          annual magazine with a unique theme each year. We foster creativity
-          in literature, design, and photography through events like
-          Pics-o-Reel and Manthan. Pictosocial promotes social responsibility
-          through donation drives and community service.
+        <p className="block md:hidden text-md leading-relaxed">
+        Pictoreal is a non-technical club at PICT that creates and publishes the annual PICT magazine, based on a unique theme every year. It provides students with a creative space to express ideas through literature, design, photography, to name a few.
+        <br />
+        The club also conducts various creative initiatives and events that help members develop practical skills such as content creation, communication, teamwork, and event coordination. 
         </p>
 
         {/* DESKTOP TEXT */}
         <p className="hidden md:block text-base lg:text-xl leading-relaxed">
-          Pictoreal is a non-technical club at PICT that creates and publishes
-          the annual magazine of PICT, Pune with a unique theme each year. We
-          organize various events to foster creativity in literature, design,
-          and photography while helping individuals build practical skills like
-          event management, public speaking, and teamwork. Our key events
-          include Pics-o-Reel and Manthan. Pictosocial promotes social
-          responsibility through social initiatives. At Pictoreal, we strive
-          to inspire and empower students at PICT to explore their creative
-          potential.
+          Pictoreal is a non-technical club at PICT that curates and publishes the annual PICT magazine, built around a unique theme each year. Beyond the magazine, Pictoreal organizes a range of creative initiatives and events that encourage artistic expression and collaboration. Through these activities, members gain practical experience in areas such as content creation, design thinking, event coordination, public speaking, and teamwork.
+          <br />
+          Pictoreal also believes in using creativity as a tool for positive impact and  through Pict Social  - a subdivision of Pictoreal, actively promotes social awareness through its initiatives. At its core, the club aims to nurture creativity, confidence, and collaboration, empowering students to explore and develop their creative potential.
         </p>
       </motion.div>
     </motion.div>

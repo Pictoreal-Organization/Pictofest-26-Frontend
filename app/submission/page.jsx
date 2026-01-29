@@ -493,9 +493,9 @@ const Submission = () => {
 
         {/* Guidelines Text */}
         <div className="relative z-10 w-[90%] md:w-3/4 text-center text-[#572813] body-font font-medium space-y-4 mb-8">
-          <p className="text-base md:text-xl">
+          <p className="text-base md:text-lg">
             Please submit the physical copies of your artworks, photography and
-            digital artworks before 22nd Feb, 11:59pm
+            digital artworks before <b>20th Feb, 11:59pm</b>
           </p>
 
           <div className="flex-col text-center gap-3 text-sm md:text-lg font-bold">
