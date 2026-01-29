@@ -276,26 +276,6 @@ const Uploader = (props) => {
           >
             Upload
           </button>
-
-          {/* Roll Number Prompt */}
-          {/* {showRollInput && (
-            <div className="mt-2 w-full flex flex-col gap-2">
-              <input
-                type="text"
-                placeholder="Enter Roll Number"
-                value={rollNo}
-                onChange={(e) => setRollNo(e.target.value)}
-                className="w-full px-3 py-2 border-2 border-[#572813] rounded-md body-font text-sm"
-              />
-              <button
-                onClick={submitRollNo}
-                className="w-full bg-[#8B260D] text-[#FFE3BE] py-2 sub-heading-font rounded-full font-bold"
-                type="button"
-              >
-                Submit Roll Number
-              </button>
-            </div>
-          )} */}
         </div>
       </div>
     </>
@@ -559,11 +539,9 @@ const Submission = () => {
 
       <input
         type="text"
-        placeholder="e.g. 31245"
         value={rollNo}
         onChange={(e) => setRollNo(e.target.value)}
-        className="flex-1 bg-transparent outline-none body-font text-sm 
-                   placeholder:text-[#572813]/50"
+        className="flex-1 bg-transparent outline-none body-font text-sm "
       />
 
       <button
