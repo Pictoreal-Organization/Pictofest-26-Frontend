@@ -441,8 +441,8 @@ const EventCard = ({ data, index }) => {
         </div>
 
         {/* Early Bird Offer Badge - Mobile */}
-        {data?.event_code === "AA" && (
-          <div className="absolute top-1.5 left-1.5 z-20 animate-pulse">
+        {(data?.event_code === "PCF" || data?.event_code === "LRP") && (
+          <div className="absolute -top-3 -right-1 z-20 ">
             <div className="relative">
               {/* Compact Badge for Mobile */}
               <div className="relative bg-gradient-to-br from-yellow-400 via-amber-500 to-orange-600 rounded-full p-0.5 shadow-lg transform hover:scale-110 transition-transform duration-300">
@@ -463,9 +463,9 @@ const EventCard = ({ data, index }) => {
         )}
 
         {/* Event Name*/}
-        <div className="relative z-10 w-full h-full">
+        <div className="relative z-10  h-full px-10">
           <h2 className={`sub-heading-font text-[#FBF0AD] line-clamp-2 text-center absolute bottom-[67%] w-[55%] ${isOddIndex
-              ? "left-[3%]"
+              ? "left-[5.5%]"
               : "right-[3.5%]"
             } ${data.name === "Texture Art + Neon fluid painting"
               ? "text-[13px] sm:text-[12px]"
