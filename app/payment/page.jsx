@@ -12,10 +12,10 @@ import isNotAuth from "@/app/components/isNotAuth";
 
 const Payment = () => {
   const [amount, setAmount] = useState({
-  event_amount: 0,
-  photocopy_charges: 0,
-  total_amount: 0,
-});
+    event_amount: 0,
+    photocopy_charges: 0,
+    total_amount: 0,
+  });
 
   const [transactionId, setTransactionId] = useState("");
   const router = useRouter();
@@ -23,12 +23,19 @@ const Payment = () => {
   // --- API Logic ---
   const getAmount = async () => {
     try {
-      const response = await api.get(`/payment/amount`);
-      setAmount(response.data.data);
+      const saved = localStorage.getItem("early_code");
+      if (saved) {
+        const res = await api.post("/payment/apply-earlybird", { code: saved });
+        setAmount(res.data.data);
+      } else {
+        const res = await api.get("/payment/amount");
+        setAmount(res.data.data);
+      }
     } catch (err) {
       console.log(err);
     }
   };
+
 
   useEffect(() => {
     getAmount();
@@ -46,24 +53,29 @@ const Payment = () => {
   const handleTransactionIdChange = (event) => {
     setTransactionId(event.target.value);
   };
-
+  
   const handleSubmit = async () => {
-  if (transactionId.length !== 12) {
-    toast.error("Please enter a valid 12-digit UTR ID");
-    return;
-  }
+    if (transactionId.length !== 12) {
+      toast.error("Please enter a valid 12-digit UTR ID");
+      return;
+    }
 
-  try {
-    const response = await api.post(`/payment/`, {
-      transaction_id: transactionId,
-    });
-    toast.success(response.data.message);
-    router.push("/order");
-  } catch (err) {
-    console.log(err.response?.data?.message);
-    toast.error(err.response?.data?.message || "Payment failed");
-  }
-};
+    try {
+      const early_code = localStorage.getItem("early_code");
+
+      const response = await api.post(`/payment/`, {
+        transaction_id: transactionId,
+        early_code,
+      });
+
+      localStorage.removeItem("early_code");
+      toast.success(response.data.message);
+      router.push("/order");
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Payment failed");
+    }
+  };
+
 
 
   return (
@@ -144,8 +156,8 @@ const Payment = () => {
         />
 
 
-          <div
-            className="
+        <div
+          className="
               relative
               w-[80%]
               md:w-125
@@ -158,7 +170,7 @@ const Payment = () => {
               rounded-3xl
               shadow-lg
             "
-          >
+        >
 
 
           {/* --- INTERNAL CONTENT --- */}
@@ -195,7 +207,7 @@ const Payment = () => {
 
             {/* Amount Text */}
             <h2 className=" body-font text-lg md:text-xl text-[#1f4e3d] font-bold body-font mb-4 text-center">
-             Total Amount: Rs. {amount.total_amount}/-
+              Total Amount: Rs. {amount.total_amount}/-
 
             </h2>
 

@@ -8,6 +8,8 @@ import { useRouter } from "next/navigation";
 import isNotAuth from "@/app/components/isNotAuth";
 
 const Cart = () => {
+  const [earlyCode, setEarlyCode] = useState("");
+  const [applied, setApplied] = useState(false);
   const [cart, setCart] = useState([]);
   const [amount, setAmount] = useState({
     event_amount: 0,
@@ -25,24 +27,37 @@ const Cart = () => {
       console.log(err.response?.data?.message);
     }
   };
-  const getAmount = async () => {
+  const getAmount = async (code) => {
     try {
-      const response = await api.get(`/payment/amount`);
-      setAmount(response.data.data || {
-        event_amount: 0,
-        photocopy_charges: 0,
-        total_amount: 0,
-      });
+      if (code) {
+        const res = await api.post("/payment/apply-earlybird", { code });
+        setAmount(res.data.data);
+        setApplied(true);
+        localStorage.setItem("early_code", code);
+      } else {
+        const res = await api.get("/payment/amount");
+        setAmount(res.data.data);
+        setApplied(false);
+        localStorage.removeItem("early_code");
+      }
     } catch (err) {
-      console.log(err);
+      toast.error(err.response?.data?.message || "Invalid code");
+      setApplied(false);
     }
   };
   ;
 
   useEffect(() => {
     getCart();
-    getAmount();
+    const saved = localStorage.getItem("early_code");
+    if (saved) {
+      setEarlyCode(saved);
+      getAmount(saved);
+    } else {
+      getAmount();
+    }
   }, []);
+
 
   const handleDelete = async (eventId) => {
     try {
@@ -52,7 +67,9 @@ const Cart = () => {
 
       toast.success(response.data.message || "Item updated");
       await getCart();
-      await getAmount();
+      const saved = localStorage.getItem("early_code");
+      saved ? getAmount(saved) : getAmount();
+
     } catch (err) {
       console.log(err);
       toast.error(err.response?.data?.message || "Error deleting item");
@@ -64,7 +81,9 @@ const Cart = () => {
       const response = await api.delete(`/cart/empty`);
       toast.success(response.data.message || "Cart emptied");
       await getCart();
-      await getAmount();
+      const saved = localStorage.getItem("early_code");
+      saved ? getAmount(saved) : getAmount();
+
     } catch (err) {
       console.log(err);
       toast.error(err.response?.data?.message || "Error emptying cart");
@@ -89,7 +108,9 @@ const Cart = () => {
 
       toast.success(response.data.message || "Updated");
       await getCart();
-      await getAmount();
+      const saved = localStorage.getItem("early_code");
+      saved ? getAmount(saved) : getAmount();
+
     } catch (err) {
       console.log(err);
       toast.error(err.response?.data?.message || "Error updating quantity");
@@ -253,6 +274,26 @@ const Cart = () => {
             </div>
 
             <div className="w-full border-t-2 border-dotted border-[#1f4e3d]/40 my-6"></div>
+
+            <div className="flex gap-2 mb-3">
+              <input
+                value={earlyCode}
+                onChange={(e) => setEarlyCode(e.target.value)}
+                placeholder="Early Bird Code"
+                className="border px-3 py-2 rounded-md w-full"
+              />
+              <button
+                onClick={() => getAmount(earlyCode)}
+                className="bg-green-600 text-white px-4 rounded-md"
+              >
+                Apply
+              </button>
+            </div>
+
+            {applied && (
+              <p className="text-green-700 text-sm">Early Bird applied 🎉</p>
+            )}
+
 
             <div className="text-center mb-4">
               <h2 className="body-font text-2xl md:text-3xl font-extrabold text-[#1a1a1a]">
