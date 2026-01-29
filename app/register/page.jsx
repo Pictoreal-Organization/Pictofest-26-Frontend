@@ -41,26 +41,69 @@ const Register = () => {
 
   const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
+  // const handleRegister = async (e) => {
+  //   e.preventDefault();
+  //   if (!validateEmail(email)) return toast.error("Please enter a valid email.");
+  //   if (phone.length < 10) return toast.error("Phone No. must be 10 digits at least.");
+  //   if (password.length < 8) return toast.error("Min. Password Length: 8 characters.");
+  //   if (!otp) return toast.error("Please enter the OTP.");
+
+  //   try {
+  //     const response = await axios.post(`${baseURL}/user/signup`, {
+  //       first_name: firstName, last_name: lastName, email, mobile_number: phone,
+  //       college_type: collegeType, college_name: collegeName, password, otp
+  //     });
+  //     setUserAuthInfo(response.data.data);
+  //     toast.success(response.data.message);
+  //     router.push("/");
+  //     // window.location.reload();
+  //   } catch (err) {
+  //     toast.error(err.response?.data?.message || "Failed to sign up.");
+  //   }
+  // };
+
   const handleRegister = async (e) => {
     e.preventDefault();
+  
     if (!validateEmail(email)) return toast.error("Please enter a valid email.");
     if (phone.length < 10) return toast.error("Phone No. must be 10 digits at least.");
     if (password.length < 8) return toast.error("Min. Password Length: 8 characters.");
     if (!otp) return toast.error("Please enter the OTP.");
-
+  
+    setIsOtpLoading(true);
+  
     try {
       const response = await axios.post(`${baseURL}/user/signup`, {
-        first_name: firstName, last_name: lastName, email, mobile_number: phone,
-        college_type: collegeType, college_name: collegeName, password, otp
+        first_name: firstName,
+        last_name: lastName,
+        email,
+        mobile_number: phone,
+        college_type: collegeType,
+        college_name: collegeName,
+        password,
+        otp
       });
-      setUserAuthInfo(response.data.data);
+  
+      const { token, user } = response.data.data;
+  
+      // Save token and user in localStorage
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+  
+      // Update Auth Context immediately
+      setUserAuthInfo({ token, user });
+  
       toast.success(response.data.message);
+  
+      // Navigate to landing page
       router.push("/");
-      // window.location.reload();
     } catch (err) {
       toast.error(err.response?.data?.message || "Failed to sign up.");
+    } finally {
+      setIsOtpLoading(false);
     }
   };
+  
 
   const sendOtp = async () => {
     if (!validateEmail(email)) return toast.error("Valid email required.");
