@@ -539,13 +539,9 @@ const Submission = () => {
 
       <input
         type="text"
-        placeholder="Enter 5 digit roll number"
         value={rollNo}
         onChange={(e) => setRollNo(e.target.value)}
-        className="flex-1 bg-transparent outline-none body-font text-sm 
-                    placeholder:text-xs
-                    placeholder:font-body
-                  placeholder:text-[#572813]/60"
+        className="flex-1 bg-transparent outline-none body-font text-sm "
       />
 
       <button
