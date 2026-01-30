@@ -146,7 +146,10 @@ const Individual = () => {
       __html: data.description
         .replace(/Fragments of Time/g, '<span class="font-extrabold">Fragments of Time</span>')
         .replace(/no refund/gi, '<strong>no refund</strong>')
-        .replace(/Everyday India/g, '<strong>Everyday India</strong>')
+        .replace(
+          /Everyday India./g,
+          '<span class="block text-center font-bold my-3">Everyday India</span>'
+        )
         .replace(
           /@Pictoreal/gi,
           '<a href="https://www.instagram.com/pictoreal?igsh=ajM5Z2hwMWhrOXl3" target="_blank" rel="noopener noreferrer" class="text-[#E97400] font-bold underline hover:opacity-80 transition-opacity">@Pictoreal</a>'
