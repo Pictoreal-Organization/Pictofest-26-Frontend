@@ -37,11 +37,7 @@ const Uploader = (props) => {
   const handleUpload = async (e) => {
     e?.preventDefault?.();
 
-    // Add this check first
-    if (disableUpload) {
-      toast.error("Please enter your roll number first");
-      return;
-    }
+
 
     if (!selectedFile) {
       toast.error("Please select a file first");
@@ -329,18 +325,12 @@ const Card = ({ event, disableUpload }) => {
           </div>
         ) : ( */}
         {!event.image_uploaded ? (
-          disableUpload ? (
-            <div className="border-2 border-dashed border-[#8B260D] rounded-lg p-6 text-center text-sm body-font font-bold text-[#8B260D] bg-[#FFE3BE]">
-              Enter roll number to enable upload
-            </div>
-          ) : (
-            <Uploader
-              userEventId={event.id}
-              photocopyNeeded={event.photocopy_needed}
-              disableUpload={disableUpload}
-            />
-          )
-        ) : (
+      <Uploader
+        userEventId={event.id}
+        photocopyNeeded={event.photocopy_needed}
+        disableUpload={disableUpload}
+      />
+            ) : (
           <div className="relativ p-1 border-2 rounded-md border-solid border-[#8B260D] shadow-lg">
             <div className="relative w-full aspect-square overflow-hidden">
               <Image
