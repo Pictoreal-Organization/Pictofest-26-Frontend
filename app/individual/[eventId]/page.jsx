@@ -173,7 +173,7 @@ const Individual = () => {
     {
       id: 1,
       name: "Everyday Chaos",
-      concept: "Create memes based on everyday life situations that feel overly dramatic — daily struggles, family drama, small problems, epic reactions.",
+      concept: "Create memes based on everyday life situations that feel overly dramatic, daily struggles, family drama, small problems, epic reactions.",
       mediaUrl: "/img/events/meme_making/everyday_chaos.png",
       example: "When you swear you checked everywhere, and your mom proves you wrong in two seconds.",
       type: "image"
