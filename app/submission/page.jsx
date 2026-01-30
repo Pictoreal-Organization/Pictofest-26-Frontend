@@ -354,16 +354,36 @@ const Submission = () => {
   const [loadingUser, setLoadingUser] = useState(true);
   const [collegeType, setCollegeType] = useState("");
 
+  // const getRollStatus = async () => {
+  //   try {
+  //     const res = await api.get("/user/roll-status");
+  //     setCollegeType(res.data.data.college_type || ""); // ✅ Store college type
+  //     if (res.data.data.hasRollNo) {
+  //       setHasRollNo(true);
+  //       setRollNo(res.data.data.roll_no);
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   } finally {
+  //     setLoadingUser(false);
+  //   }
+  // };
+
   const getRollStatus = async () => {
     try {
       const res = await api.get("/user/roll-status");
-      setCollegeType(res.data.data.college_type || ""); // ✅ Store college type
+      console.log("Full response:", res.data);
+      console.log("College Type:", res.data.data.college_type);
+      console.log("Has Roll No:", res.data.data.hasRollNo);
+      console.log("Roll No:", res.data.data.roll_no);
+      
+      setCollegeType(res.data.data.college_type || ""); 
       if (res.data.data.hasRollNo) {
         setHasRollNo(true);
         setRollNo(res.data.data.roll_no);
       }
     } catch (err) {
-      console.log(err);
+      console.log("Error:", err);
     } finally {
       setLoadingUser(false);
     }
