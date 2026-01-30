@@ -1,262 +1,3 @@
-// "use client";
-
-// import Image from "next/image";
-// import { useRouter } from "next/navigation";
-// import { useState, useEffect } from "react";
-// import { toast } from "sonner";
-// import api from "@/app/api";
-// import { FaCartShopping } from "react-icons/fa6";
-
-// const EventCard = ({ data, index }) => {
-
-//   const router = useRouter();
-
-//   const handleReadMore = () => {
-//     router.push(`/individual/${data.id}`);
-//   };
-
-//   const handleAddToCart = async () => {
-//     try {
-//       const response = await api.post(`/cart/`, { event_id: data.id });
-//       toast.success(response.data.message);
-//       if (!data?.price || data.price === 0) {
-//         router.push("/order"); // change to your actual orders route
-//       }
-//     } catch (err) {
-//       console.log(err.response.data.message);
-//       toast.error(err.response.data.message);
-//     }
-//   };
-
-//   const isOddIndex = index % 2 !== 0; // true for odd, false for even
-//   // const cardImage = isOddIndex 
-//   //   ? "/img/events/red-card26.svg" 
-//   //   : "/img/events/green-card26.svg";
-
-//   const defaultCardImage = isOddIndex
-//     ? "/img/events/red-card26.svg"
-//     : "/img/events/green-card26.svg";
-
-//   const [bgSrc, setBgSrc] = useState(defaultCardImage);
-
-//   useEffect(() => {
-//     if (data?.logo_link) {
-//       setBgSrc(data.logo_link);
-//     } else {
-//       setBgSrc(defaultCardImage);
-//     }
-//   }, [data?.logo_link, defaultCardImage]);
-
-//   // Button images based on card color
-//   const buttonImage = isOddIndex
-//     ? "/img/events/green-button26.svg" // Green button for red cards
-//     : "/img/events/orange-button26.svg"; // Orange button for green cards
-
-//   const isCustomLogo = !!data?.logo_link;
-
-//   <Image
-//     src={bgSrc}
-//     alt="Event Card Background"
-//     fill
-//     className={isCustomLogo ? "object-contain" : "object-cover"}
-//     onError={() => setBgSrc(defaultCardImage)}
-//     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-//   />
-
-//   return (
-//     <>
-//       {/* Desktop Version */}
-//       <div className="relative hidden lg:block w-full aspect-[347/176] min-h-[230px] max-h-[390px]">
-//         <div className="absolute inset-0 w-full h-full z-0">
-//           <Image
-//             src={bgSrc}
-//             alt="Event Card Background"
-//             fill
-//             className={isCustomLogo ? "object-contain" : "object-cover"}
-//             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-//             onError={() => setBgSrc(defaultCardImage)}
-//             priority={index < 2}
-//           />
-//         </div>
-
-//         {/* Event Name*/}
-//         <div className="relative z-10 w-full h-full">
-//           <h2 className={`sub-heading-font text-[#FBF0AD] line-clamp-2 text-center absolute bottom-[67%] w-[55%] ${isOddIndex
-//               ? "left-[4%]" // Red cards (odd index) on left side
-//               : "right-[3%]" // Green cards (even index) on right side
-//             } ${data.name === "Texture Art + Neon fluid painting"
-//               ? "text-sm sm:text-base md:text-lg lg:text-xl"
-//               : "text-base sm:text-lg md:text-xl lg:text-2xl"
-//             }`}>
-//             {data?.name}
-//           </h2>
-//         </div>
-
-//         {/* Price Section*/}
-//         <div className="relative z-10 w-full h-full">
-//           <div className={`text-center absolute -top-[60%] w-[65%] ${isOddIndex
-//               ? "-left-[2%]" // Red cards (odd index) on left side
-//               : "-right-[1.3%]" // Green cards (even index) on right side
-//             }`}>
-//             <div className="sub-heading-font text-[#F6EDC8] text-sm md:text-sm lg:text-base mb-1">
-//               PRICE
-//             </div>
-//             <div className="sub-heading-font text-[#FBCC12] text-xl md:text-2xl lg:text-2xl">
-//               {data.name === "Texture Art + Neon fluid painting"
-//                 ? `Rs. ${data.price}/- (DUO)`
-//                 : data.price
-//                   ? `Rs. ${data.price}/-`
-//                   : "Free"}
-//             </div>
-//           </div>
-//         </div>
-
-//         {/* Buttons*/}
-//         <div className="relative z-10 w-full h-full">
-//           <div className={`flex gap-3 md:gap-4 lg:gap-5 absolute -top-[130%] ${isOddIndex
-//               ? "left-[9%]" // Red cards (odd index) on left side
-//               : "right-[9%]" // Green cards (even index) on right side
-//             }`}>
-//             {/* Add to Cart / Register Button */}
-//             <div className="relative group cursor-pointer flex-shrink-0" onClick={handleAddToCart}>
-//               <div className="relative w-[70px] md:w-[80px] lg:w-[90px] h-[26px] md:h-[30px] lg:h-[34px]">
-//                 <Image
-//                   src={buttonImage}
-//                   alt="Add to Cart Button"
-//                   fill
-//                   className="object-contain group-hover:opacity-90 transition-opacity"
-//                 />
-//                 <div className="absolute inset-0 z-10 flex items-center justify-center">
-//                   <span className="text-white sub-heading-font flex items-center justify-center gap-0.5 md:gap-1 text-xs md:text-sm lg:text-base whitespace-nowrap">
-//                     {data?.price ? (
-//                       <FaCartShopping className="text-white text-xs md:text-sm lg:text-base" />
-//                     ) : (
-//                       <span className="text-xs md:text-xs lg:text-xs">Register</span>
-//                     )}
-//                   </span>
-//                 </div>
-//               </div>
-//             </div>
-
-//             {/* Read More Button */}
-//             <div className="relative group cursor-pointer flex-shrink-0" onClick={handleReadMore}>
-//               <div className="relative w-[70px] md:w-[80px] lg:w-[90px] h-[26px] md:h-[30px] lg:h-[34px]">
-//                 <Image
-//                   src={buttonImage}
-//                   alt="Read More Button"
-//                   fill
-//                   className="object-contain group-hover:opacity-90 transition-opacity"
-//                 />
-//                 <div className="absolute inset-0 z-10 flex items-center justify-center">
-//                   <span className="text-white sub-heading-font flex items-center justify-center text-xs md:text-xs lg:text-xs whitespace-nowrap">
-//                     Read More
-//                   </span>
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-
-//       {/* Mobile Version */}
-//       <div className="relative lg:hidden w-full aspect-[347/176] min-h-[160px] max-h-[220px]">
-//         {/* Background Card Image */}
-//         <div className="absolute inset-0 w-full h-full z-0">
-//           <Image
-//             src={bgSrc}
-//             alt="Event Card Background"
-//             fill
-//             className={isCustomLogo ? "object-contain" : "object-cover"}
-//             sizes="100vw"
-//             onError={() => setBgSrc(defaultCardImage)}
-//           />
-//         </div>
-
-//         {/* Event Name*/}
-//         <div className="relative z-10 w-full h-full">
-//           <h2 className={`sub-heading-font text-[#FBF0AD] line-clamp-2 text-center absolute bottom-[67%] w-[55%] ${isOddIndex
-//               ? "left-[3%]" // Red cards (odd index) on left side
-//               : "right-[3.5%]" // Green cards (even index) on right side
-//             } ${data.name === "Texture Art + Neon fluid painting"
-//               ? "text-[13px] sm:text-[12px]"
-//               : "text-[16px] sm:text-[14px]"
-//             }`}>
-//             {data.name}
-//           </h2>
-//         </div>
-
-//         {/* Price Section*/}
-//         <div className="relative z-10 w-full h-full">
-//           <div className={`text-center absolute -top-[58%] w-[55%] ${isOddIndex
-//               ? "left-[3.2%]" // Red cards (odd index) on left side
-//               : "right-[3.9%]" // Green cards (even index) on right side
-//             }`}>
-//             <div className="sub-heading-font uppercase text-[#F6EDC8] text-[11px] sm:text-[12px] mb-1">
-//               Price
-//             </div>
-//             <div className="sub-heading-font text-[#FBCC12] text-[15px] xs:text-[15px] sm:text-[16px]">
-//               {data.name === "Texture Art + Neon fluid painting"
-//                 ? `Rs. ${data.price}/- (DUO)`
-//                 : data.price
-//                   ? `Rs. ${data.price}/-`
-//                   : "Free"}
-//             </div>
-//           </div>
-//         </div>
-
-//         {/* Buttons*/}
-//         <div className="relative z-10 w-full h-full">
-//           <div className={`flex gap-2 sm:gap-2.5 absolute -top-[125%] ${isOddIndex
-//               ? "left-[12.2%]" // Red cards (odd index) on left side
-//               : "right-[12.3%]" // Green cards (even index) on right side
-//             }`}>
-//             {/* Add to Cart / Register Button */}
-//             <div className="relative group cursor-pointer flex-shrink-0" onClick={handleAddToCart}>
-//               <div className="relative w-[55px] sm:w-[60px] h-[20px] sm:h-[22px]">
-//                 <Image
-//                   src={buttonImage}
-//                   alt="Add to Cart Button"
-//                   fill
-//                   className="object-contain group-hover:opacity-90 transition-opacity"
-//                 />
-//                 <div className="absolute inset-0 z-10 flex items-center justify-center">
-//                   <span className="text-white sub-heading-font flex items-center justify-center gap-0.5 text-[9px] sm:text-[10px] whitespace-nowrap">
-//                     {data?.price ? (
-//                       <FaCartShopping className="text-white text-[8px] sm:text-[10px]" />
-//                     ) : (
-//                       "Register"
-//                     )}
-//                   </span>
-//                 </div>
-//               </div>
-//             </div>
-
-//             {/* Read More Button */}
-//             <div className="relative group cursor-pointer flex-shrink-0" onClick={handleReadMore}>
-//               <div className="relative w-[55px] sm:w-[60px] h-[20px] sm:h-[22px]">
-//                 <Image
-//                   src={buttonImage}
-//                   alt="Read More Button"
-//                   fill
-//                   className="object-contain group-hover:opacity-90 transition-opacity"
-//                 />
-//                 <div className="absolute inset-0 z-10 flex items-center justify-center">
-//                   <span className="text-white sub-heading-font flex items-center justify-center text-[8px] sm:text-[10px] whitespace-nowrap">
-//                     Read More
-//                   </span>
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
-// export default EventCard;
-
-
-
 "use client";
 
 import Image from "next/image";
@@ -270,13 +11,34 @@ const EventCard = ({ data, index }) => {
 
   const router = useRouter();
 
+  const [needPhotocopy, setNeedPhotocopy] = useState(false);
+
   const handleReadMore = () => {
     router.push(`/individual/${data.id}`);
   };
 
+  // const handleAddToCart = async () => {
+  //   try {
+  //     const response = await api.post(`/cart/`, { event_id: data.id });
+  //     toast.success(response.data.message);
+  //     if (!data?.price || data.price === 0) {
+  //       router.push("/order");
+  //     }
+  //   } catch (err) {
+  //     console.log(err.response.data.message);
+  //     toast.error(err.response.data.message);
+  //   }
+  // };
+
   const handleAddToCart = async () => {
     try {
-      const response = await api.post(`/cart/`, { event_id: data.id });
+      const payload = {
+        event_id: data.id,
+        ...(data.event_code === "PH" && {
+          photocopy_needed: needPhotocopy,
+        }),
+      };
+      const response = await api.post(`/cart/`, payload);
       toast.success(response.data.message);
       if (!data?.price || data.price === 0) {
         router.push("/order");
@@ -376,6 +138,40 @@ const EventCard = ({ data, index }) => {
             </div>
           </div>
         </div>
+
+{/* Photocopy Checkbox - Desktop */}
+{data?.event_code === "PH" && (
+  <div className="absolute top-2 right-3 z-20">
+    <label
+      // className={`flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer transition-all duration-300 shadow-lg hover:shadow-xl backdrop-blur-sm ${
+      //   needPhotocopy
+      //     ? "bg-gradient-to-r from-teal-500 to-cyan-600 text-white scale-105"
+      //     : "bg-white/90 text-gray-700 hover:bg-white"
+      // }`}
+      className={`flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer transition-all duration-300 shadow-lg hover:shadow-xl backdrop-blur-sm ${
+        needPhotocopy
+          ? "bg-gradient-to-r from-amber-500 to-[#ff8112] text-white scale-105"
+          : "bg-white/90 text-gray-700 hover:bg-white"
+      }`}
+      onClick={(e) => e.stopPropagation()}
+    >
+      <input
+        type="checkbox"
+        checked={needPhotocopy}
+        onChange={(e) => {
+          e.stopPropagation();
+          setNeedPhotocopy(e.target.checked);
+        }}
+        className="w-4 h-4 rounded border-2 border-teal-600 cursor-pointer accent-[#318134]"
+      />
+      <span className="text-xs font-semibold whitespace-nowrap">
+        Print Photos
+        <span className="ml-1 text-[10px] font-bold">+₹10</span>
+      </span>
+    </label>
+  </div>
+)}
+
 
         {/* Buttons*/}
         <div className="relative z-10 w-full h-full">
@@ -491,6 +287,40 @@ const EventCard = ({ data, index }) => {
             </div>
           </div>
         </div>
+
+{/* Photocopy Checkbox - Mobile */}
+{data?.event_code === "PH" && (
+  <div className="absolute top-2 right-2 z-20">
+    <label
+      // className={`flex items-center gap-1.5 px-2 py-1.5 rounded-md cursor-pointer transition-all duration-300 shadow-md hover:shadow-lg backdrop-blur-sm ${
+      //   needPhotocopy
+      //     ? "bg-gradient-to-r from-teal-500 to-cyan-600 text-white scale-105"
+      //     : "bg-white/90 text-gray-700"
+      // }`}
+      className={`flex items-center gap-1.5 px-2 py-1.5 rounded-md cursor-pointer transition-all duration-300 shadow-md hover:shadow-lg backdrop-blur-sm ${
+        needPhotocopy
+          ? "bg-gradient-to-r from-amber-500 to-[#ff8112] text-white scale-105"
+          : "bg-white/90 text-gray-700"
+      }`}
+      onClick={(e) => e.stopPropagation()}
+    >
+      <input
+        type="checkbox"
+        checked={needPhotocopy}
+        onChange={(e) => {
+          e.stopPropagation();
+          setNeedPhotocopy(e.target.checked);
+        }}
+        className="w-3 h-3 rounded border-2 border-teal-600 cursor-pointer accent-[#318134]"
+      />
+      <span className="text-[10px] font-semibold whitespace-nowrap">
+        Print
+        <span className="ml-0.5 text-[9px] font-bold">+₹10</span>
+      </span>
+    </label>
+  </div>
+)}
+
 
         {/* Buttons*/}
         <div className="relative z-10 w-full h-full">

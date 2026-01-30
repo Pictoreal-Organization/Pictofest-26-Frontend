@@ -53,7 +53,7 @@ const Uploader = (props) => {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-        timeout: 120000,
+        timeout: 300000,
         // ✅ Add progress tracking
         onUploadProgress: (progressEvent) => {
           const percentCompleted = Math.round(
@@ -507,7 +507,7 @@ const Submission = () => {
                 href="https://wa.me/9145799399"
                 className="hover:text-[#8B260D] transition-colors"
               >
-                Bhagyashree +91 9145799399
+                Bhagyashree : +91 9145799399
               </Link>
             </div>
           </div>
