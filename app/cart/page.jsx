@@ -101,8 +101,10 @@ const Cart = () => {
   const handleDelete = async (eventId, photocopyNeeded) => {
     try {
       const response = await api.delete(`/cart/`, {
-        data: { event_id: eventId },
-        photocopy_needed: photocopyNeeded,
+        data: {
+          event_id: eventId,
+          photocopy_needed: photocopyNeeded,
+        },
       });
 
       toast.success(response.data.message || "Item updated");
