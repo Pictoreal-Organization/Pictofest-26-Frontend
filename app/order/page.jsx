@@ -108,46 +108,38 @@ const CategoryBoard = ({ title, events, waLinks, themeColor }) => {
                   </Link>
                 </div>
 
-                {/* Actions */}
-                <div className="flex items-center gap-3">
+                {/* Actions Container */}
+                <div className="flex items-start gap-3">
 
                   {/* NEW: Google Form Icon specifically for MM */}
                   {event.event_code === "MM" && (
-                    <div className="flex flex-col items-center gap-1">
-                      <a
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSf3efK3cl7RPWH3ych4aauLH82lfa1DInOmheX21oriW6kDPA/viewform"
-                        target="_blank"
-                        rel="noreferrer"
-                        title="Fill Submission Form"
-                        className="flex flex-col items-center group"
+                    <a
+                      href="https://docs.google.com/forms/d/e/1FAIpQLSf3efK3cl7RPWH3ych4aauLH82lfa1DInOmheX21oriW6kDPA/viewform"
+                      target="_blank"
+                      rel="noreferrer"
+                      title="Fill Submission Form"
+                      className="flex flex-col items-center group"
+                    >
+                      <div
+                        className="p-2 rounded-full border-2 transition-transform group-hover:scale-110 flex items-center justify-center cursor-pointer bg-white"
+                        style={{ borderColor: "#7248B9", color: "#7248B9" }}
                       >
-                        <div
-                          className="p-2 rounded-full border-2 transition-transform group-hover:scale-110 flex items-center justify-center cursor-pointer bg-white"
-                          style={{ borderColor: "#7248B9", color: "#7248B9" }}
-                        >
-                          {/* Google Form SVG Icon */}
-                          <svg
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM14 17H7V15H14V17ZM17 13H7V11H17V13ZM17 9H7V7H17V9Z" fill="currentColor" />
-                          </svg>
-                        </div>
-                        <span
-                          className="text-[10px] md:text-xs font-bold leading-tight text-center uppercase"
-                          style={{ color: "#7248B9" }}
-                        >
-                          Fill this form
-                        </span>
-                      </a>
-                    </div>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM14 17H7V15H14V17ZM17 13H7V11H17V13ZM17 9H7V7H17V9Z" fill="currentColor" />
+                        </svg>
+                      </div>
+                      <span
+                        className="text-[9px] md:text-[10px] font-bold mt-1 uppercase text-center w-max"
+                        style={{ color: "#7248B9" }}
+                      >
+                        Fill this form
+                      </span>
+                    </a>
                   )}
 
+                  {/* WhatsApp Link */}
                   {itemWaLink && (
-                    <a href={itemWaLink} target="_blank" rel="noreferrer" title="Join WhatsApp Group">
+                    <a href={itemWaLink} target="_blank" rel="noreferrer" title="Join WhatsApp Group" className="mt-[2px]">
                       <div
                         className="p-2 rounded-full border-2 transition-transform hover:scale-110 flex items-center justify-center cursor-pointer"
                         style={{ borderColor: "#25D366", color: "#25D366", backgroundColor: "white" }}
@@ -158,9 +150,9 @@ const CategoryBoard = ({ title, events, waLinks, themeColor }) => {
                   )}
 
                   {/* View Button */}
-                  <Link href={`/individual/${event.id}`}>
+                  <Link href={`/individual/${event.id}`} className="mt-[2px]">
                     <div
-                      className="bg-transparent border-2 rounded px-3 py-1 md:px-4 md:py-1 sub-heading-font text-xs md:text-sm transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer"
+                      className="bg-transparent border-2 rounded px-3 py-1 md:px-4 md:py-1 sub-heading-font text-xs md:text-sm transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer h-[38px]"
                       style={{
                         borderColor: themeColor,
                         color: themeColor
@@ -266,11 +258,11 @@ const Order = () => {
           <h1 className="text-4xl lg:text-5xl tracking-tight text-white heading-font mt-6 md:mt-11 text-center">
             My Orders
           </h1>
-          <div className="flex items-center gap-2 mt-2 opacity-90">
+          {/* <div className="flex items-center gap-2 mt-2 opacity-90">
             <div className="w-2 h-2 bg-[#ffffff] rotate-45"></div>
             <div className="w-20 h-1 bg-[#ffffff]"></div>
             <div className="w-2 h-2 bg-[#ffffff] rotate-45"></div>
-          </div>
+          </div> */}
         </motion.div>
 
         {/* EMPTY STATE */}
