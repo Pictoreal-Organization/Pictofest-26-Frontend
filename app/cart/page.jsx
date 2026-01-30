@@ -261,35 +261,28 @@ const Cart = () => {
                         )}
 
                         <div className="flex items-end gap-2 px-2">
-                          <div className="flex flex-col items-end text-right min-w-[90px]">
+                          <div className="flex flex-col items-end">
+                            {isEarlyBirdDiscounted && (
+                              <span className="text-xs text-green-700 font-semibold">
+                                Early Bird Applied
+                              </span>
+                            )}
+
                             {isEarlyBirdDiscounted ? (
                               <>
-                                <span className="text-xs text-green-700 font-semibold">
-                                  Early Bird Applied
-                                </span>
-
                                 <span className="text-xs line-through text-gray-500">
                                   Rs. {baseTotalPrice}
                                 </span>
-
                                 <span className="body-font text-[#0e7490] font-bold text-sm">
                                   Rs. {discountedTotalPrice}
                                 </span>
                               </>
                             ) : (
-                              <>
-                                {/* Placeholder keeps height same */}
-                                <span className="text-xs opacity-0">Early Bird Applied</span>
-
-                                <span className="text-xs opacity-0">Rs. 000</span>
-
-                                <span className="body-font text-[#0e7490] font-bold text-sm">
-                                  Rs. {baseTotalPrice}
-                                </span>
-                              </>
+                              <span className="body-font text-[#0e7490] font-bold text-sm">
+                                Rs. {baseTotalPrice}
+                              </span>
                             )}
                           </div>
-
 
                           <button
                             onClick={() => handleDelete(item.id)}
@@ -298,6 +291,7 @@ const Cart = () => {
                             <Image width={18} height={18} src="/img/cart/cancel-icon.png" alt="Remove" />
                           </button>
                         </div>
+
 
                       </div>
                     </div>
