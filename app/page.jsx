@@ -8,6 +8,7 @@ import Events from "@/app/components/Events";
 import Footer from "@/app/components/Footer";
 import PrizePool from "./components/PrizePool";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const Home = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -77,6 +78,7 @@ const Home = () => {
             initial={{ scale: 0, rotate: 15 }}
             animate={{ scale: 1, rotate: -10 }}
             transition={{ type: "spring", stiffness: 260, damping: 20, delay: 1.5 }}
+            onClick={() => toast.info("Ask at Desk for Offers")}
           >
             <div className="relative group">
               <div className="absolute inset-0 bg-yellow-400 rounded-full blur-md opacity-40 animate-pulse"></div>
@@ -102,6 +104,7 @@ const Home = () => {
               x: { type: "spring", stiffness: 100 },
               opacity: { duration: 0.3 }
             }}
+            onClick={() => toast.info("Ask at Desk for Offers")}
           >
             <div className="relative flex items-center">
               {/* Glow effect */}
@@ -109,8 +112,8 @@ const Home = () => {
 
               <div className="relative bg-gradient-to-r from-red-600 to-orange-500 rounded-full py-2 px-4 shadow-lg border border-yellow-400/50 flex items-center gap-2">
                 <div className="flex flex-col">
-                  <span className="text-white font-bold text-[8px] uppercase leading-none">Early Bird</span>
-                  <span className="text-yellow-200 font-black text-[12px] uppercase leading-none">OFFER LIVE</span>
+                  <span className="text-white font-bold text-[8px] uppercase select-none pointer-events-none leading-none">Early Bird</span>
+                  <span className="text-yellow-200 font-black text-[12px] uppercase select-none pointer-events-none leading-none">OFFER LIVE</span>
                 </div>
                 {/* Small Pulsing Dot */}
                 <div className="w-2 h-2 bg-yellow-300 rounded-full animate-ping"></div>

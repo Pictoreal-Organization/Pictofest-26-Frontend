@@ -10,7 +10,7 @@ import { px } from "framer-motion";
 import AnimationLoader from "@/app/components/AnimationLoader";
 
 const Uploader = (props) => {
-  const { userEventId, photocopyNeeded, disableUpload} = props;
+  const { userEventId, photocopyNeeded, disableUpload } = props;
 
   const [image, setImage] = useState(null);
   const [fileName, setFileName] = useState("No file selected");
@@ -36,13 +36,13 @@ const Uploader = (props) => {
   //   }
   const handleUpload = async (e) => {
     e?.preventDefault?.();
-    
+
     // Add this check first
     if (disableUpload) {
       toast.error("Please enter your roll number first");
       return;
     }
-    
+
     if (!selectedFile) {
       toast.error("Please select a file first");
       return;
@@ -162,15 +162,15 @@ const Uploader = (props) => {
             accept="image/png,image/jpeg,image/jpg"
             className="hidden"
             // onChange={({ target: { files } }) => {
-              onChange={(e) => {
-                // Add this check first
-                if (disableUpload) {
-                  toast.error("Please enter your roll number first");
-                  return;
-                }
-                
-                const files = e.target.files;
-                if (files && files[0]) {
+            onChange={(e) => {
+              // Add this check first
+              if (disableUpload) {
+                toast.error("Please enter your roll number first");
+                return;
+              }
+
+              const files = e.target.files;
+              if (files && files[0]) {
                 const file = files[0];
 
                 const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
@@ -361,7 +361,7 @@ const Card = ({ event, disableUpload }) => {
 const Submission = () => {
   const [rollNo, setRollNo] = useState("");
   const [hasRollNo, setHasRollNo] = useState(false);
-  const [loadingUser, setLoadingUser] = useState(true); 
+  const [loadingUser, setLoadingUser] = useState(true);
   const [collegeType, setCollegeType] = useState("");
 
   const getRollStatus = async () => {
@@ -518,7 +518,7 @@ const Submission = () => {
           />
         </div>
 
-        {!loadingUser && !hasRollNo && (
+        {!loadingUser && collegeType === "PICT" && !hasRollNo && (
           <div className="relative z-20 w-[90%] md:w-[500px] mb-6 -mt-4 flex flex-col items-center gap-2">
 
             {/* Small helper text */}
