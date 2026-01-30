@@ -274,7 +274,7 @@ const Cart = () => {
           height={100}
           className="absolute bottom-15 left-5 block md:hidden z-20"
         />
-        <div className="relative w-[80%] md:w-[500px] lg:w-[450px] xl:w-[500px]  max-h-[85vh] flex flex-col p-6 bg-[#FFFCE0] rounded-3xl shadow-lg">
+        <div className="relative w-[80%] md:w-[500px] lg:w-[450px] xl:w-[500px]  max-h-[90vh] flex flex-col p-6 bg-[#FFFCE0] rounded-3xl shadow-lg">
           <div className="relative z-10 w-full h-full flex flex-col mt-2 px-1 md:px-4 py-4 pb-4">
             <h1 className="text-4xl md:text-6xl lg:text-5xl xl:text-6xl text-[#1f4e3d] text-center tracking-widest heading-font mb-6">
               CART
@@ -402,19 +402,23 @@ const Cart = () => {
               <input
                 value={earlyCode}
                 onChange={(e) => setEarlyCode(e.target.value)}
-                placeholder="Early Bird Code"
-                className="border px-3 py-2 rounded-md w-full"
+                placeholder={applied ? "" : "Early Bird Code"}
+                readOnly={applied}
+                className={`border px-3 py-2 rounded-md w-full ${applied ? "bg-gray-100 text-gray-600 cursor-not-allowed" : ""
+                  }`}
               />
+
               <button
-                disabled={!canApplyEarlyBird}
+                disabled={!canApplyEarlyBird || applied}
                 onClick={() => getAmount(earlyCode, cart)}
-                className={`px-4 rounded-md text-white ${canApplyEarlyBird
-                  ? "bg-green-600 hover:bg-green-700"
-                  : "bg-gray-400 cursor-not-allowed"
+                className={`px-4 rounded-md text-white ${!canApplyEarlyBird || applied
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-green-600 hover:bg-green-700"
                   }`}
               >
-                Apply
+                {applied ? "Applied" : "Apply"}
               </button>
+
 
             </div>
             {applied && amount.discounted_event_codes.length > 0 && (
