@@ -49,7 +49,7 @@ const Card = ({ payment }) => {
               <path
                 d="M 0 0 H 180 L 167 21 L 180 42 H 0 Z"
                 fill={
-                  payment.status === "APPROVED"
+                  payment.status === "ACCEPTED"
                     ? "#2C770B"
                     : payment.status === "PENDING"
                       ? "#ED7906"
@@ -59,7 +59,7 @@ const Card = ({ payment }) => {
               <path
                 d="M 3 3 H 177 L 164 21 L 177 39 H 3 Z"
                 fill={
-                  payment.status === "APPROVED"
+                  payment.status === "ACCEPTED"
                     ? "#23510E"
                     : payment.status === "PENDING"
                       ? "#D16800"
@@ -70,7 +70,7 @@ const Card = ({ payment }) => {
                 d="M 2 2 H 178 L 165 21 L 178 40 H 2 Z"
                 fill="none"
                 stroke={
-                  payment.status === "APPROVED"
+                  payment.status === "ACCEPTED"
                     ? "#5C9E3E"
                     : payment.status === "PENDING"
                       ? "#FFAE05"

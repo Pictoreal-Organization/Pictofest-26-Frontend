@@ -34,6 +34,35 @@ const Individual = () => {
     getData(eventId);
   }, [eventId]);
 
+  useEffect(() => {
+    // Handle hash navigation for Photography events
+    if (typeof window !== "undefined" && window.location.hash === "#bottom") {
+      // Small delay to ensure page is fully loaded
+      setTimeout(() => {
+        const isMobile = window.matchMedia("(max-width: 767px)").matches;
+        
+        if (isMobile) {
+          const el = document.getElementById("mobile-photocopy");
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            const y = window.scrollY + rect.top - 120;
+            window.scrollTo({ top: y, behavior: "smooth" });
+          }
+        } else {
+          if (photocopyCheckboxRef.current) {
+            photocopyCheckboxRef.current.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
+          }
+        }
+        
+        // Remove hash from URL after scrolling
+        window.history.replaceState(null, null, window.location.pathname);
+      }, 500);
+    }
+  }, [data]);
+
   const handleAddToCart = async () => {
     try {
       const payload = {
@@ -53,17 +82,40 @@ const Individual = () => {
     }
   };
 
+  // const handleScrollToCheckbox = () => {
+  //   if (typeof window === "undefined") return;
+
+  //   const isMobile = window.matchMedia("(max-width: 767px)").matches;
+
+  //   if (isMobile && data?.event_code === "PH") {
+  //     const el = document.getElementById("mobile-photocopy");
+  //     if (el) {
+  //       const rect = el.getBoundingClientRect();
+  //       const y = window.scrollY + rect.top - 120;
+
+  //       window.scrollTo({
+  //         top: y,
+  //         behavior: "smooth",
+  //       });
+  //       return;
+  //     }
+  //   }
+
+  //   // Desktop or non-PH: directly add to cart
+  //   handleAddToCart();
+  // };
+
   const handleScrollToCheckbox = () => {
     if (typeof window === "undefined") return;
-
+  
     const isMobile = window.matchMedia("(max-width: 767px)").matches;
-
+  
     if (isMobile && data?.event_code === "PH") {
       const el = document.getElementById("mobile-photocopy");
       if (el) {
         const rect = el.getBoundingClientRect();
         const y = window.scrollY + rect.top - 120;
-
+  
         window.scrollTo({
           top: y,
           behavior: "smooth",
@@ -71,8 +123,17 @@ const Individual = () => {
         return;
       }
     }
-
-    // Desktop or non-PH: directly add to cart
+  
+    // Desktop PH event: scroll to checkbox
+    if (!isMobile && data?.event_code === "PH" && photocopyCheckboxRef.current) {
+      photocopyCheckboxRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+      return;
+    }
+  
+    // Non-PH events: directly add to cart
     handleAddToCart();
   };
 
@@ -82,10 +143,17 @@ const Individual = () => {
 
   const descriptionContent = data?.description
     ? {
-      __html: data.description.replace(
-        /Fragments of Time/g,
-        '<span class="font-extrabold">Fragments of Time</span>'
-      ),
+      __html: data.description
+        .replace(/Fragments of Time/g, '<span class="font-extrabold">Fragments of Time</span>')
+        .replace(/no refund/gi, '<strong>no refund</strong>')
+        .replace(
+          /Everyday India./g,
+          '<span class="block text-center font-bold my-3">Everyday India</span>'
+        )
+        .replace(
+          /@Pictoreal/gi,
+          '<a href="https://www.instagram.com/pictoreal?igsh=ajM5Z2hwMWhrOXl3" target="_blank" rel="noopener noreferrer" class="text-[#E97400] font-bold underline hover:opacity-80 transition-opacity">@Pictoreal</a>'
+        ),
     }
     : null;
 
@@ -248,7 +316,8 @@ const Individual = () => {
                     </div>
                     <ul className="body-font font-medium text-base list-disc pl-5 text-left text-white space-y-2 w-full">
                       <li><strong>Venue:</strong> {data?.venue}</li>
-                      <li><strong>Date:</strong> {data?.event_date}</li>
+                      {/* <li><strong>Date:</strong> {data?.event_date}</li> */}
+                      <li><strong>{data?.event_code === "MM" ? "Last Date to Submit:" : "Date:"}</strong> {data?.event_date}</li>
                       <li><strong>Contact:</strong> {data?.contact_details?.name}</li>
                       <li><strong>Phone:</strong> {data?.contact_details?.phone}</li>
                       <li><strong>Team:</strong> {data?.team_category}</li>
@@ -281,9 +350,23 @@ const Individual = () => {
                     <Image src="/img/events/brown-border26.svg" alt="Line" fill className="object-contain" />
                   </div>
                   <ul className="body-font font-semibold text-[#572711] text-base text-left space-y-2 px-2">
-                    {Object.values(data.rules).map((rule, index) => (
+                    {/* {Object.values(data.rules).map((rule, index) => (
                       <li key={index}>{index + 1}. {rule}</li>
-                    ))}
+                    ))} */}
+
+                    {Object.values(data.rules).map((rule, index) => {
+                      // Process the rule text
+                      let processedRule = rule
+                        .replace(/no refund/gi, '<strong>no refund</strong>')
+                        .replace(
+                          /@Pictoreal/gi,
+                          '<a href="https://www.instagram.com/pictoreal?igsh=ajM5Z2hwMWhrOXl3" target="_blank" rel="noopener noreferrer" class="text-[#E97400] font-bold underline hover:opacity-80 transition-opacity">@Pictoreal</a>'
+                        );
+
+                      return (
+                        <li key={index} dangerouslySetInnerHTML={{ __html: `${index + 1}. ${processedRule}` }} />
+                      );
+                    })}
                   </ul>
                 </motion.div>
               )}
@@ -510,7 +593,8 @@ const Individual = () => {
                           </div>
                           <ul className="body-font font-medium text-lg list-disc pl-6 text-left text-white space-y-2 w-full mt-2">
                             <li><strong>Venue:</strong> {data?.venue}</li>
-                            <li><strong>Event Date:</strong> {data?.event_date}</li>
+                            {/* <li><strong>Event Date:</strong> {data?.event_date}</li> */}
+                            <li><strong>{data?.event_code === "MM" ? "Last Date to Submit:" : "Event Date:"}</strong> {data?.event_date}</li>
                             <li><strong>Contact:</strong> {data?.contact_details?.name}</li>
                             <li><strong>Phone:</strong> {data?.contact_details?.phone}</li>
                             <li><strong>Team:</strong> {data?.team_category}</li>
@@ -536,9 +620,24 @@ const Individual = () => {
                             Rules & How to Play
                           </div>
                           <ul className="body-font font-semibold text-[#572711] text-lg text-left space-y-2">
-                            {Object.values(data.rules).map((rule, index) => (
+                            {/* {Object.values(data.rules).map((rule, index) => (
                               <li key={index}>{index + 1}. {rule}</li>
-                            ))}
+                            ))} */}
+                            <ul className="body-font font-semibold text-[#572711] text-lg text-left space-y-2">
+                              {Object.values(data.rules).map((rule, index) => {
+                                // Process the rule text
+                                let processedRule = rule
+                                  .replace(/no refund/gi, '<strong>no refund</strong>')
+                                  .replace(
+                                    /@Pictoreal/gi,
+                                    '<a href="https://www.instagram.com/pictoreal?igsh=ajM5Z2hwMWhrOXl3" target="_blank" rel="noopener noreferrer" class="text-[#E97400] font-bold underline hover:opacity-80 transition-opacity">@Pictoreal</a>'
+                                  );
+
+                                return (
+                                  <li key={index} dangerouslySetInnerHTML={{ __html: `${index + 1}. ${processedRule}` }} />
+                                );
+                              })}
+                            </ul>
                           </ul>
                         </div>
                       )}

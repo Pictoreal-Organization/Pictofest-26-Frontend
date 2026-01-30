@@ -15,7 +15,26 @@ const EventCard = ({ data, index }) => {
     router.push(`/individual/${data.id}`);
   };
 
+  // const handleAddToCart = async () => {
+  //   try {
+  //     const response = await api.post(`/cart/`, { event_id: data.id });
+  //     toast.success(response.data.message);
+  //     if (!data?.price || data.price === 0) {
+  //       router.push("/order");
+  //     }
+  //   } catch (err) {
+  //     console.log(err.response.data.message);
+  //     toast.error(err.response.data.message);
+  //   }
+  // };
+
   const handleAddToCart = async () => {
+    // Navigate to individual page if event_code is "PH"
+    if (data?.event_code === "PH") {
+      router.push(`/individual/${data.id}#bottom`);
+      return;
+    }
+  
     try {
       const response = await api.post(`/cart/`, { event_id: data.id });
       toast.success(response.data.message);
@@ -27,6 +46,7 @@ const EventCard = ({ data, index }) => {
       toast.error(err.response.data.message);
     }
   };
+
 
   const isOddIndex = index % 2 !== 0;
 
@@ -117,6 +137,8 @@ const EventCard = ({ data, index }) => {
             </div>
           </div>
         </div>
+
+
 
         {/* Buttons*/}
         <div className="relative z-10 w-full h-full">

@@ -27,9 +27,22 @@ const Uploader = (props) => {
   const limit = photocopyNeeded ? MAX_PHOTO : MAX_NORMAL;
 
   const inputRef = useRef(null);
+  // const handleUpload = async (e) => {
+  //   e?.preventDefault?.();
+
+  //   if (!selectedFile) {
+  //     toast.error("Please select a file first");
+  //     return;
+  //   }
   const handleUpload = async (e) => {
     e?.preventDefault?.();
-
+    
+    // Add this check first
+    if (disableUpload) {
+      toast.error("Please enter your roll number first");
+      return;
+    }
+    
     if (!selectedFile) {
       toast.error("Please select a file first");
       return;
@@ -53,7 +66,7 @@ const Uploader = (props) => {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-        timeout: 120000,
+        timeout: 300000,
         // ✅ Add progress tracking
         onUploadProgress: (progressEvent) => {
           const percentCompleted = Math.round(
@@ -168,8 +181,16 @@ const Uploader = (props) => {
             type="file"
             accept="image/png,image/jpeg,image/jpg"
             className="hidden"
-            onChange={({ target: { files } }) => {
-              if (files && files[0]) {
+            // onChange={({ target: { files } }) => {
+              onChange={(e) => {
+                // Add this check first
+                if (disableUpload) {
+                  toast.error("Please enter your roll number first");
+                  return;
+                }
+                
+                const files = e.target.files;
+                if (files && files[0]) {
                 const file = files[0];
 
                 const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
@@ -272,6 +293,7 @@ const Uploader = (props) => {
           <button
             className="w-full bg-[#8B260D] text-[#FFE3BE] text-sm md:text-base font-bold sub-heading-font py-2 rounded-full active:translate-y-[4px] hover:scale-105 transition-all"
             type="button"
+            disabled={disableUpload}
             onClick={handleUpload}
           >
             Upload
@@ -363,6 +385,7 @@ const Submission = () => {
   const getRollStatus = async () => {
     try {
       const res = await api.get("/user/roll-status");
+      setCollegeType(res.data.data.college_type || ""); // ✅ Store college type
       if (res.data.data.hasRollNo) {
         setHasRollNo(true);
         setRollNo(res.data.data.roll_no);
@@ -491,7 +514,7 @@ const Submission = () => {
                 href="https://wa.me/9145799399"
                 className="hover:text-[#8B260D] transition-colors"
               >
-                Bhagyashree +91 9145799399
+                Bhagyashree : +91 9145799399
               </Link>
             </div>
           </div>
@@ -573,7 +596,7 @@ const Submission = () => {
               <Card
                 key={event.fk_event}
                 event={event}
-                disableUpload={!hasRollNo}
+                disableUpload={collegeType === "PICT" && !hasRollNo}
               />
             ))}
 
