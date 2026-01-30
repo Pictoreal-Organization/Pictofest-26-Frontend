@@ -14,7 +14,7 @@ const CategoryBoard = ({ title, events, waLinks, themeColor }) => {
   if (!events || events.length === 0) return null;
 
   const getWaLink = (eventId) => waLinks.find((link) => link.id === eventId)?.wa_link;
-  
+
   return (
     <motion.div
       initial={{ y: 30, opacity: 0 }}
@@ -24,18 +24,18 @@ const CategoryBoard = ({ title, events, waLinks, themeColor }) => {
       className="w-full max-w-5xl mx-auto mb-16"
     >
       {/* --- HEADER --- */}
-      <div 
+      <div
         className="relative rounded-t-lg shadow-md border-x-4 border-t-4"
-        style={{ 
-          backgroundColor: themeColor, 
-          borderColor: themeColor 
+        style={{
+          backgroundColor: themeColor,
+          borderColor: themeColor
         }}
       >
         <div className="absolute top-0 left-0 w-4 h-4 bg-black/20"></div>
         <div className="absolute top-0 right-0 w-4 h-4 bg-black/20"></div>
 
         <div className="flex items-center justify-between px-4 py-4 md:px-6 md:py-5 relative z-10 text-[#FDEEAE]">
-          
+
           {/* LEFT: WhatsApp button moved to individual rows */}
           {/* <div className="flex-shrink-0 w-1/3 text-left">
              <FaTicketAlt className="text-xl md:text-2xl opacity-40" />
@@ -55,7 +55,7 @@ const CategoryBoard = ({ title, events, waLinks, themeColor }) => {
         </div>
 
         {/* Zig-Zag Bottom Edge */}
-        <div 
+        <div
           className="h-4 w-full absolute -bottom-3 left-0 z-20"
           style={{
             backgroundColor: themeColor,
@@ -65,7 +65,7 @@ const CategoryBoard = ({ title, events, waLinks, themeColor }) => {
       </div>
 
       {/* --- BODY --- */}
-      <div 
+      <div
         className="bg-[#FECF8D] border-x-4 border-b-4 rounded-b-lg pt-6 pb-2 px-2 md:px-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.2)]"
         style={{ borderColor: themeColor }}
       >
@@ -75,8 +75,8 @@ const CategoryBoard = ({ title, events, waLinks, themeColor }) => {
             const itemWaLink = getWaLink(event.id);
 
             return (
-              <div 
-                key={event.id} 
+              <div
+                key={event.id}
                 className="group/row flex items-center justify-between py-3 md:py-4 px-3 transition-colors duration-300 rounded-md"
                 style={{
                   borderBottom: index !== events.length - 1 ? `2px dashed ${themeColor}40` : 'none',
@@ -97,7 +97,7 @@ const CategoryBoard = ({ title, events, waLinks, themeColor }) => {
                     </span>
                   </div> */}
                   <Link href={`/individual/${event.id}`}>
-                    <h3 
+                    <h3
                       className="sub-heading-font text-lg md:text-2xl uppercase transition-colors cursor-pointer"
                       style={{ color: themeColor }}
                       onMouseEnter={(e) => e.currentTarget.style.opacity = '0.7'}
@@ -112,33 +112,43 @@ const CategoryBoard = ({ title, events, waLinks, themeColor }) => {
                 <div className="flex items-center gap-3">
 
                   {/* NEW: Google Form Icon specifically for MM */}
-  {event.event_code === "MM" && (
-    <a 
-      href="https://docs.google.com/forms/d/e/1FAIpQLSf3efK3cl7RPWH3ych4aauLH82lfa1DInOmheX21oriW6kDPA/viewform" 
-      target="_blank" 
-      rel="noreferrer" 
-      title="Fill Submission Form"
-    >
-      <div 
-        className="p-2 rounded-full border-2 transition-transform hover:scale-110 flex items-center justify-center cursor-pointer bg-white"
-        style={{ borderColor: "#7248B9", color: "#7248B9" }}
-      >
-        {/* Google Form SVG Icon */}
-        <svg 
-          width="20" 
-          height="20" 
-          viewBox="0 0 24 24" 
-          fill="none" 
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM14 17H7V15H14V17ZM17 13H7V11H17V13ZM17 9H7V7H17V9Z" fill="currentColor"/>
-        </svg>
-      </div>
-    </a>
-  )}
+                  {event.event_code === "MM" && (
+                    <div className="flex flex-col items-center gap-1">
+                      <a
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSf3efK3cl7RPWH3ych4aauLH82lfa1DInOmheX21oriW6kDPA/viewform"
+                        target="_blank"
+                        rel="noreferrer"
+                        title="Fill Submission Form"
+                        className="flex flex-col items-center group"
+                      >
+                        <div
+                          className="p-2 rounded-full border-2 transition-transform group-hover:scale-110 flex items-center justify-center cursor-pointer bg-white"
+                          style={{ borderColor: "#7248B9", color: "#7248B9" }}
+                        >
+                          {/* Google Form SVG Icon */}
+                          <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM14 17H7V15H14V17ZM17 13H7V11H17V13ZM17 9H7V7H17V9Z" fill="currentColor" />
+                          </svg>
+                        </div>
+                        <span
+                          className="text-[10px] md:text-xs font-bold leading-tight text-center uppercase"
+                          style={{ color: "#7248B9" }}
+                        >
+                          Fill this form
+                        </span>
+                      </a>
+                    </div>
+                  )}
+
                   {itemWaLink && (
                     <a href={itemWaLink} target="_blank" rel="noreferrer" title="Join WhatsApp Group">
-                      <div 
+                      <div
                         className="p-2 rounded-full border-2 transition-transform hover:scale-110 flex items-center justify-center cursor-pointer"
                         style={{ borderColor: "#25D366", color: "#25D366", backgroundColor: "white" }}
                       >
@@ -151,9 +161,9 @@ const CategoryBoard = ({ title, events, waLinks, themeColor }) => {
                   <Link href={`/individual/${event.id}`}>
                     <div
                       className="bg-transparent border-2 rounded px-3 py-1 md:px-4 md:py-1 sub-heading-font text-xs md:text-sm transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer"
-                      style={{ 
-                        borderColor: themeColor, 
-                        color: themeColor 
+                      style={{
+                        borderColor: themeColor,
+                        color: themeColor
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.backgroundColor = themeColor;
@@ -221,7 +231,7 @@ const Order = () => {
 
   return (
     <div className="relative min-h-screen w-full overflow-x-hidden text-[#644817]">
-      
+
       {/* BACKGROUND */}
       <div className="fixed top-0 left-0 w-full h-screen -z-10">
         <div className="block md:hidden w-full h-full relative">
@@ -246,9 +256,9 @@ const Order = () => {
 
       {/* CONTENT */}
       <div className="relative z-10 container mx-auto px-4 py-8 flex flex-col items-center">
-        
+
         {/* PAGE TITLE */}
-        <motion.div 
+        <motion.div
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           className="flex flex-col items-center justify-center mt-8 mb-16"
@@ -267,7 +277,7 @@ const Order = () => {
         {!shouldDisplaySection(picsoreel) &&
           !shouldDisplaySection(workshops) &&
           !shouldDisplaySection(events) && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               className="text-center p-12 bg-[#FECF8D]/90 border-4 border-dashed border-[#644817] rounded-xl shadow-xl max-w-xl"
@@ -279,56 +289,56 @@ const Order = () => {
                 Go explore the events page!
               </p>
             </motion.div>
-        )}
+          )}
 
         {/* BOARDS */}
         <div className="w-full">
-          
+
           {shouldDisplaySection(picsoreel) && (
-            <CategoryBoard 
-              title="Pics-O-Reel" 
-              events={picsoreel} 
+            <CategoryBoard
+              title="Pics-O-Reel"
+              events={picsoreel}
               waLinks={waLinks}
-              themeColor="#3CB2CC" 
+              themeColor="#3CB2CC"
             />
           )}
 
           {shouldDisplaySection(workshops) && (
-            <CategoryBoard 
-              title="Workshops" 
-              events={workshops} 
+            <CategoryBoard
+              title="Workshops"
+              events={workshops}
               waLinks={waLinks}
-              themeColor="#F069AE" 
+              themeColor="#F069AE"
             />
           )}
 
           {shouldDisplaySection(events) && (
-            <CategoryBoard 
-              title="Events" 
-              events={events} 
+            <CategoryBoard
+              title="Events"
+              events={events}
               waLinks={waLinks}
-              themeColor="#fa6720" 
+              themeColor="#fa6720"
             />
           )}
 
         </div>
 
         {/* --- FOOTER ACTIONS --- */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-8 w-full"
         >
           <Link href="/submission">
             <button className="bg-[#AAB31A] hover:bg-[#8e9616] text-[#644817] sub-heading-font px-8 py-3 rounded-lg shadow-[4px_4px_0px_0px_#644817] border-2 border-[#644817] hover:translate-y-1 hover:shadow-[2px_2px_0px_0px_#644817] transition-all flex items-center gap-3">
-              <FaFileUpload className="text-xl" /> 
+              <FaFileUpload className="text-xl" />
               <span>MY SUBMISSIONS</span>
             </button>
           </Link>
 
           <Link href="/payment/history">
             <button className="bg-[#AAB31A] hover:bg-[#8e9616] text-[#644817] sub-heading-font px-8 py-3 rounded-lg shadow-[4px_4px_0px_0px_#644817] border-2 border-[#644817] hover:translate-y-1 hover:shadow-[2px_2px_0px_0px_#644817] transition-all flex items-center gap-3">
-              <FaHistory className="text-xl" /> 
+              <FaHistory className="text-xl" />
               <span>MY PAYMENTS</span>
             </button>
           </Link>
