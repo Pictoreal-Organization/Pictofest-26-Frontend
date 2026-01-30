@@ -189,7 +189,7 @@ const AboutContent = ({ desktop = false }) => {
         <p className="hidden md:block text-base lg:text-xl leading-relaxed">
           Pictoreal is a non-technical club at PICT that curates and publishes the annual PICT magazine, built around a unique theme each year. Beyond the magazine, Pictoreal organizes a range of creative initiatives and events that encourage artistic expression and collaboration. Through these activities, members gain practical experience in areas such as content creation, design thinking, event coordination, public speaking, and teamwork.
           <br />
-          Pictoreal also believes in using creativity as a tool for positive impact and  through Pict Social  - a subdivision of Pictoreal, actively promotes social awareness through its initiatives. At its core, the club aims to nurture creativity, confidence, and collaboration, empowering students to explore and develop their creative potential.
+          Pictoreal also believes in using creativity as a tool for positive impact and  through PictoSocial  - a subdivision of Pictoreal, actively promotes social awareness through its initiatives. At its core, the club aims to nurture creativity, confidence, and collaboration, empowering students to explore and develop their creative potential.
         </p>
       </motion.div>
     </motion.div>
