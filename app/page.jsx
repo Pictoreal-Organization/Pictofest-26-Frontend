@@ -112,8 +112,8 @@ const Home = () => {
 
               <div className="relative bg-gradient-to-r from-red-600 to-orange-500 rounded-full py-2 px-4 shadow-lg border border-yellow-400/50 flex items-center gap-2">
                 <div className="flex flex-col">
-                  <span className="text-white font-bold text-[8px] uppercase leading-none">Early Bird</span>
-                  <span className="text-yellow-200 font-black text-[12px] uppercase leading-none">OFFER LIVE</span>
+                  <span className="text-white font-bold text-[8px] uppercase select-none pointer-events-none leading-none">Early Bird</span>
+                  <span className="text-yellow-200 font-black text-[12px] uppercase select-none pointer-events-none leading-none">OFFER LIVE</span>
                 </div>
                 {/* Small Pulsing Dot */}
                 <div className="w-2 h-2 bg-yellow-300 rounded-full animate-ping"></div>
