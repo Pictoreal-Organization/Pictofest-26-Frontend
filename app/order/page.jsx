@@ -332,7 +332,7 @@ const Order = () => {
           <Link href="/submission">
             <button className="bg-[#AAB31A] hover:bg-[#8e9616] text-[#644817] sub-heading-font px-8 py-3 rounded-lg shadow-[4px_4px_0px_0px_#644817] border-2 border-[#644817] hover:translate-y-1 hover:shadow-[2px_2px_0px_0px_#644817] transition-all flex items-center gap-3">
               <FaFileUpload className="text-xl" />
-              <span>MY SUBMISSIONS</span>
+              <span>MY ENTRIES</span>
             </button>
           </Link>
 
