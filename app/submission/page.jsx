@@ -21,8 +21,6 @@ const Uploader = (props) => {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0); // ✅ Add this
 
-  const [collegeType, setCollegeType] = useState("");
-
   const MAX_NORMAL = 10 * 1024 * 1024; // 10MB
   const MAX_PHOTO = 15 * 1024 * 1024; // 15MB
 
@@ -363,7 +361,8 @@ const Card = ({ event, disableUpload }) => {
 const Submission = () => {
   const [rollNo, setRollNo] = useState("");
   const [hasRollNo, setHasRollNo] = useState(false);
-  const [loadingUser, setLoadingUser] = useState(true);
+  const [loadingUser, setLoadingUser] = useState(true); 
+  const [collegeType, setCollegeType] = useState("");
 
   const getRollStatus = async () => {
     try {
