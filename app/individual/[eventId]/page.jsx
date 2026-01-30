@@ -303,10 +303,10 @@ const Individual = () => {
   <>
     <text
       x="160"
-      y="35"
+      y="32"
       textAnchor="middle"
       fill="white"
-      fontSize="14"
+      fontSize="20"
       fontWeight="700"
       letterSpacing="1"
       className="sub-heading-font"
@@ -315,10 +315,10 @@ const Individual = () => {
     </text>
     <text
       x="160"
-      y="52"
+      y="54"
       textAnchor="middle"
       fill="white"
-      fontSize="14"
+      fontSize="17"
       fontWeight="700"
       letterSpacing="1"
       className="sub-heading-font"
@@ -494,12 +494,12 @@ const Individual = () => {
               {workshopImage &&
                 data?.event_category?.toUpperCase() === "WORKSHOP" && (
                   <div className="flex justify-center mt-4">
-                    <div className="relative w-full max-w-[260px] h-[260px] border-4 rounded-xl border-[#E97400] overflow-hidden">
+                    <div className="relative w-full max-w-[280px] aspect-square border-4 rounded-xl border-[#E97400] overflow-hidden bg-[#fbbd7f]/30">
                       <Image
                         src={workshopImage}
                         alt="Workshop"
                         fill
-                        className="object-cover"
+                        className="object-contain"
                       />
                     </div>
                   </div>
