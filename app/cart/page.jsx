@@ -280,7 +280,7 @@ const Cart = () => {
               CART
             </h1>
 
-            <div className="flex-grow w-full max-h-[300px] overflow-y-auto pr-2 custom-scrollbar space-y-4">
+            <div className="flex-grow w-full max-h-[250px] overflow-y-auto pr-2 custom-scrollbar space-y-4">
 
               {cart.length > 0 ? (
                 cart.map((item) => {
@@ -418,7 +418,7 @@ const Cart = () => {
 
             </div>
             {applied && amount.discounted_event_codes.length > 0 && (
-              <p className="text-green-700 text-sm">Early Bird applied 🎉</p>
+              <p className="text-green-700 text-sm">Early Bird applied</p>
             )}
             <div className="text-center mb-4">
               <h2 className="body-font text-2xl md:text-3xl font-extrabold text-[#1a1a1a]">
