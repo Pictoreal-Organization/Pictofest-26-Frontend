@@ -10,7 +10,7 @@ import { px } from "framer-motion";
 import AnimationLoader from "@/app/components/AnimationLoader";
 
 const Uploader = (props) => {
-  const { id, photocopyNeeded } = props;
+  const { userEventId, photocopyNeeded } = props;
 
   const [image, setImage] = useState(null);
   const [fileName, setFileName] = useState("No file selected");
@@ -49,7 +49,7 @@ const Uploader = (props) => {
       const formData = new FormData();
       formData.set("file", selectedFile);
 
-      const response = await api.post(`/uploadImage/${id}`, formData, {
+      const response = await api.post(`/uploadImage/${userEventId}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -333,7 +333,7 @@ const Card = ({ event, disableUpload }) => {
             </div>
           ) : (
             <Uploader
-              id={event.fk_event}
+              userEventId={event.id}
               photocopyNeeded={event.photocopy_needed}
             />
           )
@@ -359,7 +359,7 @@ const Submission = () => {
   const [rollNo, setRollNo] = useState("");
   const [hasRollNo, setHasRollNo] = useState(false);
   const [loadingUser, setLoadingUser] = useState(true);
-  
+
   const getRollStatus = async () => {
     try {
       const res = await api.get("/user/roll-status");
@@ -373,7 +373,7 @@ const Submission = () => {
       setLoadingUser(false);
     }
   };
-  
+
 
   // Mock Data
   const [events, setEvents] = useState();
@@ -400,7 +400,7 @@ const Submission = () => {
     getRollStatus();
     getEvents();
   }, []);
-  
+
 
   return (
     // Main Page Wrapper
@@ -514,52 +514,52 @@ const Submission = () => {
         </div>
 
         {!loadingUser && !hasRollNo && (
-  <div className="relative z-20 w-[90%] md:w-[500px] mb-6 -mt-4 flex flex-col items-center gap-2">
+          <div className="relative z-20 w-[90%] md:w-[500px] mb-6 -mt-4 flex flex-col items-center gap-2">
 
-    {/* Small helper text */}
-    <p className="text-xs md:text-sm body-font font-semibold text-[#572813] opacity-90">
-      Enter roll number to proceed
-    </p>
+            {/* Small helper text */}
+            <p className="text-xs md:text-sm body-font font-semibold text-[#572813] opacity-90">
+              Enter roll number to proceed
+            </p>
 
-    {/* Roll number pill */}
-    <div className="w-full flex items-center gap-3 
+            {/* Roll number pill */}
+            <div className="w-full flex items-center gap-3 
                     bg-[#FFE3BE] border border-[#572813] 
                     rounded-full px-4 py-2 shadow-md">
 
-      <span className="text-xs md:text-sm body-font font-semibold text-[#572813] whitespace-nowrap">
-        Roll No:
-      </span>
+              <span className="text-xs md:text-sm body-font font-semibold text-[#572813] whitespace-nowrap">
+                Roll No:
+              </span>
 
-      <input
-        type="text"
-        value={rollNo}
-        onChange={(e) => setRollNo(e.target.value)}
-        className="flex-1 bg-transparent outline-none body-font text-sm "
-      />
+              <input
+                type="text"
+                value={rollNo}
+                onChange={(e) => setRollNo(e.target.value)}
+                className="flex-1 bg-transparent outline-none body-font text-sm "
+              />
 
-      <button
-        className="shrink-0 bg-[#8B260D] text-[#FFE3BE] px-4 py-1.5 
+              <button
+                className="shrink-0 bg-[#8B260D] text-[#FFE3BE] px-4 py-1.5 
                    rounded-full text-xs md:text-sm font-bold 
                    hover:scale-105 transition-all"
-        onClick={async () => {
-          if (!rollNo.trim()) {
-            toast.error("Please enter roll number");
-            return;
-          }
-          try {
-            await api.put("/user/update-roll", { roll_no: rollNo });
-            toast.success("Roll number saved");
-            setHasRollNo(true);
-          } catch (err) {
-            toast.error(err.response?.data?.message || err.message);
-          }
-        }}
-      >
-        Enter
-      </button>
-    </div>
-  </div>
-)}
+                onClick={async () => {
+                  if (!rollNo.trim()) {
+                    toast.error("Please enter roll number");
+                    return;
+                  }
+                  try {
+                    await api.put("/user/update-roll", { roll_no: rollNo });
+                    toast.success("Roll number saved");
+                    setHasRollNo(true);
+                  } catch (err) {
+                    toast.error(err.response?.data?.message || err.message);
+                  }
+                }}
+              >
+                Enter
+              </button>
+            </div>
+          </div>
+        )}
 
 
 
