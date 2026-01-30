@@ -180,8 +180,7 @@ const Individual = () => {
     {
       id: 1,
       name: "Everyday Chaos",
-      concept:
-        "Create memes based on everyday life situations that feel overly dramatic — daily struggles, family drama, small problems, epic reactions.",
+      concept: "Create memes based on everyday life situations that feel overly dramatic, daily struggles, family drama, small problems, epic reactions.",
       mediaUrl: "/img/events/meme_making/everyday_chaos.png",
       example:
         "When you swear you checked everywhere, and your mom proves you wrong in two seconds.",
@@ -229,7 +228,7 @@ const Individual = () => {
         {/* Desktop Background */}
         <div className="hidden md:block w-full h-full relative">
           <Image
-            src="/img/home/desktop-bg.png"
+            src="/img/common/desktop-bg.png"
             alt="Desktop Background"
             fill
             className="object-cover"
@@ -755,17 +754,11 @@ const Individual = () => {
                   {/* RIGHT COLUMN - Rules */}
                   <div className="flex-1 flex flex-col">
                     <div className="flex-grow">
-                      {workshopImage &&
-                        data?.event_category?.toUpperCase() === "WORKSHOP" && (
-                          <div className="relative w-auto p-2 min-h-[365px] border-4 rounded-xl border-[#E97400] overflow-hidden mb-6">
-                            <Image
-                              src={workshopImage}
-                              alt="Workshop"
-                              fill
-                              className="object-cover"
-                            />
-                          </div>
-                        )}
+                      {workshopImage && data?.event_category?.toUpperCase() === "WORKSHOP" && (
+                        <div className="relative w-auto p-2 min-h-[365px] border-4 rounded-xl border-[#E97400] bg-[#fbbd7f] overflow-hidden mb-6">
+                          <Image src={workshopImage} alt="Workshop" fill className="object-contain" />
+                        </div>
+                      )}
 
                       {data?.rules && Object.keys(data.rules).length !== 0 && (
                         <div className="flex flex-col">

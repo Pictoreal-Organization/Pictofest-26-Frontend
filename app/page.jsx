@@ -7,8 +7,10 @@ import About from "@/app/components/About";
 import Events from "@/app/components/Events";
 import Footer from "@/app/components/Footer";
 import PrizePool from "./components/PrizePool";
+import { useState } from "react";
 
 const Home = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
   useEffect(() => {
     const CURRENT_DB_VERSION = "2.0";
     const storedVersion = localStorage.getItem("dbVersion");
@@ -17,6 +19,13 @@ const Home = () => {
       sessionStorage.clear();
       localStorage.setItem("dbVersion", CURRENT_DB_VERSION);
     }
+
+    const handleScroll = () => {
+      // Hide the badge after scrolling 50px
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -61,6 +70,54 @@ const Home = () => {
       <div className="relative h-screen flex flex-col justify-start items-center pt-24 lg:pt-32">
         {/* --- A. LOGO WRAPPER --- */}
         <div className="relative z-20 flex flex-col items-center gap-2">
+          {/* --- EARLY BIRD FLOATING BADGE --- */}
+          {/* Desktop: Top Right of Logo */}
+          <motion.div
+            className="hidden md:block absolute -right-20 -top-12 z-30"
+            initial={{ scale: 0, rotate: 15 }}
+            animate={{ scale: 1, rotate: -10 }}
+            transition={{ type: "spring", stiffness: 260, damping: 20, delay: 1.5 }}
+          >
+            <div className="relative group">
+              <div className="absolute inset-0 bg-yellow-400 rounded-full blur-md opacity-40 animate-pulse"></div>
+              <div className="relative bg-gradient-to-br from-yellow-400 via-amber-500 to-orange-600 rounded-full p-1 shadow-2xl">
+                <div className="bg-gradient-to-br from-red-500 to-pink-600 rounded-full px-6 py-5 flex flex-col items-center justify-center min-w-[130px] border-2 border-yellow-200/20">
+                  <span className="text-white font-bold text-[11px] uppercase tracking-widest leading-none drop-shadow-md">Early Bird</span>
+                  <span className="text-yellow-300 font-black text-2xl uppercase italic leading-none mt-1 drop-shadow-lg">OFFER!</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Mobile: Floating Bottom Left (Avoiding Hamburger & Ribbon) */}
+          <motion.div
+            className="md:hidden fixed bottom-50 left-4 z-[100]"
+            initial={{ x: -100, opacity: 0 }}
+            /* This part handles the hiding on scroll */
+            animate={{
+              x: isScrolled ? -100 : 0,
+              opacity: isScrolled ? 0 : 1
+            }}
+            transition={{
+              x: { type: "spring", stiffness: 100 },
+              opacity: { duration: 0.3 }
+            }}
+          >
+            <div className="relative flex items-center">
+              {/* Glow effect */}
+              <div className="absolute inset-0 bg-orange-600 rounded-full blur-lg opacity-50 animate-pulse"></div>
+
+              <div className="relative bg-gradient-to-r from-red-600 to-orange-500 rounded-full py-2 px-4 shadow-lg border border-yellow-400/50 flex items-center gap-2">
+                <div className="flex flex-col">
+                  <span className="text-white font-bold text-[8px] uppercase leading-none">Early Bird</span>
+                  <span className="text-yellow-200 font-black text-[12px] uppercase leading-none">OFFER LIVE</span>
+                </div>
+                {/* Small Pulsing Dot */}
+                <div className="w-2 h-2 bg-yellow-300 rounded-full animate-ping"></div>
+              </div>
+            </div>
+          </motion.div>
+
           {/* 1. Ribbon */}
           <div className="w-64 md:w-80 transition-transform hover:scale-105 duration-500">
             <Image
