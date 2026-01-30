@@ -596,6 +596,7 @@ import { Fade } from "react-awesome-reveal";
 const BannerEventCard = ({
   title,
   description,
+  mobileDescription,
   link,
   bannerImage,
   mobileBannerImage,
@@ -646,8 +647,17 @@ const BannerEventCard = ({
           {title}
         </h2>
 
-        <p className="body-font font-bold text-xs md:text-base text-[#4E3506] leading-snug md:leading-relaxed line-clamp-3 md:line-clamp-none">
-          {description}
+        <p className="body-font font-bold text-xs md:text-base text-[#4E3506] leading-snug md:leading-relaxed">
+          
+          {/* Mobile Description */}
+          <span className="block md:hidden">
+            {mobileDescription || description}
+          </span>
+
+          {/* Desktop Description */}
+          <span className="hidden md:block">
+            {description}
+          </span>
         </p>
 
         <Link
@@ -687,7 +697,8 @@ const EventsCard = () => {
       >
         <BannerEventCard
           title="PICS-O-REEL"
-          description="Step into the world of art with Picsoreel's art exhibitions! Showcasing stunning works from talented artists."
+          description="Pics-o-Reel is an art exhibition and competition where creative works are displayed. The winners are decided through a voting process involving the audience."
+          mobileDescription="Pics-o-Reel is an art exhibition and competition where creative works are displayed."
           link="/picsoreel"
           bannerImage="/img/events/events-card-26-picso.png"
           mobileBannerImage="/img/events/events-card-26-picso-mobile.png"
@@ -718,7 +729,8 @@ const EventsCard = () => {
       >
         <BannerEventCard
           title="WORKSHOPS"
-          description="Discover the joy of creating with our workshops! Perfect for beginners and experienced artists alike."
+          description="Workshops focus on fun and creative engagement across different art-related themes. They are designed to be interactive and enjoyable for everyone."
+          mobileDescription="Workshops focus on fun and creative engagement across different art-related themes."
           link="/workshops"
           bannerImage="/img/events/events-card-26-workshops.png"
           mobileBannerImage="/img/events/events-card-26-workshops-mobile.png"
@@ -753,7 +765,8 @@ const EventsCard = () => {
       >
         <BannerEventCard
           title="EVENTS"
-          description="Enhance your creativity with our events! Join us to connect, learn, and be inspired."
+          description="Events include a range of fun and creative activities. They aim to encourage participation and create an engaging atmosphere throughout."
+          mobileDescription="Events include a range of fun and creative activities."
           link="/events"
           bannerImage="/img/events/events-card-26-events.png"
           mobileBannerImage="/img/events/events-card-26-events-mobile.png"
