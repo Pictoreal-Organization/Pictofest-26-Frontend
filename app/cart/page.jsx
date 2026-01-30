@@ -61,7 +61,7 @@ const Cart = () => {
     }
   };
 
-  const EARLY_BIRD_EVENTS = ["LRP", "PCF"]; // same as backend
+  const EARLY_BIRD_EVENTS = ["LRP", "PCF", "PCFI"]; // same as backend
 
   const canApplyEarlyBird = cart.some(item =>
     EARLY_BIRD_EVENTS.includes(item.event_code)
@@ -84,10 +84,13 @@ const Cart = () => {
       const saved = localStorage.getItem("early_code");
 
       if (saved && currentCart.length > 0) {
+        setEarlyCode(saved);          // ✅ THIS WAS MISSING
         await getAmount(saved, currentCart);
       } else {
+        setEarlyCode("");
         await getAmount(null, currentCart);
       }
+
     };
 
     init();
@@ -412,8 +415,8 @@ const Cart = () => {
                 disabled={!canApplyEarlyBird || applied}
                 onClick={() => getAmount(earlyCode, cart)}
                 className={`px-4 rounded-md text-white ${!canApplyEarlyBird || applied
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-green-600 hover:bg-green-700"
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-green-600 hover:bg-green-700"
                   }`}
               >
                 {applied ? "Applied" : "Apply"}
