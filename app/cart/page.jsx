@@ -98,10 +98,11 @@ const Cart = () => {
 
 
 
-  const handleDelete = async (eventId) => {
+  const handleDelete = async (eventId, photocopyNeeded) => {
     try {
       const response = await api.delete(`/cart/`, {
         data: { event_id: eventId },
+        photocopy_needed: photocopyNeeded,
       });
 
       toast.success(response.data.message || "Item updated");
@@ -377,7 +378,7 @@ const Cart = () => {
                           </div>
 
                           <button
-                            onClick={() => handleDelete(item.id)}
+                            onClick={() => handleDelete(item.id, item.photocopy_needed)}
                             className="hover:scale-110 transition-transform"
                           >
                             <Image width={18} height={18} src="/img/cart/cancel-icon.png" alt="Remove" />
