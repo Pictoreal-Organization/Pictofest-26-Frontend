@@ -416,7 +416,7 @@ const EventCard = ({ data, index }) => {
                   className="object-contain group-hover:opacity-90 transition-opacity"
                 />
                 <div className="absolute inset-0 z-10 flex items-center justify-center">
-                  <span className="text-white sub-heading-font flex items-center justify-center text-xs md:text-xs lg:text-xs whitespace-nowrap">
+                  <span className="text-white select-none pointer-events-none sub-heading-font flex items-center justify-center text-xs md:text-xs lg:text-xs whitespace-nowrap">
                     Read More
                   </span>
                 </div>
@@ -531,7 +531,7 @@ const EventCard = ({ data, index }) => {
                   className="object-contain group-hover:opacity-90 transition-opacity"
                 />
                 <div className="absolute inset-0 z-10 flex items-center justify-center">
-                  <span className="text-white sub-heading-font flex items-center justify-center text-[8px] sm:text-[10px] whitespace-nowrap">
+                  <span className="text-white select-none pointer-events-none sub-heading-font flex items-center justify-center text-[8px] sm:text-[10px] whitespace-nowrap">
                     Read More
                   </span>
                 </div>
