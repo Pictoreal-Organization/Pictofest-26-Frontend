@@ -91,7 +91,7 @@ const Home = () => {
 
           {/* Mobile: Floating Bottom Left (Avoiding Hamburger & Ribbon) */}
           <motion.div
-            className="md:hidden fixed bottom-6 left-4 z-[100]"
+            className="md:hidden fixed bottom-50 left-4 z-[100]"
             initial={{ x: -100, opacity: 0 }}
             /* This part handles the hiding on scroll */
             animate={{
