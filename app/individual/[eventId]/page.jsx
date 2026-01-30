@@ -34,6 +34,35 @@ const Individual = () => {
     getData(eventId);
   }, [eventId]);
 
+  useEffect(() => {
+    // Handle hash navigation for Photography events
+    if (typeof window !== "undefined" && window.location.hash === "#bottom") {
+      // Small delay to ensure page is fully loaded
+      setTimeout(() => {
+        const isMobile = window.matchMedia("(max-width: 767px)").matches;
+        
+        if (isMobile) {
+          const el = document.getElementById("mobile-photocopy");
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            const y = window.scrollY + rect.top - 120;
+            window.scrollTo({ top: y, behavior: "smooth" });
+          }
+        } else {
+          if (photocopyCheckboxRef.current) {
+            photocopyCheckboxRef.current.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
+          }
+        }
+        
+        // Remove hash from URL after scrolling
+        window.history.replaceState(null, null, window.location.pathname);
+      }, 500);
+    }
+  }, [data]);
+
   const handleAddToCart = async () => {
     try {
       const payload = {
@@ -53,17 +82,40 @@ const Individual = () => {
     }
   };
 
+  // const handleScrollToCheckbox = () => {
+  //   if (typeof window === "undefined") return;
+
+  //   const isMobile = window.matchMedia("(max-width: 767px)").matches;
+
+  //   if (isMobile && data?.event_code === "PH") {
+  //     const el = document.getElementById("mobile-photocopy");
+  //     if (el) {
+  //       const rect = el.getBoundingClientRect();
+  //       const y = window.scrollY + rect.top - 120;
+
+  //       window.scrollTo({
+  //         top: y,
+  //         behavior: "smooth",
+  //       });
+  //       return;
+  //     }
+  //   }
+
+  //   // Desktop or non-PH: directly add to cart
+  //   handleAddToCart();
+  // };
+
   const handleScrollToCheckbox = () => {
     if (typeof window === "undefined") return;
-
+  
     const isMobile = window.matchMedia("(max-width: 767px)").matches;
-
+  
     if (isMobile && data?.event_code === "PH") {
       const el = document.getElementById("mobile-photocopy");
       if (el) {
         const rect = el.getBoundingClientRect();
         const y = window.scrollY + rect.top - 120;
-
+  
         window.scrollTo({
           top: y,
           behavior: "smooth",
@@ -71,8 +123,17 @@ const Individual = () => {
         return;
       }
     }
-
-    // Desktop or non-PH: directly add to cart
+  
+    // Desktop PH event: scroll to checkbox
+    if (!isMobile && data?.event_code === "PH" && photocopyCheckboxRef.current) {
+      photocopyCheckboxRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+      return;
+    }
+  
+    // Non-PH events: directly add to cart
     handleAddToCart();
   };
 

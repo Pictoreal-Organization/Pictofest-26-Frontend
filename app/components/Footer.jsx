@@ -103,7 +103,7 @@ const Footer = () => {
               />
             </Link>
 
-            <div className="flex gap-[1.8vw]">
+            {/* <div className="flex gap-[1.8vw]">
               {["facebook", "instagram", "Twitter", "Linkedin"].map((icon) => (
                 <img
                   key={icon}
@@ -113,7 +113,25 @@ const Footer = () => {
                   loading="lazy"
                 />
               ))}
+            </div> */}
+            <div className="flex gap-[1.8vw]">
+              {[
+                ["facebook", "https://www.facebook.com/pictoreal/"],
+                ["instagram", "https://www.instagram.com/pictoreal/"],
+                ["Twitter", "https://twitter.com/pictoreal_pict"],
+                ["Linkedin", "https://in.linkedin.com/company/pictoreal"],
+              ].map(([icon, link]) => (
+                <Link key={icon} href={link} target="_blank">
+                  <img
+                    src={`/img/home/${icon}.svg`}
+                    alt={icon}
+                    className="w-[1.7vw] cursor-pointer hover:scale-110 transition-transform"
+                    loading="lazy"
+                  />
+                </Link>
+              ))}
             </div>
+
           </div>
 
           {/* Venue */}

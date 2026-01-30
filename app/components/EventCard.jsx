@@ -11,8 +11,6 @@ const EventCard = ({ data, index }) => {
 
   const router = useRouter();
 
-  const [needPhotocopy, setNeedPhotocopy] = useState(false);
-
   const handleReadMore = () => {
     router.push(`/individual/${data.id}`);
   };
@@ -31,14 +29,14 @@ const EventCard = ({ data, index }) => {
   // };
 
   const handleAddToCart = async () => {
+    // Navigate to individual page if event_code is "PH"
+    if (data?.event_code === "PH") {
+      router.push(`/individual/${data.id}#bottom`);
+      return;
+    }
+  
     try {
-      const payload = {
-        event_id: data.id,
-        ...(data.event_code === "PH" && {
-          photocopy_needed: needPhotocopy,
-        }),
-      };
-      const response = await api.post(`/cart/`, payload);
+      const response = await api.post(`/cart/`, { event_id: data.id });
       toast.success(response.data.message);
       if (!data?.price || data.price === 0) {
         router.push("/order");
@@ -48,6 +46,7 @@ const EventCard = ({ data, index }) => {
       toast.error(err.response.data.message);
     }
   };
+
 
   const isOddIndex = index % 2 !== 0;
 
@@ -139,38 +138,6 @@ const EventCard = ({ data, index }) => {
           </div>
         </div>
 
-{/* Photocopy Checkbox - Desktop */}
-{data?.event_code === "PH" && (
-  <div className="absolute top-2 right-3 z-20">
-    <label
-      // className={`flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer transition-all duration-300 shadow-lg hover:shadow-xl backdrop-blur-sm ${
-      //   needPhotocopy
-      //     ? "bg-gradient-to-r from-teal-500 to-cyan-600 text-white scale-105"
-      //     : "bg-white/90 text-gray-700 hover:bg-white"
-      // }`}
-      className={`flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer transition-all duration-300 shadow-lg hover:shadow-xl backdrop-blur-sm ${
-        needPhotocopy
-          ? "bg-gradient-to-r from-amber-500 to-[#ff8112] text-white scale-105"
-          : "bg-white/90 text-gray-700 hover:bg-white"
-      }`}
-      onClick={(e) => e.stopPropagation()}
-    >
-      <input
-        type="checkbox"
-        checked={needPhotocopy}
-        onChange={(e) => {
-          e.stopPropagation();
-          setNeedPhotocopy(e.target.checked);
-        }}
-        className="w-4 h-4 rounded border-2 border-teal-600 cursor-pointer accent-[#318134]"
-      />
-      <span className="text-xs font-semibold whitespace-nowrap">
-        Print Photos
-        <span className="ml-1 text-[10px] font-bold">+₹10</span>
-      </span>
-    </label>
-  </div>
-)}
 
 
         {/* Buttons*/}
@@ -287,40 +254,6 @@ const EventCard = ({ data, index }) => {
             </div>
           </div>
         </div>
-
-{/* Photocopy Checkbox - Mobile */}
-{data?.event_code === "PH" && (
-  <div className="absolute top-2 right-2 z-20">
-    <label
-      // className={`flex items-center gap-1.5 px-2 py-1.5 rounded-md cursor-pointer transition-all duration-300 shadow-md hover:shadow-lg backdrop-blur-sm ${
-      //   needPhotocopy
-      //     ? "bg-gradient-to-r from-teal-500 to-cyan-600 text-white scale-105"
-      //     : "bg-white/90 text-gray-700"
-      // }`}
-      className={`flex items-center gap-1.5 px-2 py-1.5 rounded-md cursor-pointer transition-all duration-300 shadow-md hover:shadow-lg backdrop-blur-sm ${
-        needPhotocopy
-          ? "bg-gradient-to-r from-amber-500 to-[#ff8112] text-white scale-105"
-          : "bg-white/90 text-gray-700"
-      }`}
-      onClick={(e) => e.stopPropagation()}
-    >
-      <input
-        type="checkbox"
-        checked={needPhotocopy}
-        onChange={(e) => {
-          e.stopPropagation();
-          setNeedPhotocopy(e.target.checked);
-        }}
-        className="w-3 h-3 rounded border-2 border-teal-600 cursor-pointer accent-[#318134]"
-      />
-      <span className="text-[10px] font-semibold whitespace-nowrap">
-        Print
-        <span className="ml-0.5 text-[9px] font-bold">+₹10</span>
-      </span>
-    </label>
-  </div>
-)}
-
 
         {/* Buttons*/}
         <div className="relative z-10 w-full h-full">
