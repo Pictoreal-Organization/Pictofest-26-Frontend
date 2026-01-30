@@ -435,15 +435,8 @@ const Submission = () => {
       {/* --- CONTENT CONTAINER --- */}
       {/* Using 'submissions-bg.png' here for the content block */}
       <div className="relative z-10 w-[90%] max-w-7xl min-h-[600px] shadow-2xl flex flex-col items-center pb-10 rounded-xl overflow-hidden">
-        {/* Content Background Image */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/img/submissions/submissions-bg.png"
-            alt="Content Background"
-            fill
-            className="object-cover"
-          />
-        </div>
+        {/* Content Background - Solid Color */}
+        <div className="absolute inset-0 z-1 bg-[#ffe3be]" />
 
         {/* --- Content Elements (z-10 to sit above content bg) --- */}
 
