@@ -30,14 +30,26 @@ const Cart = () => {
       console.log(err.response?.data?.message);
     }
   };
-  const getAmount = async (code) => {
+  const getAmount = async (code, currentCart = cart) => {
     try {
       if (code) {
         const res = await api.post("/payment/apply-earlybird", { code });
+        if (!hasEligibleEarlyBirdEvent(currentCart, res.data.data.discounted_event_codes)) {
+          // remove EB completely
+          setApplied(false);
+          setEarlyCode("");
+          localStorage.removeItem("early_code");
+
+          const fresh = await api.get("/payment/amount");
+          setAmount(fresh.data.data);
+          return;
+        }
+
         setAmount(res.data.data);
         setApplied(true);
         localStorage.setItem("early_code", code);
-      } else {
+      }
+      else {
         const res = await api.get("/payment/amount");
         setAmount(res.data.data);
         setApplied(false);
@@ -49,6 +61,13 @@ const Cart = () => {
     }
   };
 
+  const EARLY_BIRD_EVENTS = ["LRP", "PCF"]; // same as backend
+
+  const canApplyEarlyBird = cart.some(item =>
+    EARLY_BIRD_EVENTS.includes(item.event_code)
+  );
+
+
   const hasEligibleEarlyBirdEvent = (cart, discountedCodes) => {
     return cart.some(item =>
       discountedCodes.includes(item.event_code)
@@ -56,17 +75,24 @@ const Cart = () => {
   };
 
   ;
-
   useEffect(() => {
-    getCart();
-    const saved = localStorage.getItem("early_code");
-    if (saved) {
-      setEarlyCode(saved);
-      getAmount(saved);
-    } else {
-      getAmount();
-    }
+    const init = async () => {
+      const cartRes = await api.get("/cart/");
+      const currentCart = cartRes.data.data || [];
+      setCart(currentCart);
+
+      const saved = localStorage.getItem("early_code");
+
+      if (saved && currentCart.length > 0) {
+        await getAmount(saved, currentCart);
+      } else {
+        await getAmount(null, currentCart);
+      }
+    };
+
+    init();
   }, []);
+
 
 
   const handleDelete = async (eventId) => {
@@ -76,9 +102,29 @@ const Cart = () => {
       });
 
       toast.success(response.data.message || "Item updated");
-      await getCart();
+      const updatedCart = await api.get("/cart/");
+      setCart(updatedCart.data.data || []);
+
+      if (!updatedCart.data.data || updatedCart.data.data.length === 0) {
+        setAmount({
+          event_amount: 0,
+          photocopy_charges: 0,
+          discount: 0,
+          discounted_event_codes: [],
+          total_amount: 0,
+        });
+        setApplied(false);
+        setEarlyCode("");
+        localStorage.removeItem("early_code");
+        return;
+      }
+
       const saved = localStorage.getItem("early_code");
-      saved ? getAmount(saved) : getAmount();
+      saved
+        ? getAmount(saved, updatedCart.data.data)
+        : getAmount(null, updatedCart.data.data);
+
+
 
     } catch (err) {
       console.log(err);
@@ -90,9 +136,28 @@ const Cart = () => {
     try {
       const response = await api.delete(`/cart/empty`);
       toast.success(response.data.message || "Cart emptied");
-      await getCart();
+      const updatedCart = await api.get("/cart/");
+      setCart(updatedCart.data.data || []);
+
+      if (!updatedCart.data.data || updatedCart.data.data.length === 0) {
+        setAmount({
+          event_amount: 0,
+          photocopy_charges: 0,
+          discount: 0,
+          discounted_event_codes: [],
+          total_amount: 0,
+        });
+        setApplied(false);
+        setEarlyCode("");
+        localStorage.removeItem("early_code");
+        return;
+      }
+
       const saved = localStorage.getItem("early_code");
-      saved ? getAmount(saved) : getAmount();
+      saved
+        ? getAmount(saved, updatedCart.data.data)
+        : getAmount(null, updatedCart.data.data);
+
 
     } catch (err) {
       console.log(err);
@@ -117,9 +182,29 @@ const Cart = () => {
       });
 
       toast.success(response.data.message || "Updated");
-      await getCart();
+      const updatedCart = await api.get("/cart/");
+      setCart(updatedCart.data.data || []);
+
+      if (!updatedCart.data.data || updatedCart.data.data.length === 0) {
+        setAmount({
+          event_amount: 0,
+          photocopy_charges: 0,
+          discount: 0,
+          discounted_event_codes: [],
+          total_amount: 0,
+        });
+        setApplied(false);
+        setEarlyCode("");
+        localStorage.removeItem("early_code");
+        return;
+      }
+
       const saved = localStorage.getItem("early_code");
-      saved ? getAmount(saved) : getAmount();
+      saved
+        ? getAmount(saved, updatedCart.data.data)
+        : getAmount(null, updatedCart.data.data);
+
+
 
     } catch (err) {
       console.log(err);
@@ -205,9 +290,13 @@ const Cart = () => {
                   const baseTotalPrice = baseUnitPrice * (item.quantity || 1);
 
                   // Apply Early Bird ONLY visually
+                  const DISCOUNT_PER_EVENT = 50;
+
                   const discountedTotalPrice = isEarlyBirdDiscounted
-                    ? Math.max(baseTotalPrice - 50, 0)
+                    ? Math.max(baseTotalPrice - DISCOUNT_PER_EVENT, 0)
                     : baseTotalPrice;
+
+
 
 
                   return (
@@ -317,18 +406,20 @@ const Cart = () => {
                 className="border px-3 py-2 rounded-md w-full"
               />
               <button
-                onClick={() => getAmount(earlyCode)}
-                className="bg-green-600 text-white px-4 rounded-md"
+                disabled={!canApplyEarlyBird}
+                onClick={() => getAmount(earlyCode, cart)}
+                className={`px-4 rounded-md text-white ${canApplyEarlyBird
+                  ? "bg-green-600 hover:bg-green-700"
+                  : "bg-gray-400 cursor-not-allowed"
+                  }`}
               >
                 Apply
               </button>
-            </div>
 
-            {applied && (
+            </div>
+            {applied && amount.discounted_event_codes.length > 0 && (
               <p className="text-green-700 text-sm">Early Bird applied 🎉</p>
             )}
-
-
             <div className="text-center mb-4">
               <h2 className="body-font text-2xl md:text-3xl font-extrabold text-[#1a1a1a]">
                 Total : Rs. {amount.total_amount}
