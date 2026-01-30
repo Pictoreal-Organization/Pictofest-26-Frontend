@@ -94,6 +94,8 @@ const Individual = () => {
     "lrp": "/img/workshops/lotus-resin.jpeg",
     "pwc": "/img/workshops/play-with-clay.jpg",
     "pcf": "/img/workshops/pipe-cleaner-flowers.jpeg",
+    "pcfi": "/img/workshops/pipe-cleaner-flowers.jpeg",
+
   };
 
   // Get workshop image based on event_code
