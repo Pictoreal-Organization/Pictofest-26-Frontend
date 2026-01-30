@@ -3,40 +3,58 @@ import Image from "next/image";
 const Team = () => {
   const teamMembers = [
     {
-      name: "Adwaiy Deshpande",
-      imgSrc: "/img/developer/adwaiy.png",
-      github: "https://github.com/Vampire-js",
-      linkedin: "https://www.linkedin.com/in/adwaiy-deshpande-159931222/",
+      name: "Hemangi Patil ",
+      imgSrc: "/img/developer/hemangi.jpeg",
+      github: "http://github.com/hemangi1324",
+      linkedin: "http://linkedin.com/in/hemangi-patil9988",
     },
     {
-      name: "Aarya Patel",
-      imgSrc: "/img/developer/aarya.jpg",
-      github: "https://github.com/AARYA855",
-      linkedin: "https://www.linkedin.com/in/patelaarya2005/",
+      name: "Shravani Sawant",
+      imgSrc: "/img/developer/shravani.jpeg",
+      github: "https://github.com/Shravani-Sawant28",
+      linkedin: "https://www.linkedin.com/in/shravani-sawant3628/",
     },
     {
-      name: "Aditya Tidake",
-      imgSrc: "/img/developer/AdityaTidake.jpg",
-      github: "https://github.com/AdityaTidake",
-      linkedin: "https://www.linkedin.com/in/aditya-tidake-977504292/",
+      name: "Piyush Trivedi",
+      imgSrc: "/img/developer/piyush.jpeg",
+      github: "https://github.com/piyush27t",
+      linkedin: "https://www.linkedin.com/in/piyush-trivedi27",
     },
     {
-      name: "Aryan Kadu",
-      imgSrc: "/img/developer/aryanKadu.jpg",
-      github: "https://github.com/AryanKadu",
-      linkedin: "https://www.linkedin.com/in/aryan-kadu-648369295/",
+      name: "Salina Tamboli",
+      imgSrc: "/img/developer/salina.jpeg",
+      github: "https://github.com/Salina00",
+      linkedin: "http://www.linkedin.com/in/salina-tamboli",
     },
     {
-      name: "Khanak Kumar",
-      imgSrc: "/img/developer/khanak.jpg",
-      github: "https://github.com/KhanakKumar",
-      linkedin: "https://www.linkedin.com/in/khanak-kumar-133a1226b/",
+      name: "Sharvari Ballal",
+      imgSrc: "/img/developer/sharvari.jpg",
+      github: "https://github.com/sharvariballal",
+      linkedin: "https://www.linkedin.com/in/sharvari-ballal-639260342/",
     },
     {
-      name: "Madhura Deshmukh",
-      imgSrc: "/img/developer/madhura.jpg",
-      github: "https://github.com/madhura0805",
-      linkedin: "https://www.linkedin.com/in/madhura-deshmukh-0692a5277/",
+      name: "Shruti Joshi",
+      imgSrc: "/img/developer/shruti.jpeg",
+      github: "https://github.com/Shruti-Joshi-21",
+      linkedin: "http://www.linkedin.com/in/shruti-joshi21",
+    },
+    {
+      name: "Diya Dawra ",
+      imgSrc: "/img/developer/diya.jpg",
+      github: "https://github.com/diya-dawra07",
+      linkedin: "https://www.linkedin.com/in/diya-dawra-20273b369?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BZ8XXIU%2BGS6ubsT0e%2FzdiaA%3D%3D",
+    },
+    {
+      name: "Payal Talreja ",
+      imgSrc: "/img/developer/payal.jpeg",
+      github: "https://github.com/payaltalreja08",
+      linkedin: "http://www.linkedin.com/in/payal-talreja-94b52828a",
+    },
+    {
+      name: "Sumedh Supe",
+      imgSrc: "/img/developer/sumedh.jpeg",
+      github: "https://github.com/SumedhAnupSupe",
+      linkedin: "https://www.linkedin.com/in/sumedh-supe-b44835382?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app/",
     },
     {
       name: "Manas Gawali",
@@ -45,90 +63,17 @@ const Team = () => {
       linkedin: "https://www.linkedin.com/in/manas-gawali-ab000128b/",
     },
     {
-      name: "Manas Yeola",
-      imgSrc: "/img/developer/manasYeola.jpg",
-      github: "https://github.com/ManasYeola",
-      linkedin: "https://www.linkedin.com/in/manas-yeola-885970291/",
+      name: "Madhura Deshmukh",
+      imgSrc: "/img/developer/madhura.jpg",
+      github: "https://github.com/madhura0805",
+      linkedin: "https://www.linkedin.com/in/madhura-deshmukh-0692a5277/",
     },
     {
       name: "Riddhi Lahare",
-      imgSrc: "/img/developer/riddhi.jpg",
+      imgSrc: "/img/developer/riddhi.jpeg",
       github: "https://github.com/riddhilahare14",
       linkedin: "https://www.linkedin.com/in/riddhi-lahare-9ab737301/",
-    },
-    {
-      name: "Sakshi Narkhede",
-      imgSrc: "/img/developer/sakshi.jpg",
-      github: "https://github.com/sakshi-3105",
-      linkedin: "https://www.linkedin.com/in/sakshi-narkhede-2618b5291/",
-    },
-    {
-      name: "Sanavi Kulkarni ",
-      imgSrc: "/img/developer/sanaviKulkarni.jpg",
-      github: "https://github.com/Sanavi05",
-      linkedin: "https://www.linkedin.com/in/sanavikulkarni/",
-    },
-    {
-      name: "Trishit Guin",
-      imgSrc: "/img/developer/trishit.jpg",
-      github: "https://github.com/trishit-guin",
-      linkedin: "https://www.linkedin.com/in/trishit-guin/",
-    },
-    {
-      name: "Tushar Talekar",
-      imgSrc: "/img/developer/tushar.jpg",
-      github: "https://github.com/TusharTalekar",
-      linkedin: "https://www.linkedin.com/in/tushar-talekar-a749b4289/",
-    },
-    {
-      name: "Vihan Wani",
-      imgSrc: "/img/developer/vihan.jpg",
-      github: "https://github.com/VIHAN-07",
-      linkedin: "https://www.linkedin.com/in/vihan-wani-b8b334316?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
-    },
-    {
-      name: "Aashlesh Wawge",
-      imgSrc: "/img/developer/ashlesh.jpg",
-      github: "https://github.com/AashleshWawge",
-      linkedin: "https://www.linkedin.com/in/aashlesh-wawge-928a12277/",
-    },
-    {
-      name: "Atharva Dhake",
-      imgSrc: "/img/developer/atharvaDhake.jpeg",
-      github: "https://github.com/Atharvadhake1",
-      linkedin: "https://www.linkedin.com/in/atharva-dhake-155160258?trk=blended-typeahead",
-    },
-    {
-      name: "Aryan Chavan",
-      imgSrc: "/img/developer/AryanChavan.jpg",
-      github: "https://github.com/aryan181004",
-      linkedin: "https://www.linkedin.com/in/aryan-chavan-8522bb264/",
-    },
-    {
-      name: "Kshitij Dhake",
-      imgSrc: "/img/developer/kshitijDhake.png",
-      github: "https://github.com/Ksdhake28",
-      linkedin: "https://www.linkedin.com/in/kshitijdhake/",
-    },
-    {
-      name: "Mansi Apet",
-      imgSrc: "/img/developer/mansi2.jpg",
-      github: "https://github.com/mansiapet",
-      linkedin:
-        "https://www.linkedin.com/in/mansi-apet?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
-    },
-    {
-      name: "Ria Narode",
-      imgSrc: "/img/developer/ria.jpg",
-      github: "https://github.com/rianarode14",
-      linkedin: "https://www.linkedin.com/in/ria-narode/",
-    },
-    {
-      name: "Gaurav Waghmare",
-      imgSrc: "/img/developer/gaurav.jpg",
-      github: "https://github.com/gauravw66",
-      linkedin: "https://www.linkedin.com/in/gaurav-waghmare-b9a656258/",
-    },
+    }
   ];
 
   return (
@@ -164,7 +109,7 @@ const Team = () => {
          ============================================================ */}
       <div className="relative z-10 pt-[90px] pb-20">
         {/* Title */}
-        <div className="text-4xl lg:text-5xl tracking-tight heading-font mt-10 text-center heading-font text-white mb-9">
+        <div className="text-4xl lg:text-5xl tracking-tight heading-font mt-1 lg:mt-2 text-center heading-font text-white mb-9">
           OUR TEAM
         </div>
 
