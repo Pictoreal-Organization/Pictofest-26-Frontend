@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
-import QRCode from "react-qr-code";
+// import QRCode from "react-qr-code";
+import QRCodeStyling from "qr-code-styling";
+
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import api from "@/app/api";
@@ -19,6 +21,9 @@ const Payment = () => {
 
   const [transactionId, setTransactionId] = useState("");
   const router = useRouter();
+
+  const qrRef = useRef(null);
+  const qrCode = useRef(null);
 
   // --- API Logic ---
   const getAmount = async () => {
@@ -41,14 +46,42 @@ const Payment = () => {
     getAmount();
   }, []);
 
-  // const handleSubmit = () => {
-  //   if (transactionId.length !== 12) {
-  //     toast.error("Please enter a valid 12-digit UTR ID");
-  //     return;
-  //   }
-  //   toast.success("Mock payment submitted successfully");
-  //   router.push("/order");
-  // };
+  useEffect(() => {
+    if (!qrCode.current) {
+      qrCode.current = new QRCodeStyling({
+        width: 150,
+        height: 150,
+        type: "svg", // SVG = sharp + transparent
+        data: `upi://pay?pa=Vyapar.173204546635@hdfcbank&pn=Default&mc=8999&tr=STQU173204546635&am=${amount.total_amount}&tn=PICTOFEST&cu=INR`,
+  
+        backgroundOptions: {
+          color: "transparent", // 🔥 NO WHITE BG
+        },
+  
+        dotsOptions: {
+          color: "#6b3e1e", // brown QR
+          type: "rounded", // 🔥 smooth dots
+        },
+  
+        cornersSquareOptions: {
+          type: "extra-rounded",
+          color: "#6b3e1e",
+        },
+  
+        cornersDotOptions: {
+          type: "dot",
+          color: "#6b3e1e",
+        },
+      });
+    }
+  
+    if (qrRef.current) {
+      qrRef.current.innerHTML = "";
+      qrCode.current.append(qrRef.current);
+    }
+  }, [amount.total_amount]);
+  
+
 
   const handleTransactionIdChange = (event) => {
     setTransactionId(event.target.value);
@@ -184,25 +217,32 @@ const Payment = () => {
             {/* QR Code Section with Frame */}
             {/* Added responsive sizing for frame container if needed, but fixed px usually works fine here */}
             <div className="relative w-[200px] h-[200px] md:w-[220px] md:h-[220px] flex items-center justify-center mb-2">
-              {/* The Frame Image */}
-              <div className="absolute inset-0 z-20 pointer-events-none">
-                <Image
-                  src="/img/payment/qr-frame.png"
-                  alt="QR Frame"
-                  fill
-                  className="object-contain"
-                />
+
+              <div className="absolute inset-0 z-20 pointer-events-none flex items-center justify-center p-4">
+                {/* Outer border - more spacing on mobile */}
+                <div className="absolute inset-1 md:inset-4 border-4 border-[#4e3506] rounded-2xl" />
+                
+                {/* Inner border - more spacing on mobile */}
+                <div className="absolute inset-3 md:inset-6 border-3 border-[#EFE093] rounded-xl" />
               </div>
 
+
+
               {/* The QR Code */}
-              <div className="relative z-10 bg-white p-1">
+              {/* <div className="relative z-10 bg-white p-1">
                 <QRCode
                   size={130}
                   value={`upi://pay?pa=Vyapar.173204546635@hdfcbank&pn=Default&mc=8999&tr=STQU173204546635&am=${amount.total_amount}&tn=PICTOFEST&cu=INR`}
                   viewBox={`0 0 130 130`}
                   className="w-full h-auto"
                 />
-              </div>
+              </div> */}
+
+              <div
+                ref={qrRef}
+                className="relative z-10 flex items-center justify-center"
+              />
+
             </div>
 
             {/* Amount Text */}
