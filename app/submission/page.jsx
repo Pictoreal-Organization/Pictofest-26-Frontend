@@ -10,7 +10,7 @@ import { px } from "framer-motion";
 import AnimationLoader from "@/app/components/AnimationLoader";
 
 const Uploader = (props) => {
-  const { userEventId, photocopyNeeded } = props;
+  const { userEventId, photocopyNeeded, disableUpload} = props;
 
   const [image, setImage] = useState(null);
   const [fileName, setFileName] = useState("No file selected");
@@ -20,6 +20,8 @@ const Uploader = (props) => {
 
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0); // ✅ Add this
+
+  const [collegeType, setCollegeType] = useState("");
 
   const MAX_NORMAL = 10 * 1024 * 1024; // 10MB
   const MAX_PHOTO = 15 * 1024 * 1024; // 15MB
@@ -90,26 +92,6 @@ const Uploader = (props) => {
     }
   };
 
-  const submitRollNo = async () => {
-    if (!rollNo.trim()) {
-      toast.error("Please enter roll number");
-      return;
-    }
-
-    try {
-      await api.put("/user/update-roll", { roll_no: rollNo });
-      toast.success("Roll number updated");
-
-      setShowRollInput(false);
-
-      if (pendingUpload) {
-        setPendingUpload(false);
-        handleUpload();
-      }
-    } catch (err) {
-      toast.error(err.response?.data?.message || err.message);
-    }
-  };
 
   const clearSelection = (e) => {
     e.stopPropagation();
@@ -357,6 +339,7 @@ const Card = ({ event, disableUpload }) => {
             <Uploader
               userEventId={event.id}
               photocopyNeeded={event.photocopy_needed}
+              disableUpload={disableUpload}
             />
           )
         ) : (
