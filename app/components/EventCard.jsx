@@ -350,8 +350,8 @@ const EventCard = ({ data, index }) => {
         {/* Event Name*/}
         <div className="relative z-10 w-full h-full">
           <h2 className={`sub-heading-font text-[#FBF0AD] line-clamp-2 text-center absolute bottom-[67%] w-[55%] ${isOddIndex
-              ? "left-[4%]"
-              : "right-[3%]"
+              ? "left-[5%]"
+              : "right-[5%]"
             } ${data.name === "Texture Art + Neon fluid painting"
               ? "text-sm sm:text-base md:text-lg lg:text-xl"
               : "text-base sm:text-lg md:text-xl lg:text-2xl"
@@ -496,9 +496,9 @@ const EventCard = ({ data, index }) => {
 
         {/* Buttons*/}
         <div className="relative z-10 w-full h-full">
-          <div className={`flex gap-2 sm:gap-2.5 absolute -top-[125%] ${isOddIndex
-              ? "left-[12.2%]"
-              : "right-[12.3%]"
+          <div className={`flex gap-2 sm:gap-2.5 absolute -top-[130%] ${isOddIndex
+              ? "left-[15%]"
+              : "right-[14%]"
             }`}>
             {/* Add to Cart / Register Button */}
             <div className="relative group cursor-pointer flex-shrink-0" onClick={handleAddToCart}>

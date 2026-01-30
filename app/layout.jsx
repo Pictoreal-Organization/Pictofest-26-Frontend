@@ -39,7 +39,7 @@ export default function RootLayout({ children }) {
             <main>{children}</main>
           </AuthProvider>
           <Toaster
-            position="top-right"
+            position="bottom-right"
             richColors
             closeButton
             duration={2000}
