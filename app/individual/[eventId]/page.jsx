@@ -287,7 +287,7 @@ const Individual = () => {
                       strokeWidth="2"
                       strokeDasharray="6 4"
                     />
-                    <text
+                    {/* <text
                       x="160"
                       y="42"
                       textAnchor="middle"
@@ -295,10 +295,51 @@ const Individual = () => {
                       fontSize="18"
                       fontWeight="700"
                       letterSpacing="1"
-                      className="sub-heading-font uppercase"
+                      className="sub-heading-font"
                     >
                       {data?.name}
-                    </text>
+                    </text> */}
+                    {(data?.event_code?.toUpperCase() === "PCF" || data?.event_code?.toUpperCase() === "PCFI") ? (
+  <>
+    <text
+      x="160"
+      y="35"
+      textAnchor="middle"
+      fill="white"
+      fontSize="14"
+      fontWeight="700"
+      letterSpacing="1"
+      className="sub-heading-font"
+    >
+      {data?.name?.substring(0, data?.name?.lastIndexOf('('))?.trim()}
+    </text>
+    <text
+      x="160"
+      y="52"
+      textAnchor="middle"
+      fill="white"
+      fontSize="14"
+      fontWeight="700"
+      letterSpacing="1"
+      className="sub-heading-font"
+    >
+      {data?.name?.substring(data?.name?.lastIndexOf('('))}
+    </text>
+  </>
+) : (
+  <text
+    x="160"
+    y="42"
+    textAnchor="middle"
+    fill="white"
+    fontSize="18"
+    fontWeight="700"
+    letterSpacing="1"
+    className="sub-heading-font"
+  >
+    {data?.name}
+  </text>
+)}
                   </svg>
                 </div>
               </div>
@@ -501,16 +542,6 @@ const Individual = () => {
                 </motion.div>
               )}
 
-              {/* Terms for PCFI */}
-              {data?.event_code?.toUpperCase() === "PCFI" && (
-                <div className="w-full mt-4">
-                  <p className="text-xs text-[#572711] body-font font-semibold text-center italic bg-white/30 p-1 rounded-lg border border-[#E97400]/40">
-                    Note: Participants will be paired with a partner during the
-                    workshop.
-                  </p>
-                </div>
-              )}
-
               {/* 5. MEME CATEGORIES (Only for MM) */}
               {data?.event_code === "MM" && (
                 <div className="w-full flex flex-col items-center mt-8 pt-6 border-t border-[#E97400]/30">
@@ -599,6 +630,15 @@ const Individual = () => {
                 </button>
               </div>
 
+              {/* Terms for PCFI - BELOW BUTTONS */}
+              {data?.event_code?.toUpperCase() === "PCFI" && (
+                <div className="w-full -mt-5">
+                  <p className="text-[12px] text-[#572711]/60 body-font font-normal text-center italic">
+                    *Participants will be paired with a partner during the workshop.
+                  </p>
+                </div>
+              )}
+
               {/* Bottom Border */}
               <div className="w-auto -ml-8 h-7 -mb-5 relative translate-x-[16px]">
                 <Image
@@ -650,7 +690,7 @@ const Individual = () => {
                       <div className="h-[2px] bg-[#08525F] w-full max-w-[calc(100%+40px)] translate-x-[-56px]"></div>
                     </div>
                     <div className="bg-[#08525F] rounded-2xl px-5 -py-1 flex items-center justify-center shadow-lg min-w-[130px] sub-heading-font text-white">
-                      <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl uppercase sub-heading-font text-center mt-4 mb-3 py-1">
+                      <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl sub-heading-font text-center mt-4 mb-3 py-1">
                         {data?.name}
                       </h1>
                     </div>
@@ -842,16 +882,6 @@ const Individual = () => {
                       </motion.div>
                     )}
 
-                    {/* Terms for PCFI */}
-                    {data?.event_code?.toUpperCase() === "PCFI" && (
-                      <div className="w-full mt-6">
-                        <p className="text-sm text-[#572711] body-font font-semibold text-center italic bg-white/30 p-2 rounded-lg border border-[#E97400]/40">
-                          Note: Participants will be paired with a partner
-                          during the workshop.
-                        </p>
-                      </div>
-                    )}
-
                     {/* Standard Nav Buttons (Only for non-MM pages) */}
                     {data?.event_code !== "MM" && (
                       <div className="flex justify-center gap-4 mt-8">
@@ -880,6 +910,15 @@ const Individual = () => {
                         </button>
                       </div>
                     )}
+
+                    {/* Terms for PCFI - BELOW BUTTONS */}
+{data?.event_code?.toUpperCase() === "PCFI" && (
+  <div className="w-full mt-4">
+    <p className="text-[15px] text-[#572711]/60 body-font font-normal text-center italic">
+      *Participants will be paired with a partner during the workshop.
+    </p>
+  </div>
+)}
                   </div>
                 </div>
 
