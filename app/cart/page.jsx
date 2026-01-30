@@ -14,8 +14,11 @@ const Cart = () => {
   const [amount, setAmount] = useState({
     event_amount: 0,
     photocopy_charges: 0,
+    discount: 0,
+    discounted_event_codes: [],
     total_amount: 0,
   });
+
 
   const router = useRouter();
 
@@ -194,8 +197,15 @@ const Cart = () => {
               {cart.length > 0 ? (
                 cart.map((item) => {
                   const hasPhotocopy = item.photocopy_needed === true;
-                  const unitPrice = hasPhotocopy ? item.price + 10 : item.price;
-                  const totalPrice = unitPrice * (item.quantity || 1);
+                  const isEarlyBirdDiscounted = amount.discounted_event_codes?.includes(item.event_code);
+                  const baseUnitPrice = hasPhotocopy ? item.price + 10 : item.price;
+                  const baseTotalPrice = baseUnitPrice * (item.quantity || 1);
+
+                  // Apply Early Bird ONLY visually
+                  const discountedTotalPrice = isEarlyBirdDiscounted
+                    ? Math.max(baseTotalPrice - 50, 0)
+                    : baseTotalPrice;
+
 
                   return (
                     <div
@@ -247,10 +257,29 @@ const Cart = () => {
                           </div>
                         )}
 
-                        <div className="flex items-center gap-2 px-2">
-                          <span className="body-font text-[#0e7490] font-bold text-sm">
-                            Rs. {totalPrice}
-                          </span>
+                        <div className="flex items-end gap-2 px-2">
+                          <div className="flex flex-col items-end">
+                            {isEarlyBirdDiscounted && (
+                              <span className="text-xs text-green-700 font-semibold">
+                                Early Bird Applied
+                              </span>
+                            )}
+
+                            {isEarlyBirdDiscounted ? (
+                              <>
+                                <span className="text-xs line-through text-gray-500">
+                                  Rs. {baseTotalPrice}
+                                </span>
+                                <span className="body-font text-[#0e7490] font-bold text-sm">
+                                  Rs. {discountedTotalPrice}
+                                </span>
+                              </>
+                            ) : (
+                              <span className="body-font text-[#0e7490] font-bold text-sm">
+                                Rs. {baseTotalPrice}
+                              </span>
+                            )}
+                          </div>
 
                           <button
                             onClick={() => handleDelete(item.id)}
@@ -259,6 +288,7 @@ const Cart = () => {
                             <Image width={18} height={18} src="/img/cart/cancel-icon.png" alt="Remove" />
                           </button>
                         </div>
+
                       </div>
                     </div>
                   );
