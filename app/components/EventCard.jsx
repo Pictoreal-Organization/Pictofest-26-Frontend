@@ -326,7 +326,7 @@ const EventCard = ({ data, index }) => {
         </div>
 
         {/* Early Bird Offer Badge - Desktop */}
-        {(data?.event_code === "PCF" || data?.event_code === "LRP") && (
+        {(data?.event_code === "PCF" || data?.event_code === "LRP" || data?.event_code === "PCFI") && (
           <div className="absolute -top-3 -right-3 z-20 ">
             <div className="relative">
               {/* Starburst Badge */}
@@ -349,12 +349,10 @@ const EventCard = ({ data, index }) => {
 
         {/* Event Name*/}
         <div className="relative z-10 w-full h-full">
-          <h2 className={`sub-heading-font text-[#FBF0AD] line-clamp-2 text-center absolute bottom-[67%] w-[55%] ${isOddIndex
-              ? "left-[5%]"
-              : "right-[5%]"
+          <h2 className={`sub-heading-font text-[#FBF0AD] line-clamp-2 text-center absolute bottom-[67%] w-[55%] ${isOddIndex ? "left-[5%]" : "right-[5%]"
             } ${data.name === "Texture Art + Neon fluid painting"
-              ? "text-sm sm:text-base md:text-lg lg:text-xl"
-              : "text-base sm:text-lg md:text-xl lg:text-2xl"
+              ? "text-xs sm:text-sm md:text-base lg:text-lg" // Decreased from text-sm
+              : "text-sm sm:text-base md:text-lg lg:text-xl" // Decreased from text-base
             }`}>
             {data?.name}
           </h2>
@@ -363,8 +361,8 @@ const EventCard = ({ data, index }) => {
         {/* Price Section*/}
         <div className="relative z-10 w-full h-full">
           <div className={`text-center absolute -top-[60%] w-[65%] ${isOddIndex
-              ? "-left-[2%]"
-              : "-right-[1.3%]"
+            ? "-left-[2%]"
+            : "-right-[1.3%]"
             }`}>
             <div className="sub-heading-font text-[#F6EDC8] text-sm md:text-sm lg:text-base mb-1">
               PRICE
@@ -382,8 +380,8 @@ const EventCard = ({ data, index }) => {
         {/* Buttons*/}
         <div className="relative z-10 w-full h-full">
           <div className={`flex gap-3 md:gap-4 lg:gap-5 absolute -top-[130%] ${isOddIndex
-              ? "left-[9%]"
-              : "right-[9%]"
+            ? "left-[9%]"
+            : "right-[9%]"
             }`}>
             {/* Add to Cart / Register Button */}
             <div className="relative group cursor-pointer flex-shrink-0" onClick={handleAddToCart}>
@@ -441,7 +439,7 @@ const EventCard = ({ data, index }) => {
         </div>
 
         {/* Early Bird Offer Badge - Mobile */}
-        {(data?.event_code === "PCF" || data?.event_code === "LRP") && (
+        {(data?.event_code === "PCF" || data?.event_code === "LRP" || data?.event_code === "PCFI") && (
           <div className="absolute -top-3 -right-1 z-20 ">
             <div className="relative">
               {/* Compact Badge for Mobile */}
@@ -465,8 +463,8 @@ const EventCard = ({ data, index }) => {
         {/* Event Name*/}
         <div className="relative z-10  h-full px-10">
           <h2 className={`sub-heading-font text-[#FBF0AD] line-clamp-2 text-center absolute bottom-[67%] w-[55%] ${isOddIndex
-              ? "left-[5.5%]"
-              : "right-[3.5%]"
+            ? "left-[5.5%]"
+            : "right-[3.5%]"
             } ${data.name === "Texture Art + Neon fluid painting"
               ? "text-[13px] sm:text-[12px]"
               : "text-[16px] sm:text-[14px]"
@@ -478,8 +476,8 @@ const EventCard = ({ data, index }) => {
         {/* Price Section*/}
         <div className="relative z-10 w-full h-full">
           <div className={`text-center absolute -top-[58%] w-[55%] ${isOddIndex
-              ? "left-[3.2%]"
-              : "right-[3.9%]"
+            ? "left-[3.2%]"
+            : "right-[3.9%]"
             }`}>
             <div className="sub-heading-font uppercase text-[#F6EDC8] text-[11px] sm:text-[12px] mb-1">
               Price
@@ -497,8 +495,8 @@ const EventCard = ({ data, index }) => {
         {/* Buttons*/}
         <div className="relative z-10 w-full h-full">
           <div className={`flex gap-2 sm:gap-2.5 absolute -top-[130%] ${isOddIndex
-              ? "left-[15%]"
-              : "right-[14%]"
+            ? "left-[15%]"
+            : "right-[14%]"
             }`}>
             {/* Add to Cart / Register Button */}
             <div className="relative group cursor-pointer flex-shrink-0" onClick={handleAddToCart}>
