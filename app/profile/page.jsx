@@ -86,7 +86,7 @@ const Profile = () => {
                     <ProfilePageCard
                         route="/submission"
                         image="/img/profile/submission.svg"
-                        title="MY SUBMISSIONS"
+                        title="MY ENTRIES"
                         styles="order-4 md:order-3"
                     />
 

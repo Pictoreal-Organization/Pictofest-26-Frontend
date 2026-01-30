@@ -79,7 +79,7 @@ const Footer = () => {
             by{" "}
             <Link
               href="/developers"
-              className="text-sky-600 underline underline-offset-2"
+              className="text-white underline underline-offset-2"
             >
               PICTOREAL Tech Team
             </Link>
@@ -174,7 +174,7 @@ const Footer = () => {
             by{" "}
             <Link
               href="/developers"
-              className="text-sky-600 underline underline-offset-2"
+              className="text-white underline underline-offset-2"
             >
               PICTOREAL Tech Team
             </Link>
