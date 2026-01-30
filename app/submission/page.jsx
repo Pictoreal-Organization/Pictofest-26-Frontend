@@ -359,10 +359,26 @@ const Submission = () => {
   const [rollNo, setRollNo] = useState("");
   const [hasRollNo, setHasRollNo] = useState(false);
   const [loadingUser, setLoadingUser] = useState(true);
+  const [collegeType, setCollegeType] = useState("");
   
+  // const getRollStatus = async () => {
+  //   try {
+  //     const res = await api.get("/user/roll-status");
+  //     if (res.data.data.hasRollNo) {
+  //       setHasRollNo(true);
+  //       setRollNo(res.data.data.roll_no);
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   } finally {
+  //     setLoadingUser(false);
+  //   }
+  // };
+
   const getRollStatus = async () => {
     try {
       const res = await api.get("/user/roll-status");
+      setCollegeType(res.data.data.college_type || ""); // ✅ Store college type
       if (res.data.data.hasRollNo) {
         setHasRollNo(true);
         setRollNo(res.data.data.roll_no);
@@ -513,8 +529,8 @@ const Submission = () => {
           />
         </div>
 
-        {!loadingUser && !hasRollNo && (
-  <div className="relative z-20 w-[90%] md:w-[500px] mb-6 -mt-4 flex flex-col items-center gap-2">
+        {!loadingUser && !hasRollNo && collegeType === "PICT" && (
+          <div className="relative z-20 w-[90%] md:w-[500px] mb-6 -mt-4 flex flex-col items-center gap-2">
 
     {/* Small helper text */}
     <p className="text-xs md:text-sm body-font font-semibold text-[#572813] opacity-90">
@@ -573,7 +589,7 @@ const Submission = () => {
               <Card
                 key={event.fk_event}
                 event={event}
-                disableUpload={!hasRollNo}
+                disableUpload={collegeType === "PICT" && !hasRollNo}
               />
             ))}
 
