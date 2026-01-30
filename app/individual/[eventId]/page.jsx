@@ -609,8 +609,8 @@ const Individual = () => {
                   <div className="flex-1 flex flex-col">
                     <div className="flex-grow">
                       {workshopImage && data?.event_category?.toUpperCase() === "WORKSHOP" && (
-                        <div className="relative w-auto p-2 min-h-[365px] border-4 rounded-xl border-[#E97400] overflow-hidden mb-6">
-                          <Image src={workshopImage} alt="Workshop" fill className="object-cover" />
+                        <div className="relative w-auto p-2 min-h-[365px] border-4 rounded-xl border-[#E97400] bg-[#fbbd7f] overflow-hidden mb-6">
+                          <Image src={workshopImage} alt="Workshop" fill className="object-contain" />
                         </div>
                       )}
 
