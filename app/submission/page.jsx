@@ -10,7 +10,7 @@ import { px } from "framer-motion";
 import AnimationLoader from "@/app/components/AnimationLoader";
 
 const Uploader = (props) => {
-  const { id, photocopyNeeded } = props;
+  const { id, photocopyNeeded, disableUpload } = props;
 
   const [image, setImage] = useState(null);
   const [fileName, setFileName] = useState("No file selected");
@@ -27,9 +27,22 @@ const Uploader = (props) => {
   const limit = photocopyNeeded ? MAX_PHOTO : MAX_NORMAL;
 
   const inputRef = useRef(null);
+  // const handleUpload = async (e) => {
+  //   e?.preventDefault?.();
+
+  //   if (!selectedFile) {
+  //     toast.error("Please select a file first");
+  //     return;
+  //   }
   const handleUpload = async (e) => {
     e?.preventDefault?.();
-
+    
+    // Add this check first
+    if (disableUpload) {
+      toast.error("Please enter your roll number first");
+      return;
+    }
+    
     if (!selectedFile) {
       toast.error("Please select a file first");
       return;
@@ -168,8 +181,16 @@ const Uploader = (props) => {
             type="file"
             accept="image/png,image/jpeg,image/jpg"
             className="hidden"
-            onChange={({ target: { files } }) => {
-              if (files && files[0]) {
+            // onChange={({ target: { files } }) => {
+              onChange={(e) => {
+                // Add this check first
+                if (disableUpload) {
+                  toast.error("Please enter your roll number first");
+                  return;
+                }
+                
+                const files = e.target.files;
+                if (files && files[0]) {
                 const file = files[0];
 
                 const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
@@ -272,6 +293,7 @@ const Uploader = (props) => {
           <button
             className="w-full bg-[#8B260D] text-[#FFE3BE] text-sm md:text-base font-bold sub-heading-font py-2 rounded-full active:translate-y-[4px] hover:scale-105 transition-all"
             type="button"
+            disabled={disableUpload}
             onClick={handleUpload}
           >
             Upload
