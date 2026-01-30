@@ -565,6 +565,7 @@ const Submission = () => {
                     await api.put("/user/update-roll", { roll_no: rollNo });
                     toast.success("Roll number saved");
                     setHasRollNo(true);
+                    window.location.reload(); 
                   } catch (err) {
                     toast.error(err.response?.data?.message || err.message);
                   }
