@@ -107,10 +107,10 @@ const EventCard = ({ data, index }) => {
               {/* Starburst Badge */}
               <div className="relative bg-gradient-to-br from-yellow-400 via-amber-500 to-orange-600 rounded-full p-0.5 shadow-xl transform hover:scale-110 transition-transform duration-300" onClick={handleEarlyBirdClick}>
                 <div className="bg-gradient-to-br from-red-500 to-pink-600 rounded-full px-4 py-2.5 flex flex-col items-center justify-center min-w-[100px]">
-                  <div className="text-white font-body font-bold text-[11px] uppercase tracking-wider leading-tight text-center drop-shadow-lg">
+                  <div className="text-white font-bold text-[11px] uppercase tracking-wider leading-tight text-center drop-shadow-lg">
                     Early Bird
                   </div>
-                  <div className="text-yellow-300 heading-font font-extrabold text-sm uppercase tracking-wide leading-tight drop-shadow-lg">
+                  <div className="text-yellow-300 font-extrabold text-sm uppercase tracking-wide leading-tight drop-shadow-lg">
                     Offer!
                   </div>
                 </div>
