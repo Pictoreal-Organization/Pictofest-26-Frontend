@@ -26,7 +26,7 @@ export default function VideoLoader() {
       >
         {/* Browser will automatically choose the first supported format */}
         <source src="/loader.webm" type="video/webm" />
-        <source src="/loader.mp4" type="video/mp4" />
+        {/* <source src="/loader.mp4" type="video/mp4" /> */}
         Your browser does not support the video tag.
       </video>
     </div>
