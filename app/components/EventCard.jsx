@@ -148,7 +148,7 @@ const EventCard = ({ data, index }) => {
             <div className="sub-heading-font text-[#FBCC12] text-xl md:text-2xl lg:text-2xl flex items-center justify-center gap-2">
               {isEarlyBird && originalPrice ? (
                 <>
-                  <span className="text-[#F6EDC8] line-through opacity-70 text-base md:text-lg select-none">
+                  <span className="text-[#F6EDC8] line-through opacity-100 text-base md:text-lg select-none">
                     Rs. {originalPrice}/-
                   </span>
                   <span className="text-[#FBCC12] font-bold select-none">
@@ -277,7 +277,7 @@ const EventCard = ({ data, index }) => {
             <div className="sub-heading-font text-[#FBCC12] text-[15px] xs:text-[15px] sm:text-[16px] flex items-center justify-center gap-1.5">
               {isEarlyBird && originalPrice ? (
                 <>
-                  <span className="text-[#F6EDC8] line-through opacity-70 text-[12px] sm:text-[13px] select-none">
+                  <span className="text-[#F6EDC8] line-through opacity-100 text-[12px] sm:text-[13px] select-none">
                     Rs. {originalPrice}/-
                   </span>
                   <span className="text-[#FBCC12] font-bold select-none">
