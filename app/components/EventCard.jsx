@@ -139,7 +139,7 @@ const EventCard = ({ data, index }) => {
             ? "-left-[2%]"
             : "-right-[1.3%]"
             }`}>
-            <div className="sub-heading-font text-[#FBCC12] text-xl md:text-2xl lg:text-2xl flex items-center justify-center gap-2">
+            <div className="sub-heading-font text-[#FBCC12] mt-2 text-xl md:text-2xl lg:text-2xl flex items-center justify-center gap-2">
               {isEarlyBird && originalPrice ? (
                 <>
                   <span className="text-[#F6EDC8] line-through opacity-70 text-base md:text-lg select-none">
@@ -262,7 +262,7 @@ const EventCard = ({ data, index }) => {
             ? "left-[3.2%]"
             : "right-[3.9%]"
             }`}>
-            <div className="sub-heading-font text-[#FBCC12] text-[15px] sm:text-[16px] flex items-center justify-center gap-1.5">
+            <div className="sub-heading-font mt-2 text-[#FBCC12] text-[15px] sm:text-[16px] flex items-center justify-center gap-1.5">
               {isEarlyBird && originalPrice ? (
                 <>
                   <span className="text-[#F6EDC8] line-through opacity-70 text-[12px] sm:text-[13px] select-none">
