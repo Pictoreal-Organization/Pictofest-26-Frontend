@@ -78,7 +78,7 @@ const Home = () => {
             initial={{ scale: 0, rotate: 15 }}
             animate={{ scale: 1, rotate: -10 }}
             transition={{ type: "spring", stiffness: 260, damping: 20, delay: 1.5 }}
-            onClick={() => toast.info("Ask at Desk for Offers")}
+            onClick={() => toast.info("Check the workshop page")}
           >
             <div className="relative group">
               <div className="absolute inset-0 bg-yellow-400 rounded-full blur-md opacity-40 animate-pulse"></div>
@@ -104,7 +104,7 @@ const Home = () => {
               x: { type: "spring", stiffness: 100 },
               opacity: { duration: 0.3 }
             }}
-            onClick={() => toast.info("Ask at Desk for Offers")}
+            onClick={() => toast.info("Check the workshop page")}
           >
             <div className="relative flex items-center">
               {/* Glow effect */}
