@@ -28,13 +28,13 @@ export const metadata = {
 };
 
 // Client Components Wrapper
-import { ClientProviders } from './components/ClientProviders';
+// import { ClientProviders } from './components/ClientProviders';/
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="light">
       <body className={inter.className}>
-        <ClientProviders>
+        {/* <ClientProviders> */}
           <AuthProvider>
             <Navbar />
             <GlobalPreloader />
@@ -50,7 +50,7 @@ export default function RootLayout({ children }) {
           />
           <Analytics />
           <SpeedInsights />
-        </ClientProviders>
+        {/* </ClientProviders> */}
       </body>
     </html>
   );
