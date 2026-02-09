@@ -445,5 +445,5 @@ const Votes = () => {
     );
 };
 
-export default (Votes);
-// export default isNotAuth(Votes);
+// export default (Votes);
+export default isNotAuth(Votes);
