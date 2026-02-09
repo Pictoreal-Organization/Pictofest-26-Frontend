@@ -69,8 +69,8 @@ const Votes = () => {
     //     { id: "theme-category", label: "Theme Category" },
     // ];
     const categories = [
-  { id: "sketching", label: "Sekting", eventCode: "SK" },
-  { id: "painting", label: "Digital Art", eventCode: "DA" },
+  { id: "sketching", label: "Sketching", eventCode: "SK" },
+  { id: "painting", label: "Painting", eventCode: "PA" },
   { id: "photography", label: "Photography", eventCode: "PH" },
   { id: "scripts-and-styles", label: "Scripts and Styles", eventCode: "SS" },
   { id: "themed-category", label: "Themed Category", eventCode: "TC" },
@@ -86,7 +86,7 @@ const Votes = () => {
             const category = categories.find(c => c.id === selectedCategory);
 
             const res = await fetch(
-                `/api/entries/eventcode/${category.eventCode}?page=1&size=12`
+                `/ticket/entries/eventcode/${category.eventCode}?page=1&size=12`
             );
 
             const data = await res.json();
@@ -133,7 +133,7 @@ const Votes = () => {
 
     useEffect(() => {
         const fetchWishlist = async () => {
-            const res = await fetch("/api/wishlist");
+            const res = await fetch("/wishlist");
             const data = await res.json();
             if (!data.error) setWishlist(data.data);
         };
@@ -142,7 +142,7 @@ const Votes = () => {
     }, []);
 
     const handleVote = async (entry) => {
-        const res = await fetch("/api/wishlist", {
+        const res = await fetch("/wishlist", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ entry_id: entry.id }),
@@ -157,7 +157,7 @@ const Votes = () => {
     };
 
     const removeVote = async (entryId) => {
-        const res = await fetch("/api/wishlist", {
+        const res = await fetch("/wishlist", {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ entry_id: entryId }),
