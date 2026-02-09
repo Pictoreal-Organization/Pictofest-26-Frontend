@@ -5,7 +5,7 @@ import { Toaster } from "sonner";
 import { Inter } from "next/font/google";
 import { AuthProvider } from "@/app/context/Auth";
 import Navbar from "@/app/components/Navbar";
-import { ClientProviders } from "@/app/components/ClientProviders";
+// import { ClientProviders } from "@/app/components/ClientProviders";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,7 +13,7 @@ const WishlistLayout = ({ children }) => {
   return (
     <html lang="en" className="light">
       <body className={inter.className}>
-        <ClientProviders>
+        {/* <ClientProviders> */}
           <AuthProvider>
             <Navbar />
             <main>{children}</main>
@@ -26,7 +26,7 @@ const WishlistLayout = ({ children }) => {
             pauseWhenPageIsHidden
             visibleToasts={1}
           />
-        </ClientProviders>
+        {/* </ClientProviders> */}
       </body>
     </html>
   );
