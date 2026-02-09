@@ -11,7 +11,10 @@ const rye = localFont({
 });
 
 const Votes = () => {
-    const [selectedCategory, setSelectedCategory] = useState("craft");
+    const [entries, setEntries] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    const [selectedCategory, setSelectedCategory] = useState("sketching");
     const [searchCode, setSearchCode] = useState("");
 
     // Dummy data for entries - will be replaced with backend data later
