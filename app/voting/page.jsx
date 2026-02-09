@@ -6,8 +6,7 @@ import Navbar from "@/app/components/Navbar";
 import localFont from "next/font/local";
 import isNotAuth from "@/app/components/isNotAuth";
 import axios from "axios";
-
-const baseURL = process.env.NEXT_PUBLIC_API || "http://localhost:5000";
+import { baseURL } from "@/app/api";
 
 
 const rye = localFont({
@@ -92,7 +91,7 @@ const Votes = () => {
 
             try {
                 const res = await axios.get(
-                    `${baseURL}/ticket/entries/eventcode/${category.eventCode}?page=1&size=12`,
+                    `${baseURL}/entry/eventcode/${category.eventCode}?page=1&size=12`,
                     { withCredentials: true }
                 );
 
