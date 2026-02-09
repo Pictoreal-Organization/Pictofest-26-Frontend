@@ -91,8 +91,7 @@ const Votes = () => {
 
             try {
                 const res = await axios.get(
-                    `${baseURL}/entry/eventcode/${category.eventCode}?page=1&size=12`,
-                    { withCredentials: true }
+                    `${baseURL}/entry/eventcode/${category.eventCode}?page=1&size=12`
                 );
 
                 if (!res.data.error) {
@@ -142,9 +141,7 @@ const Votes = () => {
     useEffect(() => {
         const fetchWishlist = async () => {
             try {
-                const res = await axios.get(`${baseURL}/wishlist`, {
-                    withCredentials: true,
-                });
+                const res = await axios.get(`${baseURL}/wishlist`                );
 
                 if (!res.data.error) setWishlist(res.data.data);
             } catch (err) {
@@ -160,9 +157,7 @@ const Votes = () => {
         try {
             const res = await axios.post(
                 `${baseURL}/wishlist`,
-                { entry_id: entry.id },
-                { withCredentials: true }
-            );
+                { entry_id: entry.id }            );
 
             if (!res.data.error && !wishlist.some(w => w.id === entry.id)) {
                 setWishlist(prev => [...prev, entry]);
@@ -176,9 +171,7 @@ const Votes = () => {
     const removeVote = async (entryId) => {
         try {
             const res = await axios.delete(`${baseURL}/wishlist`, {
-                data: { entry_id: entryId },
-                withCredentials: true,
-            });
+                data: { entry_id: entryId }            });
 
             if (!res.data.error) {
                 setWishlist(prev => prev.filter(item => item.id !== entryId));

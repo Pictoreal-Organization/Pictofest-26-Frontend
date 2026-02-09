@@ -587,8 +587,8 @@ const Votes = () => {
     const fetchMyEntries = async () => {
       try {
         const [votedRes, wishlistRes] = await Promise.all([
-          axios.get(`${baseURL}/voting`, { withCredentials: true }),
-          axios.get(`${baseURL}/wishlist`, { withCredentials: true }),
+          axios.get(`${baseURL}/voting`),
+          axios.get(`${baseURL}/wishlist`),
         ]);
   
         if (!votedRes.data.error) {
@@ -703,16 +703,14 @@ const Votes = () => {
     try {
       const response = await axios.post(
         `${baseURL}/voting/vote-wishlist`,
-        {},
-        { withCredentials: true }
-      );
+        {}      );
       
       if (!response.data.error) {
         toast.success("All wishlist entries voted successfully!");
         // Refresh data
         const [votedRes, wishlistRes] = await Promise.all([
-          axios.get(`${baseURL}/voting`, { withCredentials: true }),
-          axios.get(`${baseURL}/wishlist`, { withCredentials: true }),
+          axios.get(`${baseURL}/voting`),
+          axios.get(`${baseURL}/wishlist`),
         ]);
         
         if (!votedRes.data.error) {
