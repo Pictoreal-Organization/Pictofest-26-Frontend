@@ -566,7 +566,7 @@ import isNotAuth from "@/app/components/isNotAuth";
 import { toast } from "sonner";
 
 const Votes = () => {
-  const [selectedCategory, setSelectedCategory] = useState("sketching");
+  const [selectedCategory, setSelectedCategory] = useState("SK");
 
   const [votedEntries, setVotedEntries] = useState([]);
   const [wishlistEntries, setWishlistEntries] = useState([]);
@@ -618,9 +618,10 @@ const Votes = () => {
   const filteredEntries = currentEntries;
 
   // Get category name helper
-  const getCategoryName = (categoryId) => {
-    return categories.find(cat => cat.id === categoryId)?.label || categoryId;
+  const getCategoryName = (eventCode) => {
+    return categories.find(cat => cat.event_code === eventCode)?.label || eventCode;
   };
+  
 
   // Check if user has already voted in a category
   const hasVotedInCategory = (categoryId) => {
