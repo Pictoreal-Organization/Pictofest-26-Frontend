@@ -5,6 +5,10 @@ import Image from "next/image";
 import Navbar from "@/app/components/Navbar";
 import localFont from "next/font/local";
 import isNotAuth from "@/app/components/isNotAuth";
+import axios from "axios";
+
+const baseURL = process.env.NEXT_PUBLIC_API || "http://localhost:5000";
+
 
 const rye = localFont({
     src: "../../public/fonts/Rye-Regular.ttf",
@@ -69,12 +73,12 @@ const Votes = () => {
     //     { id: "theme-category", label: "Theme Category" },
     // ];
     const categories = [
-  { id: "sketching", label: "Sketching", eventCode: "SK" },
-  { id: "painting", label: "Painting", eventCode: "PA" },
-  { id: "photography", label: "Photography", eventCode: "PH" },
-  { id: "scripts-and-styles", label: "Scripts and Styles", eventCode: "SS" },
-  { id: "themed-category", label: "Themed Category", eventCode: "TC" },
-];
+        { id: "sketching", label: "Sketching", eventCode: "SK" },
+        { id: "painting", label: "Painting", eventCode: "PA" },
+        { id: "photography", label: "Photography", eventCode: "PH" },
+        { id: "scripts-and-styles", label: "Scripts and Styles", eventCode: "SS" },
+        { id: "themed-category", label: "Themed Category", eventCode: "TC" },
+    ];
 
 
     // const currentEntries = dummyEntries[selectedCategory] || [];
@@ -84,15 +88,19 @@ const Votes = () => {
             setLoading(true);
 
             const category = categories.find(c => c.id === selectedCategory);
+            if (!category) return;
 
-            const res = await fetch(
-                `/ticket/entries/eventcode/${category.eventCode}?page=1&size=12`
-            );
+            try {
+                const res = await axios.get(
+                    `${baseURL}/ticket/entries/eventcode/${category.eventCode}?page=1&size=12`,
+                    { withCredentials: true }
+                );
 
-            const data = await res.json();
-
-            if (!data.error) {
-                setEntries(data.data.entries);
+                if (!res.data.error) {
+                    setEntries(res.data.data.entries);
+                }
+            } catch (err) {
+                console.error("Entries fetch failed:", err);
             }
 
             setLoading(false);
@@ -100,6 +108,7 @@ const Votes = () => {
 
         fetchEntries();
     }, [selectedCategory]);
+
 
 
     // Filter entries by search code
@@ -133,42 +142,53 @@ const Votes = () => {
 
     useEffect(() => {
         const fetchWishlist = async () => {
-            const res = await fetch("/wishlist");
-            const data = await res.json();
-            if (!data.error) setWishlist(data.data);
+            try {
+                const res = await axios.get(`${baseURL}/wishlist`, {
+                    withCredentials: true,
+                });
+
+                if (!res.data.error) setWishlist(res.data.data);
+            } catch (err) {
+                console.error("Wishlist fetch failed:", err);
+            }
         };
 
         fetchWishlist();
     }, []);
 
+
     const handleVote = async (entry) => {
-        const res = await fetch("/wishlist", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ entry_id: entry.id }),
-        });
+        try {
+            const res = await axios.post(
+                `${baseURL}/wishlist`,
+                { entry_id: entry.id },
+                { withCredentials: true }
+            );
 
-        const data = await res.json();
-
-        if (!data.error && !wishlist.some(w => w.id === entry.id)) {
-            setWishlist(prev => [...prev, entry]);
+            if (!res.data.error && !wishlist.some(w => w.id === entry.id)) {
+                setWishlist(prev => [...prev, entry]);
+            }
+        } catch (err) {
+            console.error("Vote failed:", err);
         }
-
     };
+
 
     const removeVote = async (entryId) => {
-        const res = await fetch("/wishlist", {
-            method: "DELETE",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ entry_id: entryId }),
-        });
+        try {
+            const res = await axios.delete(`${baseURL}/wishlist`, {
+                data: { entry_id: entryId },
+                withCredentials: true,
+            });
 
-        const data = await res.json();
-
-        if (!data.error) {
-            setWishlist((prev) => prev.filter((item) => item.id !== entryId));
+            if (!res.data.error) {
+                setWishlist(prev => prev.filter(item => item.id !== entryId));
+            }
+        } catch (err) {
+            console.error("Remove vote failed:", err);
         }
     };
+
 
     return (
         <div className="min-h-screen relative">
