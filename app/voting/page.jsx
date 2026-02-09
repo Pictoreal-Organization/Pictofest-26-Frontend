@@ -69,7 +69,7 @@ const Votes = () => {
     //     { id: "theme-category", label: "Theme Category" },
     // ];
     const categories = [
-  { id: "sektching", label: "Sekting", eventCode: "SK" },
+  { id: "sketching", label: "Sekting", eventCode: "SK" },
   { id: "painting", label: "Digital Art", eventCode: "DA" },
   { id: "photography", label: "Photography", eventCode: "PH" },
   { id: "scripts-and-styles", label: "Scripts and Styles", eventCode: "SS" },
