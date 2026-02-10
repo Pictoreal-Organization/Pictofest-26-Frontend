@@ -5,8 +5,7 @@ import Image from "next/image";
 import Navbar from "@/app/components/Navbar";
 import localFont from "next/font/local";
 import isNotAuth from "@/app/components/isNotAuth";
-import axios from "axios";
-import { baseURL } from "@/app/api";
+import api from "@/app/api";
 
 
 const rye = localFont({
@@ -90,9 +89,8 @@ const Votes = () => {
             if (!category) return;
 
             try {
-                const res = await axios.get(
-                    `${baseURL}/entry/eventcode/${category.eventCode}?page=1&size=12`
-                );
+                const res = await api.get(`/entry/eventcode/${category.eventCode}?page=1&size=12`);
+
 
                 if (!res.data.error) {
                     setEntries(res.data.data.entries);
@@ -141,9 +139,11 @@ const Votes = () => {
     useEffect(() => {
         const fetchWishlist = async () => {
             try {
-                const res = await axios.get(`${baseURL}/wishlist`                );
+                const res = await api.get("/wishlist");
 
-                if (!res.data.error) setWishlist(res.data.data);
+                if (!res.data.error) {
+                    setWishlist(res.data.data);
+                }
             } catch (err) {
                 console.error("Wishlist fetch failed:", err);
             }
@@ -153,11 +153,11 @@ const Votes = () => {
     }, []);
 
 
+
     const handleVote = async (entry) => {
         try {
-            const res = await axios.post(
-                `${baseURL}/wishlist`,
-                { entry_id: entry.id }            );
+            const res = await api.post("/wishlist", { entry_id: entry.id });
+
 
             if (!res.data.error && !wishlist.some(w => w.id === entry.id)) {
                 setWishlist(prev => [...prev, entry]);
@@ -170,8 +170,10 @@ const Votes = () => {
 
     const removeVote = async (entryId) => {
         try {
-            const res = await axios.delete(`${baseURL}/wishlist`, {
-                data: { entry_id: entryId }            });
+            const res = await api.delete("/wishlist", {
+                data: { entry_id: entryId }
+            });
+
 
             if (!res.data.error) {
                 setWishlist(prev => prev.filter(item => item.id !== entryId));
