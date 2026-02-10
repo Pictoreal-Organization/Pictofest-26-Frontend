@@ -559,11 +559,11 @@
 
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { baseURL } from "@/app/api";
 import Image from "next/image";
 import Navbar from "@/app/components/Navbar";
 import isNotAuth from "@/app/components/isNotAuth";
 import { toast } from "sonner";
+import api from "@/app/api";
 
 const Votes = () => {
   const [selectedCategory, setSelectedCategory] = useState("SK");
@@ -583,12 +583,39 @@ const Votes = () => {
     { id: "painting", label: "Painting", event_code: "PA" },
   ];
 
+  // useEffect(() => {
+  //   const fetchMyEntries = async () => {
+  //     try {
+  //       const [votedRes, wishlistRes] = await Promise.all([
+  //         api.get(`${baseURL}/voting`),
+  //         api.get(`${baseURL}/wishlist`),
+  //       ]);
+  
+  //       if (!votedRes.data.error) {
+  //         setVotedEntries(votedRes.data.data);
+  //       }
+  
+  //       if (!wishlistRes.data.error) {
+  //         setWishlistEntries(wishlistRes.data.data);
+  //       }
+  
+  //     } catch (err) {
+  //       console.log(err);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  
+  //   fetchMyEntries();
+  // }, []);
+
   useEffect(() => {
     const fetchMyEntries = async () => {
       try {
+        // ✅ REMOVE baseURL - api instance already has it
         const [votedRes, wishlistRes] = await Promise.all([
-          axios.get(`${baseURL}/voting`),
-          axios.get(`${baseURL}/wishlist`),
+          api.get(`/voting`),
+          api.get(`/wishlist`),
         ]);
   
         if (!votedRes.data.error) {
@@ -684,53 +711,107 @@ const Votes = () => {
   };
 
   // Handle vote all from wishlist
-  const handleVoteAllFromWishlist = async () => {
-    const validation = validateWishlistVotes();
+  // const handleVoteAllFromWishlist = async () => {
+  //   const validation = validateWishlistVotes();
     
-    if (!validation.isValid) {
-      const errorMessages = validation.violations.map(v => 
-        `${v.categoryName} (${v.count} entries)`
-      ).join(', ');
+  //   if (!validation.isValid) {
+  //     const errorMessages = validation.violations.map(v => 
+  //       `${v.categoryName} (${v.count} entries)`
+  //     ).join(', ');
       
-      toast.error(
-        `Maximum 2 votes allowed per category. Please remove extra entries from: ${errorMessages}`
-      );
-      return;
-    }
+  //     toast.error(
+  //       `Maximum 2 votes allowed per category. Please remove extra entries from: ${errorMessages}`
+  //     );
+  //     return;
+  //   }
 
-    setIsVoting(true);
+  //   setIsVoting(true);
     
-    try {
-      const response = await axios.post(
-        `${baseURL}/voting/vote-wishlist`,
-        {}      );
+  //   try {
+  //     const response = await api.post(
+  //       `${baseURL}/voting/vote-wishlist`,
+  //       {}      );
       
-      if (!response.data.error) {
-        toast.success("All wishlist entries voted successfully!");
-        // Refresh data
-        const [votedRes, wishlistRes] = await Promise.all([
-          axios.get(`${baseURL}/voting`),
-          axios.get(`${baseURL}/wishlist`),
-        ]);
+  //     if (!response.data.error) {
+  //       toast.success("All wishlist entries voted successfully!");
+  //       // Refresh data
+  //       const [votedRes, wishlistRes] = await Promise.all([
+  //         api.get(`${baseURL}/voting`),
+  //         api.get(`${baseURL}/wishlist`),
+  //       ]);
         
-        if (!votedRes.data.error) {
-          setVotedEntries(votedRes.data.data);
-        }
+  //       if (!votedRes.data.error) {
+  //         setVotedEntries(votedRes.data.data);
+  //       }
         
-        if (!wishlistRes.data.error) {
-          setWishlistEntries(wishlistRes.data.data);
-        }
+  //       if (!wishlistRes.data.error) {
+  //         setWishlistEntries(wishlistRes.data.data);
+  //       }
         
-        setMode("voted");
-      }
+  //       setMode("voted");
+  //     }
       
-    } catch (err) {
-      console.error(err);
-      toast.error("Failed to submit votes. Please try again.");
-    } finally {
-      setIsVoting(false);
+  //   } catch (err) {
+  //     console.error(err);
+  //     toast.error("Failed to submit votes. Please try again.");
+  //   } finally {
+  //     setIsVoting(false);
+  //   }
+  // };
+
+  // Change this:
+const handleVoteAllFromWishlist = async () => {
+  const validation = validateWishlistVotes();
+  
+  if (!validation.isValid) {
+    const errorMessages = validation.violations.map(v => 
+      `${v.categoryName} (${v.count} entries)`
+    ).join(', ');
+    
+    toast.error(
+      `Maximum 2 votes allowed per category. Please remove extra entries from: ${errorMessages}`
+    );
+    return;
+  }
+
+  setIsVoting(true);
+  
+  try {
+    // ✅ REMOVE baseURL - api instance already has it
+    const response = await api.post(`/voting/vote-wishlist`);
+    
+    if (!response.data.error) {
+      toast.success(`${response.data.votedCount || 'All'} entries voted successfully!`);
+      
+      // ✅ REMOVE baseURL from these too
+      const [votedRes, wishlistRes] = await Promise.all([
+        api.get(`/voting`),
+        api.get(`/wishlist`),
+      ]);
+      
+      if (!votedRes.data.error) setVotedEntries(votedRes.data.data);
+      if (!wishlistRes.data.error) setWishlistEntries(wishlistRes.data.data);
+      
+      setMode("voted");
     }
-  };
+    
+  } catch (err) {
+    console.error(err);
+    
+    // ✅ BETTER ERROR HANDLING
+    if (err.response?.data?.violations) {
+      const violationMsgs = err.response.data.violations
+        .map(v => v.message)
+        .join('\n');
+      toast.error(violationMsgs);
+    } else {
+      const errorMsg = err.response?.data?.message || "Failed to submit votes. Please try again.";
+      toast.error(errorMsg);
+    }
+  } finally {
+    setIsVoting(false);
+  }
+};
 
   // Get total wishlist count
   const totalWishlistCount = wishlistEntries.length;
