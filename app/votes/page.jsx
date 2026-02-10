@@ -573,6 +573,7 @@ const Votes = () => {
   const [mode, setMode] = useState("voted"); // voted | wishlist
   const [loading, setLoading] = useState(true);
   const [isVoting, setIsVoting] = useState(false);
+  const [removingIds, setRemovingIds] = useState(new Set());
 
   // Updated categories based on PICSOREEL events from database
   const categories = [
@@ -709,6 +710,34 @@ const Votes = () => {
 
     return { isValid: violations.length === 0, violations };
   };
+
+  // Handle remove from wishlist
+const handleRemoveFromWishlist = async (entryId) => {
+  setRemovingIds(prev => new Set(prev).add(entryId));
+  
+  try {
+    const response = await api.delete(`/wishlist`, {
+      data: { entry_id: entryId }
+    });
+    
+    if (!response.data.error) {
+      toast.success("Removed from wishlist");
+      
+      // Update local state
+      setWishlistEntries(prev => prev.filter(entry => entry.id !== entryId));
+    }
+  } catch (err) {
+    console.error(err);
+    const errorMsg = err.response?.data?.message || "Failed to remove from wishlist";
+    toast.error(errorMsg);
+  } finally {
+    setRemovingIds(prev => {
+      const newSet = new Set(prev);
+      newSet.delete(entryId);
+      return newSet;
+    });
+  }
+};
 
   // Handle vote all from wishlist
   // const handleVoteAllFromWishlist = async () => {
@@ -1065,6 +1094,26 @@ const handleVoteAllFromWishlist = async () => {
                             className="w-full h-full object-cover rounded-sm"
                           />
                         </div>
+                        {/* Remove Button - Only show in wishlist mode */}
+                        {mode === "wishlist" && (
+                          <button
+                            onClick={() => handleRemoveFromWishlist(entry.id)}
+                            disabled={removingIds.has(entry.id)}
+                            className="absolute top-2 right-2 z-20 bg-red-500 hover:bg-red-600 disabled:bg-red-300 text-white p-2 rounded-full transition-all duration-200 shadow-lg hover:scale-110 disabled:cursor-not-allowed"
+                            title="Remove from wishlist"
+                          >
+                            {removingIds.has(entry.id) ? (
+                              <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                              </svg>
+                            ) : (
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                              </svg>
+                            )}
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>
