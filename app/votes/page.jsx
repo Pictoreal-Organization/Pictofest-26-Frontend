@@ -564,6 +564,7 @@ import Image from "next/image";
 import Navbar from "@/app/components/Navbar";
 import isNotAuth from "@/app/components/isNotAuth";
 import { toast } from "sonner";
+import api from "@/app/api";
 
 const Votes = () => {
   const [selectedCategory, setSelectedCategory] = useState("SK");
@@ -587,8 +588,8 @@ const Votes = () => {
     const fetchMyEntries = async () => {
       try {
         const [votedRes, wishlistRes] = await Promise.all([
-          axios.get(`${baseURL}/voting`),
-          axios.get(`${baseURL}/wishlist`),
+          api.get(`${baseURL}/voting`),
+          api.get(`${baseURL}/wishlist`),
         ]);
   
         if (!votedRes.data.error) {
@@ -701,7 +702,7 @@ const Votes = () => {
     setIsVoting(true);
     
     try {
-      const response = await axios.post(
+      const response = await api.post(
         `${baseURL}/voting/vote-wishlist`,
         {}      );
       
@@ -709,8 +710,8 @@ const Votes = () => {
         toast.success("All wishlist entries voted successfully!");
         // Refresh data
         const [votedRes, wishlistRes] = await Promise.all([
-          axios.get(`${baseURL}/voting`),
-          axios.get(`${baseURL}/wishlist`),
+          api.get(`${baseURL}/voting`),
+          api.get(`${baseURL}/wishlist`),
         ]);
         
         if (!votedRes.data.error) {
