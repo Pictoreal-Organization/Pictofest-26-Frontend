@@ -14,7 +14,7 @@ const Votes = () => {
 
   const [votedEntries, setVotedEntries] = useState([]);
   const [wishlistEntries, setWishlistEntries] = useState([]);
-  const [mode, setMode] = useState("voted"); // voted | wishlist
+  const [mode, setMode] = useState("wishlist"); // voted | wishlist
   const [loading, setLoading] = useState(true);
   const [isVoting, setIsVoting] = useState(false);
   const [removingIds, setRemovingIds] = useState(new Set());
