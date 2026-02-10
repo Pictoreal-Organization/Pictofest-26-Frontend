@@ -7,14 +7,14 @@
 // import localFont from "next/font/local";
 // import isNotAuth from "@/app/components/isNotAuth";
 // import api from "@/app/api";
-// import { useRouter } from "next/navigation"; // Import useRouter
+// import { useRouter } from "next/navigation";
 
 // const rye = localFont({
 //   src: "../../public/fonts/Rye-Regular.ttf",
 // });
 
 // const Voting = () => {
-//   const router = useRouter(); // Initialize router
+//   const router = useRouter();
 //   const [entries, setEntries] = useState([]);
 //   const [loading, setLoading] = useState(false);
 //   const [selectedCategory, setSelectedCategory] = useState("sketching");
@@ -333,7 +333,6 @@
 
 //             {/* Bottom Interaction Area */}
 //             <div className="fixed bottom-0 left-0 w-full z-[100] px-4 pb-6">
-              
 //               {/* Collapsed Bar */}
 //               {!wishlistOpen && (
 //                 <div
@@ -356,12 +355,14 @@
 //                     </span>
 //                   </div>
 
-//                   <div 
+//                   <div
 //                     className="flex items-center gap-2 
 //                     bg-gradient-to-r from-[#FFA53A] to-[#FF8C1A] hover:from-[#FF8C1A] hover:to-[#FFA53A]
 //                     px-5 py-3 rounded-full shadow-lg transition-all"
 //                   >
-//                     <span className={`${rye.className} text-white font-semibold text-sm`}>
+//                     <span
+//                       className={`${rye.className} text-white font-semibold text-sm`}
+//                     >
 //                       View Votes
 //                     </span>
 //                     <svg
@@ -403,17 +404,17 @@
 //                   {/* Header Actions: Vote Button & Close Button */}
 //                   <div className="flex items-center gap-3">
 //                     <button
-//                         onClick={() => router.push('/votes')}
-//                         className={`${rye.className} bg-[#FFA53A] hover:bg-[#e08e2b] text-[#070044] px-6 py-2 rounded-full font-bold text-sm shadow-md transition-all uppercase tracking-wider`}
+//                       onClick={() => router.push("/votes")}
+//                       className={`${rye.className} bg-[#FFA53A] hover:bg-[#e08e2b] text-[#070044] px-6 py-2 rounded-full font-bold text-sm shadow-md transition-all uppercase tracking-wider`}
 //                     >
-//                         Vote
+//                       Vote
 //                     </button>
-                    
+
 //                     <button
-//                         onClick={() => setWishlistOpen(false)}
-//                         className="p-2 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors"
+//                       onClick={() => setWishlistOpen(false)}
+//                       className="p-2 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors"
 //                     >
-//                         <svg
+//                       <svg
 //                         width="24"
 //                         height="24"
 //                         viewBox="0 0 24 24"
@@ -422,10 +423,10 @@
 //                         strokeWidth="2"
 //                         strokeLinecap="round"
 //                         strokeLinejoin="round"
-//                         >
+//                       >
 //                         <line x1="18" y1="6" x2="6" y2="18"></line>
 //                         <line x1="6" y1="6" x2="18" y2="18"></line>
-//                         </svg>
+//                       </svg>
 //                     </button>
 //                   </div>
 //                 </div>
@@ -462,27 +463,33 @@
 //                                 className="w-full h-full object-cover"
 //                                 alt={item.ticket_id}
 //                               />
-//                               {/* Remove Button Overlay */}
-//                               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-//                                 <button
-//                                   onClick={() => removeVote(item.id)}
-//                                   className="bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transform hover:scale-110 transition-all"
+                              
+//                               {/* --- MODIFIED CROSS BUTTON (ALWAYS VISIBLE) --- */}
+//                               <button
+//                                 onClick={(e) => {
+//                                   e.stopPropagation(); // Prevent clicking through
+//                                   removeVote(item.id);
+//                                 }}
+//                                 className="absolute top-1 right-1 
+//                                   bg-red-500 hover:bg-red-600 text-white 
+//                                   p-1.5 rounded-full shadow-md z-10
+//                                   transition-transform hover:scale-110 active:scale-95"
+//                                 title="Remove"
+//                               >
+//                                 <svg
+//                                   width="14"
+//                                   height="14"
+//                                   viewBox="0 0 24 24"
+//                                   fill="none"
+//                                   stroke="currentColor"
+//                                   strokeWidth="3"
+//                                   strokeLinecap="round"
+//                                   strokeLinejoin="round"
 //                                 >
-//                                   <svg
-//                                     width="16"
-//                                     height="16"
-//                                     viewBox="0 0 24 24"
-//                                     fill="none"
-//                                     stroke="currentColor"
-//                                     strokeWidth="3"
-//                                     strokeLinecap="round"
-//                                     strokeLinejoin="round"
-//                                   >
-//                                     <line x1="18" y1="6" x2="6" y2="18"></line>
-//                                     <line x1="6" y1="6" x2="18" y2="18"></line>
-//                                   </svg>
-//                                 </button>
-//                               </div>
+//                                   <line x1="18" y1="6" x2="6" y2="18"></line>
+//                                   <line x1="6" y1="6" x2="18" y2="18"></line>
+//                                 </svg>
+//                               </button>
 //                             </div>
 
 //                             {/* Ticket ID */}
@@ -847,24 +854,25 @@ const Voting = () => {
 
             {/* Bottom Interaction Area */}
             <div className="fixed bottom-0 left-0 w-full z-[100] px-4 pb-6">
-              {/* Collapsed Bar */}
+              
+              {/* Collapsed Bar - UPDATED TO WHITE BACKGROUND */}
               {!wishlistOpen && (
                 <div
                   onClick={() => setWishlistOpen(true)}
                   className="max-w-2xl mx-auto 
-                    bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-md 
-                    border-2 border-white/30 shadow-2xl
+                    bg-white
+                    border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.12)]
                     rounded-3xl p-4 sm:px-6 sm:py-5
                     flex justify-between items-center cursor-pointer 
                     transform hover:-translate-y-1 transition-all duration-300"
                 >
                   <div className="flex flex-col">
                     <span
-                      className={`${rye.className} text-white/70 text-xs uppercase tracking-widest mb-1`}
+                      className={`${rye.className} text-gray-500 text-xs uppercase tracking-widest mb-1`}
                     >
                       Your Selections
                     </span>
-                    <span className="font-bold text-white text-lg drop-shadow-sm">
+                    <span className="font-bold text-[#070044] text-lg drop-shadow-sm">
                       {wishlist.length} Entries Selected
                     </span>
                   </div>
