@@ -941,12 +941,12 @@ const Cart = () => {
 
   // Combo definitions - keep in sync with your combos array
   const COMBO_PRICES = {
-    "LRP,FF": 650,
-    "LRP,BW": 650,
-    "PCFI,FF": 350,
-    "PCFI,CH": 350,
-    "PCFI,LRP": 900,
-  };
+  "FF,LRP": 650,
+  "BW,LRP": 650,
+  "FF,PCFI": 350,
+  "CH,PCFI": 350,
+  "LRP,PCFI": 900,
+};
 
   // Helper to check if a specific item is from combo
   const isFromCombo = (eventCode) => {
