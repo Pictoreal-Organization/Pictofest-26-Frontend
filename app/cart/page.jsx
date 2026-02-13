@@ -544,22 +544,50 @@ const Cart = () => {
 
   const EARLY_BIRD_EVENTS = ["LRP", "PCF", "PCFI"];
 
+  const canApplyEarlyBird = cart.some(item =>
+    EARLY_BIRD_EVENTS.includes(item.event_code)
+  );
+
+  const hasEligibleEarlyBirdEvent = (currentCart, discountedCodes) => {
+    return currentCart.some(item =>
+      discountedCodes.includes(item.event_code)
+    );
+  };
+
   const hasEarlyBirdEvent = (cart) =>
     cart.some(item => EARLY_BIRD_EVENTS.includes(item.event_code));
 
-  const getAmount = async (currentCart = cart) => {
+  const getAmount = async (code, currentCart = cart) => {
     try {
-      if (hasEarlyBirdEvent(currentCart)) {
-        // auto apply early bird
-        const res = await api.post("/payment/apply-earlybird");
+      if (code) {
+        const res = await api.post("/payment/apply-earlybird", { code });
+        
+        // Check if the applied code actually targets items currently in the cart
+        if (!hasEligibleEarlyBirdEvent(currentCart, res.data.data.discounted_event_codes)) {
+          setApplied(false);
+          setEarlyCode("");
+          localStorage.removeItem("early_code");
+
+          const fresh = await api.get("/payment/amount");
+          setAmount(fresh.data.data);
+          return;
+        }
+
         setAmount(res.data.data);
+        setApplied(true);
+        localStorage.setItem("early_code", code);
       } else {
-        // normal amount
         const res = await api.get("/payment/amount");
         setAmount(res.data.data);
+        setApplied(false);
+        localStorage.removeItem("early_code");
       }
     } catch (err) {
-      toast.error(err.response?.data?.message || "Failed to calculate amount");
+      toast.error(err.response?.data?.message || "Invalid code");
+      setApplied(false);
+      // If code fails, get normal amount
+      const res = await api.get("/payment/amount");
+      setAmount(res.data.data);
     }
   };
 
@@ -826,6 +854,30 @@ const Cart = () => {
             </div>
 
             <div className="w-full border-t-2 border-dotted border-[#1f4e3d]/40 my-6"></div>
+
+            {canApplyEarlyBird && (
+              <div className="mb-4">
+                <p className="text-[11px] text-red-600 mb-1 italic">*Avail Early Bird offers at desk</p>
+                <div className="flex gap-2">
+                  <input
+                    value={earlyCode}
+                    onChange={(e) => setEarlyCode(e.target.value)}
+                    placeholder={applied ? "" : "Early Bird Code"}
+                    readOnly={applied}
+                    className={`border px-3 py-2 rounded-md text-sm w-full ${applied ? "bg-gray-100 text-gray-500 cursor-not-allowed" : "bg-white"}`}
+                  />
+                  <button
+                    disabled={applied}
+                    onClick={() => getAmount(earlyCode)}
+                    className={`px-4 py-2 rounded-md text-white text-sm font-bold transition-colors ${
+                      applied ? "bg-green-600 cursor-default" : "bg-[#1f4e3d] hover:bg-[#2d6e56]"
+                    }`}
+                  >
+                    {applied ? "Applied" : "Apply"}
+                  </button>
+                </div>
+              </div>
+            )}
             
 
             <div className="text-center mb-4">
