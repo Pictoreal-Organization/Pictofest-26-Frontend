@@ -290,7 +290,7 @@ const ComboCard = ({ data, index }) => {
         {/* Add to Cart Button */}
         <div className="relative z-10 w-full h-full">
           <div className={`flex gap-3 md:gap-4 lg:gap-5 absolute -top-[130%] ${
-            isOddIndex ? "left-[20%]" : "right-[20%]"
+            isOddIndex ? "left-[17%]" : "right-[17%]"
           }`}>
             <div className="relative group cursor-pointer flex-shrink-0" onClick={handleAddToCart}>
               <div className="relative w-[120px] md:w-[130px] lg:w-[140px] h-[26px] md:h-[30px] lg:h-[34px]">
@@ -303,7 +303,7 @@ const ComboCard = ({ data, index }) => {
                 <div className="absolute inset-0 z-10 flex items-center justify-center">
                   <span className="text-white sub-heading-font flex items-center justify-center gap-1 text-xs md:text-sm lg:text-base whitespace-nowrap">
                     <FaCartShopping className="text-white text-xs md:text-sm lg:text-base" />
-                    <span>Add Combo</span>
+                    {/* <span>Add Combo</span> */}
                   </span>
                 </div>
               </div>
@@ -358,7 +358,7 @@ const ComboCard = ({ data, index }) => {
         {/* Add to Cart Button */}
         <div className="relative z-10 w-full h-full">
           <div className={`flex gap-2 sm:gap-2.5 absolute -top-[130%] ${
-            isOddIndex ? "left-[22%]" : "right-[22%]"
+            isOddIndex ? "left-[15%]" : "right-[15%]"
           }`}>
             <div className="relative group cursor-pointer flex-shrink-0" onClick={handleAddToCart}>
               <div className="relative w-[100px] sm:w-[110px] h-[20px] sm:h-[22px]">
@@ -370,8 +370,8 @@ const ComboCard = ({ data, index }) => {
                 />
                 <div className="absolute inset-0 z-10 flex items-center justify-center">
                   <span className="text-white sub-heading-font flex items-center justify-center gap-0.5 text-[8px] sm:text-[9px] whitespace-nowrap">
-                    <FaCartShopping className="text-white text-[7px] sm:text-[8px]" />
-                    <span>Add Combo</span>
+                    <FaCartShopping className="text-white text-[10px] sm:text-[15px]" />
+                    {/* <span>Add Combo</span> */}
                   </span>
                 </div>
               </div>
