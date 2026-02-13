@@ -913,7 +913,6 @@
 
 
 
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -940,10 +939,30 @@ const Cart = () => {
 
   const EARLY_BIRD_EVENTS = ["LRP", "PCF", "PCFI"];
 
+  // Combo definitions - keep in sync with your combos array
+  const COMBO_PRICES = {
+    "LRP,FF": 650,
+    "LRP,BW": 650,
+    "PCFI,FF": 350,
+    "PCFI,CH": 350,
+    "PCFI,LRP": 900,
+  };
+
   // Helper to check if a specific item is from combo
   const isFromCombo = (eventCode) => {
     const comboEventCodes = JSON.parse(localStorage.getItem("combo_event_codes") || "[]");
     return comboEventCodes.includes(eventCode);
+  };
+
+  // Get the combo key and price for current combo items
+  const getComboDetails = () => {
+    const comboEventCodes = JSON.parse(localStorage.getItem("combo_event_codes") || "[]");
+    if (comboEventCodes.length === 0) return null;
+    
+    const sortedCodes = [...comboEventCodes].sort().join(",");
+    const comboPrice = COMBO_PRICES[sortedCodes];
+    
+    return comboPrice ? { codes: comboEventCodes, price: comboPrice } : null;
   };
 
   // Check if there are any early bird events NOT from combo
@@ -965,6 +984,62 @@ const Cart = () => {
     );
   };
 
+  const calculateAmount = (currentCart, discountedCodes = []) => {
+    const comboDetails = getComboDetails();
+    const comboEventCodes = comboDetails?.codes || [];
+    const comboPrice = comboDetails?.price || 0;
+    
+    let event_amount = 0;
+    let photocopy_charges = 0;
+    let discount = 0;
+    const DISCOUNT_PER_EVENT = 50;
+    
+    // Separate combo and non-combo items
+    const comboItems = currentCart.filter(item => comboEventCodes.includes(item.event_code));
+    const nonComboItems = currentCart.filter(item => !comboEventCodes.includes(item.event_code));
+    
+    // Add combo price if exists
+    if (comboItems.length > 0) {
+      event_amount += comboPrice;
+      
+      // Photocopy for combo items
+      comboItems.forEach(item => {
+        if (item.photocopy_needed) {
+          photocopy_charges += 10 * (item.quantity || 1);
+        }
+      });
+    }
+    
+    // Calculate non-combo items
+    nonComboItems.forEach(item => {
+      const hasPhotocopy = item.photocopy_needed === true;
+      const baseUnitPrice = hasPhotocopy ? item.price + 10 : item.price;
+      const baseTotalPrice = baseUnitPrice * (item.quantity || 1);
+      
+      // Apply discount if eligible
+      const isDiscounted = discountedCodes.includes(item.event_code);
+      
+      if (isDiscounted) {
+        event_amount += Math.max(baseTotalPrice - DISCOUNT_PER_EVENT, 0);
+        discount += DISCOUNT_PER_EVENT;
+      } else {
+        event_amount += baseTotalPrice;
+      }
+      
+      if (item.photocopy_needed) {
+        photocopy_charges += 10 * (item.quantity || 1);
+      }
+    });
+    
+    return {
+      event_amount,
+      photocopy_charges,
+      discount,
+      discounted_event_codes: discountedCodes,
+      total_amount: event_amount + photocopy_charges,
+    };
+  };
+
   const getAmount = async (code, currentCart = cart) => {
     try {
       if (code) {
@@ -977,26 +1052,29 @@ const Cart = () => {
           setEarlyCode("");
           localStorage.removeItem("early_code");
 
-          const fresh = await api.get("/payment/amount");
-          setAmount(fresh.data.data);
+          // Calculate without discount
+          const calculatedAmount = calculateAmount(currentCart, []);
+          setAmount(calculatedAmount);
           return;
         }
 
-        setAmount(res.data.data);
+        // Calculate with discount using backend's discounted codes
+        const calculatedAmount = calculateAmount(currentCart, res.data.data.discounted_event_codes);
+        setAmount(calculatedAmount);
         setApplied(true);
         localStorage.setItem("early_code", code);
       } else {
-        const res = await api.get("/payment/amount");
-        console.log("Backend response without code:", res.data.data);
-        setAmount(res.data.data);
+        // Calculate without discount
+        const calculatedAmount = calculateAmount(currentCart, []);
+        setAmount(calculatedAmount);
         setApplied(false);
         localStorage.removeItem("early_code");
       }
     } catch (err) {
       toast.error(err.response?.data?.message || "Invalid code");
       setApplied(false);
-      const res = await api.get("/payment/amount");
-      setAmount(res.data.data);
+      const calculatedAmount = calculateAmount(currentCart, []);
+      setAmount(calculatedAmount);
     }
   };
 
@@ -1179,113 +1257,151 @@ const Cart = () => {
 
             <div className="flex-grow w-full max-h-[250px] overflow-y-auto pr-2 custom-scrollbar space-y-4">
               {cart.length > 0 ? (
-                cart.map((item) => {
-                  const hasPhotocopy = item.photocopy_needed === true;
-                  const itemIsFromCombo = isFromCombo(item.event_code);
-                  const isEarlyBirdDiscounted = amount.discounted_event_codes?.includes(item.event_code);
+                (() => {
+                  const comboDetails = getComboDetails();
+                  const comboEventCodes = comboDetails?.codes || [];
+                  const comboPrice = comboDetails?.price || 0;
                   
-                  const baseUnitPrice = hasPhotocopy ? item.price + 10 : item.price;
-                  const baseTotalPrice = baseUnitPrice * (item.quantity || 1);
-
-                  // Only show promo discount on NON-COMBO items
-                  const DISCOUNT_PER_EVENT = 50;
-                  const shouldShowPromoDiscount = isEarlyBirdDiscounted && !itemIsFromCombo;
-
-                  const discountedTotalPrice = shouldShowPromoDiscount
-                    ? Math.max(baseTotalPrice - DISCOUNT_PER_EVENT, 0)
-                    : baseTotalPrice;
-
+                  // Separate combo and non-combo items
+                  const comboItems = cart.filter(item => comboEventCodes.includes(item.event_code));
+                  const nonComboItems = cart.filter(item => !comboEventCodes.includes(item.event_code));
+                  
                   return (
-                    <div
-                      key={`${item.id}-${item.photocopy_needed}`}
-                      className="flex items-start justify-between border-b border-[#1f4e3d]/20 pb-2"
-                    >
-                      {/* Left side */}
-                      <div className="flex flex-col">
-                        <span className="body-font text-[#194535] text-lg font-semibold leading-snug">
-                          {item.name}
-                        </span>
-
-                        {/* Show combo badge for combo items */}
-                        {itemIsFromCombo && (
-                          <span className="text-xs text-purple-600 font-semibold">
-                            🎉 Combo Discount Applied
-                          </span>
-                        )}
-
-                        {item.event_category === "PICSOREEL" && (
-                          <span className="text-sm text-[#5c3a21]">
-                            Entries: {item.quantity}
-                          </span>
-                        )}
-
-                        {hasPhotocopy && (
-                          <span className="text-xs md:text-sm text-[#8b4513] leading-tight">
-                            Extra Rs.10 Photocopy per entry
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Right side */}
-                      <div className="flex flex-col items-end gap-1 flex-shrink-0">
-                        {item.event_category === "PICSOREEL" && (
-                          <div className="flex items-center gap-1 bg-[#1f4e3d]/5 rounded-full px-2 py-[2px]">
-                            <button
-                              onClick={() => updateQuantity(item, "dec")}
-                              className="w-5 h-5 rounded-full border border-[#1f4e3d] text-[#1f4e3d] text-xs font-bold"
-                            >
-                              −
-                            </button>
-
-                            <span className="w-5 text-center body-font text-[#1f4e3d] text-xs">
-                              {item.quantity}
+                    <>
+                      {/* Render combo items as a single group */}
+                      {comboItems.length > 0 && (
+                        <div className="border-2 border-purple-200 rounded-lg p-3 bg-purple-50/30">
+                          <div className="flex items-start justify-between mb-2">
+                            <div className="flex flex-col flex-1">
+                              <span className="text-xs text-purple-600 font-semibold mb-1">
+                                🎉 Combo Package
+                              </span>
+                              {comboItems.map((item) => (
+                                <div key={`${item.id}-${item.photocopy_needed}`} className="flex items-center justify-between">
+                                  <span className="body-font text-[#194535] text-base leading-snug">
+                                    • {item.name}
+                                  </span>
+                                  <button
+                                    onClick={() => handleDelete(item.id, item.photocopy_needed)}
+                                    className="hover:scale-110 transition-transform ml-2"
+                                  >
+                                    <Image width={16} height={16} src="/img/cart/cancel-icon.png" alt="Remove" />
+                                  </button>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                          <div className="flex justify-end items-center pt-2 border-t border-purple-200">
+                            <span className="body-font text-[#0e7490] font-bold text-sm">
+                              Combo Total: Rs. {comboPrice}
                             </span>
-
-                            <button
-                              onClick={() => updateQuantity(item, "inc")}
-                              className="w-5 h-5 rounded-full border border-[#1f4e3d] text-[#1f4e3d] text-xs font-bold"
-                            >
-                              +
-                            </button>
                           </div>
-                        )}
-
-                        <div className="flex items-end gap-2 px-2">
-                          <div className="flex flex-col items-end">
-                            {/* Show promo code badge only for non-combo items */}
-                            {shouldShowPromoDiscount && (
-                              <span className="text-xs text-green-700 font-semibold">
-                                ✓ Promo Code Applied
-                              </span>
-                            )}
-
-                            {shouldShowPromoDiscount ? (
-                              <>
-                                <span className="text-xs line-through text-gray-500">
-                                  Rs. {baseTotalPrice}
-                                </span>
-                                <span className="body-font text-[#0e7490] font-bold text-sm">
-                                  Rs. {discountedTotalPrice}
-                                </span>
-                              </>
-                            ) : (
-                              <span className="body-font text-[#0e7490] font-bold text-sm">
-                                Rs. {baseTotalPrice}
-                              </span>
-                            )}
-                          </div>
-
-                          <button
-                            onClick={() => handleDelete(item.id, item.photocopy_needed)}
-                            className="hover:scale-110 transition-transform"
-                          >
-                            <Image width={18} height={18} src="/img/cart/cancel-icon.png" alt="Remove" />
-                          </button>
                         </div>
-                      </div>
-                    </div>
+                      )}
+
+                      {/* Render non-combo items individually */}
+                      {nonComboItems.map((item) => {
+                        const hasPhotocopy = item.photocopy_needed === true;
+                        const isEarlyBirdDiscounted = amount.discounted_event_codes?.includes(item.event_code);
+                        
+                        const baseUnitPrice = hasPhotocopy ? item.price + 10 : item.price;
+                        const baseTotalPrice = baseUnitPrice * (item.quantity || 1);
+
+                        // Only show promo discount on NON-COMBO items
+                        const DISCOUNT_PER_EVENT = 50;
+                        const shouldShowPromoDiscount = isEarlyBirdDiscounted;
+
+                        const discountedTotalPrice = shouldShowPromoDiscount
+                          ? Math.max(baseTotalPrice - DISCOUNT_PER_EVENT, 0)
+                          : baseTotalPrice;
+
+                        return (
+                          <div
+                            key={`${item.id}-${item.photocopy_needed}`}
+                            className="flex items-start justify-between border-b border-[#1f4e3d]/20 pb-2"
+                          >
+                            {/* Left side */}
+                            <div className="flex flex-col">
+                              <span className="body-font text-[#194535] text-lg font-semibold leading-snug">
+                                {item.name}
+                              </span>
+
+                              {item.event_category === "PICSOREEL" && (
+                                <span className="text-sm text-[#5c3a21]">
+                                  Entries: {item.quantity}
+                                </span>
+                              )}
+
+                              {hasPhotocopy && (
+                                <span className="text-xs md:text-sm text-[#8b4513] leading-tight">
+                                  Extra Rs.10 Photocopy per entry
+                                </span>
+                              )}
+                            </div>
+
+                            {/* Right side */}
+                            <div className="flex flex-col items-end gap-1 flex-shrink-0">
+                              {item.event_category === "PICSOREEL" && (
+                                <div className="flex items-center gap-1 bg-[#1f4e3d]/5 rounded-full px-2 py-[2px]">
+                                  <button
+                                    onClick={() => updateQuantity(item, "dec")}
+                                    className="w-5 h-5 rounded-full border border-[#1f4e3d] text-[#1f4e3d] text-xs font-bold"
+                                  >
+                                    −
+                                  </button>
+
+                                  <span className="w-5 text-center body-font text-[#1f4e3d] text-xs">
+                                    {item.quantity}
+                                  </span>
+
+                                  <button
+                                    onClick={() => updateQuantity(item, "inc")}
+                                    className="w-5 h-5 rounded-full border border-[#1f4e3d] text-xs font-bold"
+                                  >
+                                    +
+                                  </button>
+                                </div>
+                              )}
+
+                              <div className="flex items-end gap-2 px-2">
+                                <div className="flex flex-col items-end">
+                                  {/* Show promo code badge only for non-combo items */}
+                                  {shouldShowPromoDiscount && (
+                                    <span className="text-xs text-green-700 font-semibold">
+                                      ✓ Promo Code Applied
+                                    </span>
+                                  )}
+
+                                  {shouldShowPromoDiscount ? (
+                                    <>
+                                      <span className="text-xs line-through text-gray-500">
+                                        Rs. {baseTotalPrice}
+                                      </span>
+                                      <span className="body-font text-[#0e7490] font-bold text-sm">
+                                        Rs. {discountedTotalPrice}
+                                      </span>
+                                    </>
+                                  ) : (
+                                    <span className="body-font text-[#0e7490] font-bold text-sm">
+                                      Rs. {baseTotalPrice}
+                                    </span>
+                                  )}
+                                </div>
+
+                                <button
+                                  onClick={() => handleDelete(item.id, item.photocopy_needed)}
+                                  className="hover:scale-110 transition-transform"
+                                >
+                                  <Image width={18} height={18} src="/img/cart/cancel-icon.png" alt="Remove" />
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </>
                   );
-                })
+                })()
               ) : (
                 <div className="body-font text-center text-[#1f4e3d] text-xl mt-10 opacity-70">
                   Your cart is empty.
