@@ -197,16 +197,50 @@ import api from "@/app/api";
 import { FaCartShopping } from "react-icons/fa6";
 
 const ComboCard = ({ data, index }) => {
+  // const handleAddToCart = async () => {
+  //   try {
+  //     const response = await api.post(`/cart/combo`, { 
+  //       event_codes: data.event_codes 
+  //     });
+      
+  //     // Get existing combo codes from localStorage
+  //     const existingComboCodes = JSON.parse(localStorage.getItem("combo_event_codes") || "[]");
+      
+  //     // Add new combo codes (avoid duplicates)
+  //     const updatedComboCodes = [...new Set([...existingComboCodes, ...data.event_codes])];
+      
+  //     // Store which event codes came from combo
+  //     localStorage.setItem("combo_event_codes", JSON.stringify(updatedComboCodes));
+      
+  //     toast.success(response.data.message);
+  //   } catch (err) {
+  //     console.log(err.response?.data?.message);
+  //     toast.error(err.response?.data?.message || "Failed to add combo to cart");
+  //   }
+  // };
+
   const handleAddToCart = async () => {
     try {
+      // Get existing combo codes from localStorage
+      const existingComboCodes = JSON.parse(localStorage.getItem("combo_event_codes") || "[]");
+      
+      // Check if any event in the new combo conflicts with existing combo
+      const conflictingEvents = data.event_codes.filter(code => 
+        existingComboCodes.includes(code)
+      );
+      
+      if (conflictingEvents.length > 0) {
+        toast.error(
+          `You have already added a combo containing ${conflictingEvents.join(', ')}. Please remove the existing combo first.`
+        );
+        return;
+      }
+      
       const response = await api.post(`/cart/combo`, { 
         event_codes: data.event_codes 
       });
       
-      // Get existing combo codes from localStorage
-      const existingComboCodes = JSON.parse(localStorage.getItem("combo_event_codes") || "[]");
-      
-      // Add new combo codes (avoid duplicates)
+      // Add new combo codes (avoid duplicates - though shouldn't happen now)
       const updatedComboCodes = [...new Set([...existingComboCodes, ...data.event_codes])];
       
       // Store which event codes came from combo
