@@ -101,10 +101,9 @@ const EventCard = ({ data, index }) => {
         </div>
 
         {/* Early Bird Offer Badge - Desktop */}
-        {(data?.event_code === "PCF" || data?.event_code === "LRP" || data?.event_code === "PCFI") && (
+        {/* {(data?.event_code === "PCF" || data?.event_code === "LRP" || data?.event_code === "PCFI") && (
           <div className="absolute -top-3 -right-3 z-20 ">
             <div className="relative">
-              {/* Starburst Badge */}
               <div className="relative bg-gradient-to-br from-yellow-400 via-amber-500 to-orange-600 rounded-full p-0.5 shadow-xl transform hover:scale-110 transition-transform duration-300" onClick={handleEarlyBirdClick}>
                 <div className="bg-gradient-to-br from-red-500 to-pink-600 rounded-full px-4 py-2.5 flex flex-col items-center justify-center min-w-[100px]">
                   <div className="text-white font-bold text-[11px] uppercase tracking-wider leading-tight text-center drop-shadow-lg">
@@ -115,12 +114,12 @@ const EventCard = ({ data, index }) => {
                   </div>
                 </div>
               </div>
-              {/* Sparkle Effects */}
+              
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-300 rounded-full animate-ping"></div>
               <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-yellow-400 rounded-full animate-ping" style={{ animationDelay: '0.3s' }}></div>
             </div>
           </div>
-        )}
+        )} */}
 
         {/* Event Name*/}
         <div className="relative z-10 w-full h-full">
@@ -146,8 +145,9 @@ const EventCard = ({ data, index }) => {
 
             {/* PRICE VALUE (with Early Bird logic) */}
             <div className="sub-heading-font text-[#FBCC12] text-xl md:text-2xl lg:text-2xl flex items-center justify-center gap-2">
-              {isEarlyBird && originalPrice ? (
-                <>
+              
+              {/* isEarlyBird && originalPrice ? (
+              <>
                   <span className="text-[#F6EDC8] line-through opacity-100 text-base md:text-lg select-none">
                     Rs. {originalPrice}/-
                   </span>
@@ -155,11 +155,11 @@ const EventCard = ({ data, index }) => {
                     Rs. {displayDiscountedPrice}/-
                   </span>
                 </>
-              ) : (
-                <>
-                  {originalPrice ? `Rs. ${originalPrice}/-` : "Free"}
-                </>
-              )}
+              ) : ( */}
+              <>
+                {originalPrice ? `Rs. ${originalPrice}/-` : "Free"}
+              </>
+              {/* ) */}
             </div>
           </div>
         </div>
@@ -228,10 +228,9 @@ const EventCard = ({ data, index }) => {
         </div>
 
         {/* Early Bird Offer Badge - Mobile */}
-        {(data?.event_code === "PCF" || data?.event_code === "LRP" || data?.event_code === "PCFI") && (
+        {/* {(data?.event_code === "PCF" || data?.event_code === "LRP" || data?.event_code === "PCFI") && (
           <div className="absolute -top-3 -right-1 z-20 ">
             <div className="relative">
-              {/* Compact Badge for Mobile */}
               <div className="relative bg-gradient-to-br from-yellow-400 via-amber-500 to-orange-600 rounded-full p-0.5 shadow-lg transform hover:scale-110 transition-transform duration-300" onClick={handleEarlyBirdClick}>
                 <div className="bg-gradient-to-br from-red-500 to-pink-600 rounded-full px-2.5 py-1.5 flex flex-col items-center justify-center min-w-[70px]">
                   <div className="text-white font-bold text-[8px] uppercase tracking-wider leading-tight text-center drop-shadow-md">
@@ -242,12 +241,11 @@ const EventCard = ({ data, index }) => {
                   </div>
                 </div>
               </div>
-              {/* Sparkle Effects */}
               <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-yellow-300 rounded-full animate-ping"></div>
               <div className="absolute -bottom-0.5 -left-0.5 w-1.5 h-1.5 bg-yellow-400 rounded-full animate-ping" style={{ animationDelay: '0.3s' }}></div>
             </div>
           </div>
-        )}
+        )} */}
 
         {/* Event Name*/}
         <div className="relative z-10  h-full px-10">
@@ -275,7 +273,7 @@ const EventCard = ({ data, index }) => {
 
             {/* Price value */}
             <div className="sub-heading-font text-[#FBCC12] text-[15px] xs:text-[15px] sm:text-[16px] flex items-center justify-center gap-1.5">
-              {isEarlyBird && originalPrice ? (
+              {/* {isEarlyBird && originalPrice ? (
                 <>
                   <span className="text-[#F6EDC8] line-through opacity-100 text-[12px] sm:text-[13px] select-none">
                     Rs. {originalPrice}/-
@@ -284,11 +282,11 @@ const EventCard = ({ data, index }) => {
                     Rs. {displayDiscountedPrice}/-
                   </span>
                 </>
-              ) : (
+              ) : ( */}
                 <>
                   {originalPrice ? `Rs. ${originalPrice}/-` : "Free"}
                 </>
-              )}
+              {/* )} */}
             </div>
           </div>
         </div>
