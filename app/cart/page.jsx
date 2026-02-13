@@ -521,6 +521,10 @@ import { useRouter } from "next/navigation";
 import isNotAuth from "@/app/components/isNotAuth";
 
 const Cart = () => {
+
+  const [earlyCode, setEarlyCode] = useState("");
+  const [applied, setApplied] = useState(false);
+  
   const [cart, setCart] = useState([]);
   const [amount, setAmount] = useState({
     event_amount: 0,
