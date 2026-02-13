@@ -941,11 +941,9 @@ const Cart = () => {
 
   // Combo definitions - keep in sync with your combos array
   const COMBO_PRICES = {
-  "FF,LRP": 650,
-  "BW,LRP": 650,
-  "FF,PCFI": 350,
-  "CH,PCFI": 350,
-  "LRP,PCFI": 900,
+  "LRP,PCFI": 850,  // Pipe Cleaner Flower + Lotus Resin
+  "LRP,PWC": 750,   // Pottery + Lotus Resin
+  "PCFI,PWC": 500,  // Pottery + Pipe Cleaner Flower
 };
 
   // Helper to check if a specific item is from combo
