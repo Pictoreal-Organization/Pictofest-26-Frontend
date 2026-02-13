@@ -914,9 +914,6 @@
 
 
 
-
-// Replace your existing Cart logic with this updated version:
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -927,7 +924,6 @@ import { useRouter } from "next/navigation";
 import isNotAuth from "@/app/components/isNotAuth";
 
 const Cart = () => {
-
   const [earlyCode, setEarlyCode] = useState("");
   const [applied, setApplied] = useState(false);
   
@@ -942,18 +938,15 @@ const Cart = () => {
 
   const router = useRouter();
 
-  const getCart = async () => {
-    try {
-      const response = await api.get(`/cart/`);
-      setCart(response.data.data || []);
-    } catch (err) {
-      console.log(err.response?.data?.message);
-    }
-  };
-
   const EARLY_BIRD_EVENTS = ["LRP", "PCF", "PCFI"];
 
-  // NEW LOGIC: Check if there are any early bird events NOT from combo
+  // Helper to check if a specific item is from combo
+  const isFromCombo = (eventCode) => {
+    const comboEventCodes = JSON.parse(localStorage.getItem("combo_event_codes") || "[]");
+    return comboEventCodes.includes(eventCode);
+  };
+
+  // Check if there are any early bird events NOT from combo
   const hasNonComboEarlyBirdEvents = () => {
     const comboEventCodes = JSON.parse(localStorage.getItem("combo_event_codes") || "[]");
     
@@ -971,9 +964,6 @@ const Cart = () => {
       discountedCodes.includes(item.event_code)
     );
   };
-
-  const hasEarlyBirdEvent = (cart) =>
-    cart.some(item => EARLY_BIRD_EVENTS.includes(item.event_code));
 
   const getAmount = async (code, currentCart = cart) => {
     try {
@@ -1059,7 +1049,6 @@ const Cart = () => {
     }
   };
   
-  
   const handleDelete = async (eventId, photocopyNeeded) => {
     try {
       const response = await api.delete(`/cart/`, {
@@ -1077,7 +1066,6 @@ const Cart = () => {
       toast.error(err.response?.data?.message || "Error deleting item");
     }
   };
-  
 
   const handleEmpty = async () => {
     try {
@@ -1086,6 +1074,9 @@ const Cart = () => {
       
       // Clear combo codes when cart is emptied
       localStorage.removeItem("combo_event_codes");
+      localStorage.removeItem("early_code");
+      setEarlyCode("");
+      setApplied(false);
   
       await refreshCartAndAmount();
     } catch (err) {
@@ -1093,7 +1084,6 @@ const Cart = () => {
       toast.error(err.response?.data?.message || "Error emptying cart");
     }
   };
-  
 
   const handleProceed = async () => {
     if (amount.total_amount > 0) {
@@ -1118,12 +1108,6 @@ const Cart = () => {
       console.log(err);
       toast.error(err.response?.data?.message || "Error updating quantity");
     }
-  };
-
-  // Helper to check if a specific item is from combo
-  const isFromCombo = (eventCode) => {
-    const comboEventCodes = JSON.parse(localStorage.getItem("combo_event_codes") || "[]");
-    return comboEventCodes.includes(eventCode);
   };
 
   return (
@@ -1187,28 +1171,27 @@ const Cart = () => {
           height={100}
           className="absolute bottom-15 left-5 block md:hidden z-20"
         />
-        <div className="relative w-[80%] md:w-[500px] lg:w-[450px] xl:w-[500px]  max-h-[90vh] flex flex-col p-6 bg-[#FFFCE0] rounded-3xl shadow-lg">
+        <div className="relative w-[80%] md:w-[500px] lg:w-[450px] xl:w-[500px] max-h-[90vh] flex flex-col p-6 bg-[#FFFCE0] rounded-3xl shadow-lg">
           <div className="relative z-10 w-full h-full flex flex-col mt-2 px-1 md:px-4 py-4 pb-4">
             <h1 className="text-4xl md:text-6xl lg:text-5xl xl:text-6xl text-[#1f4e3d] text-center tracking-widest heading-font mb-6">
               CART
             </h1>
 
             <div className="flex-grow w-full max-h-[250px] overflow-y-auto pr-2 custom-scrollbar space-y-4">
-
               {cart.length > 0 ? (
                 cart.map((item) => {
                   const hasPhotocopy = item.photocopy_needed === true;
-                  const isEarlyBirdDiscounted = amount.discounted_event_codes?.includes(item.event_code);
                   const itemIsFromCombo = isFromCombo(item.event_code);
+                  const isEarlyBirdDiscounted = amount.discounted_event_codes?.includes(item.event_code);
                   
                   const baseUnitPrice = hasPhotocopy ? item.price + 10 : item.price;
                   const baseTotalPrice = baseUnitPrice * (item.quantity || 1);
 
-                  // Only show discount on NON-COMBO items
+                  // Only show promo discount on NON-COMBO items
                   const DISCOUNT_PER_EVENT = 50;
-                  const shouldShowDiscount = isEarlyBirdDiscounted && !itemIsFromCombo;
+                  const shouldShowPromoDiscount = isEarlyBirdDiscounted && !itemIsFromCombo;
 
-                  const discountedTotalPrice = shouldShowDiscount
+                  const discountedTotalPrice = shouldShowPromoDiscount
                     ? Math.max(baseTotalPrice - DISCOUNT_PER_EVENT, 0)
                     : baseTotalPrice;
 
@@ -1223,6 +1206,7 @@ const Cart = () => {
                           {item.name}
                         </span>
 
+                        {/* Show combo badge for combo items */}
                         {itemIsFromCombo && (
                           <span className="text-xs text-purple-600 font-semibold">
                             🎉 Combo Discount Applied
@@ -1248,8 +1232,7 @@ const Cart = () => {
                           <div className="flex items-center gap-1 bg-[#1f4e3d]/5 rounded-full px-2 py-[2px]">
                             <button
                               onClick={() => updateQuantity(item, "dec")}
-                              className="w-5 h-5 rounded-full border border-[#1f4e3d]
-               text-[#1f4e3d] text-xs font-bold"
+                              className="w-5 h-5 rounded-full border border-[#1f4e3d] text-[#1f4e3d] text-xs font-bold"
                             >
                               −
                             </button>
@@ -1260,8 +1243,7 @@ const Cart = () => {
 
                             <button
                               onClick={() => updateQuantity(item, "inc")}
-                              className="w-5 h-5 rounded-full border border-[#1f4e3d]
-               text-[#1f4e3d] text-xs font-bold"
+                              className="w-5 h-5 rounded-full border border-[#1f4e3d] text-[#1f4e3d] text-xs font-bold"
                             >
                               +
                             </button>
@@ -1270,13 +1252,14 @@ const Cart = () => {
 
                         <div className="flex items-end gap-2 px-2">
                           <div className="flex flex-col items-end">
-                            {shouldShowDiscount && (
+                            {/* Show promo code badge only for non-combo items */}
+                            {shouldShowPromoDiscount && (
                               <span className="text-xs text-green-700 font-semibold">
-                                Promo Code Applied
+                                ✓ Promo Code Applied
                               </span>
                             )}
 
-                            {shouldShowDiscount ? (
+                            {shouldShowPromoDiscount ? (
                               <>
                                 <span className="text-xs line-through text-gray-500">
                                   Rs. {baseTotalPrice}
@@ -1308,12 +1291,11 @@ const Cart = () => {
                   Your cart is empty.
                 </div>
               )}
-
             </div>
 
             <div className="w-full border-t-2 border-dotted border-[#1f4e3d]/40 my-6"></div>
 
-            {/* UPDATED: Show promo code input only if there are non-combo early bird events */}
+            {/* Show promo code input only if there are non-combo early bird events */}
             {canApplyEarlyBird && (
               <div className="mb-4">
                 <p className="text-[11px] text-red-600 mb-1 italic">*Avail promo codes at desk</p>
@@ -1323,7 +1305,9 @@ const Cart = () => {
                     onChange={(e) => setEarlyCode(e.target.value)}
                     placeholder={applied ? "" : "Promo Code"}
                     readOnly={applied}
-                    className={`border px-3 py-2 rounded-md text-sm w-full ${applied ? "bg-gray-100 text-gray-500 cursor-not-allowed" : "bg-white"}`}
+                    className={`border px-3 py-2 rounded-md text-sm w-full ${
+                      applied ? "bg-gray-100 text-gray-500 cursor-not-allowed" : "bg-white"
+                    }`}
                   />
                   <button
                     disabled={applied}
