@@ -46,7 +46,7 @@ export const combos = [
     },
     {
       id: 6,
-      name: "Pottery + Lotus Resin",
+      name: "Play with clay + Lotus Resin",
       description: "Hunt and craft adventure",
       price: 750,
       originalPrice: 850,
@@ -55,7 +55,7 @@ export const combos = [
     },
     {
       id: 7,
-      name: "Pottery + Pipe Cleaner Flower",
+      name: "Play with clay + Pipe Cleaner Flower",
       description: "Ultimate crafting experience",
       price: 500,
       originalPrice: 550,
