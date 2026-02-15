@@ -1303,6 +1303,7 @@ const Cart = () => {
                         const hasPhotocopy = item.photocopy_needed === true;
                         const isEarlyBirdDiscounted = amount.discounted_event_codes?.includes(item.event_code);
                         
+                        // const baseUnitPrice = hasPhotocopy ? item.price + 10 : item.price;
                         const baseUnitPrice = item.price;  // ← Changed this line
                         const baseTotalPrice = baseUnitPrice * (item.quantity || 1);
 
