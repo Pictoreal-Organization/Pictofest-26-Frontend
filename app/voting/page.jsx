@@ -345,7 +345,7 @@ const Voting = () => {
                       />
                     </div>
                   </div>
-                  <div className="relative mt-6 ml-4">
+                  <div className="relative mt-6 ml-4 mb-10">
                     {/* <Image
                       src="/img/gallery/TagNo.png"
                       alt="Tag Number"
@@ -361,7 +361,7 @@ const Voting = () => {
                     </button> */}
                     <button
                       onClick={() => handleVote(entry)}
-                      className={`${rye.className} mt-2 mb-10 text-[#A53A1F] absolute inset-0 flex items-center justify-center font-semibold text-lg lg:text-xl xl:text-2xl cursor-pointer`}
+                      className={`${rye.className} text-[#A53A1F] absolute inset-0 flex items-center justify-center font-semibold text-lg lg:text-xl xl:text-2xl cursor-pointer`}
                     >
                       <svg
                             width="160"
@@ -376,7 +376,7 @@ const Voting = () => {
                             {/* Text */}
                             <text
                             x="80"
-                            y="22"
+                            y="23"
                             textAnchor="middle"
                             dominantBaseline="middle"
                             fill="#A53A1F"
