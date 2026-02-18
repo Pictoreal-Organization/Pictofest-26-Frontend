@@ -90,7 +90,7 @@ const Voting = () => {
 
   // Handle Scroll Locking
   useEffect(() => {
-    if (!isVotingLive || wishlistOpen) {
+    if (wishlistOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
@@ -182,7 +182,7 @@ const Voting = () => {
   return (
     <div className="min-h-screen relative">
       {/* Background */}
-      <div className="absolute top-0 left-0 w-full -z-10 bg-[#070044] min-h-screen">
+      <div className="fixed top-0 left-0 w-full h-screen -z-10">
         <div className="block lg:hidden w-full relative h-full">
           <Image
             src="/img/home/mobile-bg.png"
@@ -209,17 +209,12 @@ const Voting = () => {
 
       <Navbar />
 
-      <main className="pt-32 lg:pt-40 px-4 lg:px-8 pb-32">
+      <main className="relative z-10 pt-32 lg:pt-40 px-4 lg:px-8 pb-32 overflow-x-hidden">
         <div className="max-w-7xl mx-auto">
           {/* Title */}
-          <div
-            className="text-center heading-font text-white 
-            text-[48px] sm:text-[56px] md:text-[80px] lg:text-[100px]
-            mb-8 sm:mb-10 md:mb-12
-            drop-shadow-lg uppercase"
-          >
-            My Votes
-          </div>
+          <h1 className="text-4xl lg:text-5xl tracking-tight text-white heading-font text-center mt-11 mb-8">
+            Gallery
+          </h1>
 
           {/* Categories */}
           <div className="flex flex-nowrap justify-start lg:justify-center items-center gap-4 lg:gap-6 mb-8 lg:mb-10 overflow-x-auto pb-2 scrollbar-hide">
@@ -314,63 +309,56 @@ const Voting = () => {
           </div>
 
           {/* Grid */}
-          {isVotingLive && filteredEntries.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-              {filteredEntries.map((entry) => (
-                <div
-                  key={entry.id}
-                  className="flex flex-col items-center mx-auto w-full"
-                >
-                  <div className="relative w-full max-w-[300px]">
-                    <div className="relative">
-                      <Image
-                        src="/img/gallery/gallary-frame.png"
-                        alt="Gallery Frame"
-                        width={450}
-                        height={450}
-                        className="w-full h-auto translate-x-1"
-                        priority={false}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            {filteredEntries.map((entry) => (
+              <div
+                key={entry.id}
+                className="flex flex-col items-center mx-auto w-full"
+              >
+                <div className="relative w-full max-w-[300px]">
+                  <div className="relative">
+                    <Image
+                      src="/img/gallery/gallary-frame.png"
+                      alt="Gallery Frame"
+                      width={450}
+                      height={450}
+                      className="w-full h-auto translate-x-1"
+                      priority={false}
+                    />
+                    <h2
+                      className={`${rye.className} absolute top-3 left-1/2 -translate-x-1/2 text-[#A53A1F] font-semibold text-lg lg:text-xl tracking-widest uppercase`}
+                    >
+                      {entry.ticket_id}
+                    </h2>
+                    <div className="absolute top-[16%] left-1/2 -translate-x-1/2 w-[71%] h-[69%] p-1 flex items-center justify-center">
+                      <img
+                        src={entry.image_link}
+                        alt={`Entry ${entry.ticket_id}`}
+                        loading="lazy"
+                        className="w-full h-full object-contain"
                       />
-                      <h2
-                        className={`${rye.className} absolute top-3 left-1/2 -translate-x-1/2 text-[#A53A1F] font-semibold text-lg lg:text-xl tracking-widest uppercase`}
-                      >
-                        {entry.ticket_id}
-                      </h2>
-                      <div className="absolute top-[16%] left-1/2 -translate-x-1/2 w-[71%] h-[69%] p-1 flex items-center justify-center">
-                        <img
-                          src={entry.image_link}
-                          alt={`Entry ${entry.ticket_id}`}
-                          loading="lazy"
-                          className="w-full h-full object-contain"
-                        />
-                      </div>
-                    </div>
-                    <div className="relative mt-6 ml-4">
-                      <Image
-                        src="/img/gallery/TagNo.png"
-                        alt="Tag Number"
-                        width={350}
-                        height={60}
-                        className="w-full h-auto hover:scale-95 transition-transform"
-                      />
-                      <button
-                        onClick={() => handleVote(entry)}
-                        className={`${rye.className} text-[#A53A1F] absolute inset-0 flex items-center justify-center font-semibold text-lg lg:text-xl xl:text-2xl cursor-pointer -translate-y-1`}
-                      >
-                        Vote
-                      </button>
                     </div>
                   </div>
+                  <div className="relative mt-6 ml-4">
+                    <Image
+                      src="/img/gallery/TagNo.png"
+                      alt="Tag Number"
+                      width={350}
+                      height={60}
+                      className="w-full h-auto hover:scale-95 transition-transform"
+                    />
+                    <button
+                      onClick={() => handleVote(entry)}
+                      className={`${rye.className} text-[#A53A1F] absolute inset-0 flex items-center justify-center font-semibold text-lg lg:text-xl xl:text-2xl cursor-pointer -translate-y-1`}
+                    >
+                      Vote
+                    </button>
+                  </div>
                 </div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-12">
-              <p className="text-white text-lg lg:text-xl body-font">
-                No entries found for this category.
-              </p>
-            </div>
-          )}
+              </div>
+            ))}
+          </div>
+
           {loading && (
             <p className="text-white text-center mt-6">
               Loading more...
