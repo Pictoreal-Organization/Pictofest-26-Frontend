@@ -571,7 +571,7 @@ const Login = () => {
                   )}
                 </button>
               </div>
-              <button
+              {/* <button
                 onClick={handleGoogleLogin}
                 disabled={isGoogleLoading}
                 className={`${buttonStyle} bg-white text-black hover:bg-gray-100`}
@@ -585,6 +585,26 @@ const Login = () => {
                   <>
                     <FcGoogle size={22} />
                     Continue with Google
+                  </>
+                )}
+              </button> */}
+
+              <button
+                onClick={handleGoogleLogin}
+                disabled={isGoogleLoading}
+                className="w-full h-12 bg-white text-gray-800 text-lg font-bold body-font rounded-xl border-2 border-black hover:bg-gray-50 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_3px_0_#000] active:shadow-none active:translate-y-1 flex items-center justify-center gap-3 relative"
+              >
+                {isGoogleLoading ? (
+                  <>
+                    <FiLoader className="animate-spin text-gray-500" size={18} />
+                    <span className="text-gray-600">Signing in...</span>
+                  </>
+                ) : (
+                  <>
+                    <div className="absolute left-4 flex items-center justify-center w-6 h-6">
+                      <FcGoogle size={22} />
+                    </div>
+                    <span>Continue with Google</span>
                   </>
                 )}
               </button>
