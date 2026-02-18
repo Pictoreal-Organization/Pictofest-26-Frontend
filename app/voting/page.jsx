@@ -284,7 +284,7 @@ const Voting = () => {
                 value={searchCode}
                 onChange={(e) => setSearchCode(e.target.value)}
                 className={`${rye.className} 
-                  w-full px-3 lg:px-4 py-1 
+                  w-full px-3 lg:px-4 py-1.5
                   rounded-full border-2 border-white 
                   bg-white/10 backdrop-blur-sm 
                   text-white 
