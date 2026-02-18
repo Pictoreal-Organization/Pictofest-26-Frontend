@@ -38,22 +38,22 @@ const Votes = () => {
           api.get(`/voting`),
           api.get(`/wishlist`),
         ]);
-  
+
         if (!votedRes.data.error) {
           setVotedEntries(votedRes.data.data);
         }
-  
+
         if (!wishlistRes.data.error) {
           setWishlistEntries(wishlistRes.data.data);
         }
-  
+
       } catch (err) {
         console.log(err);
       } finally {
         setLoading(false);
       }
     };
-  
+
     fetchMyEntries();
   }, []);
 
@@ -69,7 +69,7 @@ const Votes = () => {
   const getCategoryName = (eventCode) => {
     return categories.find(cat => cat.event_code === eventCode)?.label || eventCode;
   };
-  
+
 
   // Check if user has already voted in a category
   const hasVotedInCategory = (categoryId) => {
@@ -79,10 +79,10 @@ const Votes = () => {
   // Check if all wishlist entries in current category are already voted
   const areAllWishlistEntriesVoted = (categoryId) => {
     const wishlistInCategory = wishlistEntries.filter(entry => entry.event_code === categoryId);
-    
+
     if (wishlistInCategory.length === 0) return false;
-    
-    return wishlistInCategory.every(wishlistEntry => 
+
+    return wishlistInCategory.every(wishlistEntry =>
       votedEntries.some(votedEntry => votedEntry.id === wishlistEntry.id)
     );
   };
@@ -90,7 +90,7 @@ const Votes = () => {
   // Get breakdown by category for display
   const getWishlistBreakdown = () => {
     const breakdown = {};
-    
+
     wishlistEntries.forEach(entry => {
       const category = entry.event_code;
       if (!breakdown[category]) {
@@ -109,7 +109,7 @@ const Votes = () => {
   const validateWishlistVotes = () => {
     const MAX_VOTES_PER_CATEGORY = 2;
     const categoryCount = {};
-    
+
     // Count entries per category
     wishlistEntries.forEach(entry => {
       const category = entry.event_code;
@@ -132,85 +132,85 @@ const Votes = () => {
   };
 
   // Handle remove from wishlist
-const handleRemoveFromWishlist = async (entryId) => {
-  setRemovingIds(prev => new Set(prev).add(entryId));
-  
-  try {
-    const response = await api.delete(`/wishlist`, {
-      data: { entry_id: entryId }
-    });
-    
-    if (!response.data.error) {
-      toast.success("Removed from wishlist");
-      
-      // Update local state
-      setWishlistEntries(prev => prev.filter(entry => entry.id !== entryId));
-    }
-  } catch (err) {
-    console.error(err);
-    const errorMsg = err.response?.data?.message || "Failed to remove from wishlist";
-    toast.error(errorMsg);
-  } finally {
-    setRemovingIds(prev => {
-      const newSet = new Set(prev);
-      newSet.delete(entryId);
-      return newSet;
-    });
-  }
-};
+  const handleRemoveFromWishlist = async (entryId) => {
+    setRemovingIds(prev => new Set(prev).add(entryId));
 
-const handleVoteAllFromWishlist = async () => {
-  const validation = validateWishlistVotes();
-  
-  if (!validation.isValid) {
-    const errorMessages = validation.violations.map(v => 
-      `${v.categoryName} (${v.count} entries)`
-    ).join(', ');
-    
-    toast.error(
-      `Maximum 2 votes allowed per category. Please remove extra entries from: ${errorMessages}`
-    );
-    return;
-  }
+    try {
+      const response = await api.delete(`/wishlist`, {
+        data: { entry_id: entryId }
+      });
 
-  setIsVoting(true);
-  
-  try {
-    // ✅ REMOVE baseURL - api instance already has it
-    const response = await api.post(`/voting/vote-wishlist`);
-    
-    if (!response.data.error) {
-      toast.success(`${response.data.votedCount || 'All'} entries voted successfully!`);
-      
-      // ✅ REMOVE baseURL from these too
-      const [votedRes, wishlistRes] = await Promise.all([
-        api.get(`/voting`),
-        api.get(`/wishlist`),
-      ]);
-      
-      if (!votedRes.data.error) setVotedEntries(votedRes.data.data);
-      if (!wishlistRes.data.error) setWishlistEntries(wishlistRes.data.data);
-      
-      setMode("voted");
-    }
-    
-  } catch (err) {
-    console.error(err);
-    
-    // ✅ BETTER ERROR HANDLING
-    if (err.response?.data?.violations) {
-      const violationMsgs = err.response.data.violations
-        .map(v => v.message)
-        .join('\n');
-      toast.error(violationMsgs);
-    } else {
-      const errorMsg = err.response?.data?.message || "Failed to submit votes. Please try again.";
+      if (!response.data.error) {
+        toast.success("Removed from wishlist");
+
+        // Update local state
+        setWishlistEntries(prev => prev.filter(entry => entry.id !== entryId));
+      }
+    } catch (err) {
+      console.error(err);
+      const errorMsg = err.response?.data?.message || "Failed to remove from wishlist";
       toast.error(errorMsg);
+    } finally {
+      setRemovingIds(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(entryId);
+        return newSet;
+      });
     }
-  } finally {
-    setIsVoting(false);
-  }
-};
+  };
+
+  const handleVoteAllFromWishlist = async () => {
+    const validation = validateWishlistVotes();
+
+    if (!validation.isValid) {
+      const errorMessages = validation.violations.map(v =>
+        `${v.categoryName} (${v.count} entries)`
+      ).join(', ');
+
+      toast.error(
+        `Maximum 2 votes allowed per category. Please remove extra entries from: ${errorMessages}`
+      );
+      return;
+    }
+
+    setIsVoting(true);
+
+    try {
+      // ✅ REMOVE baseURL - api instance already has it
+      const response = await api.post(`/voting/vote-wishlist`);
+
+      if (!response.data.error) {
+        toast.success(`${response.data.votedCount || 'All'} entries voted successfully!`);
+
+        // ✅ REMOVE baseURL from these too
+        const [votedRes, wishlistRes] = await Promise.all([
+          api.get(`/voting`),
+          api.get(`/wishlist`),
+        ]);
+
+        if (!votedRes.data.error) setVotedEntries(votedRes.data.data);
+        if (!wishlistRes.data.error) setWishlistEntries(wishlistRes.data.data);
+
+        setMode("voted");
+      }
+
+    } catch (err) {
+      console.error(err);
+
+      // ✅ BETTER ERROR HANDLING
+      if (err.response?.data?.violations) {
+        const violationMsgs = err.response.data.violations
+          .map(v => v.message)
+          .join('\n');
+        toast.error(violationMsgs);
+      } else {
+        const errorMsg = err.response?.data?.message || "Failed to submit votes. Please try again.";
+        toast.error(errorMsg);
+      }
+    } finally {
+      setIsVoting(false);
+    }
+  };
 
   // Get total wishlist count
   const totalWishlistCount = wishlistEntries.length;
@@ -218,7 +218,7 @@ const handleVoteAllFromWishlist = async () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  
+
   const isVotingLive = true;
 
   useEffect(() => {
@@ -227,12 +227,12 @@ const handleVoteAllFromWishlist = async () => {
     } else {
       document.body.style.overflow = "auto";
     }
-  
+
     return () => {
       document.body.style.overflow = "auto";
     };
   }, [isVotingLive]);
-  
+
   return (
     <div className="min-h-screen relative">
       {/* Background */}
@@ -313,7 +313,7 @@ const handleVoteAllFromWishlist = async () => {
           {mode === "wishlist" && totalWishlistCount > 0 && (
             <div className="w-full max-w-4xl">
               <div className="bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-md rounded-3xl px-6 sm:px-8 py-6 border-2 border-white/30 shadow-2xl">
-                
+
                 {/* Header */}
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-4">
                   <div className="text-center sm:text-left">
@@ -389,7 +389,7 @@ const handleVoteAllFromWishlist = async () => {
                     setSelectedCategory(category.event_code);
                   }}
                   className={`sub-heading-font 
-                    px-5 sm:px-6 lg:px-8 py-3 lg:py-3.5
+                    px-3 py-1.5 text-xs
                     rounded-full 
                     text-xs sm:text-sm lg:text-base 
                     font-semibold 
@@ -433,55 +433,42 @@ const handleVoteAllFromWishlist = async () => {
                 {filteredEntries.map((entry) => (
                   <div
                     key={entry.id}
-                    className="flex flex-col items-center mx-auto w-full transform transition-all duration-300 hover:scale-105"
+                    className="flex flex-col items-center mx-auto w-full"
                   >
-                    {/* Card Container */}
-                    <div className="relative w-full max-w-[400px]">
-                      {/* Frame Container */}
-                      <div className="relative drop-shadow-2xl">
-                        {/* Outer Frame */}
+                    <div className="relative w-full max-w-[300px]">
+                      <div className="relative">
                         <Image
                           src="/img/gallery/gallary-frame.png"
                           alt="Gallery Frame"
                           width={450}
                           height={450}
-                          className="w-full h-auto"
-                          priority={false}
+                          className="w-full h-auto translate-x-1"
+                          priority
                         />
 
-                        {/* Ticket ID - Positioned at top */}
                         <h2
-                          className={`sub-heading-font absolute top-3 left-1/2 -translate-x-1/2 text-[#A53A1F] font-semibold text-lg lg:text-xl tracking-widest uppercase drop-shadow-md`}
+                          className="absolute top-3 left-1/2 -translate-x-1/2 
+        text-[#A53A1F] font-semibold text-lg tracking-widest uppercase"
                         >
                           {entry.ticket_id}
                         </h2>
 
-                        {/* Entry Image - Centered */}
-                        <div className="absolute top-[15%] left-1/2 -translate-x-[52%] w-[56%]" style={{ minWidth: '180px', minHeight: '240px' }}>
+                        <div className="absolute top-[16%] left-1/2 -translate-x-1/2 w-[71%] h-[69%] p-1 flex items-center justify-center">
                           <img
                             src={entry.image_link}
                             alt={entry.ticket_id}
-                            className="w-full h-full object-cover rounded-sm"
+                            className="w-full h-full object-contain"
                           />
                         </div>
-                        {/* Remove Button - Only show in wishlist mode */}
+
                         {mode === "wishlist" && (
                           <button
                             onClick={() => handleRemoveFromWishlist(entry.id)}
                             disabled={removingIds.has(entry.id)}
-                            className="absolute top-2 right-2 z-20 bg-red-500 hover:bg-red-600 disabled:bg-red-300 text-white p-2 rounded-full transition-all duration-200 shadow-lg hover:scale-110 disabled:cursor-not-allowed"
-                            title="Remove from wishlist"
+                            className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 
+          text-white p-2 rounded-full shadow-md z-10"
                           >
-                            {removingIds.has(entry.id) ? (
-                              <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                              </svg>
-                            ) : (
-                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
-                              </svg>
-                            )}
+                            ✕
                           </button>
                         )}
                       </div>
@@ -517,6 +504,12 @@ const handleVoteAllFromWishlist = async () => {
                       <p className="text-white text-base lg:text-lg body-font leading-relaxed">
                         You don't have any artworks in your wishlist for this category.
                       </p>
+                      <button
+                        onClick={() => router.push('/voting')}
+                        className="sub-heading-font bg-gradient-to-r from-[#FFA53A] to-[#FF8C1A] hover:from-[#FF8C1A] hover:to-[#FFA53A] text-white px-8 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 uppercase tracking-wider text-sm"
+                      >
+                        Go to Voting Page
+                      </button>
                     </div>
                   )
                 )}
