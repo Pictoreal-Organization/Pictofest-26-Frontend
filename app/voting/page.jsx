@@ -437,39 +437,43 @@ const Voting = () => {
                 <div
                   onClick={() => setWishlistOpen(true)}
                   className="max-w-2xl mx-auto 
-                    bg-white
-                    border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.12)]
-                    rounded-3xl p-4 sm:px-6 sm:py-5
-                    flex justify-between items-center cursor-pointer 
-                    transform hover:-translate-y-1 transition-all duration-300"
+    bg-white border border-gray-100 shadow-xl
+    rounded-2xl px-4 py-3
+    flex items-center justify-between
+    gap-3 cursor-pointer"
                 >
-                  <div className="flex flex-col">
+                  {/* Left text */}
+                  <div className="flex flex-col leading-tight min-w-0">
                     <span
-                      className={`${rye.className} text-gray-500 text-xs uppercase tracking-widest mb-1`}
+                      className={`${rye.className} text-gray-500 text-[10px] uppercase tracking-widest`}
                     >
                       Your Selections
                     </span>
-                    <span className="font-bold text-[#070044] text-lg drop-shadow-sm">
+
+                    <span className="font-bold text-[#070044] text-sm truncate">
                       {wishlist.length} Entries Selected
                     </span>
                   </div>
 
+                  {/* Button */}
                   <div
-                    className="flex items-center gap-2 
-                    bg-gradient-to-r from-[#FFA53A] to-[#FF8C1A] hover:from-[#FF8C1A] hover:to-[#FFA53A]
-                    px-5 py-3 rounded-full shadow-lg transition-all"
+                    className="flex items-center gap-1
+      bg-gradient-to-r from-[#FFA53A] to-[#FF8C1A]
+      px-4 py-2 rounded-full shadow-md
+      shrink-0"
                   >
                     <span
-                      className={`${rye.className} text-white font-semibold text-sm`}
+                      className={`${rye.className} text-white text-xs font-semibold whitespace-nowrap`}
                     >
                       View Votes
                     </span>
+
                     <svg
-                      width="16"
-                      height="16"
+                      width="14"
+                      height="14"
                       viewBox="0 0 24 24"
                       fill="none"
-                      className="text-white transform -rotate-90"
+                      className="text-white -rotate-90"
                     >
                       <path
                         d="M6 9L12 15L18 9"
