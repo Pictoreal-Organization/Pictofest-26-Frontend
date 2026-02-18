@@ -412,8 +412,8 @@ const Voting = () => {
           </div>
 
           {loading && (
-            <p className="text-white text-center mt-6">
-              Loading more...
+            <p className={` ${rye.className} text-white text-center mt-6`}>
+              LOADING MORE...
             </p>
           )}
 
