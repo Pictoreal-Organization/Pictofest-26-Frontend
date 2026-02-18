@@ -22,10 +22,10 @@ const Votes = () => {
   // Updated categories based on PICSOREEL events from database
   const categories = [
     { id: "sketching", label: "Sketching", event_code: "SK" },
-    { id: "photography", label: "Photography", event_code: "PH" },
-    { id: "themed-category", label: "Themed Category", event_code: "TC" },
-    { id: "scripts-styles", label: "Scripts & Styles", event_code: "SS" },
     { id: "painting", label: "Painting", event_code: "PA" },
+    { id: "photography", label: "Photography", event_code: "PH" },
+    { id: "scripts-styles", label: "Scripts & Styles", event_code: "SS" },
+    { id: "themed-category", label: "Themed Category", event_code: "TC" },
   ];
 
   const router = useRouter();
@@ -477,10 +477,25 @@ const Votes = () => {
                           <button
                             onClick={() => handleRemoveFromWishlist(entry.id)}
                             disabled={removingIds.has(entry.id)}
-                            className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 
-          text-white p-2 rounded-full shadow-md z-10"
+                            className="absolute top-2 right-2 z-10
+  w-8 h-8 flex items-center justify-center
+  bg-white rounded-full shadow-lg
+  hover:scale-110 active:scale-95
+  transition-all duration-200"
                           >
-                            ✕
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="w-4 h-4 text-red-600"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="3"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <line x1="18" y1="6" x2="6" y2="18" />
+                              <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
                           </button>
                         )}
                       </div>
@@ -494,7 +509,7 @@ const Votes = () => {
               <div className="bg-white/10 backdrop-blur-md rounded-2xl px-10 py-8 border border-white/20 shadow-xl max-w-lg mx-auto">
                 {mode === "voted" ? (
                   <div className="flex flex-col items-center gap-6">
-                    <p className="text-white text-base lg:text-lg body-font leading-relaxed">
+                    <p className="text-white text-base lg:text-lg body-font font-semibold">
                       You haven't voted for any artwork in this category yet.
                     </p>
                     <button
@@ -507,13 +522,13 @@ const Votes = () => {
                 ) : (
                   areAllWishlistEntriesVoted(selectedCategory) ? (
                     <div className="flex flex-col items-center gap-6">
-                      <p className="text-white text-base lg:text-lg body-font leading-relaxed">
+                      <p className="text-white text-base lg:text-lg body-font font-semibold">
                         All the artworks in this category are already voted.
                       </p>
                     </div>
                   ) : (
                     <div>
-                      <p className="text-white text-base lg:text-lg body-font leading-relaxed">
+                      <p className="text-white text-base lg:text-lg body-font font-semibold">
                         You don't have any artworks in your wishlist for this category.
                       </p>
                       <button
