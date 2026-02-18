@@ -7,7 +7,7 @@ import localFont from "next/font/local";
 import isNotAuth from "@/app/components/isNotAuth";
 import api from "@/app/api";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner"; // Import toast
+import { toast } from "sonner";
 
 const rye = localFont({
   src: "../../public/fonts/Rye-Regular.ttf",
@@ -33,6 +33,12 @@ const Voting = () => {
     { id: "scripts-and-styles", label: "Scripts and Styles", eventCode: "SS" },
     { id: "themed-category", label: "Themed Category", eventCode: "TC" },
   ];
+
+  useEffect(() => {
+    const img = new window.Image();
+    img.src = "/img/gallery/gallary-frame.png";
+  }, []);
+
 
   // Fetch Entries
   useEffect(() => {
@@ -278,7 +284,7 @@ const Voting = () => {
                 value={searchCode}
                 onChange={(e) => setSearchCode(e.target.value)}
                 className={`${rye.className} 
-                  w-full px-3 lg:px-4 py-2 lg:py-3 
+                  w-full px-3 lg:px-4 py-1 
                   rounded-full border-2 border-white 
                   bg-white/10 backdrop-blur-sm 
                   text-white 
@@ -288,7 +294,7 @@ const Voting = () => {
                   text-base lg:text-lg`}
               />
               <div className="absolute right-4 top-1/2 -translate-y-1/2">
-                <svg
+                {/* <svg
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
@@ -303,7 +309,7 @@ const Voting = () => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
-                </svg>
+                </svg> */}
               </div>
             </div>
           </div>
@@ -323,7 +329,7 @@ const Voting = () => {
                       width={450}
                       height={450}
                       className="w-full h-auto translate-x-1"
-                      priority={false}
+                      priority
                     />
                     <h2
                       className={`${rye.className} absolute top-3 left-1/2 -translate-x-1/2 text-[#A53A1F] font-semibold text-lg lg:text-xl tracking-widest uppercase`}
