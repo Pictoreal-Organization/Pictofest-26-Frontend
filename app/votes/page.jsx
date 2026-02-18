@@ -518,7 +518,7 @@ const Votes = () => {
                       </p>
                       <button
                         onClick={() => router.push('/voting')}
-                        className="sub-heading-font bg-gradient-to-r from-[#FFA53A] to-[#FF8C1A] hover:from-[#FF8C1A] hover:to-[#FFA53A] text-white px-8 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 uppercase tracking-wider text-sm"
+                        className="sub-heading-font bg-gradient-to-r mt-4 from-[#FFA53A] to-[#FF8C1A] hover:from-[#FF8C1A] hover:to-[#FFA53A] text-white px-8 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 uppercase tracking-wider text-sm"
                       >
                         Go to Voting Page
                       </button>
