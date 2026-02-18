@@ -346,18 +346,48 @@ const Voting = () => {
                     </div>
                   </div>
                   <div className="relative mt-6 ml-4">
-                    <Image
+                    {/* <Image
                       src="/img/gallery/TagNo.png"
                       alt="Tag Number"
                       width={350}
                       height={60}
                       className="w-full h-auto hover:scale-95 transition-transform"
-                    />
-                    <button
+                    /> */}
+                    {/* <button
                       onClick={() => handleVote(entry)}
                       className={`${rye.className} text-[#A53A1F] absolute inset-0 flex items-center justify-center font-semibold text-lg lg:text-xl xl:text-2xl cursor-pointer -translate-y-1`}
                     >
                       Vote
+                    </button> */}
+                    <button
+                      onClick={() => handleVote(entry)}
+                      className={`${rye.className} text-[#A53A1F] absolute inset-0 flex items-center justify-center font-semibold text-lg lg:text-xl xl:text-2xl cursor-pointer -translate-y-1`}
+                    >
+                      <svg
+                            width="160"
+                            height="55"
+                            viewBox="0 0 160 50"
+                            >
+                            {/* Background Shape */}
+                            <path
+                            d="M 20 0 L 140 0 L 160 25 L 140 50 L 20 50 L 0 25 Z"
+                            fill="#f8b818"
+                            />
+                            {/* Text */}
+                            <text
+                            x="65"
+                            y="30"
+                            textAnchor="middle"
+                            dominantBaseline="middle"
+                            fill="#070044"
+                            fontSize="18"
+                            fontWeight="700"
+                            letterSpacing="3"
+                            className={rye.className}
+                            >
+                            VOTE
+                            </text>
+                        </svg>
                     </button>
                   </div>
                 </div>
