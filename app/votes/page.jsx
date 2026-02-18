@@ -271,7 +271,7 @@ const Votes = () => {
         <div className="relative z-10 max-w-7xl mx-auto flex flex-col gap-8 lg:gap-10 justify-center items-center lg:py-16 py-10 px-4 sm:px-6 lg:px-8">
 
           {/* Gallery Title */}
-          <h1 className="text-4xl lg:text-5xl tracking-tight text-white heading-font text-center mt-6 mb-6">
+          <h1 className="text-4xl lg:text-5xl tracking-tight text-white heading-font text-center mt-20">
             My Votes
           </h1>
 
