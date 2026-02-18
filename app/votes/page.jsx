@@ -477,7 +477,7 @@ const Votes = () => {
               </div>
             </div>
           ) : isVotingLive ? (
-            <div className="text-center py-20 mt-10">
+            <div className="text-center mt-10">
               <div className="bg-white/10 backdrop-blur-md rounded-2xl px-10 py-8 border border-white/20 shadow-xl max-w-lg mx-auto">
                 {mode === "voted" ? (
                   <div className="flex flex-col items-center gap-6">
