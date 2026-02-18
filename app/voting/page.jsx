@@ -361,7 +361,7 @@ const Voting = () => {
                     </button> */}
                     <button
                       onClick={() => handleVote(entry)}
-                      className={`${rye.className} mt-2 mb-4 text-[#A53A1F] absolute inset-0 flex items-center justify-center font-semibold text-lg lg:text-xl xl:text-2xl cursor-pointer`}
+                      className={`${rye.className} mt-2 mb-10 text-[#A53A1F] absolute inset-0 flex items-center justify-center font-semibold text-lg lg:text-xl xl:text-2xl cursor-pointer`}
                     >
                       <svg
                             width="160"
