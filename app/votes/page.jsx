@@ -279,33 +279,32 @@ const Votes = () => {
           <div className="relative inline-flex items-center bg-white/10 backdrop-blur-sm rounded-full p-1.5 shadow-xl border border-white/20">
             <button
               onClick={() => setMode("wishlist")}
-              className={`sub-heading-font relative px-8 sm:px-10 lg:px-12 py-3 lg:py-3.5 rounded-full text-sm lg:text-base font-semibold transition-all duration-300 ease-in-out
-                ${mode === "wishlist"
-                  ? "bg-white text-[#070044] shadow-lg scale-105"
+              className={`sub-heading-font relative flex items-center gap-2
+    px-6 py-2 rounded-full text-sm font-semibold
+    transition-all duration-300
+    ${mode === "wishlist"
+                  ? "bg-white text-[#070044] shadow-lg"
                   : "text-white hover:text-white/80"}`}
             >
               Wishlist
-              {mode === "wishlist" && totalWishlistCount > 0 && (
-                <span className="ml-2 bg-[#FFA53A] text-white text-xs px-2 py-0.5 rounded-full">
+
+              {totalWishlistCount > 0 && (
+                <span className="flex items-center justify-center
+      bg-[#FFA53A] text-white text-xs font-bold
+      w-5 h-5 rounded-full leading-none">
                   {totalWishlistCount}
                 </span>
               )}
-              {mode === "wishlist" && (
-                <div className="absolute inset-0 rounded-full bg-white/20 blur-md -z-10"></div>
-              )}
             </button>
-
             <button
               onClick={() => setMode("voted")}
-              className={`sub-heading-font relative px-8 sm:px-10 lg:px-12 py-3 lg:py-3.5 rounded-full text-sm lg:text-base font-semibold transition-all duration-300 ease-in-out
-                ${mode === "voted"
-                  ? "bg-white text-[#070044] shadow-lg scale-105"
+              className={`sub-heading-font px-6 py-2 rounded-full
+    text-sm font-semibold transition-all duration-300
+    ${mode === "voted"
+                  ? "bg-white text-[#070044] shadow-lg"
                   : "text-white hover:text-white/80"}`}
             >
               My Votes
-              {mode === "voted" && (
-                <div className="absolute inset-0 rounded-full bg-white/20 blur-md -z-10"></div>
-              )}
             </button>
           </div>
 
@@ -448,7 +447,7 @@ const Votes = () => {
 
                         <h2
                           className="absolute top-3 left-1/2 -translate-x-1/2 
-        text-[#A53A1F] font-semibold text-lg tracking-widest uppercase"
+        text-[#A53A1F] sub-heading-font font-semibold text-lg tracking-widest uppercase"
                         >
                           {entry.ticket_id}
                         </h2>
