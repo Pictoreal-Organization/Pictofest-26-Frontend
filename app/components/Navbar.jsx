@@ -616,12 +616,20 @@ const Navbar = () => {
 
           <div className="flex-1 flex justify-end">
             {isUserAuthenticated() && (
+              // <button
+              //   onClick={toggleModal}
+              //   className="text-[#FFA53A] text-2xl focus:outline-none hover:scale-110 transition-transform"
+              // >
+              //   {renderHamburgerIcon()}
+              // </button>
               <button
+                key={isModalOpen ? "close" : "open"}
                 onClick={toggleModal}
-                className="text-[#FFA53A] text-2xl focus:outline-none hover:scale-110 transition-transform"
+                className="text-[#FFA53A] text-2xl focus:outline-none w-10 h-10 rounded-full flex items-center justify-center border-2 border-[#FFA53A] bg-transparent"
               >
                 {renderHamburgerIcon()}
               </button>
+
             )}
           </div>
         </div>
