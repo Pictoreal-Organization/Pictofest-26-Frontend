@@ -22,6 +22,9 @@ const Voting = () => {
   const [wishlist, setWishlist] = useState([]);
   const [wishlistOpen, setWishlistOpen] = useState(false);
   const isVotingLive = true;
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+
 
   const categories = [
     { id: "sketching", label: "Sketching", eventCode: "SK" },
@@ -34,25 +37,34 @@ const Voting = () => {
   // Fetch Entries
   useEffect(() => {
     const fetchEntries = async () => {
+      if (!hasMore || loading) return; // ← add loading guard
+
       setLoading(true);
       const category = categories.find((c) => c.id === selectedCategory);
-      if (!category) return;
 
       try {
         const res = await api.get(
-          `/entry/eventcode/${category.eventCode}?page=1&size=12`
+          `/entry/eventcode/${category.eventCode}?page=${page}&size=12`
         );
-        if (!res.data.error) {
-          setEntries(res.data.data.entries);
+
+        const newEntries = res.data.data.entries;
+
+        if (newEntries.length === 0) {
+          setHasMore(false);
+        } else {
+          setEntries((prev) => [...prev, ...newEntries]);
         }
       } catch (err) {
         console.error("Entries fetch failed:", err);
       }
+
       setLoading(false);
     };
 
+
     fetchEntries();
-  }, [selectedCategory]);
+  }, [page, selectedCategory]);
+
 
   // Fetch Wishlist
   useEffect(() => {
@@ -72,8 +84,8 @@ const Voting = () => {
   // Filter entries
   const filteredEntries = searchCode
     ? entries.filter((entry) =>
-        entry.ticket_id.toLowerCase().includes(searchCode.toLowerCase())
-      )
+      entry.ticket_id.toLowerCase().includes(searchCode.toLowerCase())
+    )
     : entries;
 
   // Handle Scroll Locking
@@ -87,6 +99,23 @@ const Voting = () => {
       document.body.style.overflow = "auto";
     };
   }, [isVotingLive, wishlistOpen]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        window.innerHeight + window.scrollY >=
+        document.body.offsetHeight - 400 &&
+        !loading &&
+        hasMore
+      ) {
+        setPage((prev) => prev + 1);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [loading, hasMore]);
+
 
   // --- UPDATED HANDLE VOTE WITH TOASTS ---
   const handleVote = async (entry) => {
@@ -209,6 +238,11 @@ const Voting = () => {
                 onClick={() => {
                   setSelectedCategory(category.id);
                   setSearchCode("");
+
+                  // reset pagination
+                  setEntries([]);
+                  setPage(1);
+                  setHasMore(true);
                 }}
                 className={`${rye.className} 
                   px-6 lg:px-8 py-4 lg:py-4
@@ -220,10 +254,9 @@ const Voting = () => {
                   drop-shadow-md
                   whitespace-nowrap
                   flex-shrink-0
-                  ${
-                    selectedCategory === category.id
-                      ? "bg-white text-[#070044]"
-                      : "bg-transparent border-2 border-white text-white hover:bg-white/20"
+                  ${selectedCategory === category.id
+                    ? "bg-white text-[#070044]"
+                    : "bg-transparent border-2 border-white text-white hover:bg-white/20"
                   }`}
               >
                 {category.label}
@@ -303,11 +336,14 @@ const Voting = () => {
                       >
                         {entry.ticket_id}
                       </h2>
-                      <div className="absolute top-[16%] left-1/2 -translate-x-1/2 w-[71%] h-[69%] p-1 flex items-center justify-center">
-                        <img
+                      <div className="absolute top-[16%] left-1/2 -translate-x-1/2 w-[71%] h-[69%] p-1 relative">
+                        <Image
                           src={entry.image_link}
                           alt={`Entry ${entry.ticket_id}`}
-                          className="w-full h-full object-contain"
+                          fill
+                          unoptimized
+                          loading="lazy"
+                          className="object-contain"
                         />
                       </div>
                     </div>
@@ -337,6 +373,12 @@ const Voting = () => {
               </p>
             </div>
           )}
+          {loading && (
+            <p className="text-white text-center mt-6">
+              Loading more...
+            </p>
+          )}
+
         </div>
 
         {/* --- ZOMATO STYLE CART / WISHLIST --- */}
