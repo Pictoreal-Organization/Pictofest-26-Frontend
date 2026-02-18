@@ -209,15 +209,15 @@ const Voting = () => {
 
       <Navbar />
 
-      <main className="relative z-10 pt-32 lg:pt-40 px-4 lg:px-8 pb-32 overflow-x-hidden">
+      <main className="relative z-10 pt-20 lg:pt-28 px-4 lg:px-8 pb-32 overflow-x-hidden">
         <div className="max-w-7xl mx-auto">
           {/* Title */}
-          <h1 className="text-4xl lg:text-5xl tracking-tight text-white heading-font text-center mt-11 mb-8">
+          <h1 className="text-4xl lg:text-5xl tracking-tight text-white heading-font text-center mt-6 mb-6">
             Gallery
           </h1>
 
           {/* Categories */}
-          <div className="flex flex-nowrap justify-start lg:justify-center items-center gap-4 lg:gap-6 mb-8 lg:mb-10 overflow-x-auto pb-2 scrollbar-hide">
+          <div className="flex flex-nowrap justify-start lg:justify-center items-center gap-4 lg:gap-6 mb-6 lg:mb-8 overflow-x-auto pb-2 scrollbar-hide">
             <style jsx>{`
               .scrollbar-hide::-webkit-scrollbar {
                 display: none;
@@ -270,7 +270,7 @@ const Voting = () => {
           )}
 
           {/* Search */}
-          <div className="max-w-2xl lg:max-w-3xl mx-auto mb-12 lg:mb-16">
+          <div className="max-w-xl lg:max-w-2xl mx-auto mb-6 lg:mb-8">
             <div className="relative">
               <input
                 type="text"
@@ -278,7 +278,7 @@ const Voting = () => {
                 value={searchCode}
                 onChange={(e) => setSearchCode(e.target.value)}
                 className={`${rye.className} 
-                  w-full px-6 lg:px-8 py-4 lg:py-5 
+                  w-full px-5 lg:px-6 py-3 lg:py-4 
                   rounded-full border-2 border-white 
                   bg-white/10 backdrop-blur-sm 
                   text-white 
