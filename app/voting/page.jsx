@@ -246,7 +246,7 @@ const Voting = () => {
                   setHasMore(true);
                 }}
                 className={`${rye.className} 
-                  px-2 lg:px-4 lg:py-2 py-1
+                  px-4 py-2
                   rounded-full 
                   text-sm lg:text-base 
                   font-semibold 
