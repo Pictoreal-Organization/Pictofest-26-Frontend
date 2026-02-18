@@ -280,7 +280,7 @@ const Votes = () => {
             <button
               onClick={() => setMode("wishlist")}
               className={`sub-heading-font relative flex items-center gap-2
-    px-6 py-2 rounded-full text-sm font-semibold
+    px-6 py-2 rounded-full text-sm lg:text-base font-semibold
     transition-all duration-300
     ${mode === "wishlist"
                   ? "bg-white text-[#070044] shadow-lg"
@@ -299,7 +299,7 @@ const Votes = () => {
             <button
               onClick={() => setMode("voted")}
               className={`sub-heading-font px-6 py-2 rounded-full
-    text-sm font-semibold transition-all duration-300
+    text-sm lg:text-base font-semibold transition-all duration-300
     ${mode === "voted"
                   ? "bg-white text-[#070044] shadow-lg"
                   : "text-white hover:text-white/80"}`}
@@ -310,52 +310,65 @@ const Votes = () => {
 
           {/* Vote All Button with Breakdown - Only show in wishlist mode */}
           {mode === "wishlist" && totalWishlistCount > 0 && (
-            <div className="w-full max-w-4xl">
-              <div className="bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-md rounded-3xl px-6 sm:px-8 py-6 border-2 border-white/30 shadow-2xl">
+            <div className="w-full max-w-3xl">
+              <div className="bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-md
+      rounded-2xl px-5 py-4 border border-white/30 shadow-xl">
 
                 {/* Header */}
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-4">
-                  <div className="text-center sm:text-left">
-                    <p className="text-white text-base sm:text-lg body-font font-semibold">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mb-3">
+
+                  <div className="text-center sm:text-left leading-tight">
+                    <p className="text-white text-sm sm:text-base font-semibold">
                       Ready to Submit Your Votes?
                     </p>
-                    <p className="text-white/80 text-xs sm:text-sm mt-1">
-                      This will vote for <span className="font-bold text-[#FFA53A]">{totalWishlistCount} {totalWishlistCount === 1 ? 'artwork' : 'artworks'}</span> across all categories
+
+                    <p className="text-white/80 text-xs mt-0.5">
+                      Voting <span className="font-bold text-[#FFA53A]">
+                        {totalWishlistCount} {totalWishlistCount === 1 ? "artwork" : "artworks"}
+                      </span>
                     </p>
                   </div>
+
                   <button
                     onClick={handleVoteAllFromWishlist}
                     disabled={isVoting}
-                    className="sub-heading-font px-10 py-3.5 bg-gradient-to-r from-[#FFA53A] to-[#FF8C1A] hover:from-[#FF8C1A] hover:to-[#FFA53A] text-white rounded-full font-bold transition-all duration-300 shadow-xl hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 whitespace-nowrap text-base"
+                    className="sub-heading-font px-7 py-2.5
+            bg-gradient-to-r from-[#FFA53A] to-[#FF8C1A]
+            text-white rounded-full font-bold
+            shadow-md hover:shadow-lg
+            transition-all duration-200
+            whitespace-nowrap text-sm"
                   >
-                    {isVoting ? "Submitting..." : "Submit All Votes"}
+                    {isVoting ? "Submitting..." : "Submit Votes"}
                   </button>
                 </div>
 
-                {/* Category Breakdown */}
-                <div className="bg-black/20 rounded-2xl p-4 border border-white/10">
-                  <p className="text-white/70 text-xs sm:text-sm mb-3 font-semibold">
-                    Your votes breakdown:
+                {/* Breakdown */}
+                <div className="bg-black/20 rounded-xl p-3 border border-white/10">
+
+                  <p className="text-white/70 text-xs mb-2 font-semibold">
+                    Breakdown:
                   </p>
-                  <div className="flex flex-wrap gap-2">
+
+                  <div className="flex flex-wrap gap-1.5">
                     {getWishlistBreakdown().map((cat, index) => (
                       <div
                         key={index}
-                        className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20"
+                        className="bg-white/10 px-3 py-1 rounded-full border border-white/20 text-xs text-white"
                       >
-                        <span className="text-white text-xs sm:text-sm">
-                          <span className="font-bold text-[#FFA53A]">{cat.count}</span> × {cat.name}
-                        </span>
+                        <span className="font-bold text-[#FFA53A]">{cat.count}</span> × {cat.name}
                       </div>
                     ))}
                   </div>
-                  <p className="text-white/50 text-xs mt-3 italic">
-                    💡 Clicking "Submit All Votes" will vote for all artworks shown above, not just the current category view
+
+                  <p className="text-white/40 text-[10px] mt-2 italic">
+                    Votes apply to all categories
                   </p>
                 </div>
               </div>
             </div>
           )}
+
 
           {/* Category Filters - Enhanced */}
           <div className="w-full max-w-6xl">
@@ -477,7 +490,7 @@ const Votes = () => {
               </div>
             </div>
           ) : isVotingLive ? (
-            <div className="text-center mt-10">
+            <div className="text-center mt-5">
               <div className="bg-white/10 backdrop-blur-md rounded-2xl px-10 py-8 border border-white/20 shadow-xl max-w-lg mx-auto">
                 {mode === "voted" ? (
                   <div className="flex flex-col items-center gap-6">
@@ -493,7 +506,7 @@ const Votes = () => {
                   </div>
                 ) : (
                   areAllWishlistEntriesVoted(selectedCategory) ? (
-                    <div>
+                    <div className="flex flex-col items-center gap-6">
                       <p className="text-white text-base lg:text-lg body-font leading-relaxed">
                         All the artworks in this category are already voted.
                       </p>
