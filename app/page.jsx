@@ -78,7 +78,7 @@ const Home = () => {
         <div className="relative z-20 flex flex-col items-center gap-2">
           {/* --- EARLY BIRD FLOATING BADGE --- */}
           {/* Desktop: Top Right of Logo */}
-          <motion.div
+          {/* <motion.div
             className="hidden md:block absolute -right-20 -top-12 z-30"
             initial={{ scale: 0, rotate: 15 }}
             animate={{ scale: 1, rotate: -10 }}
@@ -94,13 +94,12 @@ const Home = () => {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </motion.div> */}
 
           {/* Mobile: Floating Bottom Left (Avoiding Hamburger & Ribbon) */}
-          <motion.div
+          {/* <motion.div
             className="md:hidden fixed bottom-50 left-4 z-[100]"
             initial={{ x: -100, opacity: 0 }}
-            /* This part handles the hiding on scroll */
             animate={{
               x: isScrolled ? -100 : 0,
               opacity: isScrolled ? 0 : 1
@@ -112,7 +111,6 @@ const Home = () => {
             onClick={handleEarlyBirdClick}
           >
             <div className="relative flex items-center">
-              {/* Glow effect */}
               <div className="absolute inset-0 bg-orange-600 rounded-full blur-lg opacity-50 animate-pulse"></div>
 
               <div className="relative bg-gradient-to-r from-red-600 to-orange-500 rounded-full py-2 px-4 shadow-lg border border-yellow-400/50 flex items-center gap-2">
@@ -120,11 +118,11 @@ const Home = () => {
                   <span className="text-white font-bold text-[8px] uppercase select-none pointer-events-none leading-none">Combo</span>
                   <span className="text-yellow-200 font-black text-[12px] uppercase select-none pointer-events-none leading-none">OFFER LIVE</span>
                 </div>
-                {/* Small Pulsing Dot */}
+                
                 <div className="w-2 h-2 bg-yellow-300 rounded-full animate-ping"></div>
               </div>
             </div>
-          </motion.div>
+          </motion.div> */}
 
           {/* 1. Ribbon */}
           <div className="w-64 md:w-80 transition-transform hover:scale-105 duration-500">

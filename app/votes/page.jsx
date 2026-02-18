@@ -9,6 +9,9 @@ import { toast } from "sonner";
 import api from "@/app/api";
 import { useRouter } from "next/navigation";
 
+import ThankYouModal from "@/app/components/ThankYouModal";
+
+
 const Votes = () => {
   const [selectedCategory, setSelectedCategory] = useState("SK");
 
@@ -18,6 +21,8 @@ const Votes = () => {
   const [loading, setLoading] = useState(true);
   const [isVoting, setIsVoting] = useState(false);
   const [removingIds, setRemovingIds] = useState(new Set());
+  const [isOpen, setIsOpen] = useState(false);
+
 
   // Updated categories based on PICSOREEL events from database
   const categories = [
@@ -181,6 +186,8 @@ const Votes = () => {
 
       if (!response.data.error) {
         toast.success(`${response.data.votedCount || 'All'} entries voted successfully!`);
+        setIsOpen(true);
+
 
         // ✅ REMOVE baseURL from these too
         const [votedRes, wishlistRes] = await Promise.all([
@@ -548,6 +555,7 @@ const Votes = () => {
           <div className="h-12 lg:h-16"></div>
         </div>
       </main>
+      <ThankYouModal isOpen={isOpen} />
     </div>
   );
 };
