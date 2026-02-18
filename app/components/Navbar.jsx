@@ -628,7 +628,7 @@ const Navbar = () => {
           {isUserAuthenticated() && (
             <button
               onClick={toggleModal}
-              className="absolute right-6 top-1/2 -translate-y-1/2 text-[#FFA53A] focus:outline-none w-10 h-10 rounded-full flex items-center justify-center border-2 border-[#FFA53A] bg-transparent hover:scale-110 transition-transform"
+              className="absolute right-6 top-1/2 -translate-y-1/2 text-[#FFA53A] focus:outline-none w-10 h-10 rounded-full flex items-center justify-center border-2 border-[#FFA53A] bg-[#2A0F55] z-10 hover:scale-110 transition-transform"
             >
               {renderHamburgerIcon()}
             </button>
@@ -648,9 +648,15 @@ const Navbar = () => {
             />
           </Link>
           
-          <button
+          {/* <button
             onClick={toggleModal}
             className="text-[#FFA53A] text-2xl focus:outline-none w-10 h-10 rounded-full flex items-center justify-center border-2 border-[#FFA53A] bg-transparent"
+          >
+            {renderHamburgerIcon()}
+          </button> */}
+          <button
+            onClick={toggleModal}
+            className="text-[#FFA53A] text-2xl focus:outline-none w-10 h-10 rounded-full flex items-center justify-center border-2 border-[#FFA53A] bg-[#2A0F55] z-10"
           >
             {renderHamburgerIcon()}
           </button>
