@@ -223,14 +223,30 @@ const Voting = () => {
           </h1>
 
           {/* Categories */}
-          <div className="flex flex-nowrap justify-start lg:justify-center items-center gap-4 lg:gap-6 mb-6 lg:mb-8 overflow-x-auto pb-2 scrollbar-hide">
+          <div className="flex flex-nowrap justify-start lg:justify-center items-center gap-4 lg:gap-6 mb-6 lg:mb-8 overflow-x-auto pb-2 px-2 scrollbar-style">
             <style jsx>{`
-              .scrollbar-hide::-webkit-scrollbar {
-                display: none;
+              .scrollbar-style::-webkit-scrollbar {
+                height: 6px;
               }
-              .scrollbar-hide {
-                -ms-overflow-style: none;
-                scrollbar-width: none;
+
+              .scrollbar-style::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 10px;
+              }
+
+              .scrollbar-style::-webkit-scrollbar-thumb {
+                background: rgba(255, 255, 255, 0.35);
+                border-radius: 10px;
+              }
+
+              .scrollbar-style::-webkit-scrollbar-thumb:hover {
+                background: rgba(255, 255, 255, 0.6);
+              }
+
+              @media (min-width: 1024px) {
+                .scrollbar-style::-webkit-scrollbar {
+                  display: none;
+                }
               }
             `}</style>
             {categories.map((category) => (
@@ -364,30 +380,30 @@ const Voting = () => {
                       className={`${rye.className} text-[#A53A1F] absolute inset-0 flex items-center justify-center font-semibold text-lg lg:text-xl xl:text-2xl cursor-pointer`}
                     >
                       <svg
-                            width="160"
-                            height="55"
-                            viewBox="0 0 160 40"
-                            >
-                            {/* Background Shape */}
-                            <path
-                            d="M 20 0 L 140 0 L 160 20 L 140 40 L 20 40 L 0 20 Z"
-                            fill="#f8b818"
-                            />
-                            {/* Text */}
-                            <text
-                            x="80"
-                            y="23"
-                            textAnchor="middle"
-                            dominantBaseline="middle"
-                            fill="#A53A1F"
-                            fontSize="18"
-                            fontWeight="800"
-                            letterSpacing="3"
-                            className={rye.className}
-                            >
-                            VOTE
-                            </text>
-                        </svg>
+                        width="160"
+                        height="55"
+                        viewBox="0 0 160 40"
+                      >
+                        {/* Background Shape */}
+                        <path
+                          d="M 20 0 L 140 0 L 160 20 L 140 40 L 20 40 L 0 20 Z"
+                          fill="#f8b818"
+                        />
+                        {/* Text */}
+                        <text
+                          x="80"
+                          y="23"
+                          textAnchor="middle"
+                          dominantBaseline="middle"
+                          fill="#A53A1F"
+                          fontSize="18"
+                          fontWeight="800"
+                          letterSpacing="3"
+                          className={rye.className}
+                        >
+                          VOTE
+                        </text>
+                      </svg>
                     </button>
                   </div>
                 </div>
