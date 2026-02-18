@@ -6,8 +6,8 @@ import { AuthProvider } from "@/app/context/Auth";
 import Navbar from "@/app/components/Navbar";
 import { siteConfig } from './config/metadata';
 import GlobalPreloader from "@/app/components/GlobalPreloader";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+// import { Analytics } from "@vercel/analytics/react";
+// import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,21 +35,21 @@ export default function RootLayout({ children }) {
     <html lang="en" className="light">
       <body className={inter.className}>
         {/* <ClientProviders> */}
-          <AuthProvider>
-            <Navbar />
-            <GlobalPreloader />
-            <main>{children}</main>
-          </AuthProvider>
-          <Toaster
-            position="bottom-right"
-            richColors
-            closeButton
-            duration={2000}
-            pauseWhenPageIsHidden
-            visibleToasts={1}
-          />
-          <Analytics />
-          <SpeedInsights />
+        <AuthProvider>
+          <Navbar />
+          <GlobalPreloader />
+          <main>{children}</main>
+        </AuthProvider>
+        <Toaster
+          position="bottom-right"
+          richColors
+          closeButton
+          duration={2000}
+          pauseWhenPageIsHidden
+          visibleToasts={1}
+        />
+        {/* <Analytics />
+          <SpeedInsights /> */}
         {/* </ClientProviders> */}
       </body>
     </html>
