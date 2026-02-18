@@ -240,7 +240,7 @@ const Voting = () => {
                   setHasMore(true);
                 }}
                 className={`${rye.className} 
-                  px-6 lg:px-8 py-4 lg:py-4
+                  px-2 lg:px-4 lg:py-2 py-1
                   rounded-full 
                   text-sm lg:text-base 
                   font-semibold 
@@ -278,7 +278,7 @@ const Voting = () => {
                 value={searchCode}
                 onChange={(e) => setSearchCode(e.target.value)}
                 className={`${rye.className} 
-                  w-full px-5 lg:px-6 py-3 lg:py-4 
+                  w-full px-3 lg:px-4 py-2 lg:py-3 
                   rounded-full border-2 border-white 
                   bg-white/10 backdrop-blur-sm 
                   text-white 
