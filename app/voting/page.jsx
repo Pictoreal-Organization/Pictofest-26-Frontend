@@ -361,7 +361,7 @@ const Voting = () => {
                     </button> */}
                     <button
                       onClick={() => handleVote(entry)}
-                      className={`${rye.className} mt-2 text-[#A53A1F] absolute inset-0 flex items-center justify-center font-semibold text-lg lg:text-xl xl:text-2xl cursor-pointer translate-y-1`}
+                      className={`${rye.className} mt-2 text-[#A53A1F] absolute inset-0 flex items-center justify-center font-semibold text-lg lg:text-xl xl:text-2xl cursor-pointer`}
                     >
                       <svg
                             width="160"
@@ -375,8 +375,8 @@ const Voting = () => {
                             />
                             {/* Text */}
                             <text
-                            x="65"
-                            y="30"
+                            x="80"
+                            y="20"
                             textAnchor="middle"
                             dominantBaseline="middle"
                             fill="#A53A1F"
