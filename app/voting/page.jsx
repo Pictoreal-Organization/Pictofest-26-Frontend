@@ -291,10 +291,10 @@ const Voting = () => {
                   placeholder-white/70 
                   focus:outline-none focus:ring-2 
                   focus:ring-[#FFA53A] focus:border-[#FFA53A]
-                  text-base lg:text-lg`}
+                  text-base`}
               />
               <div className="absolute right-4 top-1/2 -translate-y-1/2">
-                {/* <svg
+                <svg
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
@@ -309,7 +309,7 @@ const Voting = () => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
-                </svg> */}
+                </svg>
               </div>
             </div>
           </div>
