@@ -401,9 +401,9 @@ const Votes = () => {
                     setSelectedCategory(category.event_code);
                   }}
                   className={`sub-heading-font 
-                    px-3 py-1.5 text-xs
+                    px-4 py-1.5 text-xs
                     rounded-full 
-                    text-xs sm:text-sm
+                    sm:text-sm
                     font-semibold 
                     transition-all duration-300
                     tracking-wider uppercase
