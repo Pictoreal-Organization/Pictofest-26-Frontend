@@ -586,8 +586,8 @@ const Navbar = () => {
         `}
       >
         {/* Desktop View */}
-        <div className="hidden lg:flex w-full px-6 py-6 items-center relative">
-          <div className="flex-1" />
+        <div className="hidden lg:flex w-full px-6 py-6 items-center justify-center relative">
+          {/* <div className="flex-1" /> */}
 
           <div className="flex justify-center items-center lg:gap-2 xl:gap-[18px]">
             <NavLink href="/" text="Home" />
@@ -614,24 +614,25 @@ const Navbar = () => {
             {renderAuthButton()}
           </div>
 
-          <div className="flex-1 flex justify-end">
+          {/* <div className="flex-1 flex justify-end">
             {isUserAuthenticated() && (
-              // <button
-              //   onClick={toggleModal}
-              //   className="text-[#FFA53A] text-2xl focus:outline-none hover:scale-110 transition-transform"
-              // >
-              //   {renderHamburgerIcon()}
-              // </button>
               <button
-                key={isModalOpen ? "close" : "open"}
                 onClick={toggleModal}
-                className="text-[#FFA53A] text-2xl focus:outline-none w-10 h-10 rounded-full flex items-center justify-center border-2 border-[#FFA53A] bg-transparent"
+                className="text-[#FFA53A] text-2xl focus:outline-none hover:scale-110 transition-transform"
               >
                 {renderHamburgerIcon()}
               </button>
-
             )}
-          </div>
+          </div> */}
+
+          {isUserAuthenticated() && (
+            <button
+              onClick={toggleModal}
+              className="absolute right-6 top-1/2 -translate-y-1/2 text-[#FFA53A] focus:outline-none w-10 h-10 rounded-full flex items-center justify-center border-2 border-[#FFA53A] bg-transparent hover:scale-110 transition-transform"
+            >
+              {renderHamburgerIcon()}
+            </button>
+          )}
         </div>
 
         {/* Mobile View */}
