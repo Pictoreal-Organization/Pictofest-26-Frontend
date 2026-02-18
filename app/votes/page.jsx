@@ -271,7 +271,7 @@ const Votes = () => {
         <div className="relative z-10 max-w-7xl mx-auto flex flex-col gap-8 lg:gap-10 justify-center items-center lg:py-16 py-10 px-4 sm:px-6 lg:px-8">
 
           {/* Gallery Title */}
-          <h1 className={`heading-font text-4xl sm:text-5xl lg:text-6xl tracking-tight text-white mt-8 lg:mt-12 drop-shadow-lg`}>
+          <h1 className="text-4xl lg:text-5xl tracking-tight text-white heading-font text-center mt-6 mb-6">
             My Votes
           </h1>
 
@@ -390,7 +390,7 @@ const Votes = () => {
                   className={`sub-heading-font 
                     px-3 py-1.5 text-xs
                     rounded-full 
-                    text-xs sm:text-sm lg:text-base 
+                    text-xs sm:text-sm
                     font-semibold 
                     transition-all duration-300
                     tracking-wider uppercase
@@ -428,7 +428,7 @@ const Votes = () => {
           {/* Gallery Grid - Enhanced spacing */}
           {isVotingLive && filteredEntries.length > 0 ? (
             <div className="w-full max-w-7xl mt-6 lg:mt-8">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-14 px-4 sm:px-6 lg:px-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 sm:px-6 lg:px-8">
                 {filteredEntries.map((entry) => (
                   <div
                     key={entry.id}
