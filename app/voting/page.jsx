@@ -336,14 +336,12 @@ const Voting = () => {
                       >
                         {entry.ticket_id}
                       </h2>
-                      <div className="absolute top-[16%] left-1/2 -translate-x-1/2 w-[71%] h-[69%] p-1 relative">
-                        <Image
+                      <div className="absolute top-[16%] left-1/2 -translate-x-1/2 w-[71%] h-[69%] p-1 flex items-center justify-center">
+                        <img
                           src={entry.image_link}
                           alt={`Entry ${entry.ticket_id}`}
-                          fill
-                          unoptimized
                           loading="lazy"
-                          className="object-contain"
+                          className="w-full h-full object-contain"
                         />
                       </div>
                     </div>
