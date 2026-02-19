@@ -106,34 +106,34 @@ const Voting = () => {
     fetchWishlist();
   }, []);
 
-  // Filter entries
   useEffect(() => {
+    if (!isSearching) return;
+
     const controller = new AbortController();
 
     const fetchSearch = async () => {
       try {
         const res = await api.get(
-          `/entry/search?code=${searchCode}`,
+          `/entry/ticketid/${searchCode}`,
           { signal: controller.signal }
         );
 
-        setEntries(res.data.data || []);
+        // assuming backend returns single object
+        if (!res.data.error && res.data.data) {
+          setEntries([res.data.data]); // wrap in array
+        } else {
+          setEntries([]);
+        }
+
         setHasMore(false);
       } catch (err) {
         if (err.name !== "CanceledError") {
-          console.error(err);
+          setEntries([]);
         }
       }
     };
 
-    if (isSearching) {
-      fetchSearch();
-    } else {
-      // When clearing search, restart pagination cleanly
-      setEntries([]);
-      setPage(1);
-      setHasMore(true);
-    }
+    fetchSearch();
 
     return () => controller.abort();
   }, [searchCode]);
