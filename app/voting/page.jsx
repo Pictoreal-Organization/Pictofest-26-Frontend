@@ -153,6 +153,8 @@ const Voting = () => {
 
   useEffect(() => {
     const handleScroll = () => {
+      if (isSearching) return;
+
       if (
         window.innerHeight + window.scrollY >=
         document.body.offsetHeight - 400 &&
@@ -165,8 +167,7 @@ const Voting = () => {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [loading, hasMore]);
-
+  }, [loading, hasMore, isSearching]);
 
   // --- UPDATED HANDLE VOTE WITH TOASTS ---
   const handleVote = async (entry) => {
