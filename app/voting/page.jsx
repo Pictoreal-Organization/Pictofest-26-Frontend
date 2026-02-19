@@ -465,7 +465,7 @@ const Voting = () => {
                     <span
                       className={`${rye.className} text-white text-xs font-semibold whitespace-nowrap`}
                     >
-                      View Votes
+                      View Wishlist
                     </span>
 
                     <svg
@@ -497,7 +497,7 @@ const Voting = () => {
                 <div className="flex justify-between items-center p-6 border-b border-gray-100 bg-white sticky top-0 z-10 rounded-t-3xl">
                   <div>
                     <h3 className={`${rye.className} text-2xl text-[#070044]`}>
-                      Your Votes
+                      Your Wishlist
                     </h3>
                     <p className="text-gray-500 text-sm">
                       Total {wishlist.length} items
@@ -510,7 +510,7 @@ const Voting = () => {
                       onClick={() => router.push("/votes")}
                       className={`${rye.className} bg-[#FFA53A] hover:bg-[#e08e2b] text-[#070044] px-6 py-2 rounded-full font-bold text-sm shadow-md transition-all uppercase tracking-wider`}
                     >
-                      Vote
+                      Proceed
                     </button>
 
                     <button
