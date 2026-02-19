@@ -8,12 +8,16 @@ import isNotAuth from "@/app/components/isNotAuth";
 import api from "@/app/api";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useRef } from "react";
+
+
 
 const rye = localFont({
   src: "../../public/fonts/Rye-Regular.ttf",
 });
 
 const Voting = () => {
+  const fetchingRef = useRef(false);
   const router = useRouter();
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -42,35 +46,47 @@ const Voting = () => {
 
   // Fetch Entries
   useEffect(() => {
-    const fetchEntries = async () => {
-      if (!hasMore || loading) return; // ← add loading guard
+    const controller = new AbortController();
 
+    const fetchEntries = async () => {
+      if (fetchingRef.current) return;
+
+      fetchingRef.current = true;
       setLoading(true);
+
       const category = categories.find((c) => c.id === selectedCategory);
 
       try {
         const res = await api.get(
-          `/entry/eventcode/${category.eventCode}?page=${page}&size=12`
+          `/entry/eventcode/${category.eventCode}?page=${page}&size=12`,
+          { signal: controller.signal }
         );
 
         const newEntries = res.data.data.entries;
 
-        if (newEntries.length === 0) {
-          setHasMore(false);
+        if (page === 1) {
+          setEntries(newEntries);
         } else {
           setEntries((prev) => [...prev, ...newEntries]);
         }
+
+        if (newEntries.length === 0) {
+          setHasMore(false);
+        }
       } catch (err) {
-        console.error("Entries fetch failed:", err);
+        if (err.name !== "CanceledError") {
+          console.error(err);
+        }
       }
 
       setLoading(false);
+      fetchingRef.current = false;
     };
 
-
     fetchEntries();
-  }, [page, selectedCategory]);
 
+    return () => controller.abort();
+  }, [page, selectedCategory]);
 
   // Fetch Wishlist
   useEffect(() => {
@@ -88,11 +104,28 @@ const Voting = () => {
   }, []);
 
   // Filter entries
-  const filteredEntries = searchCode
-    ? entries.filter((entry) =>
-      entry.ticket_id.toLowerCase().includes(searchCode.toLowerCase())
-    )
-    : entries;
+  useEffect(() => {
+    const fetchSearch = async () => {
+      if (!searchCode) {
+        setEntries([]);
+        setPage(1);
+        setHasMore(true);
+        return;
+      }
+
+      try {
+        const res = await api.get(`/entry/search?code=${searchCode}`);
+        setEntries(res.data.data);
+        setHasMore(false);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchSearch();
+  }, [searchCode]);
+
+
 
   // Handle Scroll Locking
   useEffect(() => {
