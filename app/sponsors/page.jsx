@@ -115,13 +115,13 @@ const Sponsors = () => {
         {/* TITLE */}
         <h1 className="text-4xl lg:text-5xl tracking-tight text-white heading-font 
           mt-14 sm:mt-16 lg:mt-11
-          mb-20 sm:mb-28 md:mb-40 
+          mb-20 sm:mb-20
           text-center">
           Our Sponsors
         </h1>
 
         {/* SPONSORS SECTION */}
-        <div className="flex flex-col gap-10 md:mb-20 mb-20 items-center">
+        <div className="flex flex-col gap-10 mb-20 items-center">
 
           {/* TITLE SPONSOR (Featured) */}
           {/* <div className="relative md:mb-32 mb-16">
