@@ -368,8 +368,8 @@ const Votes = () => {
                     ))}
                   </div>
 
-                  <p className="text-white/40 text-[10px] mt-2 italic">
-                    Votes apply to all categories
+                  <p className="text-white/40 font-semibold text-[10px] mt-2 italic">
+                    Votes apply to all categories. Can submit maximum 2 votes per category. Can vote later for other artworks as well, but total votes per category cannot exceed 2.
                   </p>
                 </div>
               </div>
