@@ -365,7 +365,7 @@ const Voting = () => {
 
           {/* Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-            {filteredEntries.map((entry) => (
+            {entries.map((entry) => (
               <div
                 key={entry.id}
                 className="flex flex-col items-center mx-auto w-full"
