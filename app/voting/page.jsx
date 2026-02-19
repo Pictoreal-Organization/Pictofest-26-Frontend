@@ -46,7 +46,9 @@ const Voting = () => {
 
   // Fetch Entries
   useEffect(() => {
-    if (isSearching) return; // ⛔ stop pagination during search
+    if (isSearching) return;
+
+    fetchingRef.current = false;
 
     const controller = new AbortController();
 
