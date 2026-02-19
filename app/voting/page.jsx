@@ -449,7 +449,7 @@ const Voting = () => {
                           letterSpacing="3"
                           className={rye.className}
                         >
-                          VOTE
+                          SELECT
                         </text>
                       </svg>
                     </button>
