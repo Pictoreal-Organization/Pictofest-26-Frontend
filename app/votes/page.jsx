@@ -243,7 +243,7 @@ const Votes = () => {
   return (
     <div className="min-h-screen relative">
       {/* Background */}
-      <div className="absolute top-0 left-0 w-full -z-10 bg-[#070044] min-h-screen">
+      <div className="fixed top-0 left-0 w-full h-screen -z-10">
         {/* Mobile Background */}
         <div className="block lg:hidden w-full relative h-full">
           <Image
