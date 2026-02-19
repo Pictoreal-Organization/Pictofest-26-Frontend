@@ -28,7 +28,7 @@ const Voting = () => {
   const isVotingLive = true;
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-
+  const isSearching = searchCode.trim().length > 0;
 
   const categories = [
     { id: "sketching", label: "Sketching", eventCode: "SK" },
@@ -46,6 +46,8 @@ const Voting = () => {
 
   // Fetch Entries
   useEffect(() => {
+    if (isSearching) return; // ⛔ stop pagination during search
+
     const controller = new AbortController();
 
     const fetchEntries = async () => {
@@ -86,7 +88,8 @@ const Voting = () => {
     fetchEntries();
 
     return () => controller.abort();
-  }, [page, selectedCategory]);
+  }, [page, selectedCategory, isSearching]);
+
 
   // Fetch Wishlist
   useEffect(() => {
@@ -105,26 +108,35 @@ const Voting = () => {
 
   // Filter entries
   useEffect(() => {
-    const fetchSearch = async () => {
-      if (!searchCode) {
-        setEntries([]);
-        setPage(1);
-        setHasMore(true);
-        return;
-      }
+    const controller = new AbortController();
 
+    const fetchSearch = async () => {
       try {
-        const res = await api.get(`/entry/search?code=${searchCode}`);
-        setEntries(res.data.data);
+        const res = await api.get(
+          `/entry/search?code=${searchCode}`,
+          { signal: controller.signal }
+        );
+
+        setEntries(res.data.data || []);
         setHasMore(false);
       } catch (err) {
-        console.error(err);
+        if (err.name !== "CanceledError") {
+          console.error(err);
+        }
       }
     };
 
-    fetchSearch();
-  }, [searchCode]);
+    if (isSearching) {
+      fetchSearch();
+    } else {
+      // When clearing search, restart pagination cleanly
+      setEntries([]);
+      setPage(1);
+      setHasMore(true);
+    }
 
+    return () => controller.abort();
+  }, [searchCode]);
 
 
   // Handle Scroll Locking
